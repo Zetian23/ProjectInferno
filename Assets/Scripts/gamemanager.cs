@@ -20,7 +20,6 @@ public class gamemanager : MonoBehaviour
     public playerController playerScript;
 
     public bool isPaused;
-
     float timeScaleOrig;
 
     int gameGoalCount;
@@ -89,8 +88,8 @@ public class gamemanager : MonoBehaviour
     public void youLose()
     {
         statePause();
-
         menuActive = menuLose;
         menuActive.SetActive(true);
     }
 }
+

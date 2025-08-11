@@ -71,7 +71,6 @@ public class playerController : MonoBehaviour, IDamage
         controller.Move(moveDirection * speed * Time.deltaTime);
 
         jump();
-       
 
         controller.Move(playerVelocity * Time.deltaTime);
         playerVelocity.y -= gravity * Time.deltaTime;
@@ -151,7 +150,7 @@ public class playerController : MonoBehaviour, IDamage
         StartCoroutine(damageFlash());
         //updatePlayerUI();
 
-        if(HP <= 0)
+        if (HP <= 0)
         {
             gamemanager.instance.youLose();
         }
@@ -159,7 +158,7 @@ public class playerController : MonoBehaviour, IDamage
 
     public void updatePlayerUI()
     {
-        gamemanager.instance.playerHPBar.fillAmount = (float)HP/HPOrig;
+        gamemanager.instance.playerHPBar.fillAmount = (float)HP / HPOrig;
     }
 
     IEnumerator damageFlash()
@@ -168,4 +167,3 @@ public class playerController : MonoBehaviour, IDamage
         yield return new WaitForSeconds(0.1f);
         gamemanager.instance.playerDamageFlash.SetActive(false);
     }
-}
