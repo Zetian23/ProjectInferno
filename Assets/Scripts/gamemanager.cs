@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-// Code added by Braiden
 
 public class gamemanager : MonoBehaviour
 {
@@ -22,6 +21,7 @@ public class gamemanager : MonoBehaviour
 
     public bool isPaused;
     float timeScaleOrig;
+
     int gameGoalCount;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -45,7 +45,7 @@ public class gamemanager : MonoBehaviour
                 menuActive = menuPause;
                 menuActive.SetActive(true);
             }
-            else if (menuActive == menuPause)
+            else if(menuActive == menuPause)
             {
                 stateUnpause();
             }
@@ -57,7 +57,7 @@ public class gamemanager : MonoBehaviour
         isPaused = !isPaused;
         Time.timeScale = 0;
         Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        Cursor.lockState = CursorLockMode.None;   
     }
 
     public void stateUnpause()
@@ -76,7 +76,7 @@ public class gamemanager : MonoBehaviour
 
         gameGoalCountText.text = gameGoalCount.ToString("F0");
 
-        if (gameGoalCount <= 0)
+        if(gameGoalCount <= 0)
         {
             //you won
             statePause();
@@ -92,3 +92,4 @@ public class gamemanager : MonoBehaviour
         menuActive.SetActive(true);
     }
 }
+
