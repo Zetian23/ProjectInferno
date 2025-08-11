@@ -6,7 +6,7 @@ public class cagedEnemy : Enemy
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        gamemanager.instance.updateGameGoal(1);
+        //gamemanager.instance.updateGameGoal(1);
         colorOrg = model.material.color;
         attackTimer = 0;
     }
@@ -69,7 +69,7 @@ public class cagedEnemy : Enemy
         }
         if (HP <= 0)
         {
-            gamemanager.instance.updateGameGoal(-1);
+            //gamemanager.instance.updateGameGoal(-1);
             Destroy(gameObject);
         }
     }
