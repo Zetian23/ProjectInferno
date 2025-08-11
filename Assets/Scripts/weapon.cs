@@ -9,8 +9,8 @@ public class Weapon : MonoBehaviour
 
     public static Weapon instance;
 
-    int damageAmount, attackRange, ammo;
-    float attackSpeed;
+    int damageAmount, attackRange, Damageamount, Attackrange;
+    float attackSpeed, Attackspeed;
     bool AOE;
 
     private void Awake()
@@ -29,7 +29,7 @@ public class Weapon : MonoBehaviour
         
     }
 
-    void WeaponType()
+    public void WeaponType()
     {
         if (Input.GetButtonDown("Sword"))
         {
@@ -37,8 +37,11 @@ public class Weapon : MonoBehaviour
             attackRange = 5;
             AOE = false;
             attackSpeed = 1;
-            ammo = -1;
-            cl = 1;
+
+            Damageamount = 7;
+            Attackrange = 15;
+            attackSpeed = 0.5f;
+            
         }
 
         if (Input.GetButton("Spear"))
@@ -47,8 +50,11 @@ public class Weapon : MonoBehaviour
             attackRange = 7;
             AOE = false;
             attackSpeed = 0.5f;
-            ammo = -1;
-            cl = 2;
+
+            Damageamount = 10;
+            Attackrange = 20;
+            Attackspeed = 0.3f;
+            
         }
         if (Input.GetButton("Hammer"))
         {
@@ -56,45 +62,25 @@ public class Weapon : MonoBehaviour
             attackRange = 4;
             AOE = true;
             attackSpeed = 1.5f;
-            ammo = -1;
-            cl = 3;
-        }
-        if (Input.GetButton("Pistol"))
-        {
-            damageAmount = 7;
-            attackRange = 15;
-            AOE = false;
-            attackSpeed = 0.5f;
-            ammo = 10;
-            cl = 4;
-        }
-        if (Input.GetButton("Shotgun"))
-        {
-            damageAmount = 10;
-            attackRange = 20;
-            AOE = false;
-            attackSpeed = 0.3f;
-            ammo = 30;
-            cl = 5;
-        }
-        if (Input.GetButton("AR"))
-        {
-            damageAmount = 3;
-            attackRange = 12;
-            AOE = true;
-            attackSpeed = 2;
-            ammo = 5;
-            cl = 6;
+     
+            Damageamount = 3;
+            Attackrange = 12;
+            Attackspeed = 2;
+            
+           
         }
     }
 
-   void ChangeWeapon(ref int da, ref int ar, ref bool aoe, ref float ats, ref int am)
+   public void ChangeWeapon(ref int da, ref int ar, ref bool aoe, ref float ats, ref int DA, ref int AR, ref float ATS)
     {
         da = damageAmount;
         ar = attackRange;
         aoe = AOE;
         ats = attackSpeed;
-        am = ammo;
+        
+        DA = Damageamount;
+        AR = Attackrange;
+        ATS = Attackspeed;
     }
 
 

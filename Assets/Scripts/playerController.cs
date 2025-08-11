@@ -16,6 +16,9 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
+    [SerializeField] int Shootdamage;
+    [SerializeField] float Shootrate;
+    [SerializeField] int Shootdist;
 
     [SerializeField] float dashTime;
     [SerializeField] float dashRate;
@@ -32,11 +35,13 @@ public class playerController : MonoBehaviour, IDamage
 
     int jumpCount;
     int HPOrig;
+    
 
     bool isSprinting;
     bool isDashing;
     bool hasAirDashed;
-
+    bool Aoe;
+    bool SecWea;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -77,7 +82,15 @@ public class playerController : MonoBehaviour, IDamage
 
         if (Input.GetButton("Fire1") && shootTimer >= shootRate)
         {
-            //shoot();
+            SecWea = false;
+            shoot();
+        }
+
+        //Second Weapon
+        if (Input.GetButton("Fire2") && shootTimer >= Shootrate)
+        {
+            SecWea = true;
+            shoot();
         }
 
         //Dash function
@@ -100,6 +113,10 @@ public class playerController : MonoBehaviour, IDamage
             controller.Move(dashDirection * dashSpeed * Time.deltaTime);
             activeDashTimer += Time.deltaTime;
         }
+
+        //Weapon Change Function
+        Weapon.instance.WeaponType();
+
     }
 
     void jump()
@@ -127,6 +144,7 @@ public class playerController : MonoBehaviour, IDamage
 
     void shoot()
     {
+        Weapon.instance.ChangeWeapon(ref shootDamage, ref shootDist, ref Aoe, ref shootRate, ref Shootdamage, ref Shootdist, ref Shootrate);
         shootTimer = 0;
 
         RaycastHit hit;
@@ -138,7 +156,13 @@ public class playerController : MonoBehaviour, IDamage
 
             if (dmg != null)
             {
-                dmg.takeDamage(shootDamage);
+                if (SecWea == false)
+                {
+                    dmg.takeDamage(shootDamage);
+                } else
+                {
+                    dmg.takeDamage(Shootdamage);
+                }
             }
         }
     }
