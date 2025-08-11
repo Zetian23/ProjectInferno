@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using UnityEngine;
 // Code written by Alex
 public class Weapon : MonoBehaviour
@@ -6,94 +5,97 @@ public class Weapon : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    enum meleeWeapon { sword, spear, hammer }
-    enum rangeWeapon { pistol, shotgun, AR }
-    [SerializeField] meleeWeapon mw;
-    [SerializeField] rangeWeapon rw;
+    [SerializeField] int cl;
+
+    public static Weapon instance;
+
     int damageAmount, attackRange, ammo;
     float attackSpeed;
     bool AOE;
-    bool weaponType;
 
-    void Equip(meleeWeapon emw, rangeWeapon erw)
+    private void Awake()
     {
-        mw = emw;
-        ChangeMelee(emw);
-        rw = erw;
-        ChangeRange(erw);
+        instance = this;
     }
 
     void Start()
     {
-        weaponType = true;
-        mw = meleeWeapon.sword;
-        rw = rangeWeapon.pistol;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButton("Fire1"))
-        {
-            weaponType = true;
-        }
-
-        if (Input.GetButton("Fire2"))
-        {
-            weaponType = false;
-        }
+        
     }
 
-    void ChangeMelee(meleeWeapon cmw)
+    void WeaponType()
     {
-        if (cmw == meleeWeapon.sword)
+        if (Input.GetButtonDown("Sword"))
         {
             damageAmount = 7;
             attackRange = 5;
             AOE = false;
             attackSpeed = 1;
+            ammo = -1;
+            cl = 1;
         }
-        else if (cmw == meleeWeapon.spear)
+
+        if (Input.GetButton("Spear"))
         {
             damageAmount = 10;
             attackRange = 7;
             AOE = false;
             attackSpeed = 0.5f;
+            ammo = -1;
+            cl = 2;
         }
-        else
+        if (Input.GetButton("Hammer"))
         {
             damageAmount = 5;
             attackRange = 4;
             AOE = true;
             attackSpeed = 1.5f;
+            ammo = -1;
+            cl = 3;
         }
-    }
-
-    void ChangeRange(rangeWeapon crw)
-    {
-        if (crw == rangeWeapon.pistol)
+        if (Input.GetButton("Pistol"))
         {
             damageAmount = 7;
             attackRange = 15;
             AOE = false;
             attackSpeed = 0.5f;
             ammo = 10;
+            cl = 4;
         }
-        else if (crw == rangeWeapon.AR)
+        if (Input.GetButton("Shotgun"))
         {
             damageAmount = 10;
             attackRange = 20;
             AOE = false;
             attackSpeed = 0.3f;
             ammo = 30;
+            cl = 5;
         }
-        else
+        if (Input.GetButton("AR"))
         {
             damageAmount = 3;
             attackRange = 12;
             AOE = true;
             attackSpeed = 2;
             ammo = 5;
+            cl = 6;
         }
     }
+
+   void ChangeWeapon(ref int da, ref int ar, ref bool aoe, ref float ats, ref int am)
+    {
+        da = damageAmount;
+        ar = attackRange;
+        aoe = AOE;
+        ats = attackSpeed;
+        am = ammo;
+    }
+
+
 }
