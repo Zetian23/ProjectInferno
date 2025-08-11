@@ -1,6 +1,6 @@
 using UnityEngine;
-// Code added by Braiden
-public interface IDamage
+
+public interface IDamage 
 {
-    void takeDamage(int amount);
+    void takeDamage(int amount);   
 }

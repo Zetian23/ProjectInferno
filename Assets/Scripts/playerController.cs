@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-// Code written by Braiden
 
 public class playerController : MonoBehaviour, IDamage
 {
@@ -73,13 +72,12 @@ public class playerController : MonoBehaviour, IDamage
 
         jump();
 
-
         controller.Move(playerVelocity * Time.deltaTime);
         playerVelocity.y -= gravity * Time.deltaTime;
 
         if (Input.GetButton("Fire1") && shootTimer >= shootRate)
         {
-            shoot();
+            //shoot();
         }
 
         //Dash function
@@ -112,7 +110,7 @@ public class playerController : MonoBehaviour, IDamage
             playerVelocity.y = jumpSpeed;
         }
     }
-
+    
     void sprint()
     {
         if (Input.GetButtonDown("Sprint"))
@@ -169,4 +167,3 @@ public class playerController : MonoBehaviour, IDamage
         yield return new WaitForSeconds(0.1f);
         gamemanager.instance.playerDamageFlash.SetActive(false);
     }
-}
