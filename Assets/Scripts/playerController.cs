@@ -110,7 +110,7 @@ public class playerController : MonoBehaviour, IDamage
             playerVelocity.y = jumpSpeed;
         }
     }
-    
+
     void sprint()
     {
         if (Input.GetButtonDown("Sprint"))
@@ -167,3 +167,4 @@ public class playerController : MonoBehaviour, IDamage
         yield return new WaitForSeconds(0.1f);
         gamemanager.instance.playerDamageFlash.SetActive(false);
     }
+}
