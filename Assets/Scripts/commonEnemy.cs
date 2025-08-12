@@ -130,6 +130,7 @@ public class CommonEnemyScript : Enemy
         attackTimer = 0;
         Instantiate(weapon, attackPos.position, transform.rotation);
     }
+
     public override void takeDamage(int amount)
     {
         if (HP > 0)
