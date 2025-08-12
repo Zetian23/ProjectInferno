@@ -51,7 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ignoreLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
   controller: {fileID: 4964581508061618816}
   HP: 100
   speed: 10
@@ -62,6 +62,9 @@ MonoBehaviour:
   shootDamage: 0
   shootRate: 0
   shootDist: 0
+  Shootdamage: 0
+  Shootrate: 0
+  Shootdist: 0
   dashTime: 0.1
   dashRate: 0.75
   dashSpeed: 75

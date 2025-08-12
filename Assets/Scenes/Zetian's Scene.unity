@@ -296,6 +296,9 @@ MonoBehaviour:
   shootDamage: 3
   shootRate: 3
   shootDist: 3
+  Shootdamage: 0
+  Shootrate: 0
+  Shootdist: 0
   dashTime: 3
   dashRate: 0
   dashSpeed: 0
