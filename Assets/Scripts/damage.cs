@@ -1,15 +1,10 @@
 using UnityEngine;
 using System.Collections;
+// Code added by Nathaniel
 
 public class damage : MonoBehaviour
 {
-    enum damageType
-    {
-        moving, // Moving in a direction
-        stationary, // Stationary, does not move
-        DOT, // Damage Over Time
-        homing // Moves towards the player
-    }
+    enum damageType { moving, stationary, DOT, homing }
     [SerializeField] damageType type;
     [SerializeField] Rigidbody rb;
 
@@ -19,7 +14,6 @@ public class damage : MonoBehaviour
     [SerializeField] int destroyTime;
 
     bool isDamaging;
-
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,22 +32,21 @@ public class damage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(type == damageType.homing)
+        if (type == damageType.homing)
         {
-           rb.linearVelocity = (gamemanager.instance.player.transform.position - transform.position).normalized * speed * Time.deltaTime;
+            rb.linearVelocity = (gamemanager.instance.transform.position - transform.position).normalized * speed * Time.deltaTime;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.isTrigger)
-            return;
-       
-        IDamage dmg = other.GetComponent<IDamage>();
+        if (other.isTrigger) return;
 
-        if (dmg != null && type != damageType.DOT)
+        IDamage damage = other.GetComponent<IDamage>();
+
+        if (damage != null && type != damageType.DOT)
         {
-            dmg.takeDamage(damageAmount);
+            damage.takeDamage(damageAmount);
         }
 
         if (type == damageType.moving || type == damageType.homing)
@@ -64,23 +57,22 @@ public class damage : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.isTrigger)
-            return;
+        if (other.isTrigger) return;
 
-        IDamage dmg = other.GetComponent<IDamage>();
+        IDamage damage = other.GetComponent<IDamage>();
 
-            if (dmg != null && type == damageType.DOT)
+        if (damage != null && type == damageType.DOT)
+        {
+            if (!isDamaging)
             {
-                if (!isDamaging)
-                {
-                    StartCoroutine(damageOther(dmg));
-                }   
+                StartCoroutine(damageOther(damage));
             }
+        }
     }
-    IEnumerator damageOther(IDamage d)
+    IEnumerator damageOther(IDamage dmg)
     {
         isDamaging = true;
-        d.takeDamage(damageAmount);
+        dmg.takeDamage(damageAmount);
         yield return new WaitForSeconds(damageRate);
         isDamaging = false;
     }

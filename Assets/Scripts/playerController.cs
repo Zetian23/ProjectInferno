@@ -1,5 +1,6 @@
+using System.Collections;
 using UnityEngine;
-using System.Collections; // This line is necessary for using coroutines and IEnumerator 
+// Code written by Braiden
 
 public class playerController : MonoBehaviour, IDamage
 {
@@ -7,8 +8,8 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] CharacterController controller;
 
     [SerializeField] int HP;
-    [SerializeField] int speed;
-    [SerializeField] int sprintMod;
+    [SerializeField] float speed;
+    [SerializeField] float sprintMod;
     [SerializeField] int jumpSpeed;
     [SerializeField] int jumpMax;
     [SerializeField] int gravity;
@@ -17,69 +18,98 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
 
-    Vector3 moveDir;
-    Vector3 playerVel;
+    [SerializeField] float dashTime;
+    [SerializeField] float dashRate;
+    [SerializeField] int dashSpeed;
+    [SerializeField] int dashIFrames;
+
+    Vector3 moveDirection;
+    Vector3 dashDirection;
+    Vector3 playerVelocity;
 
     float shootTimer;
+    float dashTimer;
+    float activeDashTimer;
 
     int jumpCount;
-
     int HPOrig;
 
     bool isSprinting;
+    bool isDashing;
+    bool hasAirDashed;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         HPOrig = HP;
-
-        updatePlayerUI();
+        //updatePlayerUI();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.green);
+        //Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
+
         movement();
         sprint();
     }
 
     void movement()
     {
-
-        shootTimer -= Time.deltaTime;
+        shootTimer += Time.deltaTime;
+        dashTimer += Time.deltaTime;
 
         if (controller.isGrounded)
         {
             jumpCount = 0;
-            playerVel = Vector3.zero; // Reset vertical velocity when grounded
-        }
-        else
-        {
-            playerVel.y -= gravity * Time.deltaTime;
+            hasAirDashed = false;
+            playerVelocity = Vector3.zero;
         }
 
-        moveDir = (Input.GetAxis("Horizontal") * transform.right) +
-                  (Input.GetAxis("Vertical") * transform.forward);
+        moveDirection = (Input.GetAxis("Horizontal") * transform.right) + (Input.GetAxis("Vertical") * transform.forward);
 
-        controller.Move(moveDir * speed * Time.deltaTime);
+        controller.Move(moveDirection * speed * Time.deltaTime);
 
         jump();
 
-        controller.Move(playerVel * Time.deltaTime);
+
+        controller.Move(playerVelocity * Time.deltaTime);
+        playerVelocity.y -= gravity * Time.deltaTime;
 
         if (Input.GetButton("Fire1") && shootTimer >= shootRate)
         {
             shoot();
         }
+
+        //Dash function
+        if (Input.GetButtonDown("Dash") && dashTimer >= dashRate && !hasAirDashed)
+        {
+            dashTimer = 0;
+
+            if (!controller.isGrounded)
+            {
+                hasAirDashed = true;
+            }
+
+            activeDashTimer = 0;
+            isDashing = true;
+            dashDirection = moveDirection;
+        }
+
+        if (isDashing && activeDashTimer <= dashTime)
+        {
+            controller.Move(dashDirection * dashSpeed * Time.deltaTime);
+            activeDashTimer += Time.deltaTime;
+        }
     }
+
     void jump()
     {
         if (Input.GetButtonDown("Jump") && jumpCount < jumpMax)
         {
             jumpCount++;
-            playerVel.y = jumpSpeed;
-
+            playerVelocity.y = jumpSpeed;
         }
     }
 
@@ -100,11 +130,11 @@ public class playerController : MonoBehaviour, IDamage
     void shoot()
     {
         shootTimer = 0;
+
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
         {
             Debug.Log(hit.collider.name);
-            // Check if the object hit has a health component and 
 
             IDamage dmg = hit.collider.GetComponent<IDamage>();
 
@@ -115,31 +145,28 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
-    // Implementing the takeDamage method from the IDamage interface
     public void takeDamage(int amount)
     {
-        HP -= amount; // Reduce health by the damage amount
+        HP -= amount;
 
-        updatePlayerUI(); // Update health bar UI
-
-        StartCoroutine(flashDamageScreen()); // Start the coroutine to flash the damage screen
+        StartCoroutine(damageFlash());
+        //updatePlayerUI();
 
         if (HP <= 0)
         {
-            gamemanager.instance.youLose(); // Call the lose state in the game manager if health is 0 or less
+            gamemanager.instance.youLose();
         }
     }
 
     public void updatePlayerUI()
     {
-        gamemanager.instance.playerHPBar.fillAmount = (float)HP / HPOrig; // Update health bar UI and cast to float
-    }
-    // Coroutine to flash the damage screen
-    IEnumerator flashDamageScreen()
-    {
-        gamemanager.instance.playerDamageScreen.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
-        gamemanager.instance.playerDamageScreen.SetActive(false);
+        gamemanager.instance.playerHPBar.fillAmount = (float)HP / HPOrig;
     }
 
+    IEnumerator damageFlash()
+    {
+        gamemanager.instance.playerDamageFlash.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        gamemanager.instance.playerDamageFlash.SetActive(false);
+    }
 }
