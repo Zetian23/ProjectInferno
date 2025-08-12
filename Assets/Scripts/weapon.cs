@@ -5,8 +5,6 @@ public class Weapon : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    [SerializeField] int cl;
-
     public static Weapon instance;
 
     int damageAmount, attackRange, Damageamount, Attackrange;

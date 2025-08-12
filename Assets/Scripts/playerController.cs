@@ -16,9 +16,13 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
-    [SerializeField] int Shootdamage;
-    [SerializeField] float Shootrate;
-    [SerializeField] int Shootdist;
+
+    //Second Weapon
+    [SerializeField] int sDamage;
+    [SerializeField] float sRate;
+    [SerializeField] int sDist;
+
+    [SerializeField] bool Aoe;
 
     [SerializeField] float dashTime;
     [SerializeField] float dashRate;
@@ -35,13 +39,11 @@ public class playerController : MonoBehaviour, IDamage
 
     int jumpCount;
     int HPOrig;
-    
 
     bool isSprinting;
     bool isDashing;
     bool hasAirDashed;
-    bool Aoe;
-    bool SecWea;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -80,17 +82,19 @@ public class playerController : MonoBehaviour, IDamage
         controller.Move(playerVelocity * Time.deltaTime);
         playerVelocity.y -= gravity * Time.deltaTime;
 
+
+        //Weapon Change
+        Weapon.instance.WeaponType();
+        Weapon.instance.ChangeWeapon(ref shootDamage, ref shootDist, ref Aoe, ref shootRate, ref sDamage, ref sDist, ref sRate);
+
         if (Input.GetButton("Fire1") && shootTimer >= shootRate)
         {
-            SecWea = false;
             shoot();
         }
 
-        //Second Weapon
-        if (Input.GetButton("Fire2") && shootTimer >= Shootrate)
+        if (Input.GetButton("Fire2") && shootTimer >= sRate)
         {
-            SecWea = true;
-            shoot();
+            shootSecond();
         }
 
         //Dash function
@@ -113,10 +117,6 @@ public class playerController : MonoBehaviour, IDamage
             controller.Move(dashDirection * dashSpeed * Time.deltaTime);
             activeDashTimer += Time.deltaTime;
         }
-
-        //Weapon Change Function
-        Weapon.instance.WeaponType();
-
     }
 
     void jump()
@@ -144,7 +144,6 @@ public class playerController : MonoBehaviour, IDamage
 
     void shoot()
     {
-        Weapon.instance.ChangeWeapon(ref shootDamage, ref shootDist, ref Aoe, ref shootRate, ref Shootdamage, ref Shootdist, ref Shootrate);
         shootTimer = 0;
 
         RaycastHit hit;
@@ -156,16 +155,30 @@ public class playerController : MonoBehaviour, IDamage
 
             if (dmg != null)
             {
-                if (SecWea == false)
-                {
-                    dmg.takeDamage(shootDamage);
-                } else
-                {
-                    dmg.takeDamage(Shootdamage);
-                }
+                dmg.takeDamage(shootDamage);
             }
         }
     }
+
+    // Second weapon function
+    void shootSecond()
+    {
+        shootTimer = 0;
+
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, sDist, ~ignoreLayer))
+        {
+            Debug.Log(hit.collider.name);
+
+            IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+            if (dmg != null)
+            {
+                dmg.takeDamage(sDamage);
+            }
+        }
+    }
+
 
     public void takeDamage(int amount)
     {
