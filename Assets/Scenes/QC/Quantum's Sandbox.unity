@@ -132,9 +132,9 @@ GameObject:
   - component: {fileID: 46423865}
   - component: {fileID: 46423864}
   - component: {fileID: 46423868}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyAI
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -239,9 +239,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 46423863}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4900337bcfe34344b7eea74bae08677, type: 3}
+  m_Script: {fileID: 11500000, guid: 7334542dec3628d45a4f51fb51d5b844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 46423865}
+  agent: {fileID: 0}
+  HP: 0
+  faceTargetSpeed: 0
+  FOV: 0
+  roamDist: 0
+  roamPauseTime: 0
+  bullet: {fileID: 0}
+  shootRate: 0
+  shootPos: {fileID: 0}
 --- !u!1001 &321584655
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -256,7 +266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 309294395302063215, guid: ef91c65074e30e049b54c2cb5d3f0fd8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 309294395302063215, guid: ef91c65074e30e049b54c2cb5d3f0fd8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -789,6 +799,14 @@ PrefabInstance:
     - target: {fileID: 2211084545418423905, guid: ac26dcfacac545947bc06b9b36cab563, type: 3}
       propertyPath: m_Name
       value: Test_Plane
+      objectReference: {fileID: 0}
+    - target: {fileID: 2211084545418423905, guid: ac26dcfacac545947bc06b9b36cab563, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2211084545418423905, guid: ac26dcfacac545947bc06b9b36cab563, type: 3}
+      propertyPath: m_TagString
+      value: Platform
       objectReference: {fileID: 0}
     - target: {fileID: 6151018418527830470, guid: ac26dcfacac545947bc06b9b36cab563, type: 3}
       propertyPath: m_LocalPosition.x
