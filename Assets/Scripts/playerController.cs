@@ -21,6 +21,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int sDamage;
     [SerializeField] float sRate;
     [SerializeField] int sDist;
+    
 
     [SerializeField] bool Aoe;
 
@@ -89,6 +90,7 @@ public class playerController : MonoBehaviour, IDamage
 
         if (Input.GetButton("Fire1") && shootTimer >= shootRate)
         {
+            
             shoot();
         }
 

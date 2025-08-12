@@ -39,7 +39,9 @@ public class Weapon : MonoBehaviour
             Damageamount = 7;
             Attackrange = 15;
             attackSpeed = 0.5f;
+
             
+
         }
 
         if (Input.GetButton("Spear"))
@@ -52,7 +54,9 @@ public class Weapon : MonoBehaviour
             Damageamount = 10;
             Attackrange = 20;
             Attackspeed = 0.3f;
+
             
+
         }
         if (Input.GetButton("Hammer"))
         {
@@ -64,8 +68,8 @@ public class Weapon : MonoBehaviour
             Damageamount = 3;
             Attackrange = 12;
             Attackspeed = 2;
+
             
-           
         }
     }
 
@@ -80,6 +84,8 @@ public class Weapon : MonoBehaviour
         AR = Attackrange;
         ATS = Attackspeed;
     }
+
+   
 
 
 }
