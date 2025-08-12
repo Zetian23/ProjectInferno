@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 //code written by William
-public class NewMonoBehaviourScript : Enemy
+public class CommonEnemyScript : Enemy
 {
     [SerializeField] GameObject weapon;
 
