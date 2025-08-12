@@ -2,42 +2,41 @@ using UnityEngine;
 using System.Collections; // This line is necessary for using coroutines and IEnumerator
 using System.Collections.Generic; // This line is necessary for using List<T> and other collection types
 
+
 public enum SoundType
 {
     JUMP,
     LAND,
+    FOOTSTEP,
+    FOOTSTEP_SPRINT,
+    HURT,
+    DEATH,
+    ENEMY_GUN_FIRE,
+
+    WEAPON_PICKUP,
     AK47_FIRE,
-    AK47_RELOAD,
-    AK47_PICKUP,
-    AK47_EMPTY,
-    PISTOL_FIRE,
-    PISTOL_RELOAD,
-    PISTOL_PICKUP,
-    PISTOL_EMPTY,
     SHOTGUN_FIRE,
-    SHOTGUN_RELOAD,
-    SHOTGUN_PICKUP,
-    SHOTGUN_EMPTY,
+    PISTOL_FIRE,
+   
+    WEAPON_EMPTY,
+    WEAPON_RELOAD,
+  
     SPEAR_SLASH,
-    SPEAR_THROW,
-    SPEAR_PICKUP,
     SPEAR_HIT,
-    SPEAR_MISS,
-    SPEAR_THROW_HIT,
-    SPEAR_THROW_MISS,
     SWORD_SLASH,
-    SWORD_PICKUP,
-    SWORD_HIT,
-    SWORD_MISS,
-    SWORD_THROW,
-    SWORD_THROW_HIT,
-    SWORD_THROW_MISS
+    SWORD_HIT
     // Add more sound types as needed
 }
+
+[RequireComponent(typeof(AudioSource))] // Ensure that the GameObject has an AudioSource component
+
 public class soundmanager : MonoBehaviour
 {
-    private static soundmanager instance;
 
+    [SerializeField] AudioClip[] soundList; // Array to hold sound clips for different sound types
+
+    private static soundmanager instance;
+    private AudioSource audioSource;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
@@ -45,10 +44,19 @@ public class soundmanager : MonoBehaviour
         // Ensure that the sound manager persists across scenes
         DontDestroyOnLoad(gameObject);
     }
+    private void Start()
+    {
+        // Initialize the AudioSource component
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            Debug.LogError("AudioSource component not found on soundmanager GameObject.");
+        }
+    }
 
     // Update is called once per frame
-    public static void PlaySound(/*SoundType, volume*/)
+    public static void PlaySound(SoundType sound, float volume = 1)
     {
-        
+        instance.audioSource.PlayOneShot(instance.soundList[(int)sound], volume);
     }
 }
