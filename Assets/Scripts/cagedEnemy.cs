@@ -1,12 +1,20 @@
 using UnityEngine;
+using System.Collections.Generic;
 // Code written by Nathaniel
 public class cagedEnemy : Enemy
 {
     bool isCriticle;
+    enum sinType { sloth, wrath, gluttony, envy, lust, greed, pride }
+    [SerializeField] sinType sinner;
+    [SerializeField] int waves;
+    [SerializeField] GameObject weakSpotObject;
+    [SerializeField] List<Transform> weakSpotsPos;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         //gamemanager.instance.updateGameGoal(1);
+        creatWeakSpots();
         colorOrg = model.material.color;
         attackTimer = 0;
     }
@@ -47,6 +55,12 @@ public class cagedEnemy : Enemy
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player")) playerInTrigger = false;
+    }
+
+    void creatWeakSpots()
+    {
+        for (int i = 0; i < weakSpotsPos.Count; i++)
+            Instantiate(weakSpotObject, weakSpotsPos[i].position, transform.rotation, transform);
     }
 
     //public override void Attack()
