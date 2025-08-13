@@ -39,7 +39,7 @@ public class ricochetAI : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    void Update()
     {
         rb.linearVelocity = direction.normalized * speed;
         float xPos = transform.position.x - origin.x;
