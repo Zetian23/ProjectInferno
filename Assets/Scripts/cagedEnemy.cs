@@ -71,19 +71,14 @@ public class cagedEnemy : Enemy
 
     public override void takeDamage(int amount)
     {
-        if (HP > 0 && isCriticle)
+        if (HP > 0)
         {
-            HP -= amount * 2;
-            StartCoroutine(flashRed());
-        }
-        if (HP > 0 && !isCriticle)
-        {
-            HP -= amount * 2;
+            HP -= amount;
             StartCoroutine(flashRed());
         }
         if (HP <= 0)
         {
-            //gamemanager.instance.updateGameGoal(-1);
+            gamemanager.instance.updateGameGoal(-1);
             Destroy(gameObject);
         }
     }
