@@ -10,6 +10,7 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
+/Packages/com.merry-yellow.code-assist/
 /[Aa]ssets/Scenes/Quantum_PT/
 *.log
 
