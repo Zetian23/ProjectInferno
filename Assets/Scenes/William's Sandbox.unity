@@ -661,6 +661,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2880541570126170202, guid: 8535f80c1bdd27d43be622d94c8af3e0, type: 3}
+      propertyPath: HP
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2880541570126170202, guid: 8535f80c1bdd27d43be622d94c8af3e0, type: 3}
       propertyPath: roamDist
       value: 8
       objectReference: {fileID: 0}
@@ -772,6 +776,10 @@ PrefabInstance:
     - target: {fileID: 2808753302694462459, guid: 4f67a78170a183c4aac0856df54a59df, type: 3}
       propertyPath: m_Name
       value: Ranged Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695449587825562267, guid: 4f67a78170a183c4aac0856df54a59df, type: 3}
+      propertyPath: HP
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
