@@ -18,7 +18,14 @@ public class Weapon : MonoBehaviour
 
     void Start()
     {
+        damageAmount = 7;
+        attackRange = 5;
+        AOE = false;
+        attackSpeed = 1;
 
+        Damageamount = 7;
+        Attackrange = 15;
+        Attackspeed = 1;
     }
 
     // Update is called once per frame
@@ -38,7 +45,7 @@ public class Weapon : MonoBehaviour
 
             Damageamount = 7;
             Attackrange = 15;
-            attackSpeed = 0.5f;
+            Attackspeed = 0.5f;
 
             
 
