@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-
+// Written By Nathaniel
 public class weakSpot : MonoBehaviour
 {
     [SerializeField] Renderer model;
