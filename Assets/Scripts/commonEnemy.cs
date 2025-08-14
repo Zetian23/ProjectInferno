@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 //code written by William
-public class CommonEnemyScript : Enemy
+public class CommonEnemyScript : Enemy, IDamage
 {
     [SerializeField] GameObject weapon;
 
