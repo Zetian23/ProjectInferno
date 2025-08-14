@@ -1,10 +1,10 @@
 using UnityEngine;
 using System.Collections;
 // Code added by Nathaniel
-
+// Code added by Naseem will be commented with "-N"
 public class damage : MonoBehaviour
 {
-    enum damageType { moving, stationary, DOT, homing }
+    enum damageType { moving, stationary, DOT, homing, death}
     [SerializeField] damageType type;
     [SerializeField] Rigidbody rb;
 
@@ -48,6 +48,13 @@ public class damage : MonoBehaviour
         {
             damage.takeDamage(damageAmount);
         }
+
+        //-N - Used for killplanes/instant kills
+        if (damage != null && type == damageType.death) { 
+
+            damage.takeDamage(777);
+        }
+
 
         if (type == damageType.moving || type == damageType.homing)
         {

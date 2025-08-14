@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] public int faceTargetSpeed;
 
     [SerializeField] public float attackRate;
+    [SerializeField] public int attackDamage;
     [SerializeField] public Transform attackPos;
 
     protected Color colorOrg;
