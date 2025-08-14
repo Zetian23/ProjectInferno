@@ -50,15 +50,15 @@ public class playerController : MonoBehaviour, IDamage
     void Start()
     {
         HPOrig = HP;
-        //updatePlayerUI();
+        updatePlayerUI();
+
         Weapon.instance.ChangeWeapon(ref shootDamage, ref shootDist, ref Aoe, ref shootRate, ref sDamage, ref sDist, ref sRate);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
-
         movement();
         sprint();
     }
@@ -91,7 +91,6 @@ public class playerController : MonoBehaviour, IDamage
 
         if (Input.GetButton("Fire1") && shootTimer >= shootRate)
         {
-            
             shoot();
         }
 
@@ -187,8 +186,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         HP -= amount;
 
-        StartCoroutine(damageFlash());
-        //updatePlayerUI();
+        updatePlayerUI();
 
         if (HP <= 0)
         {

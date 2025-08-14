@@ -18,7 +18,7 @@ public class Weapon : MonoBehaviour
 
     void Start()
     {
-        damageAmount = 7;
+        damageAmount = 10;
         attackRange = 5;
         AOE = false;
         attackSpeed = 1;
@@ -38,13 +38,13 @@ public class Weapon : MonoBehaviour
     {
         if (Input.GetButtonDown("Sword"))
         {
-            damageAmount = 7;
-            attackRange = 5;
+            damageAmount = 10;
+            attackRange = 10;
             AOE = false;
             attackSpeed = 1;
 
-            Damageamount = 7;
-            Attackrange = 15;
+            Damageamount = 10;
+            Attackrange = 25;
             Attackspeed = 0.5f;
 
             
@@ -53,13 +53,13 @@ public class Weapon : MonoBehaviour
 
         if (Input.GetButton("Spear"))
         {
-            damageAmount = 10;
-            attackRange = 7;
+            damageAmount = 15;
+            attackRange = 15;
             AOE = false;
-            attackSpeed = 0.5f;
+            attackSpeed = 1;
 
-            Damageamount = 10;
-            Attackrange = 20;
+            Damageamount = 8;
+            Attackrange = 35;
             Attackspeed = 0.3f;
 
             
@@ -67,20 +67,20 @@ public class Weapon : MonoBehaviour
         }
         if (Input.GetButton("Hammer"))
         {
-            damageAmount = 5;
-            attackRange = 4;
+            damageAmount = 7;
+            attackRange = 10;
             AOE = true;
             attackSpeed = 1.5f;
      
-            Damageamount = 3;
-            Attackrange = 12;
+            Damageamount = 5;
+            Attackrange = 20;
             Attackspeed = 2;
 
             
         }
     }
 
-   public void ChangeWeapon(ref int da, ref int ar, ref bool aoe, ref float ats, ref int DA, ref int AR, ref float ATS)
+   public void ChangeWeapon(ref int DA, ref int AR, ref bool aoe, ref float ATS, ref int da, ref int ar, ref float ats)
     {
         da = damageAmount;
         ar = attackRange;
