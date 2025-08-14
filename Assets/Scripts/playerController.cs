@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+//Code written by brady (Movement-wise)
 public class playerController : MonoBehaviour, IDamage
 {
     [SerializeField] LayerMask ignoreLayer;
