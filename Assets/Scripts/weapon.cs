@@ -11,7 +11,7 @@ public class Weapon : MonoBehaviour
     float attackSpeed, Attackspeed;
     bool AOE;
 
-    private void Awake()
+    void Awake()
     {
         instance = this;
     }
