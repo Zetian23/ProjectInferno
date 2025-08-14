@@ -11,18 +11,38 @@ public class weakSpot : MonoBehaviour
     [SerializeField] float pulseDuration;
     [SerializeField] Color pulseColor;
 
+    cagedEnemy parent;
+
     Color origColor;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         origColor = model.material.color;
+        parent = GetComponentInParent<cagedEnemy>();
     }
 
     // Update is called once per frame
     void Update()
     {
         StartCoroutine(Pulse());
+    }
+
+    void takeDamage(int amount)
+    {
+        if (parent.HP > 0)
+        {
+            parent.HP -= amount * 2;
+        }
+        if(hitAmount <= 0 && parent.HP > 0)
+        {
+            Destroy(gameObject);
+        }
+        if (parent.HP <= 0)
+        {
+            gamemanager.instance.updateGameGoal(-1);
+            Destroy(parent);
+        }
     }
 
     IEnumerator Pulse()

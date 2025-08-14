@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 999238872522265596}
   - component: {fileID: 3364644301251691777}
   - component: {fileID: 3356915286757122807}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: SlothWeakSpot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,9 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 3364644301251691777}
-  hitAmount: 10
+  hitAmount: 25
   damageMod: 2
-  pulseRate: 1
   pulseDuration: 6
   pulseColor: {r: 1, g: 0.015401341, b: 0, a: 0}
 --- !u!33 &999238872522265596
