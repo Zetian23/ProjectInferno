@@ -17,6 +17,14 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
 
+    //Second Weapon
+    [SerializeField] int sDamage;
+    [SerializeField] float sRate;
+    [SerializeField] int sDist;
+    
+
+    [SerializeField] bool Aoe;
+
     [SerializeField] float dashTime;
     [SerializeField] float dashRate;
     [SerializeField] int dashSpeed;
@@ -43,6 +51,9 @@ public class playerController : MonoBehaviour, IDamage
     {
         HPOrig = HP;
         updatePlayerUI();
+
+        Weapon.instance.ChangeWeapon(ref shootDamage, ref shootDist, ref Aoe, ref shootRate, ref sDamage, ref sDist, ref sRate);
+
     }
 
     // Update is called once per frame
@@ -75,9 +86,19 @@ public class playerController : MonoBehaviour, IDamage
         controller.Move(playerVelocity * Time.deltaTime);
         playerVelocity.y -= gravity * Time.deltaTime;
 
+
+        //Weapon Change
+        Weapon.instance.WeaponType();
+        Weapon.instance.ChangeWeapon(ref shootDamage, ref shootDist, ref Aoe, ref shootRate, ref sDamage, ref sDist, ref sRate);
+
         if (Input.GetButton("Fire1") && shootTimer >= shootRate)
         {
             shoot();
+        }
+
+        if (Input.GetButton("Fire2") && shootTimer >= sRate)
+        {
+            shootSecond();
         }
 
         //Dash function
@@ -143,6 +164,26 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
+    // Second weapon function
+    void shootSecond()
+    {
+        shootTimer = 0;
+
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, sDist, ~ignoreLayer))
+        {
+            Debug.Log(hit.collider.name);
+
+            IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+            if (dmg != null)
+            {
+                dmg.takeDamage(sDamage);
+            }
+        }
+    }
+
+
     public void takeDamage(int amount)
     {
         HP -= amount;
@@ -160,4 +201,10 @@ public class playerController : MonoBehaviour, IDamage
         gamemanager.instance.playerHPBar.fillAmount = (float)HP / HPOrig;
     }
 
+    IEnumerator damageFlash()
+    {
+        gamemanager.instance.playerDamageFlash.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        gamemanager.instance.playerDamageFlash.SetActive(false);
+    }
 }
