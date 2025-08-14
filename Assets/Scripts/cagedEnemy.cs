@@ -8,7 +8,7 @@ public class cagedEnemy : Enemy
     [SerializeField] sinType sinner;
     [SerializeField] int waves;
     [SerializeField] GameObject weakSpotObject;
-    [SerializeField] List<Transform> weakSpotsPos;
+    [SerializeField] List<GameObject> weakSpotsPos;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -60,7 +60,11 @@ public class cagedEnemy : Enemy
     void creatWeakSpots()
     {
         for (int i = 0; i < weakSpotsPos.Count; i++)
-            Instantiate(weakSpotObject, weakSpotsPos[i].position, transform.rotation, transform);
+        {
+            Instantiate(weakSpotObject, weakSpotsPos[i].transform.position, transform.rotation, transform);
+            Destroy(weakSpotsPos[i]);
+        }
+            
     }
 
     //public override void Attack()
