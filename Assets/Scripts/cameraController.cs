@@ -1,5 +1,4 @@
 using UnityEngine;
-// Code added by Braiden
 
 public class cameraController : MonoBehaviour
 {
@@ -13,7 +12,7 @@ public class cameraController : MonoBehaviour
     void Start()
     {
         Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked; 
     }
 
     // Update is called once per frame
