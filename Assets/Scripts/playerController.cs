@@ -51,6 +51,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         HPOrig = HP;
         //updatePlayerUI();
+        Weapon.instance.ChangeWeapon(ref shootDamage, ref shootDist, ref Aoe, ref shootRate, ref sDamage, ref sDist, ref sRate);
     }
 
     // Update is called once per frame
