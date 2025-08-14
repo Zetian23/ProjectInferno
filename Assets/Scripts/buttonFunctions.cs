@@ -18,17 +18,17 @@ public class buttonFunctions : MonoBehaviour
     public void quit()
     {
         #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
+                        UnityEditor.EditorApplication.isPlaying = false;
         #else
-            Application.Quit();
+                Application.Quit();
         #endif
     }
 
-    public void loadLevenl(int lvl)
-    {
-        SceneManager.LoadScene(lvl);
-        gamemanager.instance.stateUnpause();
+    // public void loadLevenl(int lvl)
+    // {
+    //     SceneManager.LoadScene(lvl);
+    //     gamemanager.instance.stateUnpause();
 
-    }
+    // }
 
 }
