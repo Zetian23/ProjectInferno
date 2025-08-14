@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-// Code written by Wendy
 
 public class buttonFunctions : MonoBehaviour
 {
@@ -18,11 +17,11 @@ public class buttonFunctions : MonoBehaviour
 
     public void quit()
     {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
+        #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+        #else
                     Application.Quit();
-#endif
+        #endif
     }
 
 }

@@ -5,12 +5,10 @@ public class Weapon : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    [SerializeField] int cl;
-
     public static Weapon instance;
 
-    int damageAmount, attackRange, ammo;
-    float attackSpeed;
+    int damageAmount, attackRange, Damageamount, Attackrange;
+    float attackSpeed, Attackspeed;
     bool AOE;
 
     private void Awake()
@@ -20,7 +18,14 @@ public class Weapon : MonoBehaviour
 
     void Start()
     {
+        damageAmount = 10;
+        attackRange = 5;
+        AOE = false;
+        attackSpeed = 1;
 
+        Damageamount = 7;
+        Attackrange = 15;
+        Attackspeed = 1;
     }
 
     // Update is called once per frame
@@ -29,73 +34,65 @@ public class Weapon : MonoBehaviour
         
     }
 
-    void WeaponType()
+    public void WeaponType()
     {
         if (Input.GetButtonDown("Sword"))
         {
-            damageAmount = 7;
-            attackRange = 5;
+            damageAmount = 10;
+            attackRange = 10;
             AOE = false;
             attackSpeed = 1;
-            ammo = -1;
-            cl = 1;
+
+            Damageamount = 10;
+            Attackrange = 25;
+            Attackspeed = 0.5f;
+
+            
+
         }
 
         if (Input.GetButton("Spear"))
         {
-            damageAmount = 10;
-            attackRange = 7;
+            damageAmount = 15;
+            attackRange = 15;
             AOE = false;
-            attackSpeed = 0.5f;
-            ammo = -1;
-            cl = 2;
+            attackSpeed = 1;
+
+            Damageamount = 8;
+            Attackrange = 35;
+            Attackspeed = 0.3f;
+
+            
+
         }
         if (Input.GetButton("Hammer"))
         {
-            damageAmount = 5;
-            attackRange = 4;
+            damageAmount = 7;
+            attackRange = 10;
             AOE = true;
             attackSpeed = 1.5f;
-            ammo = -1;
-            cl = 3;
-        }
-        if (Input.GetButton("Pistol"))
-        {
-            damageAmount = 7;
-            attackRange = 15;
-            AOE = false;
-            attackSpeed = 0.5f;
-            ammo = 10;
-            cl = 4;
-        }
-        if (Input.GetButton("Shotgun"))
-        {
-            damageAmount = 10;
-            attackRange = 20;
-            AOE = false;
-            attackSpeed = 0.3f;
-            ammo = 30;
-            cl = 5;
-        }
-        if (Input.GetButton("AR"))
-        {
-            damageAmount = 3;
-            attackRange = 12;
-            AOE = true;
-            attackSpeed = 2;
-            ammo = 5;
-            cl = 6;
+     
+            Damageamount = 5;
+            Attackrange = 20;
+            Attackspeed = 2;
+
+            
         }
     }
 
-   void ChangeWeapon(ref int da, ref int ar, ref bool aoe, ref float ats, ref int am)
+   public void ChangeWeapon(ref int DA, ref int AR, ref bool aoe, ref float ATS, ref int da, ref int ar, ref float ats)
     {
         da = damageAmount;
         ar = attackRange;
         aoe = AOE;
         ats = attackSpeed;
-        am = ammo;
+        
+        DA = Damageamount;
+        AR = Attackrange;
+        ATS = Attackspeed;
     }
+
+   
 
 
 }

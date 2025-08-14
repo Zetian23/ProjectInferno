@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-// Code written by Braiden
 
 public class playerController : MonoBehaviour, IDamage
 {
@@ -17,6 +16,14 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
+
+    //Second Weapon
+    [SerializeField] int sDamage;
+    [SerializeField] float sRate;
+    [SerializeField] int sDist;
+    
+
+    [SerializeField] bool Aoe;
 
     [SerializeField] float dashTime;
     [SerializeField] float dashRate;
@@ -43,14 +50,15 @@ public class playerController : MonoBehaviour, IDamage
     void Start()
     {
         HPOrig = HP;
-        //updatePlayerUI();
+        updatePlayerUI();
+
+        Weapon.instance.ChangeWeapon(ref shootDamage, ref shootDist, ref Aoe, ref shootRate, ref sDamage, ref sDist, ref sRate);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
-
         movement();
         sprint();
     }
@@ -73,13 +81,22 @@ public class playerController : MonoBehaviour, IDamage
 
         jump();
 
-
         controller.Move(playerVelocity * Time.deltaTime);
         playerVelocity.y -= gravity * Time.deltaTime;
+
+
+        //Weapon Change
+        Weapon.instance.WeaponType();
+        Weapon.instance.ChangeWeapon(ref shootDamage, ref shootDist, ref Aoe, ref shootRate, ref sDamage, ref sDist, ref sRate);
 
         if (Input.GetButton("Fire1") && shootTimer >= shootRate)
         {
             shoot();
+        }
+
+        if (Input.GetButton("Fire2") && shootTimer >= sRate)
+        {
+            shootSecond();
         }
 
         //Dash function
@@ -145,12 +162,31 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
+    // Second weapon function
+    void shootSecond()
+    {
+        shootTimer = 0;
+
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, sDist, ~ignoreLayer))
+        {
+            Debug.Log(hit.collider.name);
+
+            IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+            if (dmg != null)
+            {
+                dmg.takeDamage(sDamage);
+            }
+        }
+    }
+
+
     public void takeDamage(int amount)
     {
         HP -= amount;
 
-        StartCoroutine(damageFlash());
-        //updatePlayerUI();
+        updatePlayerUI();
 
         if (HP <= 0)
         {
