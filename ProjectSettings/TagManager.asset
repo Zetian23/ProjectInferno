@@ -15,6 +15,7 @@ TagManager:
   - Player
   - Water
   - UI
+  - Camera
   - Enemy
   - Wall
   - Paltform
