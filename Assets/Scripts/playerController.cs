@@ -192,6 +192,13 @@ public class playerController : MonoBehaviour, IDamage
         {
             gamemanager.instance.youLose();
         }
+
+        //Heal -N
+        if (amount < 0) 
+        {
+            HP += (amount *= -1);
+            updatePlayerUI();
+        }
     }
 
     public void updatePlayerUI()
@@ -204,5 +211,12 @@ public class playerController : MonoBehaviour, IDamage
         gamemanager.instance.playerDamageFlash.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         gamemanager.instance.playerDamageFlash.SetActive(false);
+    }
+
+    IEnumerator healingFlash() //-N 
+    {
+        gamemanager.instance.playerHealFlash.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        gamemanager.instance.playerHealFlash.SetActive(false);
     }
 }
