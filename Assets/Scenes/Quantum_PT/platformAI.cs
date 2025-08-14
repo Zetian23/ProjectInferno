@@ -34,7 +34,7 @@ public class platformAI : MonoBehaviour
         }
         else if (waypointDistances != null && waypointDistances.Length > 0)
         {
-            rb.MovePosition(origin + new Vector3(waypointDistances[0], 0, 0));
+            rb.MovePosition(origin + new Vector3(waypointDistances[0], 0, 0)); // Move to the first waypoint
             currentWaypointIndex = 0;
         }
     }
@@ -48,7 +48,7 @@ public class platformAI : MonoBehaviour
             return; // Ricochet handled in FixedUpdate
 
         if (waypointDistances == null || waypointDistances.Length == 0)
-            return;
+            rb.MovePosition(origin); // If no waypoints, stay at origin
 
         Vector3 targetPosition = origin + new Vector3(waypointDistances[currentWaypointIndex], 0, 0);
         Vector3 currentPosition = transform.position;

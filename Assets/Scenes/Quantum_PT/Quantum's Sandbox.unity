@@ -284,6 +284,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6989024363077070103, guid: e8dfbd558072d044ba75c88bfa2e4882, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7515848677447447102, guid: e8dfbd558072d044ba75c88bfa2e4882, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -595,6 +599,7 @@ GameObject:
   - component: {fileID: 1128059982}
   - component: {fileID: 1128059980}
   - component: {fileID: 1128059979}
+  - component: {fileID: 1128059983}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -685,26 +690,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ignoreLayer:
     serializedVersion: 2
-    m_Bits: 0
-  controller: {fileID: 0}
-  HP: 0
-  speed: 0
-  sprintMod: 0
-  jumpSpeed: 0
-  jumpMax: 0
-  gravity: 0
-  pushForce: 0
-  shootDamage: 0
-  shootRate: 0
-  shootDist: 0
-  sDamage: 0
-  sRate: 0
-  sDist: 0
-  Aoe: 0
+    m_Bits: 8
+  controller: {fileID: 1128059983}
+  HP: 50
+  speed: 20
+  sprintMod: 2
+  jumpSpeed: 5
+  jumpMax: 2
+  gravity: 40
+  shootDamage: 4
+  shootRate: 3
+  shootDist: 20
+  sDamage: 10
+  sRate: 10
+  sDist: 30
+  Aoe: 1
   dashTime: 0
   dashRate: 0
   dashSpeed: 0
   dashIFrames: 0
+--- !u!143 &1128059983
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128059978}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1600254956
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,6 +745,7 @@ GameObject:
   - component: {fileID: 1600254958}
   - component: {fileID: 1600254962}
   - component: {fileID: 1600254961}
+  - component: {fileID: 1600254963}
   - component: {fileID: 1600254960}
   - component: {fileID: 1600254959}
   - component: {fileID: 1600254957}
@@ -868,6 +898,22 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1600254963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600254956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ee60b17bf7e28469f47f3630e7b08c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sens: 150
+  lockVertMin: -90
+  lockVertMax: 90
+  invertY: 0
 --- !u!1 &1691172332
 GameObject:
   m_ObjectHideFlags: 0
@@ -990,11 +1036,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  waypointDistances:
-  - 0
-  - 10
-  - -10
-  useRicochet: 0
+  waypointDistances: []
+  useRicochet: 1
   ricochetDirection: {x: 1, y: 0, z: 0}
 --- !u!1001 &1883405431
 PrefabInstance:

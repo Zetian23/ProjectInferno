@@ -42,10 +42,11 @@ public class ricochetAI : MonoBehaviour
     void Update()
     {
         rb.linearVelocity = direction.normalized * speed;
-        float xPos = transform.position.x - origin.x;
+        float xPos = transform.position.x - origin.x; // Relative to origin
         // If wall starts at boundary and direction points outward, reverse immediately
         if ((xPos <= minX && direction.x < 0) || (xPos >= maxX && direction.x > 0))
         {
+           
             direction = -direction;
         }
     }
@@ -54,7 +55,13 @@ public class ricochetAI : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            direction = Vector3.Reflect(direction, collision.contacts[0].normal);
+            Invoke(nameof(ReflectDirection), 0.01f); // Slight delay to ensure proper collision normal
+          
         }
+    }
+
+    void ReflectDirection()
+    {
+        direction = -Vector3.Reflect(direction, Vector3.right).normalized; // Reflect direction based on collision normal
     }
 }

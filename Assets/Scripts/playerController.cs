@@ -12,7 +12,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int jumpSpeed;
     [SerializeField] int jumpMax;
     [SerializeField] int gravity;
-    [SerializeField] private int pushForce;
+    
 
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
@@ -42,6 +42,7 @@ public class playerController : MonoBehaviour, IDamage
 
     int jumpCount;
     int HPOrig;
+    int pushForce;
 
     bool isSprinting;
     bool isDashing;
@@ -217,7 +218,7 @@ public class playerController : MonoBehaviour, IDamage
         HP -= amount;
 
         StartCoroutine(damageFlash());
-        //updatePlayerUI();
+        updatePlayerUI();
 
         if (HP <= 0)
         {
