@@ -1,10 +1,21 @@
 using UnityEngine;
+using System.Collections.Generic;
 // Code written by Nathaniel
 public class cagedEnemy : Enemy
 {
+    [SerializeField] LayerMask ignoreLayer;
+    bool isCriticle;
+    enum sinType { sloth, wrath, gluttony, envy, lust, greed, pride }
+    [SerializeField] sinType sinner;
+    [SerializeField] int waves;
+    [SerializeField] GameObject weakSpotObject;
+    [SerializeField] List<GameObject> weakSpotsPos;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        gamemanager.instance.updateGameGoal(1);
+        creatWeakSpots();
         colorOrg = model.material.color;
         attackTimer = 0;
     }
@@ -47,11 +58,29 @@ public class cagedEnemy : Enemy
         if (other.CompareTag("Player")) playerInTrigger = false;
     }
 
-    //public override void Attack()
-    //{
-    //    attackTimer = 0;
-    //    Instantiate(bullet, attackPos.position, transform.rotation);
-    //}
+    void creatWeakSpots()
+    {
+        for (int i = 0; i < weakSpotsPos.Count; i++)
+        {
+            Instantiate(weakSpotObject, weakSpotsPos[i].transform.position, transform.rotation, transform);
+            Destroy(weakSpotsPos[i]);
+        }
+            
+    }
+
+    public override void Attack()
+    {
+        switch (sinner) {
+
+            case sinType.sloth:
+                slothAttack();
+                break;
+
+        }
+
+        //attackTimer = 0;
+        //Instantiate(bullet, attackPos.position, transform.rotation);
+    }
 
     public override void takeDamage(int amount)
     {
@@ -64,6 +93,24 @@ public class cagedEnemy : Enemy
         {
             gamemanager.instance.updateGameGoal(-1);
             Destroy(gameObject);
+        }
+    }
+
+    void slothAttack()
+    {
+        attackTimer = 0;
+
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 8, ~ignoreLayer))
+        {
+            Debug.Log(hit.collider.name);
+
+            IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+            if (dmg != null)
+            {
+                dmg.takeDamage(attackDamage);
+            }
         }
     }
 }
