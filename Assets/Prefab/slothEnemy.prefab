@@ -372,7 +372,7 @@ MonoBehaviour:
   HP: 100
   faceTargetSpeed: 15
   attackRate: 0.5
-  attackDamage: 0
+  attackDamage: 15
   attackPos: {fileID: 914488004853663273}
   ignoreLayer:
     serializedVersion: 2
