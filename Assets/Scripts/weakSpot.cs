@@ -40,7 +40,7 @@ public class weakSpot : MonoBehaviour
         }
         if (parent.HP <= 0)
         {
-            gamemanager.instance.updateGameGoal(-1);
+            gamemanager.instance.updateGameGoal(-1, 0, 0);
             Destroy(parent);
         }
     }

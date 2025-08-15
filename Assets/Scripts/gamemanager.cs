@@ -11,11 +11,15 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
 
-    [SerializeField] TMP_Text gameGoalCountText;
+    [SerializeField] TMP_Text meleeEnemyCountText;
+    [SerializeField] TMP_Text rangedEnemyCountText;
+    [SerializeField] TMP_Text bossEnemyCountText;
 
     public Image playerHPBar;
     public GameObject playerDamageFlash;
     public GameObject playerHealFlash;
+
+    public Image bossHPBar;
 
     public GameObject player;
     public playerController playerScript;
@@ -23,7 +27,10 @@ public class gamemanager : MonoBehaviour
     public bool isPaused;
     float timeScaleOrig;
 
-    int gameGoalCount;
+    
+    int meleeEnemyCount;
+    int rangedEnemyCount;
+    int bossEnemyCount;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -71,15 +78,27 @@ public class gamemanager : MonoBehaviour
         menuActive = null;
     }
 
-    public void updateGameGoal(int amount)
+    public void updateGameGoal(int numBoss, int nummel, int numran)
     {
-        gameGoalCount += amount;
+        meleeEnemyCount += nummel;
+        rangedEnemyCount += numran;
+        bossEnemyCount += numBoss;
 
-        gameGoalCountText.text = gameGoalCount.ToString("F0");
+        meleeEnemyCountText.text = meleeEnemyCount.ToString("F0");
+        rangedEnemyCountText.text = rangedEnemyCount.ToString("F1");
+        bossEnemyCountText.text = bossEnemyCount.ToString("F2");
 
-        if(gameGoalCount <= 0)
+        int gameGoalCount = meleeEnemyCount + rangedEnemyCount + bossEnemyCount;
+
+        /*if (gameGoalCount <= 0)
         {
             //you won
+            statePause();
+            menuActive = menuWin;
+            menuActive.SetActive(true);
+        }*/
+        if(gameGoalCount <= 0)
+        {
             statePause();
             menuActive = menuWin;
             menuActive.SetActive(true);

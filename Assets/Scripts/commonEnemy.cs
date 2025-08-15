@@ -24,7 +24,7 @@ public class CommonEnemyScript : Enemy
     void Start()
     {
         colorOrg = model.material.color;
-        gamemanager.instance.updateGameGoal(1);
+        gamemanager.instance.updateGameGoal(0, 1, 0);
         startingPos = transform.position;
     }
 
@@ -140,7 +140,7 @@ public class CommonEnemyScript : Enemy
         }
         if (HP <= 0)
         {
-            gamemanager.instance.updateGameGoal(-1);
+            gamemanager.instance.updateGameGoal(0, -1, 0);
             Destroy(gameObject);
         }
     }
