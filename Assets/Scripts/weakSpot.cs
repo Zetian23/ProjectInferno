@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+// Written By Nathaniel
 
 public class weakSpot : MonoBehaviour, IDamage
 {
@@ -44,7 +45,7 @@ public class weakSpot : MonoBehaviour, IDamage
         if (parent.HP <= 0)
         {
             Destroy(parent);
-            gamemanager.instance.updateGameGoal(-1);
+            gamemanager.instance.updateGameGoal(-1, 0, 0);
         }
     }
 

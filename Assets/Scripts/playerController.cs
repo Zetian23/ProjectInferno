@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+//Code written by brady (Movement-wise)
 public class playerController : MonoBehaviour, IDamage
 {
     [SerializeField] LayerMask ignoreLayer;
@@ -13,17 +14,15 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int jumpMax;
     [SerializeField] int gravity;
 
+    //Range Weapon
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
 
-    //Second Weapon
-    [SerializeField] int sDamage;
-    [SerializeField] float sRate;
-    [SerializeField] int sDist;
-    
-
-    [SerializeField] bool Aoe;
+    //Melee Weapon
+    [SerializeField] int hitDamage;
+    [SerializeField] float hitRate;
+    [SerializeField] int hitDist;
 
     [SerializeField] float dashTime;
     [SerializeField] float dashRate;
@@ -41,7 +40,6 @@ public class playerController : MonoBehaviour, IDamage
     int jumpCount;
     int HPOrig;
 
-    bool isSprinting;
     bool isDashing;
     bool hasAirDashed;
 
@@ -51,9 +49,6 @@ public class playerController : MonoBehaviour, IDamage
     {
         HPOrig = HP;
         updatePlayerUI();
-
-        //Weapon.instance.ChangeWeapon(ref shootDamage, ref shootDist, ref Aoe, ref shootRate, ref sDamage, ref sDist, ref sRate);
-
     }
 
     // Update is called once per frame
@@ -86,17 +81,15 @@ public class playerController : MonoBehaviour, IDamage
 
 
         //Weapon Change
-        //Weapon.instance.WeaponType();
-        //Weapon.instance.ChangeWeapon(ref shootDamage, ref shootDist, ref Aoe, ref shootRate, ref sDamage, ref sDist, ref sRate);
 
         if (Input.GetButton("Fire1") && shootTimer >= shootRate)
         {
             shoot();
         }
 
-        if (Input.GetButton("Fire2") && shootTimer >= sRate)
+        if (Input.GetButton("Fire2") && shootTimer >= hitRate)
         {
-            shootSecond();
+            melee();
         }
 
         //Dash function
@@ -135,12 +128,10 @@ public class playerController : MonoBehaviour, IDamage
         if (Input.GetButtonDown("Sprint"))
         {
             speed *= sprintMod;
-            isSprinting = true;
         }
         else if (Input.GetButtonUp("Sprint"))
         {
             speed /= sprintMod;
-            isSprinting = false;
         }
     }
 
@@ -162,13 +153,12 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
-    // Second weapon function
-    void shootSecond()
+    void melee()
     {
         shootTimer = 0;
 
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, sDist, ~ignoreLayer))
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, hitDist, ~ignoreLayer))
         {
             Debug.Log(hit.collider.name);
 
@@ -176,7 +166,7 @@ public class playerController : MonoBehaviour, IDamage
 
             if (dmg != null)
             {
-                dmg.takeDamage(sDamage);
+                dmg.takeDamage(hitDamage);
             }
         }
     }
@@ -192,6 +182,13 @@ public class playerController : MonoBehaviour, IDamage
         {
             gamemanager.instance.youLose();
         }
+
+        //Heal -N
+        if (amount < 0) 
+        {
+            HP += (amount *= -1);
+            updatePlayerUI();
+        }
     }
 
     public void updatePlayerUI()
@@ -204,5 +201,12 @@ public class playerController : MonoBehaviour, IDamage
         gamemanager.instance.playerDamageFlash.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         gamemanager.instance.playerDamageFlash.SetActive(false);
+    }
+
+    IEnumerator healingFlash() //-N 
+    {
+        gamemanager.instance.playerHealFlash.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        gamemanager.instance.playerHealFlash.SetActive(false);
     }
 }

@@ -16,14 +16,17 @@ public class cagedEnemy : Enemy
 
     Color emissionColorOrig;
 
+    int BHPOrig;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        gamemanager.instance.updateGameGoal(1);
+        gamemanager.instance.updateGameGoal(1, 0, 0);
         creatWeakSpots();
         colorOrg = model.material.color;
         emissionColorOrig = model.material.GetColor("_EmissionColor");
         attackTimer = 0;
+        BHPOrig = HP;
     }
 
     // Update is called once per frame
@@ -83,10 +86,11 @@ public class cagedEnemy : Enemy
         {
             HP -= amount;
             StartCoroutine(flashDamage());
+            updateBossUI();
         }
         if (HP <= 0)
         {
-            gamemanager.instance.updateGameGoal(-1);
+            gamemanager.instance.updateGameGoal(-1, 0, 0);
             Destroy(gameObject);
         }
     }
@@ -118,4 +122,10 @@ public class cagedEnemy : Enemy
             }
         }
     }
+
+    public void updateBossUI()
+    {
+        gamemanager.instance.bossHPBar.fillAmount = (float)HP / BHPOrig;
+    }
+
 }
