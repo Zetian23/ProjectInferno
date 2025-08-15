@@ -1,5 +1,6 @@
-using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 // Code written by Nathaniel
 public class cagedEnemy : Enemy
 {
@@ -9,7 +10,11 @@ public class cagedEnemy : Enemy
     [SerializeField] sinType sinner;
     [SerializeField] int waves;
     [SerializeField] GameObject weakSpotObject;
+    [SerializeField] Color damageFlashColor;
     [SerializeField] List<GameObject> weakSpotsPos;
+    [SerializeField] List<Renderer> skinObjects;
+
+    Color emissionColorOrig;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,6 +22,7 @@ public class cagedEnemy : Enemy
         gamemanager.instance.updateGameGoal(1);
         creatWeakSpots();
         colorOrg = model.material.color;
+        emissionColorOrig = model.material.GetColor("_EmissionColor");
         attackTimer = 0;
     }
 
@@ -25,20 +31,9 @@ public class cagedEnemy : Enemy
     {
         attackTimer += Time.deltaTime;
 
-        if (playerInTrigger)
+        if (playerInTrigger && canSeePlayer())
         {
-            playerDirection = gamemanager.instance.player.transform.position - transform.position;
 
-            agent.SetDestination(gamemanager.instance.player.transform.position);
-
-            if (attackTimer >= attackRate)
-            {
-                Attack();
-            }
-            if (agent.remainingDistance <= agent.stoppingDistance)
-            {
-                faceTarget();
-            }
         }
     }
 
@@ -87,7 +82,7 @@ public class cagedEnemy : Enemy
         if (HP > 0)
         {
             HP -= amount;
-            StartCoroutine(flashRed());
+            StartCoroutine(flashDamage());
         }
         if (HP <= 0)
         {
@@ -96,12 +91,22 @@ public class cagedEnemy : Enemy
         }
     }
 
+    public IEnumerator flashDamage()
+    {
+        Debug.Log("In flash");
+        for (int i = 0; i < skinObjects.Count; i++)
+            skinObjects[i].material.SetColor("_EmissionColor", damageFlashColor);
+        yield return new WaitForSeconds(0.1f);
+        for (int i = 0; i < skinObjects.Count; i++) 
+            skinObjects[i].material.SetColor("_EmissionColor", emissionColorOrig);
+    }
+
     void slothAttack()
     {
         attackTimer = 0;
 
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 8, ~ignoreLayer))
+        if (Physics.Raycast(transform.position, playerDirection, out hit, attackDistance, ~ignoreLayer))
         {
             Debug.Log(hit.collider.name);
 
