@@ -90,8 +90,8 @@ public class cagedEnemy : Enemy
         }
         if (HP <= 0)
         {
-            gamemanager.instance.updateGameGoal(-1, 0, 0);
             Destroy(gameObject);
+            gamemanager.instance.updateGameGoal(-1, 0, 0);
         }
     }
 
