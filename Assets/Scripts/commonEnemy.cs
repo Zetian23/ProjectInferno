@@ -6,15 +6,13 @@ public class CommonEnemyScript : Enemy
 {
     [SerializeField] GameObject weapon;
 
-
-    [SerializeField] int FOV;
+    
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTimer;
     float stoppingDistOrig;
 
 
     float roamTimer;
-    float angleToPlayer;
     //enum enemyType {ranged, melee, flying, idle}
     //[SerializeField] enemyType type;
 
