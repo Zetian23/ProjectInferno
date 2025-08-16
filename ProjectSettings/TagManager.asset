@@ -5,15 +5,19 @@ TagManager:
   serializedVersion: 3
   tags:
   - maps
+  - Wall
+  - Platform
+  - Enemy
+  - WeakSpot
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
+  - Camera
+  - Enemy
   - 
   - 
   - 
