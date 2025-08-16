@@ -1,13 +1,15 @@
 using System.Collections;
 using UnityEngine;
 // Written By Nathaniel
-public class weakSpot : MonoBehaviour
+
+public class weakSpot : MonoBehaviour, IDamage
 {
     [SerializeField] Renderer model;
 
     [SerializeField] int hitAmount;
     [SerializeField] int damageMod;
 
+    [SerializeField] float intensity;
     [SerializeField] float pulseDuration;
     [SerializeField] Color pulseColor;
 
@@ -28,44 +30,47 @@ public class weakSpot : MonoBehaviour
         StartCoroutine(Pulse());
     }
 
-    void takeDamage(int amount)
+    public void takeDamage(int amount)
     {
         if (parent.HP > 0)
         {
             parent.HP -= amount * 2;
+            StartCoroutine(Pulse());
+            parent.StartCoroutine(parent.flashDamage());
+            parent.updateBossUI();
+            hitAmount--;
         }
-        if(hitAmount <= 0 && parent.HP > 0)
+        if (hitAmount <= 0 && parent.HP > 0)
         {
             Destroy(gameObject);
         }
         if (parent.HP <= 0)
         {
+            Destroy(parent.gameObject);
             gamemanager.instance.updateGameGoal(-1, 0, 0);
-            Destroy(parent);
         }
     }
 
     IEnumerator Pulse()
     {
         float pulseTime = 0f;
-        float currTime;
+        float t;
         while (pulseTime < pulseDuration)
         {
             pulseTime += Time.deltaTime;
-            currTime = pulseTime / pulseDuration;
+            t = Mathf.PingPong(Time.time, pulseDuration) / pulseDuration;
             yield return null;
-            model.material.SetColor("_EmissionColor", Color.Lerp(origColor, pulseColor, currTime) * 50);
+            model.material.SetColor("_EmissionColor", (Color.Lerp(origColor, pulseColor, t)) * intensity);
         }
-        yield return new WaitForSeconds(.1f);
+        yield return null;
         pulseTime = 0f;
-        currTime = 0f;
+        t = 0f;
         while (pulseTime < pulseDuration)
         {
             pulseTime += Time.deltaTime;
-            currTime = pulseTime / pulseDuration;
+            t = Mathf.PingPong(Time.time, pulseDuration) / pulseDuration;
             yield return null;
-            model.material.SetColor("_EmissionColor", Color.Lerp(pulseColor, origColor, currTime) * 50);
+            model.material.SetColor("_EmissionColor", (Color.Lerp(pulseColor, origColor, t)) * intensity);
         }
-        yield return new WaitForSeconds(1f);
     }
 }

@@ -1,5 +1,6 @@
-using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 // Code written by Nathaniel
 public class cagedEnemy : Enemy
 {
@@ -10,6 +11,9 @@ public class cagedEnemy : Enemy
     [SerializeField] int waves;
     [SerializeField] GameObject weakSpotObject;
     [SerializeField] List<GameObject> weakSpotsPos;
+    [SerializeField] List<Renderer> skinObjects;
+
+    Color emissionColorOrig;
 
     int BHPOrig;
 
@@ -19,29 +23,22 @@ public class cagedEnemy : Enemy
         gamemanager.instance.updateGameGoal(1, 0, 0);
         creatWeakSpots();
         colorOrg = model.material.color;
+        emissionColorOrig = model.material.GetColor("_EmissionColor");
         attackTimer = 0;
         BHPOrig = HP;
+        updateBossUI();
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.DrawRay(transform.position, playerDirection * attackDistance, Color.red);
+
         attackTimer += Time.deltaTime;
 
-        if (playerInTrigger)
+        if (playerInTrigger && canSeePlayer())
         {
-            playerDirection = gamemanager.instance.player.transform.position - transform.position;
 
-            agent.SetDestination(gamemanager.instance.player.transform.position);
-
-            if (attackTimer >= attackRate)
-            {
-                Attack();
-            }
-            if (agent.remainingDistance <= agent.stoppingDistance)
-            {
-                faceTarget();
-            }
         }
     }
 
@@ -76,7 +73,11 @@ public class cagedEnemy : Enemy
         switch (sinner) {
 
             case sinType.sloth:
-                slothAttack();
+                meleeAttack();
+                break;
+
+            case sinType.wrath:
+                meleeAttack();
                 break;
 
         }
@@ -90,22 +91,32 @@ public class cagedEnemy : Enemy
         if (HP > 0)
         {
             HP -= amount;
-            StartCoroutine(flashRed());
+            StartCoroutine(flashDamage());
             updateBossUI();
         }
         if (HP <= 0)
         {
-            gamemanager.instance.updateGameGoal(-1, 0, 0);
             Destroy(gameObject);
+            gamemanager.instance.updateGameGoal(-1, 0, 0);
         }
     }
 
-    void slothAttack()
+    public IEnumerator flashDamage()
+    {
+        Debug.Log("In flash");
+        for (int i = 0; i < skinObjects.Count; i++)
+            skinObjects[i].material.SetColor("_EmissionColor", Color.red);
+        yield return new WaitForSeconds(0.1f);
+        for (int i = 0; i < skinObjects.Count; i++) 
+            skinObjects[i].material.SetColor("_EmissionColor", emissionColorOrig);
+    }
+
+    void meleeAttack()
     {
         attackTimer = 0;
 
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 8, ~ignoreLayer))
+        if (Physics.Raycast(transform.position, playerDirection, out hit, attackDistance, ~ignoreLayer))
         {
             Debug.Log(hit.collider.name);
 
@@ -120,7 +131,7 @@ public class cagedEnemy : Enemy
 
     public void updateBossUI()
     {
-        gamemanager.instance.bossHPBar.fillAmount = (float)HP / BHPOrig;
+        gamemanager.instance.bossHPBar.fillAmount = (float) HP / BHPOrig;
     }
 
 }
