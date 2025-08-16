@@ -3354,9 +3354,9 @@ MonoBehaviour:
   menuPause: {fileID: 1662559357845197821}
   menuWin: {fileID: 8622896992518316402}
   menuLose: {fileID: 2636383793726936031}
-  meleeEnemyCountText: {fileID: 7308021414652391446}
-  rangedEnemyCountText: {fileID: 2055932242592467414}
-  bossEnemyCountText: {fileID: 8567625139080417193}
+  meleeEnemyCountText: {fileID: 7660183700636444250}
+  rangedEnemyCountText: {fileID: 9129220918739783629}
+  bossEnemyCountText: {fileID: 2732613565697377216}
   playerHPBar: {fileID: 6608478917455844661}
   playerDamageFlash: {fileID: 2294537923232611346}
   playerHealFlash: {fileID: 1954691024393337945}
