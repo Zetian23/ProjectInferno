@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour, IDamage
     [SerializeField] public int faceTargetSpeed;
 
     [SerializeField] public float attackRate;
-    [SerializeField] public int attackDistance;
+    [SerializeField] public float attackDistance;
     [SerializeField] public int attackDamage;
     [SerializeField] public int FOV;
     [SerializeField] public Transform attackPos;

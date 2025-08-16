@@ -259,7 +259,7 @@ Transform:
   m_GameObject: {fileID: 3638171164323244439}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0.75}
+  m_LocalPosition: {x: 0, y: -0.85, z: 0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -327,11 +327,12 @@ MonoBehaviour:
   model: {fileID: 441785420376394931}
   agent: {fileID: 3373250161200135835}
   HP: 100
-  faceTargetSpeed: 15
+  size: 1
+  faceTargetSpeed: 70
   attackRate: 0.5
   attackDistance: 3
   attackDamage: 10
-  FOV: 90
+  FOV: 130
   attackPos: {fileID: 914488004853663273}
   ignoreLayer:
     serializedVersion: 2
@@ -438,7 +439,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 150
-  m_StoppingDistance: 4
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1

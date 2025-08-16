@@ -9,6 +9,7 @@ public class weakSpot : MonoBehaviour, IDamage
     [SerializeField] int hitAmount;
     [SerializeField] int damageMod;
 
+    [SerializeField] float intensity;
     [SerializeField] float pulseDuration;
     [SerializeField] Color pulseColor;
 
@@ -36,6 +37,7 @@ public class weakSpot : MonoBehaviour, IDamage
             parent.HP -= amount * 2;
             StartCoroutine(Pulse());
             parent.StartCoroutine(parent.flashDamage());
+            parent.updateBossUI();
             hitAmount--;
         }
         if (hitAmount <= 0 && parent.HP > 0)
@@ -44,7 +46,7 @@ public class weakSpot : MonoBehaviour, IDamage
         }
         if (parent.HP <= 0)
         {
-            Destroy(parent);
+            Destroy(parent.gameObject);
             gamemanager.instance.updateGameGoal(-1, 0, 0);
         }
     }
@@ -58,7 +60,7 @@ public class weakSpot : MonoBehaviour, IDamage
             pulseTime += Time.deltaTime;
             t = Mathf.PingPong(Time.time, pulseDuration) / pulseDuration;
             yield return null;
-            model.material.SetColor("_EmissionColor", (Color.Lerp(origColor, pulseColor, t)) * 50);
+            model.material.SetColor("_EmissionColor", (Color.Lerp(origColor, pulseColor, t)) * intensity);
         }
         yield return null;
         pulseTime = 0f;
@@ -68,7 +70,7 @@ public class weakSpot : MonoBehaviour, IDamage
             pulseTime += Time.deltaTime;
             t = Mathf.PingPong(Time.time, pulseDuration) / pulseDuration;
             yield return null;
-            model.material.SetColor("_EmissionColor", (Color.Lerp(pulseColor, origColor, t)) * 50);
+            model.material.SetColor("_EmissionColor", (Color.Lerp(pulseColor, origColor, t)) * intensity);
         }
     }
 }

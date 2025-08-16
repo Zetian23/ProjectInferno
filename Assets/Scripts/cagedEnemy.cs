@@ -10,7 +10,6 @@ public class cagedEnemy : Enemy
     [SerializeField] sinType sinner;
     [SerializeField] int waves;
     [SerializeField] GameObject weakSpotObject;
-    [SerializeField] Color damageFlashColor;
     [SerializeField] List<GameObject> weakSpotsPos;
     [SerializeField] List<Renderer> skinObjects;
 
@@ -27,11 +26,14 @@ public class cagedEnemy : Enemy
         emissionColorOrig = model.material.GetColor("_EmissionColor");
         attackTimer = 0;
         BHPOrig = HP;
+        updateBossUI();
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.DrawRay(transform.position, playerDirection * attackDistance, Color.red);
+
         attackTimer += Time.deltaTime;
 
         if (playerInTrigger && canSeePlayer())
@@ -71,7 +73,11 @@ public class cagedEnemy : Enemy
         switch (sinner) {
 
             case sinType.sloth:
-                slothAttack();
+                meleeAttack();
+                break;
+
+            case sinType.wrath:
+                meleeAttack();
                 break;
 
         }
@@ -99,13 +105,13 @@ public class cagedEnemy : Enemy
     {
         Debug.Log("In flash");
         for (int i = 0; i < skinObjects.Count; i++)
-            skinObjects[i].material.SetColor("_EmissionColor", damageFlashColor);
+            skinObjects[i].material.SetColor("_EmissionColor", Color.red);
         yield return new WaitForSeconds(0.1f);
         for (int i = 0; i < skinObjects.Count; i++) 
             skinObjects[i].material.SetColor("_EmissionColor", emissionColorOrig);
     }
 
-    void slothAttack()
+    void meleeAttack()
     {
         attackTimer = 0;
 
@@ -125,7 +131,7 @@ public class cagedEnemy : Enemy
 
     public void updateBossUI()
     {
-        gamemanager.instance.bossHPBar.fillAmount = (float)HP / BHPOrig;
+        gamemanager.instance.bossHPBar.fillAmount = (float) HP / BHPOrig;
     }
 
 }
