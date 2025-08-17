@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 //code written by William
-public class CommonEnemyScript : Enemy
+public class CommonEnemyScript : Enemy, IDamage
 {
     [SerializeField] GameObject weapon;
 
@@ -134,6 +134,7 @@ public class CommonEnemyScript : Enemy
         if (HP > 0)
         {
             HP -= amount;
+            agent.SetDestination(gamemanager.instance.player.transform.position);
             StartCoroutine(flashRed());
         }
         if (HP <= 0)
