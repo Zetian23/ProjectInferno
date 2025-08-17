@@ -6,15 +6,13 @@ public class CommonEnemyScript : Enemy, IDamage
 {
     [SerializeField] GameObject weapon;
 
-
-    [SerializeField] int FOV;
+    
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTimer;
     float stoppingDistOrig;
 
 
     float roamTimer;
-    float angleToPlayer;
     //enum enemyType {ranged, melee, flying, idle}
     //[SerializeField] enemyType type;
 
@@ -24,7 +22,7 @@ public class CommonEnemyScript : Enemy, IDamage
     void Start()
     {
         colorOrg = model.material.color;
-        gamemanager.instance.updateGameGoal(1);
+        gamemanager.instance.updateGameGoal(0, 1, 0);
         startingPos = transform.position;
     }
 
@@ -141,7 +139,7 @@ public class CommonEnemyScript : Enemy, IDamage
         }
         if (HP <= 0)
         {
-            gamemanager.instance.updateGameGoal(-1);
+            gamemanager.instance.updateGameGoal(0, -1, 0);
             Destroy(gameObject);
         }
     }

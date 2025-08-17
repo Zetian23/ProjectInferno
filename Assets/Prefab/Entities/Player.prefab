@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 4964581508061618816}
   - component: {fileID: 6408319039407231369}
   - component: {fileID: 5104163707611554785}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,20 +50,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ignoreLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   controller: {fileID: 4964581508061618816}
   HP: 100
   speed: 10
-  sprintMod: 1.5
+  sprintMod: 1.75
   jumpSpeed: 12
   jumpMax: 2
   gravity: 35
-  shootDamage: 0
-  shootRate: 0
-  shootDist: 0
-  Shootdamage: 0
-  Shootrate: 0
-  Shootdist: 0
+  shootDamage: 5
+  shootRate: 0.5
+  shootDist: 150
+  hitDamage: 0
+  hitRate: 0
+  hitDist: 0
   dashTime: 0.1
   dashRate: 0.75
   dashSpeed: 75
@@ -159,9 +159,9 @@ GameObject:
   - component: {fileID: 3066949367400333592}
   - component: {fileID: 7356530923963245706}
   - component: {fileID: 4839819421363682851}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -279,7 +279,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0

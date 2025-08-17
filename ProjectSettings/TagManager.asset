@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - Platform
   - Enemy
+  - WeakSpot
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,6 @@ TagManager:
   - UI
   - Camera
   - Enemy
-  - 
   - 
   - 
   - 

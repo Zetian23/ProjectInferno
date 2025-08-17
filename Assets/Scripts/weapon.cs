@@ -11,7 +11,7 @@ public class Weapon : MonoBehaviour
     float attackSpeed, Attackspeed;
     bool AOE;
 
-    private void Awake()
+    void Awake()
     {
         instance = this;
     }
@@ -36,7 +36,7 @@ public class Weapon : MonoBehaviour
 
     public void WeaponType()
     {
-        if (Input.GetButtonDown("Sword"))
+        if (Input.GetKeyDown("1"))
         {
             damageAmount = 10;
             attackRange = 10;
@@ -51,7 +51,7 @@ public class Weapon : MonoBehaviour
 
         }
 
-        if (Input.GetButton("Spear"))
+        if (Input.GetKeyDown("2"))
         {
             damageAmount = 15;
             attackRange = 15;
@@ -65,7 +65,7 @@ public class Weapon : MonoBehaviour
             
 
         }
-        if (Input.GetButton("Hammer"))
+        if (Input.GetKeyDown("3"))
         {
             damageAmount = 7;
             attackRange = 10;
