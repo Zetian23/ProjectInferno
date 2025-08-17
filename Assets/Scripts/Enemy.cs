@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
-// Code written by Nathaniel
+// Code written by Nathaniel and William
 // Base class for any enemies that will be created throughout Project Inferno
 public class Enemy : MonoBehaviour, IDamage
 {
@@ -20,12 +20,14 @@ public class Enemy : MonoBehaviour, IDamage
     [SerializeField] public int FOV;
     [SerializeField] public Transform attackPos;
 
+
     protected Color colorOrg;
 
     protected Vector3 playerDirection;         // In the child classes this will be used to update in that class based on the player direction.
 
     protected float attackTimer;               // Each enemy will have different time it takes to attack.
     protected float angleToPlayer;
+    protected float stoppingDistOrig;
 
     protected bool playerInTrigger;            // Player enters the area where the enemy will be aware of the player.
 
@@ -51,9 +53,12 @@ public class Enemy : MonoBehaviour, IDamage
                 {
                     faceTarget();
                 }
+
+                agent.stoppingDistance = stoppingDistOrig;
                 return true;
             }
         }
+        agent.stoppingDistance = 0;
         return false;
     }
 
@@ -68,4 +73,5 @@ public class Enemy : MonoBehaviour, IDamage
         yield return new WaitForSeconds(0.1f);
         model.material.color = colorOrg;
     }
+
 }
