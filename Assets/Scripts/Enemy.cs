@@ -64,7 +64,7 @@ public class Enemy : MonoBehaviour, IDamage
 
     virtual public void faceTarget() { }    // Basic method that keeps the enemy faced to the player after the enemy is at the desired position,
                                             // this will have logic in the update of the child enemy script.
-    public virtual void Attack() { }        // Method that is called when an enemy attack, which will be different in the child classes.
+    public virtual void Attack() { }   // Method that is called when an enemy attack, which will be different in the child classes.
     public virtual void takeDamage(int amount) { }    // Method that is called when the enemy takes damage based on the Idamage delt from the player.
 
     protected IEnumerator flashRed()
