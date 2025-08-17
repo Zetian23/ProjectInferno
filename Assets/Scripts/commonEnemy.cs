@@ -1,20 +1,18 @@
+
 using UnityEngine;
 using UnityEngine.AI;
-using System.Collections;
 //code written by William
 public class CommonEnemyScript : Enemy, IDamage
 {
     [SerializeField] GameObject weapon;
 
-
-    [SerializeField] int FOV;
+    
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTimer;
-    float stoppingDistOrig;
+    
 
 
     float roamTimer;
-    float angleToPlayer;
     //enum enemyType {ranged, melee, flying, idle}
     //[SerializeField] enemyType type;
 
@@ -24,8 +22,9 @@ public class CommonEnemyScript : Enemy, IDamage
     void Start()
     {
         colorOrg = model.material.color;
-        gamemanager.instance.updateGameGoal(1);
+        gamemanager.instance.updateGameGoal(0, 1, 0);
         startingPos = transform.position;
+        stoppingDistOrig = agent.stoppingDistance;
     }
 
     // Update is called once per frame
@@ -34,13 +33,15 @@ public class CommonEnemyScript : Enemy, IDamage
         attackTimer += Time.deltaTime;
 
         if (agent.remainingDistance < 0.01f)
+        {
             roamTimer += Time.deltaTime;
+        }
 
-        if (playerInTrigger && canSeePlayer())
+        if (playerInTrigger && !canSeePlayer())
         {
             checkRoam();
         }
-        else if (!playerInTrigger)
+        else if(!playerInTrigger)
         {
             checkRoam();
         }
@@ -68,38 +69,6 @@ public class CommonEnemyScript : Enemy, IDamage
         agent.SetDestination(hit.position);
     }
 
-    bool canSeePlayer()
-    {
-        playerDirection = gamemanager.instance.player.transform.position - transform.position;
-        angleToPlayer = Vector3.Angle(playerDirection, transform.forward);
-        Debug.DrawRay(transform.position, playerDirection);
-
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, playerDirection, out hit))
-        {
-            // Hey I can see you!!!
-            if (hit.collider.CompareTag("Player") && angleToPlayer <= FOV)
-            {
-                agent.SetDestination(gamemanager.instance.player.transform.position);
-
-                if (attackTimer >= attackRate)
-                {
-                    attack();
-                }
-
-                if (agent.remainingDistance <= agent.stoppingDistance)
-                {
-                    faceTarget();
-                }
-
-                agent.stoppingDistance = stoppingDistOrig;
-                return true;
-            }
-        }
-        agent.stoppingDistance = 0;
-        return false;
-
-    }
 
     //public void checkEnemyType()
     //{
@@ -117,15 +86,21 @@ public class CommonEnemyScript : Enemy, IDamage
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) playerInTrigger = true;
+        if (other.CompareTag("Player"))
+        {
+            playerInTrigger = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player")) playerInTrigger = false;
+        if (other.CompareTag("Player"))
+        {
+            playerInTrigger = false;
+            agent.stoppingDistance = 0;
+        }
     }
-
-    void attack()
+    public override void Attack()
     {
         attackTimer = 0;
         Instantiate(weapon, attackPos.position, transform.rotation);
@@ -141,7 +116,7 @@ public class CommonEnemyScript : Enemy, IDamage
         }
         if (HP <= 0)
         {
-            gamemanager.instance.updateGameGoal(-1);
+            gamemanager.instance.updateGameGoal(0, -1, 0);
             Destroy(gameObject);
         }
     }
