@@ -9,8 +9,6 @@ public class cagedEnemy : Enemy
     enum sinType { sloth, wrath, gluttony, envy, lust, greed, pride }
     [SerializeField] sinType sinner;
     [SerializeField] int waves;
-    [SerializeField] GameObject weakSpotObject;
-    [SerializeField] List<GameObject> weakSpotsPos;
     [SerializeField] List<Renderer> skinObjects;
 
     Color emissionColorOrig;
@@ -21,7 +19,6 @@ public class cagedEnemy : Enemy
     void Start()
     {
         gamemanager.instance.updateGameGoal(1, 0, 0);
-        creatWeakSpots();
         colorOrg = model.material.color;
         emissionColorOrig = model.material.GetColor("_EmissionColor");
         attackTimer = 0;
@@ -56,16 +53,6 @@ public class cagedEnemy : Enemy
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player")) playerInTrigger = false;
-    }
-
-    void creatWeakSpots()
-    {
-        for (int i = 0; i < weakSpotsPos.Count; i++)
-        {
-            Instantiate(weakSpotObject, weakSpotsPos[i].transform.position, transform.rotation, transform);
-            Destroy(weakSpotsPos[i]);
-        }
-            
     }
 
     public override void Attack()
