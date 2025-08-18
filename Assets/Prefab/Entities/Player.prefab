@@ -52,7 +52,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   controller: {fileID: 4964581508061618816}
-  HP: 100
+  HPMax: 100
   speed: 10
   sprintMod: 1.75
   jumpSpeed: 12
@@ -68,6 +68,20 @@ MonoBehaviour:
   dashRate: 0.75
   dashSpeed: 75
   dashIFrames: 0
+  hasLust: 0
+  hasGreed: 0
+  hasSloth: 0
+  hasGluttony: 0
+  hasWrath: 0
+  hasPride: 0
+  hasEnvy: 0
+  lustRate: 0
+  lustHealPercent: 0
+  greedEXPMod: 0
+  slothSpeedReduction: 0
+  gluttonyHealthMod: 0
+  wrathDamageMult: 0
+  PrideSpeedAdd: 10
 --- !u!143 &4964581508061618816
 CharacterController:
   m_ObjectHideFlags: 0
