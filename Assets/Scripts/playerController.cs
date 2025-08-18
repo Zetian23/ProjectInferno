@@ -7,6 +7,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] LayerMask ignoreLayer;
     [SerializeField] CharacterController controller;
 
+    //base stats
     [SerializeField] int HPMax;
     [SerializeField] float speed;
     [SerializeField] float sprintMod;
@@ -24,6 +25,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float hitRate;
     [SerializeField] int hitDist;
 
+    //Dashing
     [SerializeField] float dashTime;
     [SerializeField] float dashRate;
     [SerializeField] int dashSpeed;
@@ -49,6 +51,14 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float PrideSpeedAdd;
     //implement evny vars here
 
+    //Leveling
+    int level;
+    [SerializeField] int expReqOrig;
+    [SerializeField] int expReqScaling;
+    int EXP;
+    int expReq;
+    [SerializeField] int maxHPLevelUp;
+    [SerializeField] int DamageLevelUp;
 
     Vector3 moveDirection;
     Vector3 dashDirection;
@@ -70,6 +80,9 @@ public class playerController : MonoBehaviour, IDamage
     void Start()
     {
         HP = HPMax;
+        level = 1;
+        EXP = 0;
+        expReq = expReqOrig;
         updatePlayerUI();
     }
 
@@ -139,6 +152,31 @@ public class playerController : MonoBehaviour, IDamage
             speed += PrideSpeedAdd;
             hasPrideAdded = true;
         }
+    }
+
+    void gainEXP(int expGained)
+    {
+        EXP += expGained;
+
+        //Greed
+        if (hasGreed)
+        {
+            EXP += (int)(expGained * greedEXPMod);
+        }
+
+        if (EXP >= expReq)
+        {
+            levelUp();
+        }
+    }
+
+    void levelUp()
+    {
+        level++;
+        EXP -= expReq;
+        expReq += expReqScaling;
+
+
     }
 
     void jump()
