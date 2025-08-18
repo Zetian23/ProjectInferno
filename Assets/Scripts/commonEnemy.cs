@@ -117,8 +117,9 @@ public class CommonEnemyScript : Enemy, IDamage
         if (HP <= 0)
         {
             gamemanager.instance.updateGameGoal(0, -1, 0);
-            CallGainEXP();
             Destroy(gameObject);
+            CallGainEXP();
+            
         }
     }
 
