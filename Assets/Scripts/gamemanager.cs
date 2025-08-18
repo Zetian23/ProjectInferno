@@ -19,8 +19,10 @@ public class gamemanager : MonoBehaviour
     [SerializeField] int Wave;
 
     public Image playerHPBar;
+    public Image playerEXPBar;
     public GameObject playerDamageFlash;
     public GameObject playerHealFlash;
+    public GameObject playerLevelUPFlash;
 
     public Image bossHPBar;
 
