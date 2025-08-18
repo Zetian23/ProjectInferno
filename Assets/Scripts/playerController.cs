@@ -7,7 +7,8 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] LayerMask ignoreLayer;
     [SerializeField] CharacterController controller;
 
-    [SerializeField] int HP;
+    //base stats
+    [SerializeField] int HPMax;
     [SerializeField] float speed;
     [SerializeField] float sprintMod;
     [SerializeField] int jumpSpeed;
@@ -24,10 +25,40 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float hitRate;
     [SerializeField] int hitDist;
 
+    //Dashing
     [SerializeField] float dashTime;
     [SerializeField] float dashRate;
     [SerializeField] int dashSpeed;
     [SerializeField] int dashIFrames;
+
+    //Sins
+    [SerializeField] bool hasLust;
+    [SerializeField] bool hasGreed;
+    [SerializeField] bool hasSloth;
+    [SerializeField] bool hasGluttony;
+    [SerializeField] bool hasWrath;
+    [SerializeField] bool hasPride;
+    [SerializeField] bool hasEnvy;
+
+    //Sin Modifiers
+    float lustTimer;
+    [SerializeField] float lustRate;
+    [SerializeField] float lustHealPercent;
+    [SerializeField] float greedEXPMod;
+    [SerializeField] float slothSpeedReduction;
+    [SerializeField] float gluttonyHealthMod;
+    [SerializeField] float wrathDamageMult;
+    [SerializeField] float PrideSpeedAdd;
+    //implement evny vars here
+
+    //Leveling
+    int level;
+    [SerializeField] int expReqOrig;
+    [SerializeField] int expReqScaling;
+    int EXP;
+    int expReq;
+    [SerializeField] int maxHPLevelUp;
+    [SerializeField] int DamageLevelUp;
 
     Vector3 moveDirection;
     Vector3 dashDirection;
@@ -38,16 +69,20 @@ public class playerController : MonoBehaviour, IDamage
     float activeDashTimer;
 
     int jumpCount;
-    int HPOrig;
+    int HP;
 
     bool isDashing;
     bool hasAirDashed;
+    bool hasPrideAdded = false;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        HPOrig = HP;
+        HP = HPMax;
+        level = 1;
+        EXP = 0;
+        expReq = expReqOrig;
         updatePlayerUI();
     }
 
@@ -80,8 +115,6 @@ public class playerController : MonoBehaviour, IDamage
         playerVelocity.y -= gravity * Time.deltaTime;
 
 
-        //Weapon Change
-
         if (Input.GetButton("Fire1") && shootTimer >= shootRate)
         {
             shoot();
@@ -112,6 +145,38 @@ public class playerController : MonoBehaviour, IDamage
             controller.Move(dashDirection * dashSpeed * Time.deltaTime);
             activeDashTimer += Time.deltaTime;
         }
+
+        //Pride
+        if(!hasPrideAdded && hasPride)
+        {
+            speed += PrideSpeedAdd;
+            hasPrideAdded = true;
+        }
+    }
+
+    void gainEXP(int expGained)
+    {
+        EXP += expGained;
+
+        //Greed
+        if (hasGreed)
+        {
+            EXP += (int)(expGained * greedEXPMod);
+        }
+
+        if (EXP >= expReq)
+        {
+            levelUp();
+        }
+    }
+
+    void levelUp()
+    {
+        level++;
+        EXP -= expReq;
+        expReq += expReqScaling;
+
+
     }
 
     void jump()
@@ -176,24 +241,22 @@ public class playerController : MonoBehaviour, IDamage
     {
         HP -= amount;
 
+        if (HP > HPMax) 
+        {
+            HP = HPMax;
+        }
+
         updatePlayerUI();
 
         if (HP <= 0)
         {
             gamemanager.instance.youLose();
         }
-
-        //Heal -N
-        if (amount < 0) 
-        {
-            HP += (amount *= -1);
-            updatePlayerUI();
-        }
     }
 
     public void updatePlayerUI()
     {
-        gamemanager.instance.playerHPBar.fillAmount = (float)HP / HPOrig;
+        gamemanager.instance.playerHPBar.fillAmount = (float)HP / HPMax;
     }
 
     IEnumerator damageFlash()
