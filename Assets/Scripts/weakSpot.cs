@@ -34,7 +34,7 @@ public class weakSpot : MonoBehaviour, IDamage
     {
         if (parent.HP > 0)
         {
-            parent.HP -= amount * 2;
+            parent.HP -= amount * damageMod;
             StartCoroutine(Pulse());
             parent.StartCoroutine(parent.flashDamage());
             parent.updateBossUI();
