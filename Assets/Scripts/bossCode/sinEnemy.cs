@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 // Code written by Nathaniel
-public class cagedEnemy : Enemy
+public class sinEnemy : Enemy
 {
     [SerializeField] LayerMask ignoreLayer;
 

@@ -13,7 +13,7 @@ public class weakSpot : MonoBehaviour, IDamage
     [SerializeField] float pulseDuration;
     [SerializeField] Color pulseColor;
 
-    cagedEnemy parent;
+    sinEnemy parent;
 
     Color origColor;
 
@@ -21,7 +21,7 @@ public class weakSpot : MonoBehaviour, IDamage
     void Start()
     {
         origColor = model.material.color;
-        parent = GetComponentInParent<cagedEnemy>();
+        parent = GetComponentInParent<sinEnemy>();
     }
 
     // Update is called once per frame
