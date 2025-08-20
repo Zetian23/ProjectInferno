@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: computerChip
+  m_Name: LustGel
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -117,13 +117,13 @@ Material:
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0, g: 1, b: 0.38665152, a: 0.27450982}
-    - _Color: {r: 0, g: 1, b: 0.3866515, a: 0.27450982}
-    - _EmissionColor: {r: 9.295329, g: 220.26178, b: 0, a: 1}
+    - _BaseColor: {r: 1, g: 0, b: 0.976005, a: 1}
+    - _Color: {r: 1, g: 0, b: 0.976005, a: 1}
+    - _EmissionColor: {r: 8, g: 0, b: 6.8769073, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &4466883741577566406
+--- !u!114 &6803092631100147785
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

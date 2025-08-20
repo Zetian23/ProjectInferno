@@ -949,7 +949,7 @@ GameObject:
   - component: {fileID: 1534485946382642627}
   m_Layer: 0
   m_Name: envyEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1004,7 +1004,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   sinner: 3
-  waves: 0
+  waves: 3
   skinObjects:
   - {fileID: 8689818065518775689}
   - {fileID: 4151868312744502853}
