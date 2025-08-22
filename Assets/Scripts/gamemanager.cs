@@ -14,10 +14,15 @@ public class gamemanager : MonoBehaviour
     [SerializeField] TMP_Text meleeEnemyCountText;
     [SerializeField] TMP_Text rangedEnemyCountText;
     [SerializeField] TMP_Text bossEnemyCountText;
+    [SerializeField] TMP_Text sinBossNameText;
+
+    [SerializeField] int Wave;
 
     public Image playerHPBar;
+    public Image playerEXPBar;
     public GameObject playerDamageFlash;
     public GameObject playerHealFlash;
+    public GameObject playerLevelUPFlash;
 
     public Image bossHPBar;
 
@@ -85,11 +90,11 @@ public class gamemanager : MonoBehaviour
         bossEnemyCount += numBoss;
 
         meleeEnemyCountText.text = meleeEnemyCount.ToString("F0");
-        rangedEnemyCountText.text = rangedEnemyCount.ToString("F1");
-        bossEnemyCountText.text = bossEnemyCount.ToString("F2");
+        rangedEnemyCountText.text = rangedEnemyCount.ToString("F0");
+        bossEnemyCountText.text = bossEnemyCount.ToString("F0");
 
-        int gameGoalCount = meleeEnemyCount + rangedEnemyCount + bossEnemyCount;
-
+        int WinCondition = numBoss + nummel + numran;
+        
         /*if (gameGoalCount <= 0)
         {
             //you won
@@ -97,12 +102,22 @@ public class gamemanager : MonoBehaviour
             menuActive = menuWin;
             menuActive.SetActive(true);
         }*/
-        if(gameGoalCount <= 0)
+        if(WinCondition <= 0)
         {
             statePause();
             menuActive = menuWin;
             menuActive.SetActive(true);
         }
+    }
+
+    public void SinnerType(string sin)
+    {
+        sinBossNameText.text = sin;
+    }
+
+    public void updateWave(int wa)
+    {
+        Wave = wa;
     }
 
     public void youLose()
