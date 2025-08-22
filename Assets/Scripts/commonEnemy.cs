@@ -9,8 +9,8 @@ public class CommonEnemyScript : Enemy, IDamage
     
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTimer;
-    
 
+    public playerController expGained;
 
     float roamTimer;
     //enum enemyType {ranged, melee, flying, idle}
@@ -118,7 +118,19 @@ public class CommonEnemyScript : Enemy, IDamage
         {
             gamemanager.instance.updateGameGoal(0, -1, 0);
             Destroy(gameObject);
+            CallGainEXP();
+            
         }
     }
 
+    public void CallGainEXP()
+    {
+        if(expGained != null)
+        {
+            expGained.gainEXP(5);
+            Debug.Log("EXP gained");
+        }
+        
+    }
+    
 }
