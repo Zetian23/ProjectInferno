@@ -21,6 +21,7 @@ public class cagedEnemy : Enemy
     void Start()
     {
         gamemanager.instance.updateGameGoal(1, 0, 0);
+        gamemanager.instance.updateWave(waves);
         creatWeakSpots();
         colorOrg = model.material.color;
         emissionColorOrig = model.material.GetColor("_EmissionColor");
@@ -32,6 +33,8 @@ public class cagedEnemy : Enemy
     // Update is called once per frame
     void Update()
     {
+        singet();
+
         Debug.DrawRay(transform.position, playerDirection * attackDistance, Color.red);
 
         attackTimer += Time.deltaTime;
@@ -65,7 +68,7 @@ public class cagedEnemy : Enemy
             Instantiate(weakSpotObject, weakSpotsPos[i].transform.position, transform.rotation, transform);
             Destroy(weakSpotsPos[i]);
         }
-            
+
     }
 
     public override void Attack()
@@ -107,7 +110,7 @@ public class cagedEnemy : Enemy
         for (int i = 0; i < skinObjects.Count; i++)
             skinObjects[i].material.SetColor("_EmissionColor", Color.red);
         yield return new WaitForSeconds(0.1f);
-        for (int i = 0; i < skinObjects.Count; i++) 
+        for (int i = 0; i < skinObjects.Count; i++)
             skinObjects[i].material.SetColor("_EmissionColor", emissionColorOrig);
     }
 
@@ -131,7 +134,38 @@ public class cagedEnemy : Enemy
 
     public void updateBossUI()
     {
-        gamemanager.instance.bossHPBar.fillAmount = (float) HP / BHPOrig;
+        gamemanager.instance.bossHPBar.fillAmount = (float)HP / BHPOrig;
+    }
+
+    public void singet()
+    {
+        switch (sinner)
+        {
+            case sinType.sloth:
+                gamemanager.instance.SinnerType("Sloth");
+                break;
+            case sinType.wrath:
+                gamemanager.instance.SinnerType("Wrath");
+                break;
+            case sinType.gluttony:
+                gamemanager.instance.SinnerType("Gluttony");
+                break;
+            case sinType.envy:
+                gamemanager.instance.SinnerType("Envy");
+                break;
+            case sinType.lust:
+                gamemanager.instance.SinnerType("Lust");
+                break;
+            case sinType.greed:
+                gamemanager.instance.SinnerType("Greed");
+                break;
+            case sinType.pride:
+                gamemanager.instance.SinnerType("Pride");
+                break;
+            default:
+                gamemanager.instance.SinnerType("Unknown");
+                break;
+        }
     }
 
 }

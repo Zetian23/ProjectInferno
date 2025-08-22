@@ -174,7 +174,7 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
-    void gainEXP(int expGained)
+    public void gainEXP(int expGained)
     {
         EXP += expGained;
 
