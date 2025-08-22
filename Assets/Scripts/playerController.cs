@@ -58,7 +58,7 @@ public class playerController : MonoBehaviour, IDamage
     int EXP;
     int expReq;
     [SerializeField] int maxHPLevelUp;
-    [SerializeField] int DamageLevelUp;
+    [SerializeField] float DamageLevelUp;
 
     Vector3 moveDirection;
     Vector3 dashDirection;
@@ -74,7 +74,7 @@ public class playerController : MonoBehaviour, IDamage
     bool isDashing;
     bool hasAirDashed;
     bool hasPrideAdded = false;
-
+    bool hasGluttAdded = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -91,6 +91,18 @@ public class playerController : MonoBehaviour, IDamage
     {
         movement();
         sprint();
+
+        //Lust
+        if (hasLust)
+        {
+            lustTimer += Time.deltaTime;
+
+            if(lustTimer >= lustRate)
+            {
+                takeDamage((int)(HPMax * lustHealPercent * -1));
+                lustTimer = 0;
+            }
+        }
     }
 
     void movement()
@@ -152,6 +164,14 @@ public class playerController : MonoBehaviour, IDamage
             speed += PrideSpeedAdd;
             hasPrideAdded = true;
         }
+
+        //Gluttony
+        if(!hasGluttAdded && hasGluttony)
+        {
+            HPMax = (int)(HPMax * gluttonyHealthMod);
+            maxHPLevelUp = (int)(maxHPLevelUp * gluttonyHealthMod);
+            hasGluttAdded = true;
+        }
     }
 
     void gainEXP(int expGained)
@@ -168,6 +188,8 @@ public class playerController : MonoBehaviour, IDamage
         {
             levelUp();
         }
+
+        updatePlayerUI();
     }
 
     void levelUp()
@@ -176,7 +198,8 @@ public class playerController : MonoBehaviour, IDamage
         EXP -= expReq;
         expReq += expReqScaling;
 
-
+        HPMax += maxHPLevelUp;
+        //Implement damage on lvl up
     }
 
     void jump()
