@@ -38,6 +38,7 @@ public class weakSpot : MonoBehaviour, IDamage
             StartCoroutine(Pulse());
             parent.StartCoroutine(parent.flashDamage());
             parent.updateBossUI();
+            parent.hitWeakSpot();
             hitAmount--;
         }
         if (hitAmount <= 0 && parent.HP > 0)

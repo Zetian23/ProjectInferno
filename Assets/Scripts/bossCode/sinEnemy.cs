@@ -4,10 +4,10 @@ using UnityEngine;
 // Code written by Nathaniel
 public class sinEnemy : Enemy
 {
-    [SerializeField] LayerMask ignoreLayer;
+    [SerializeField] protected LayerMask ignoreLayer;
 
-    enum sinType        // This is initialized for the type of sin boss that is being used for 
-    {                   // the gamemaker and what special moves are used for that boss.
+    enum sinType
+    {
         sloth,      // Attacks: Melee (Phase 1-2); Ranged (Phase 3)
             // Phase 1: (HP >= 80)
         // Melee Attack     | Close Range javelin attack.
@@ -61,71 +61,32 @@ public class sinEnemy : Enemy
         // Special Skill Retrived: Movement speed is increased.
     }
 
-    [SerializeField] sinType sinner;
-    [SerializeField] int waves;
+    sinType sinner;
     [SerializeField] List<Renderer> skinObjects;
 
-    Color emissionColorOrig;
+    protected Color emissionColorOrig;
 
-    int BHPOrig;
-    float origIntensity;
+    protected int phase;
+    protected int BHPOrig;
+    public bool weakSpotHit;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void InitVar()
     {
         gamemanager.instance.updateGameGoal(1, 0, 0);
         colorOrg = model.material.color;
         emissionColorOrig = skinObjects[0].material.GetColor("_EmissionColor");
+        phase = 1;
         attackTimer = 0;
         BHPOrig = HP;
+        stoppingDistOrig = agent.stoppingDistance;
         updateBossUI();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Debug.DrawRay(transform.position, playerDirection * attackDistance, Color.red);
-
-        attackTimer += Time.deltaTime;
-
-        if (playerInTrigger && canSeePlayer())
-        {
-
-        }
     }
 
     public override void faceTarget()
     {
         Quaternion rotation = Quaternion.LookRotation(playerDirection);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * faceTargetSpeed);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player")) playerInTrigger = true;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player")) playerInTrigger = false;
-    }
-
-    public override void Attack()
-    {
-        switch (sinner) {
-
-            case sinType.sloth:
-                meleeAttack();
-                break;
-
-            case sinType.wrath:
-                meleeAttack();
-                break;
-
-        }
-
-        //attackTimer = 0;
-        //Instantiate(bullet, attackPos.position, transform.rotation);
     }
 
     public override void takeDamage(int amount)
@@ -143,7 +104,7 @@ public class sinEnemy : Enemy
         }
     }
 
-    public IEnumerator flashDamage()
+    public override IEnumerator flashDamage()
     {
         Debug.Log("In flash");
         for (int i = 0; i < skinObjects.Count; i++)
@@ -153,27 +114,20 @@ public class sinEnemy : Enemy
             skinObjects[i].material.SetColor("_EmissionColor", emissionColorOrig);
     }
 
-    void meleeAttack()
+    protected void checkHealth(int phase1HealthMin, int phase2HealthMin)
     {
-        attackTimer = 0;
-
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, playerDirection, out hit, attackDistance, ~ignoreLayer))
-        {
-            Debug.Log(hit.collider.name);
-
-            IDamage dmg = hit.collider.GetComponent<IDamage>();
-
-            if (dmg != null)
-            {
-                dmg.takeDamage(attackDamage);
-            }
-        }
+        if (HP < phase1HealthMin) phase = 2;
+        if (HP < phase2HealthMin) phase = 3;
     }
 
     public void updateBossUI()
     {
         gamemanager.instance.bossHPBar.fillAmount = (float) HP / BHPOrig;
+    }
+
+    public void hitWeakSpot()
+    {
+        weakSpotHit = true;
     }
 
 }

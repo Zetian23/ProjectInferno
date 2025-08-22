@@ -226,7 +226,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 67.33417, y: 0.78, z: 13.06249}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7107964721291424505}
@@ -258,7 +258,7 @@ MonoBehaviour:
   model: {fileID: 8194844779895835821}
   agent: {fileID: 6826098471350094001}
   HP: 3000
-  faceTargetSpeed: 0
+  faceTargetSpeed: 100
   attackRate: 1
   attackDistance: 60
   attackDamage: 40
