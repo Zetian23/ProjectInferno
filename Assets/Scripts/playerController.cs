@@ -174,7 +174,7 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
-    public void gainEXP(int expGained)
+   public virtual void gainEXP(int expGained)
     {
         EXP += expGained;
 
@@ -280,6 +280,7 @@ public class playerController : MonoBehaviour, IDamage
     public void updatePlayerUI()
     {
         gamemanager.instance.playerHPBar.fillAmount = (float)HP / HPMax;
+        gamemanager.instance.playerEXPBar.fillAmount = (float)EXP / expReqOrig;
     }
 
     IEnumerator damageFlash()
@@ -295,4 +296,12 @@ public class playerController : MonoBehaviour, IDamage
         yield return new WaitForSeconds(0.1f);
         gamemanager.instance.playerHealFlash.SetActive(false);
     }
+
+    IEnumerator levelUpFlash() //-N 
+    {
+        gamemanager.instance.playerLevelUPFlash.SetActive(true);
+        yield return new WaitForSeconds(2);
+        gamemanager.instance.playerLevelUPFlash.SetActive(false);
+    }
+
 }
