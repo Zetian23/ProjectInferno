@@ -75,13 +75,18 @@ MonoBehaviour:
   hasWrath: 0
   hasPride: 0
   hasEnvy: 0
-  lustRate: 0
-  lustHealPercent: 0
-  greedEXPMod: 0
-  slothSpeedReduction: 0
-  gluttonyHealthMod: 0
-  wrathDamageMult: 0
+  lustRate: 1.5
+  lustHealPercent: 0.025
+  greedEXPMod: 0.15
+  slothSpeedReduction: 0.9
+  gluttonyHealthMod: 1.15
+  wrathDamageMult: 1.5
   PrideSpeedAdd: 10
+  envyHealPercent: 0.25
+  expReqOrig: 100
+  expReqScaling: 25
+  maxHPLevelUp: 5
+  DamageLevelUp: 1
 --- !u!143 &4964581508061618816
 CharacterController:
   m_ObjectHideFlags: 0

@@ -49,7 +49,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float gluttonyHealthMod;
     [SerializeField] float wrathDamageMult;
     [SerializeField] float PrideSpeedAdd;
-    //implement evny vars here
+    [SerializeField] float envyHealPercent;
 
     //Leveling
     int level;
@@ -236,7 +236,21 @@ public class playerController : MonoBehaviour, IDamage
 
             if (dmg != null)
             {
-                dmg.takeDamage(shootDamage);
+                //Wrath
+                if (hasWrath)
+                {
+                    dmg.takeDamage((int)(shootDamage * wrathDamageMult));
+                }
+                else
+                {
+                    dmg.takeDamage(shootDamage);
+                }
+
+                //Sloth
+                if (hasSloth)
+                {
+                    dmg.slothSlow(slothSpeedReduction);
+                }
             }
         }
     }
@@ -254,7 +268,21 @@ public class playerController : MonoBehaviour, IDamage
 
             if (dmg != null)
             {
-                dmg.takeDamage(hitDamage);
+                //Wrath
+                if (hasWrath)
+                {
+                    dmg.takeDamage((int)(hitDamage * wrathDamageMult));
+                }
+                else
+                {
+                    dmg.takeDamage(hitDamage);
+                }
+
+                //Envy
+                if (hasEnvy)
+                {
+                    takeDamage((int)(hitDamage * envyHealPercent));
+                }
             }
         }
     }
@@ -304,4 +332,8 @@ public class playerController : MonoBehaviour, IDamage
         gamemanager.instance.playerLevelUPFlash.SetActive(false);
     }
 
+    public void slothSlow(float percent)
+    {
+        throw new System.NotImplementedException();
+    }
 }
