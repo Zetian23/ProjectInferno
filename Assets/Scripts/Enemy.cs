@@ -63,12 +63,29 @@ public class Enemy : MonoBehaviour, IDamage
         return false;
     }
 
+    protected virtual void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInTrigger = true;
+        }
+    }
+
+    protected void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInTrigger = false;
+            agent.stoppingDistance = 0;
+        }
+    }
+
     virtual public void faceTarget() { }    // Basic method that keeps the enemy faced to the player after the enemy is at the desired position,
                                             // this will have logic in the update of the child enemy script.
     public virtual void Attack() { }   // Method that is called when an enemy attack, which will be different in the child classes.
     public virtual void takeDamage(int amount) { }    // Method that is called when the enemy takes damage based on the Idamage delt from the player.
 
-    protected IEnumerator flashRed()
+    public virtual IEnumerator flashDamage()
     {
         model.material.color = Color.red;
         yield return new WaitForSeconds(0.1f);

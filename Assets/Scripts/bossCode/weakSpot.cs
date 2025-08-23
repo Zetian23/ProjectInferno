@@ -13,7 +13,7 @@ public class weakSpot : MonoBehaviour, IDamage
     [SerializeField] float pulseDuration;
     [SerializeField] Color pulseColor;
 
-    cagedEnemy parent;
+    sinEnemy parent;
 
     Color origColor;
 
@@ -21,7 +21,7 @@ public class weakSpot : MonoBehaviour, IDamage
     void Start()
     {
         origColor = model.material.color;
-        parent = GetComponentInParent<cagedEnemy>();
+        parent = GetComponentInParent<sinEnemy>();
     }
 
     // Update is called once per frame
@@ -34,10 +34,11 @@ public class weakSpot : MonoBehaviour, IDamage
     {
         if (parent.HP > 0)
         {
-            parent.HP -= amount * 2;
+            parent.HP -= amount * damageMod;
             StartCoroutine(Pulse());
             parent.StartCoroutine(parent.flashDamage());
             parent.updateBossUI();
+            parent.hitWeakSpot();
             hitAmount--;
         }
         if (hitAmount <= 0 && parent.HP > 0)
