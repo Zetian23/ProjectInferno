@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dc1c127c064a8348934470689d80108, type: 3}
   m_Name: HammerShotgun
   m_EditorClassIdentifier: 
-  model: {fileID: 0}
+  meleeModel: {fileID: 919132149155446097, guid: 78102cf37417cf94a9016383bf28063f, type: 3}
+  rangeModel: {fileID: 919132149155446097, guid: d43b387a0af0a214e8e13ec26711623b, type: 3}
   shoDam: 7
   shoDis: 100
   shoRat: 1

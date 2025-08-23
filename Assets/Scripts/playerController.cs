@@ -1,8 +1,9 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 //Code written by brady (Movement-wise)
-public class playerController : MonoBehaviour, IDamage
+public class playerController : MonoBehaviour, IDamage, iPickUp
 {
     [SerializeField] LayerMask ignoreLayer;
     [SerializeField] CharacterController controller;
@@ -24,6 +25,12 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int hitDamage;
     [SerializeField] float hitRate;
     [SerializeField] int hitDist;
+
+    //Weapon Model and Skin
+    [SerializeField] List<weaponStat> weaponList = new List<weaponStat>();
+    [SerializeField] GameObject meleeModel;
+    [SerializeField] GameObject rangeModel;
+
 
     //Dashing
     [SerializeField] float dashTime;
@@ -70,6 +77,7 @@ public class playerController : MonoBehaviour, IDamage
 
     int jumpCount;
     int HP;
+    int weaponListpos;
 
     bool isDashing;
     bool hasAirDashed;
@@ -115,7 +123,7 @@ public class playerController : MonoBehaviour, IDamage
         playerVelocity.y -= gravity * Time.deltaTime;
 
 
-        if (Input.GetButton("Fire1") && shootTimer >= shootRate)
+        if (Input.GetButton("Fire1") && shootTimer >= shootRate && weaponList.Count > 0 && weaponList[weaponListpos].amoCur > 0)
         {
             shoot();
         }
@@ -124,6 +132,8 @@ public class playerController : MonoBehaviour, IDamage
         {
             melee();
         }
+
+        selectWeapon();
 
         //Dash function
         if (Input.GetButtonDown("Dash") && dashTimer >= dashRate && !hasAirDashed)
@@ -203,6 +213,7 @@ public class playerController : MonoBehaviour, IDamage
     void shoot()
     {
         shootTimer = 0;
+        weaponList[weaponListpos].amoCur--;
 
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
@@ -280,5 +291,43 @@ public class playerController : MonoBehaviour, IDamage
         yield return new WaitForSeconds(2);
         gamemanager.instance.playerLevelUPFlash.SetActive(false);
     }
+
+    public void getWeaponStat(weaponStat weapon)
+    {
+        weaponList.Add(weapon);
+        weaponListpos = weaponList.Count - 1;
+        changeWeapon();
+
+    }
+
+    void changeWeapon()
+    {
+        shootDamage = weaponList[weaponListpos].shoDam;
+        shootDist = weaponList[weaponListpos].shoDis;
+        shootRate = weaponList[weaponListpos].shoRat;
+        hitDamage = weaponList[weaponListpos].hitDam;
+        hitDist = weaponList[weaponListpos].hitDis;
+        hitRate = weaponList[weaponListpos].hitRat;
+
+        meleeModel.GetComponent<MeshFilter>().sharedMesh = weaponList[weaponListpos].meleeModel.GetComponent<MeshFilter>().sharedMesh;
+        meleeModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[weaponListpos].meleeModel.GetComponent<MeshRenderer>().sharedMaterial;
+        rangeModel.GetComponent<MeshFilter>().sharedMesh = weaponList[weaponListpos].rangeModel.GetComponent<MeshFilter>().sharedMesh;
+        rangeModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[weaponListpos].rangeModel.GetComponent<MeshRenderer>().sharedMaterial;
+    }
+
+    void selectWeapon()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && weaponListpos < weaponList.Count - 1)
+        {
+            weaponListpos++;
+            changeWeapon();
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && weaponListpos > 0)
+        {
+            weaponListpos--;
+            changeWeapon();
+        }
+    }
+
 
 }

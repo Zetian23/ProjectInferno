@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dc1c127c064a8348934470689d80108, type: 3}
   m_Name: SpearAR
   m_EditorClassIdentifier: 
-  model: {fileID: 0}
+  meleeModel: {fileID: 919132149155446097, guid: 289f952c40dfbd6428f88b9ae791d0d7, type: 3}
+  rangeModel: {fileID: 919132149155446097, guid: 6edd3b2acbe615d478ce69869b7c17e5, type: 3}
   shoDam: 3
   shoDis: 500
   shoRat: 0.3
