@@ -1,9 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 //Code written by brady (Movement-wise)
-public class playerController : MonoBehaviour, IDamage, iPickUp
+public class playerController : MonoBehaviour, IDamage
 {
     [SerializeField] LayerMask ignoreLayer;
     [SerializeField] CharacterController controller;
@@ -25,12 +24,6 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     [SerializeField] int hitDamage;
     [SerializeField] float hitRate;
     [SerializeField] int hitDist;
-
-    //Weapon Model and Skin
-    [SerializeField] List<weaponStat> weaponList = new List<weaponStat>();
-    [SerializeField] GameObject meleeModel;
-    [SerializeField] GameObject rangeModel;
-
 
     //Dashing
     [SerializeField] float dashTime;
@@ -56,7 +49,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     [SerializeField] float gluttonyHealthMod;
     [SerializeField] float wrathDamageMult;
     [SerializeField] float PrideSpeedAdd;
-    //implement evny vars here
+    [SerializeField] float envyHealPercent;
 
     //Leveling
     int level;
@@ -65,7 +58,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     int EXP;
     int expReq;
     [SerializeField] int maxHPLevelUp;
-    [SerializeField] int DamageLevelUp;
+    [SerializeField] float DamageLevelUp;
 
     Vector3 moveDirection;
     Vector3 dashDirection;
@@ -77,12 +70,11 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
 
     int jumpCount;
     int HP;
-    int weaponListpos;
 
     bool isDashing;
     bool hasAirDashed;
     bool hasPrideAdded = false;
-
+    bool hasGluttAdded = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -99,6 +91,18 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     {
         movement();
         sprint();
+
+        //Lust
+        if (hasLust)
+        {
+            lustTimer += Time.deltaTime;
+
+            if(lustTimer >= lustRate)
+            {
+                takeDamage((int)(HPMax * lustHealPercent * -1));
+                lustTimer = 0;
+            }
+        }
     }
 
     void movement()
@@ -123,7 +127,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         playerVelocity.y -= gravity * Time.deltaTime;
 
 
-        if (Input.GetButton("Fire1") && shootTimer >= shootRate && weaponList.Count > 0 && weaponList[weaponListpos].amoCur > 0)
+        if (Input.GetButton("Fire1") && shootTimer >= shootRate)
         {
             shoot();
         }
@@ -132,8 +136,6 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         {
             melee();
         }
-
-        selectWeapon();
 
         //Dash function
         if (Input.GetButtonDown("Dash") && dashTimer >= dashRate && !hasAirDashed)
@@ -162,6 +164,14 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
             speed += PrideSpeedAdd;
             hasPrideAdded = true;
         }
+
+        //Gluttony
+        if(!hasGluttAdded && hasGluttony)
+        {
+            HPMax = (int)(HPMax * gluttonyHealthMod);
+            maxHPLevelUp = (int)(maxHPLevelUp * gluttonyHealthMod);
+            hasGluttAdded = true;
+        }
     }
 
    public virtual void gainEXP(int expGained)
@@ -178,6 +188,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         {
             levelUp();
         }
+
+        updatePlayerUI();
     }
 
     void levelUp()
@@ -186,7 +198,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         EXP -= expReq;
         expReq += expReqScaling;
 
-
+        HPMax += maxHPLevelUp;
+        //Implement damage on lvl up
     }
 
     void jump()
@@ -213,7 +226,6 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     void shoot()
     {
         shootTimer = 0;
-        weaponList[weaponListpos].amoCur--;
 
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
@@ -224,7 +236,21 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
 
             if (dmg != null)
             {
-                dmg.takeDamage(shootDamage);
+                //Wrath
+                if (hasWrath)
+                {
+                    dmg.takeDamage((int)(shootDamage * wrathDamageMult));
+                }
+                else
+                {
+                    dmg.takeDamage(shootDamage);
+                }
+
+                //Sloth
+                if (hasSloth)
+                {
+                    dmg.slothSlow(slothSpeedReduction);
+                }
             }
         }
     }
@@ -242,7 +268,21 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
 
             if (dmg != null)
             {
-                dmg.takeDamage(hitDamage);
+                //Wrath
+                if (hasWrath)
+                {
+                    dmg.takeDamage((int)(hitDamage * wrathDamageMult));
+                }
+                else
+                {
+                    dmg.takeDamage(hitDamage);
+                }
+
+                //Envy
+                if (hasEnvy)
+                {
+                    takeDamage((int)(hitDamage * envyHealPercent));
+                }
             }
         }
     }
@@ -292,42 +332,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         gamemanager.instance.playerLevelUPFlash.SetActive(false);
     }
 
-    public void getWeaponStat(weaponStat weapon)
+    public void slothSlow(float percent)
     {
-        weaponList.Add(weapon);
-        weaponListpos = weaponList.Count - 1;
-        changeWeapon();
-
+        throw new System.NotImplementedException();
     }
-
-    void changeWeapon()
-    {
-        shootDamage = weaponList[weaponListpos].shoDam;
-        shootDist = weaponList[weaponListpos].shoDis;
-        shootRate = weaponList[weaponListpos].shoRat;
-        hitDamage = weaponList[weaponListpos].hitDam;
-        hitDist = weaponList[weaponListpos].hitDis;
-        hitRate = weaponList[weaponListpos].hitRat;
-
-        meleeModel.GetComponent<MeshFilter>().sharedMesh = weaponList[weaponListpos].meleeModel.GetComponent<MeshFilter>().sharedMesh;
-        meleeModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[weaponListpos].meleeModel.GetComponent<MeshRenderer>().sharedMaterial;
-        rangeModel.GetComponent<MeshFilter>().sharedMesh = weaponList[weaponListpos].rangeModel.GetComponent<MeshFilter>().sharedMesh;
-        rangeModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[weaponListpos].rangeModel.GetComponent<MeshRenderer>().sharedMaterial;
-    }
-
-    void selectWeapon()
-    {
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && weaponListpos < weaponList.Count - 1)
-        {
-            weaponListpos++;
-            changeWeapon();
-        }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && weaponListpos > 0)
-        {
-            weaponListpos--;
-            changeWeapon();
-        }
-    }
-
-
 }

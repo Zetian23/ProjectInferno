@@ -73,4 +73,8 @@ public class weakSpot : MonoBehaviour, IDamage
             model.material.SetColor("_EmissionColor", (Color.Lerp(pulseColor, origColor, t)) * intensity);
         }
     }
+
+    public void slothSlow(float percent)
+    {
+    }
 }
