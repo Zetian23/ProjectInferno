@@ -644,6 +644,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4065543331240422131, guid: c7be7a1592ca6bb4d809a9570178b652, type: 3}
+      propertyPath: m_Radius
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065543331240422131, guid: c7be7a1592ca6bb4d809a9570178b652, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
       value: 512
       objectReference: {fileID: 0}
@@ -817,7 +821,7 @@ MonoBehaviour:
   attackRate: 1
   attackDistance: 5
   attackDamage: 10
-  FOV: 130
+  FOV: 360
   attackPos: {fileID: 758545779}
   ignoreLayer:
     serializedVersion: 2
@@ -830,7 +834,8 @@ MonoBehaviour:
   weakSpotHit: 0
   Javelin: {fileID: 1868824274}
   javRB: {fileID: 1868824278}
-  javThrowingSpeed: 25
+  javThrowingSpeed: 30
+  javThrowingDistance: 20
   speedBoostLength: 2
   speedBoostMod: 1.5
 --- !u!135 &1501218179
@@ -853,7 +858,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 2
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -1, z: 0}
 --- !u!1 &1868824274 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1786827681177662366, guid: c7be7a1592ca6bb4d809a9570178b652, type: 3}
@@ -867,9 +872,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1868824274}
   serializedVersion: 5
-  m_Mass: 0.1
+  m_Mass: 10
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 0.1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -899,7 +904,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -919,7 +924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4704ed77120324448fb0f3981fc92d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
+  type: 5
   rb: {fileID: 1868824278}
   damageAmount: 25
   damageRate: 0

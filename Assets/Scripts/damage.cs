@@ -4,7 +4,7 @@ using System.Collections;
 // Code added by Naseem will be commented with "-N"
 public class damage : MonoBehaviour
 {
-    enum damageType { moving, stationary, DOT, homing, death }
+    enum damageType { moving, stationary, DOT, homing, death, jav }
     [SerializeField] damageType type;
     [SerializeField] Rigidbody rb;
 
@@ -66,6 +66,11 @@ public class damage : MonoBehaviour
         if (other.CompareTag("Platform"))
         {
             isGrounded = true;
+        }
+
+        if (other.CompareTag("Player") && type == damageType.jav)
+        {
+            rb.linearVelocity = Vector3.zero;
         }
     }
 

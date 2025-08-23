@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.AI;
@@ -12,12 +13,14 @@ using UnityEngine.UIElements;
 // Ranged Attack                    | Javelin throw.
 public class slothAI : sinEnemy
 {
-    [SerializeField] GameObject Javelin;    // This is needed to be able to set and unset parent object and grab script of this object.
-    [SerializeField] Rigidbody javRB;       // I use this for any change or set of position of the Javelin.
-    [SerializeField] float javThrowingSpeed;// Set this to how fast the javelin will be thrown.
+    [SerializeField] GameObject Javelin;        // This is needed to be able to set and unset parent object and grab script of this object.
+    [SerializeField] Rigidbody javRB;           // I use this for any change or set of position of the Javelin.
+    [SerializeField] float javThrowingSpeed;    // Set this to how fast the javelin will be thrown.
+    [SerializeField] float javThrowingDistance; 
     bool javThrown;         // Checks if the Javelin is has been thrown
     bool javPickUp;         // Checks if the Javelin is in the bosses pickup zone.
     Vector3 javStartPOS;    // Needed to know the original LOCAL position.
+    Vector3 javDirection;    
     Quaternion javStartRot; // Needed to know the original LOCAL rotation.
 
     [SerializeField] float speedBoostLength;    // This is how long the speedboost last after sloth boss takes critical damage.
@@ -33,6 +36,7 @@ public class slothAI : sinEnemy
         startSpeed = agent.speed;               // Initializing how fast the boss was initially set to.
 
         javThrown = false;                              // Initializing that the javelin has not been thrown yet.
+        javPickUp = false;
         javStartPOS = javRB.transform.localPosition;    // Initializing the LOCAL starting position.
         javStartRot = javRB.transform.localRotation;    // Initializing the LOCAL starting rotation.
 
@@ -50,7 +54,14 @@ public class slothAI : sinEnemy
         {
             if (playerInTrigger && canSeePlayer()) { }  // Checks if player is in the trigger and uses the canSeePlayer() method in the Enemy script.
         }
-        else navToJav();// If the javelin has been thrown then the enemy needs to head straight to that position to grab it before returning focus on the player again.
+        else
+        {
+            if (javThrown == false && Javelin.GetComponent<damage>().GetIfGrounded() == true)
+            {
+                javRB.linearVelocity = Vector3.zero;
+            }
+            navToJav();// If the javelin has been thrown then the enemy needs to head straight to that position to grab it before returning focus on the player again.
+        }
 
         if (weakSpotHit == true && phase == 2) speedBoost();    // During the second phase if the weak spot is hit the boss speeds up.
     }
@@ -87,21 +98,18 @@ public class slothAI : sinEnemy
 
     void throwJavelin()
     {
-        stoppingDistOrig = 10f;
+        stoppingDistOrig = javThrowingDistance;
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, playerDirection, out hit, 10, ~ignoreLayer))
-        { 
+        if (Physics.Raycast(transform.position, playerDirection, out hit, javThrowingDistance, ~ignoreLayer) && !javThrown)
+        {
+            javDirection = gamemanager.instance.player.transform.position - Javelin.transform.position;
             Javelin.transform.parent = null;
             javRB.isKinematic = false;
             javRB.useGravity = true;
+            javPickUp = false;
+            agent.speed *= speedBoostMod;
+            javRB.linearVelocity = (javDirection.normalized) * javThrowingSpeed;
             javThrown = true;
-            if (Javelin.GetComponent<damage>().GetIfGrounded() == false)
-                javRB.linearVelocity = attackPos.forward * javThrowingSpeed;
-            else
-            {
-                javRB.linearVelocity = Vector3.zero;
-                agent.speed *= speedBoostMod;
-            }
         }
     }
 
@@ -111,8 +119,8 @@ public class slothAI : sinEnemy
         agent.SetDestination(javRB.position);
         if (javPickUp)
         {
-            javRB.isKinematic = true;
             javRB.useGravity = false;
+            javRB.isKinematic = true;
             javThrown = false;
             javPickUp = false;
             Javelin.transform.parent = this.transform;
@@ -128,9 +136,21 @@ public class slothAI : sinEnemy
     protected override void OnTriggerEnter(Collider collider)
     {
         base.OnTriggerEnter(collider);
-        
-        if(collider.CompareTag("Javelin")) javPickUp = true;
+
+        if (collider.CompareTag("Javelin") && Javelin.GetComponent<damage>().GetIfGrounded() == true)
+        {
+            javPickUp = true;
+        }
     }
+    void OnTriggerStay(Collider collider)
+    {
+        if (collider.CompareTag("Javelin") && Javelin.GetComponent<damage>().GetIfGrounded() == true)
+        {
+            javPickUp = true;
+        }
+    }
+
+
 
     public override void Attack()
     {
