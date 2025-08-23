@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour, IDamage
     [SerializeField] public NavMeshAgent agent;    // The agent that seperate enemies will have to have pathing
 
     [SerializeField] public int HP;
+    [SerializeField] public float enemySpeed;
 
     [SerializeField] public int faceTargetSpeed;
 
@@ -76,6 +77,6 @@ public class Enemy : MonoBehaviour, IDamage
 
     public void slothSlow(float percent)
     {
-        throw new System.NotImplementedException();
+       enemySpeed *= percent;
     }
 }
