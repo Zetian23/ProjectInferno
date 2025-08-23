@@ -74,4 +74,8 @@ public class Enemy : MonoBehaviour, IDamage
         model.material.color = colorOrg;
     }
 
+    public void slothSlow(float percent)
+    {
+        throw new System.NotImplementedException();
+    }
 }

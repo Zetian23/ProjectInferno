@@ -49,7 +49,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float gluttonyHealthMod;
     [SerializeField] float wrathDamageMult;
     [SerializeField] float PrideSpeedAdd;
-    //implement evny vars here
+    [SerializeField] float envyHealPercent;
 
     //Leveling
     int level;
@@ -58,7 +58,7 @@ public class playerController : MonoBehaviour, IDamage
     int EXP;
     int expReq;
     [SerializeField] int maxHPLevelUp;
-    [SerializeField] int DamageLevelUp;
+    [SerializeField] float DamageLevelUp;
 
     Vector3 moveDirection;
     Vector3 dashDirection;
@@ -74,7 +74,7 @@ public class playerController : MonoBehaviour, IDamage
     bool isDashing;
     bool hasAirDashed;
     bool hasPrideAdded = false;
-
+    bool hasGluttAdded = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -91,6 +91,18 @@ public class playerController : MonoBehaviour, IDamage
     {
         movement();
         sprint();
+
+        //Lust
+        if (hasLust)
+        {
+            lustTimer += Time.deltaTime;
+
+            if(lustTimer >= lustRate)
+            {
+                takeDamage((int)(HPMax * lustHealPercent * -1));
+                lustTimer = 0;
+            }
+        }
     }
 
     void movement()
@@ -152,6 +164,14 @@ public class playerController : MonoBehaviour, IDamage
             speed += PrideSpeedAdd;
             hasPrideAdded = true;
         }
+
+        //Gluttony
+        if(!hasGluttAdded && hasGluttony)
+        {
+            HPMax = (int)(HPMax * gluttonyHealthMod);
+            maxHPLevelUp = (int)(maxHPLevelUp * gluttonyHealthMod);
+            hasGluttAdded = true;
+        }
     }
 
    public virtual void gainEXP(int expGained)
@@ -168,6 +188,8 @@ public class playerController : MonoBehaviour, IDamage
         {
             levelUp();
         }
+
+        updatePlayerUI();
     }
 
     void levelUp()
@@ -176,7 +198,8 @@ public class playerController : MonoBehaviour, IDamage
         EXP -= expReq;
         expReq += expReqScaling;
 
-
+        HPMax += maxHPLevelUp;
+        //Implement damage on lvl up
     }
 
     void jump()
@@ -213,7 +236,21 @@ public class playerController : MonoBehaviour, IDamage
 
             if (dmg != null)
             {
-                dmg.takeDamage(shootDamage);
+                //Wrath
+                if (hasWrath)
+                {
+                    dmg.takeDamage((int)(shootDamage * wrathDamageMult));
+                }
+                else
+                {
+                    dmg.takeDamage(shootDamage);
+                }
+
+                //Sloth
+                if (hasSloth)
+                {
+                    dmg.slothSlow(slothSpeedReduction);
+                }
             }
         }
     }
@@ -231,7 +268,21 @@ public class playerController : MonoBehaviour, IDamage
 
             if (dmg != null)
             {
-                dmg.takeDamage(hitDamage);
+                //Wrath
+                if (hasWrath)
+                {
+                    dmg.takeDamage((int)(hitDamage * wrathDamageMult));
+                }
+                else
+                {
+                    dmg.takeDamage(hitDamage);
+                }
+
+                //Envy
+                if (hasEnvy)
+                {
+                    takeDamage((int)(hitDamage * envyHealPercent));
+                }
             }
         }
     }
@@ -257,6 +308,7 @@ public class playerController : MonoBehaviour, IDamage
     public void updatePlayerUI()
     {
         gamemanager.instance.playerHPBar.fillAmount = (float)HP / HPMax;
+        gamemanager.instance.playerEXPBar.fillAmount = (float)EXP / expReqOrig;
     }
 
     IEnumerator damageFlash()
@@ -271,5 +323,17 @@ public class playerController : MonoBehaviour, IDamage
         gamemanager.instance.playerHealFlash.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         gamemanager.instance.playerHealFlash.SetActive(false);
+    }
+
+    IEnumerator levelUpFlash() //-N 
+    {
+        gamemanager.instance.playerLevelUPFlash.SetActive(true);
+        yield return new WaitForSeconds(2);
+        gamemanager.instance.playerLevelUPFlash.SetActive(false);
+    }
+
+    public void slothSlow(float percent)
+    {
+        throw new System.NotImplementedException();
     }
 }
