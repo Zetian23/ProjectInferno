@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour, IDamage
 
     [SerializeField] public Renderer model;        // The enemies renderer made for that enemy or enemy prefab
     [SerializeField] public NavMeshAgent agent;    // The agent that seperate enemies will have to have pathing
+    [SerializeField] Transform headPos;
 
     [SerializeField] public int HP;
     [SerializeField] public float enemySpeed;
@@ -34,12 +35,12 @@ public class Enemy : MonoBehaviour, IDamage
 
     public bool canSeePlayer()
     {
-        playerDirection = gamemanager.instance.player.transform.position - transform.position;
+        playerDirection = gamemanager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(playerDirection, transform.forward);
-        Debug.DrawRay(transform.position, playerDirection);
+        Debug.DrawRay(headPos.position, playerDirection);
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, playerDirection, out hit))
+        if (Physics.Raycast(headPos.position, playerDirection, out hit))
         {
             // Hey I can see you!!!
             if (hit.collider.CompareTag("Player") && angleToPlayer <= FOV)

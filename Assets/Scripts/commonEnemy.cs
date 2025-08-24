@@ -1,6 +1,7 @@
 
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 //code written by William
 public class CommonEnemyScript : Enemy, IDamage
 {
@@ -9,6 +10,8 @@ public class CommonEnemyScript : Enemy, IDamage
     
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTimer;
+    [SerializeField] Animator anim;
+    [SerializeField] float animTranSpeed;
 
     public playerController expGained;
 
@@ -30,6 +33,8 @@ public class CommonEnemyScript : Enemy, IDamage
     // Update is called once per frame
     void Update()
     {
+        setAnimLoco();
+
         attackTimer += Time.deltaTime;
 
         if (agent.remainingDistance < 0.01f)
@@ -47,6 +52,13 @@ public class CommonEnemyScript : Enemy, IDamage
         }
     }
 
+    void setAnimLoco()
+    {
+        float agentSpeedCur = agent.velocity.normalized.magnitude;
+        float animSpeedCur = anim.GetFloat("Speed");
+
+        anim.SetFloat("Speed", Mathf.Lerp(animSpeedCur, agentSpeedCur, Time.deltaTime * animTranSpeed));
+    }
     void checkRoam()
     {
         if (roamTimer >= roamPauseTimer && agent.remainingDistance < 0.01f)
@@ -103,6 +115,9 @@ public class CommonEnemyScript : Enemy, IDamage
     public override void Attack()
     {
         attackTimer = 0;
+
+        anim.SetTrigger("Shoot");
+
         Instantiate(weapon, attackPos.position, transform.rotation);
     }
 
