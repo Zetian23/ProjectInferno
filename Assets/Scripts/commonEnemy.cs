@@ -96,22 +96,7 @@ public class CommonEnemyScript : Enemy, IDamage
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * faceTargetSpeed);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerInTrigger = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerInTrigger = false;
-            agent.stoppingDistance = 0;
-        }
-    }
+    
     public override void Attack()
     {
         attackTimer = 0;
@@ -131,7 +116,7 @@ public class CommonEnemyScript : Enemy, IDamage
         }
         if (HP <= 0)
         {
-            gamemanager.instance.updateGameGoal(0, -1, 0);
+            gamemanager.instance.updateGameGoal(0, 0, -1);
             Destroy(gameObject);
             CallGainEXP();
             
