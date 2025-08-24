@@ -22,7 +22,7 @@ public class CommonEnemyScript : Enemy, IDamage
     void Start()
     {
         colorOrg = model.material.color;
-        gamemanager.instance.updateGameGoal(0, 1, 0);
+        gamemanager.instance.updateGameGoal(0, 0, 1);
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
     }
