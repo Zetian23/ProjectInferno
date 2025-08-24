@@ -127,7 +127,7 @@ public class CommonEnemyScript : Enemy, IDamage
         {
             HP -= amount;
             agent.SetDestination(gamemanager.instance.player.transform.position);
-            StartCoroutine(flashRed());
+            StartCoroutine(flashDamage());
         }
         if (HP <= 0)
         {
