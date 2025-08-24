@@ -53,7 +53,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 850223306477253247}
   agent: {fileID: 5358724223876900850}
-  HP: 5
+  HP: 50
+  enemySpeed: 0
   faceTargetSpeed: 10
   attackRate: 0.5
   attackDistance: 15
