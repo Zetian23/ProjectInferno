@@ -29,4 +29,27 @@ public class buttonFunctions : MonoBehaviour
         SceneManager.LoadScene(lvl);
         gamemanager.instance.stateUnpause();
     }
+
+
+    public void openSettingsMenu()
+    {
+
+        settingsManager.Instance.enableMenu();
+
+    }
+
+
+    public void back()
+    {
+        settingsManager.Instance.disableMenu();
+    }
+
+    public void changeSensitivty()
+    {
+
+
+    }
+
+
+
 }
