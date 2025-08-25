@@ -89,14 +89,15 @@ public class gamemanager : MonoBehaviour
         meleeEnemyCount += nummel;
         rangedEnemyCount += numran;
         bossEnemyCount += numBoss;
-        
+
+        if (bossEnemyCount > 1)
+            bossEnemyCount--;
 
         meleeEnemyCountText.text = meleeEnemyCount.ToString("F0");
         rangedEnemyCountText.text = rangedEnemyCount.ToString("F0");
         bossEnemyCountText.text = bossEnemyCount.ToString("F0");
 
-        if (bossEnemyCount > 1)
-            bossEnemyCount--;
+        
         
         if (bossEnemyCount <= 0)
         {
