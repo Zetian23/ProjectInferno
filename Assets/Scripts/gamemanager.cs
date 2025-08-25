@@ -14,7 +14,7 @@ public class gamemanager : MonoBehaviour
     [SerializeField] TMP_Text meleeEnemyCountText;
     [SerializeField] TMP_Text rangedEnemyCountText;
     [SerializeField] TMP_Text bossEnemyCountText;
-    [SerializeField] TMP_Text sinBossNameText;
+    [SerializeField] TMP_Text bossNameText;
 
     [SerializeField] int Wave;
 
@@ -32,7 +32,9 @@ public class gamemanager : MonoBehaviour
     public bool isPaused;
     float timeScaleOrig;
 
-    
+    public enum bossType { sloth, wrath, gluttony, envy, lust, greed, pride, final };
+    public bossType boss;
+
     int meleeEnemyCount;
     int rangedEnemyCount;
     int bossEnemyCount;
@@ -107,9 +109,9 @@ public class gamemanager : MonoBehaviour
         }
     }
 
-    public void SinnerType(string sin)
+    public void SetBossText(string boss)
     {
-        sinBossNameText.text = sin;
+        bossNameText.text = boss;
     }
 
     public void updateWave(int wa)

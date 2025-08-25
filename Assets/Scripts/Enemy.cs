@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour, IDamage
 
     [SerializeField] public Renderer model;        // The enemies renderer made for that enemy or enemy prefab
     [SerializeField] public NavMeshAgent agent;    // The agent that seperate enemies will have to have pathing
+    [SerializeField] Transform headPos;
 
     [SerializeField] public int HP;
     [SerializeField] public float enemySpeed;
@@ -34,12 +35,12 @@ public class Enemy : MonoBehaviour, IDamage
 
     public bool canSeePlayer()
     {
-        playerDirection = gamemanager.instance.player.transform.position - transform.position;
+        playerDirection = gamemanager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(playerDirection, transform.forward);
-        Debug.DrawRay(transform.position, playerDirection);
+        Debug.DrawRay(headPos.position, playerDirection);
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, playerDirection, out hit))
+        if (Physics.Raycast(headPos.position, playerDirection, out hit))
         {
             // Hey I can see you!!!
             if (hit.collider.CompareTag("Player") && angleToPlayer <= FOV)
@@ -63,12 +64,29 @@ public class Enemy : MonoBehaviour, IDamage
         return false;
     }
 
+    protected virtual void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInTrigger = true;
+        }
+    }
+
+    protected void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInTrigger = false;
+            agent.stoppingDistance = 0;
+        }
+    }
+
     virtual public void faceTarget() { }    // Basic method that keeps the enemy faced to the player after the enemy is at the desired position,
                                             // this will have logic in the update of the child enemy script.
     public virtual void Attack() { }   // Method that is called when an enemy attack, which will be different in the child classes.
     public virtual void takeDamage(int amount) { }    // Method that is called when the enemy takes damage based on the Idamage delt from the player.
 
-    protected IEnumerator flashRed()
+    public virtual IEnumerator flashDamage()
     {
         model.material.color = Color.red;
         yield return new WaitForSeconds(0.1f);
