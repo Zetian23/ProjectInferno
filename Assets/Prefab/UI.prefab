@@ -3705,7 +3705,7 @@ MonoBehaviour:
   meleeEnemyCountText: {fileID: 7660183700636444250}
   rangedEnemyCountText: {fileID: 9129220918739783629}
   bossEnemyCountText: {fileID: 2732613565697377216}
-  sinBossNameText: {fileID: 5098556316291641703}
+  bossNameText: {fileID: 5098556316291641703}
   Wave: 0
   playerHPBar: {fileID: 6608478917455844661}
   playerEXPBar: {fileID: 4199047043123351654}
@@ -3716,6 +3716,7 @@ MonoBehaviour:
   player: {fileID: 0}
   playerScript: {fileID: 0}
   isPaused: 0
+  boss: 0
 --- !u!1 &6061782610458597205
 GameObject:
   m_ObjectHideFlags: 0
