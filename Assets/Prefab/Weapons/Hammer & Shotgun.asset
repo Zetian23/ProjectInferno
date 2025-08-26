@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01e8ca1e06b141d44bf4a783393b3ba5, type: 3}
+  m_Name: Hammer & Shotgun
+  m_EditorClassIdentifier: 
+  gunModel: {fileID: 919132149155446097, guid: d43b387a0af0a214e8e13ec26711623b, type: 3}
+  shootDamage: 7
+  shootDist: 100
+  shootRate: 1
+  ammoCur: 0
+  ammoMax: 2
+  shootEffect: {fileID: 0}
+  shootSound: {fileID: 0}
+  shootVol: 0.5
+  meleeModel: {fileID: 919132149155446097, guid: 78102cf37417cf94a9016383bf28063f, type: 3}
+  meleeDamage: 5
+  meleeDist: 40
+  meleeRate: 1
+  meleeEffect: {fileID: 0}
+  meleeSound: {fileID: 0}
+  meleeVol: 0.5
