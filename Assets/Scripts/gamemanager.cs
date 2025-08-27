@@ -42,6 +42,7 @@ public class gamemanager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+        bossEnemyCount = 1;
         instance = this;
         timeScaleOrig = Time.timeScale;
 
@@ -91,20 +92,16 @@ public class gamemanager : MonoBehaviour
         rangedEnemyCount += numran;
         bossEnemyCount += numBoss;
 
+        if (bossEnemyCount > 1)
+            bossEnemyCount--;
+
         meleeEnemyCountText.text = meleeEnemyCount.ToString("F0");
         rangedEnemyCountText.text = rangedEnemyCount.ToString("F0");
         bossEnemyCountText.text = bossEnemyCount.ToString("F0");
 
-        int WinCondition = numBoss + nummel + numran;
         
-        /*if (gameGoalCount <= 0)
-        {
-            //you won
-            statePause();
-            menuActive = menuWin;
-            menuActive.SetActive(true);
-        }*/
-        if(WinCondition <= 0)
+        
+        if (bossEnemyCount <= 0)
         {
             statePause();
             menuActive = menuWin;
