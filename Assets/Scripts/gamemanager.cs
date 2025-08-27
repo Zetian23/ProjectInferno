@@ -14,7 +14,7 @@ public class gamemanager : MonoBehaviour
     [SerializeField] TMP_Text meleeEnemyCountText;
     [SerializeField] TMP_Text rangedEnemyCountText;
     [SerializeField] TMP_Text bossEnemyCountText;
-    [SerializeField] TMP_Text sinBossNameText;
+    [SerializeField] TMP_Text bossNameText;
 
     [SerializeField] int Wave;
 
@@ -32,7 +32,9 @@ public class gamemanager : MonoBehaviour
     public bool isPaused;
     float timeScaleOrig;
 
-    
+    public enum bossType { sloth, wrath, gluttony, envy, lust, greed, pride, final };
+    public bossType boss;
+
     int meleeEnemyCount;
     int rangedEnemyCount;
     int bossEnemyCount;
@@ -40,6 +42,7 @@ public class gamemanager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+        bossEnemyCount = 1;
         instance = this;
         timeScaleOrig = Time.timeScale;
 
@@ -88,21 +91,16 @@ public class gamemanager : MonoBehaviour
         meleeEnemyCount += nummel;
         rangedEnemyCount += numran;
         bossEnemyCount += numBoss;
+        
 
         meleeEnemyCountText.text = meleeEnemyCount.ToString("F0");
         rangedEnemyCountText.text = rangedEnemyCount.ToString("F0");
         bossEnemyCountText.text = bossEnemyCount.ToString("F0");
 
-        int WinCondition = numBoss + nummel + numran;
+        if (bossEnemyCount > 1)
+            bossEnemyCount--;
         
-        /*if (gameGoalCount <= 0)
-        {
-            //you won
-            statePause();
-            menuActive = menuWin;
-            menuActive.SetActive(true);
-        }*/
-        if(WinCondition <= 0)
+        if (bossEnemyCount <= 0)
         {
             statePause();
             menuActive = menuWin;
@@ -110,9 +108,9 @@ public class gamemanager : MonoBehaviour
         }
     }
 
-    public void SinnerType(string sin)
+    public void SetBossText(string boss)
     {
-        sinBossNameText.text = sin;
+        bossNameText.text = boss;
     }
 
     public void updateWave(int wa)
