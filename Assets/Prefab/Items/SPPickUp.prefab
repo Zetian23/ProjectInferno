@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a6208fb82c017e54ba58903901e0314d, type: 3}
       propertyPath: m_Name
-      value: gameSwordPickUp
+      value: SPPickUp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78745e8b83c19f84f81e25ec70b5fbca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 11400000, guid: 01213ad3fc9d1074db31e4fe969b221a, type: 2}
+  weapon: {fileID: 11400000, guid: 053d514160681b3459db6e7ee9521227, type: 2}
 --- !u!95 &9138802725308549316
 Animator:
   serializedVersion: 7
