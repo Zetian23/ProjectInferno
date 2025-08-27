@@ -1,22 +1,17 @@
 using UnityEngine;
 
-public class pickup : MonoBehaviour
+public class pickUp : MonoBehaviour
 {
-
-    [SerializeField] Weapon weapon;
+    [SerializeField] weaponStat weapon;
 
     private void OnTriggerEnter(Collider other)
     {
-        IPickup pickupable = GetComponent<IPickup>();
+        iPickUp pickupable = other.GetComponent<iPickUp>();
         if (pickupable != null)
         {
-            //after the weapon stuff is rewritten for modularity
-            //use this to assign things
+            pickupable.getWeaponStat(weapon);
+            weapon.amoCur = weapon.amoMax;
             Destroy(gameObject);
         }
     }
-
-
 }
-
-

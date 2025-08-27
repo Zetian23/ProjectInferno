@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface IPickup
+public interface iPickUp
 {
-    public void getWeaponStats(Weapon weapon);
+    public void getWeaponStat(weaponStat weapon);
 }

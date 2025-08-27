@@ -121,14 +121,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7002621214200835872}
+      - m_Target: {fileID: 6525522587898058855}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
-        m_MethodName: startGame
-        m_Mode: 1
+        m_MethodName: loadLevel
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -750,6 +750,143 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &992234985682097241
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7120870005792547732}
+  - component: {fileID: 8547250646375797947}
+  - component: {fileID: 475901506874662306}
+  - component: {fileID: 3470932956898668880}
+  m_Layer: 0
+  m_Name: Main Camera
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7120870005792547732
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992234985682097241}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -960, y: -539, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1132076453437860413}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &8547250646375797947
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992234985682097241}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!81 &475901506874662306
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992234985682097241}
+  m_Enabled: 1
+--- !u!114 &3470932956898668880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992234985682097241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &1881445833488667166
 GameObject:
   m_ObjectHideFlags: 0
@@ -1149,17 +1286,26 @@ MonoBehaviour:
   menuPause: {fileID: 0}
   menuWin: {fileID: 0}
   menuLose: {fileID: 0}
-  playerHPCountText: {fileID: 0}
-  enemyHPBar: {fileID: 0}
-  playerDamageScreen: {fileID: 0}
-  playerHealScreen: {fileID: 0}
-  playerPerfectDodgeScreen: {fileID: 0}
+  meleeEnemyCountText: {fileID: 0}
+  rangedEnemyCountText: {fileID: 0}
+  bossEnemyCountText: {fileID: 0}
+  bossNameText: {fileID: 0}
+  Wave: 0
+  playerHPBar: {fileID: 0}
+  playerEXPBar: {fileID: 0}
+  playerDamageFlash: {fileID: 0}
+  playerHealFlash: {fileID: 0}
+  playerLevelUPFlash: {fileID: 0}
+  bossHPBar: {fileID: 0}
   player: {fileID: 0}
   playerScript: {fileID: 0}
   isPaused: 0
+  boss: 0
+  parentMenu: {fileID: 6083025330533424486}
   settingsMenu: {fileID: 6891187943404173447}
   cameraMenu: {fileID: 6886574925139808416}
   activeMenu: {fileID: 0}
+  prevMenu: {fileID: 0}
 --- !u!1 &2714010813568305728
 GameObject:
   m_ObjectHideFlags: 0
@@ -1377,7 +1523,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 190406672243028401}
-  - component: {fileID: 7002621214200835872}
+  - component: {fileID: 6525522587898058855}
   m_Layer: 5
   m_Name: Button Functions
   m_TagString: Untagged
@@ -1404,7 +1550,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7002621214200835872
+--- !u!114 &6525522587898058855
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1413,7 +1559,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2848936317398437324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dcc2a478c7592b49b467c25b4bf16cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 174a85969255e9047aedd76573617b91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3748079274097654941
@@ -1635,7 +1781,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7002621214200835872}
+      - m_Target: {fileID: 6525522587898058855}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
         m_MethodName: openSettingsMenu
         m_Mode: 1
@@ -1795,7 +1941,6 @@ GameObject:
   - component: {fileID: 7225369960617381508}
   - component: {fileID: 3564912019658073608}
   - component: {fileID: 5975228760468612753}
-  - component: {fileID: 4506325560677663687}
   m_Layer: 5
   m_Name: Title Screen
   m_TagString: Untagged
@@ -1821,9 +1966,10 @@ RectTransform:
   - {fileID: 658638140367632877}
   - {fileID: 2921370550316487179}
   - {fileID: 4776958298351821975}
-  - {fileID: 7519315752495091375}
-  - {fileID: 1241655037532427502}
   - {fileID: 6745240277683030928}
+  - {fileID: 1241655037532427502}
+  - {fileID: 7519315752495091375}
+  - {fileID: 7120870005792547732}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1894,18 +2040,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &4506325560677663687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5075104041166361047}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dcc2a478c7592b49b467c25b4bf16cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5080710368806831057
 GameObject:
   m_ObjectHideFlags: 0
@@ -2160,9 +2294,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7002621214200835872}
+      - m_Target: {fileID: 6525522587898058855}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
-        m_MethodName: quit
+        m_MethodName: back
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2696,7 +2830,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 211.70001}
+  m_AnchoredPosition: {x: 0, y: 211.7}
   m_SizeDelta: {x: 100, y: 101.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4328711040636365811
@@ -2889,7 +3023,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 211.70001}
+  m_AnchoredPosition: {x: 0, y: 211.7}
   m_SizeDelta: {x: 100, y: 101.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6451469955578706248
@@ -2913,7 +3047,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3298,7 +3432,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7002621214200835872}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
         m_MethodName: startGame
         m_Mode: 1
@@ -3511,7 +3645,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Project 7
+  m_text: Project Inferno
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3841,7 +3975,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7002621214200835872}
+      - m_Target: {fileID: 6525522587898058855}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
         m_MethodName: quit
         m_Mode: 1
@@ -3974,9 +4108,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7002621214200835872}
+      - m_Target: {fileID: 6525522587898058855}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
-        m_MethodName: quit
+        m_MethodName: back
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

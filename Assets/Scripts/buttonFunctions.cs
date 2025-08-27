@@ -41,6 +41,7 @@ public class buttonFunctions : MonoBehaviour
 
     public void back()
     {
+
         settingsManager.Instance.disableMenu();
     }
 

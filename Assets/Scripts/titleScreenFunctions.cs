@@ -44,12 +44,10 @@ public class titlescreenFunctions : MonoBehaviour
             menuActive = mainMenu;
             mainMenu.SetActive(true);
 
-        } else if (menuActive != mainMenu)
-        {
-            mainMenu.SetActive(false);
         }
 
         menuSelection();
+
     }
 
 
