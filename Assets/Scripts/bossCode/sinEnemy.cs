@@ -1,30 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// Code written by Nathaniel
+// Code written by Nathaniel <3
+
 public class sinEnemy : Enemy
 {
     [SerializeField] protected LayerMask ignoreLayer;
 
     enum sinType
     {
-        sloth,      // Attacks: Melee (Phase 1-2); Ranged (Phase 3)
-            // Phase 1: (HP >= 80)
-        // Melee Attack     | Close Range javelin attack.
-            // Phase 2: (HP >= 40)
-        // Speed Boost      | After hit to weak spot move quicker after a period of time.
-            // Phase 3: (HP < 40)
-        // Ranged Attack    | Javelin throw.
-
-        // Special Skill Retrived: Slows enemies when attacked.
-        wrath,      // Attacks: Melee (Phase 1-2); Ranged (Phase 3)
-            // Phase 1: (HP >= 175)
-        // Melee Attack     | Sword slash onto player.
-            // Phase 2: (HP >= 100)
-        // Spin Attack      | Spin with sword for a time and can be damage.
-            // Phase 3: (HP < 100)
-        // Eye Shot         | Eyes still attached will come off and move towards player dealing damage when collided.
-
         // Special Skill Retrived: Buff damage dealt by player.
         gluttony,   // Attacks: Melee (Phase 1-3)
             // Phase 1: (HP >= 300)
@@ -62,18 +46,20 @@ public class sinEnemy : Enemy
     }
 
     sinType sinner;
-    [SerializeField] List<Renderer> skinObjects;
+    [SerializeField] protected List<Renderer> skinObjects;
 
     protected Color emissionColorOrig;
 
     protected int phase;
     protected int BHPOrig;
+    public bool isInvensible;
     public bool weakSpotHit;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void InitVar()
     {
         gamemanager.instance.updateGameGoal(1, 0, 0);
+        isInvensible = false;                                                   // Initializing that there is no invensibility.
         colorOrg = model.material.color;
         emissionColorOrig = skinObjects[0].material.GetColor("_EmissionColor");
         phase = 1;
@@ -91,16 +77,18 @@ public class sinEnemy : Enemy
 
     public override void takeDamage(int amount)
     {
-        if (HP > 0)
-        {
-            HP -= amount;
-            StartCoroutine(flashDamage());
-            updateBossUI();
-        }
-        if (HP <= 0)
-        {
-            Destroy(gameObject);
-            gamemanager.instance.updateGameGoal(-1, 0, 0);
+        if (!isInvensible) {
+            if (HP > 0)
+            {
+                HP -= amount;
+                StartCoroutine(flashDamage());
+                updateBossUI();
+            }
+            if (HP <= 0)
+            {
+                Destroy(gameObject);
+                gamemanager.instance.updateGameGoal(-1, 0, 0);
+            }
         }
     }
 
@@ -124,10 +112,4 @@ public class sinEnemy : Enemy
     {
         gamemanager.instance.bossHPBar.fillAmount = (float) HP / BHPOrig;
     }
-
-    public void hitWeakSpot()
-    {
-        weakSpotHit = true;
-    }
-
 }

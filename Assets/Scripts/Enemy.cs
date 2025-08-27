@@ -11,7 +11,6 @@ public class Enemy : MonoBehaviour, IDamage
     [SerializeField] public NavMeshAgent agent;    // The agent that seperate enemies will have to have pathing
 
     [SerializeField] public int HP;
-    [SerializeField] public float enemySpeed;
 
     [SerializeField] public int faceTargetSpeed;
 
@@ -29,6 +28,7 @@ public class Enemy : MonoBehaviour, IDamage
     protected float attackTimer;               // Each enemy will have different time it takes to attack.
     protected float angleToPlayer;
     protected float stoppingDistOrig;
+    protected float startSpeed;
 
     protected bool playerInTrigger;            // Player enters the area where the enemy will be aware of the player.
 
@@ -71,7 +71,7 @@ public class Enemy : MonoBehaviour, IDamage
         }
     }
 
-    protected void OnTriggerExit(Collider other)
+    protected virtual void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -94,6 +94,6 @@ public class Enemy : MonoBehaviour, IDamage
 
     public void slothSlow(float percent)
     {
-       enemySpeed *= percent;
+       startSpeed *= percent;
     }
 }
