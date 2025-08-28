@@ -319,7 +319,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     public void updatePlayerUI()
     {
         gamemanager.instance.playerHPBar.fillAmount = (float)HP / HPMax;
-        gamemanager.instance.playerEXPBar.fillAmount = (float)EXP / expReqOrig;
+        gamemanager.instance.playerEXPBar.fillAmount = (float)EXP / expReq;
     }
 
     IEnumerator damageFlash()
