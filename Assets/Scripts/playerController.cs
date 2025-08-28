@@ -1,3 +1,4 @@
+using NUnit.Framework.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     [SerializeField] int jumpMax;
     [SerializeField] int gravity;
 
+    [SerializeField] weaponStats startingWeapon;
     //Range Weapon
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
@@ -27,7 +29,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     [SerializeField] int hitDist;
 
     //Weapon Model and Skin
-    [SerializeField] List<weaponStat> weaponList = new List<weaponStat>();
+    [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
     [SerializeField] GameObject meleeModel;
     [SerializeField] GameObject rangeModel;
 
@@ -90,6 +92,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         level = 1;
         EXP = 0;
         expReq = expReqOrig;
+        getWeaponStat(startingWeapon);
         updatePlayerUI();
     }
 
@@ -134,7 +137,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         playerVelocity.y -= gravity * Time.deltaTime;
 
 
-        if (Input.GetButton("Fire1") && shootTimer >= shootRate && weaponList.Count > 0 && weaponList[weaponListpos].amoCur > 0)
+        if (Input.GetButton("Fire1") && shootTimer >= shootRate && weaponList.Count > 0 && weaponList[weaponListpos].ammoCur > 0)
         {
             shoot();
         }
@@ -208,7 +211,6 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         expReq += expReqScaling;
 
         HPMax += maxHPLevelUp;
-        //Implement damage on lvl up
     }
 
     void jump()
@@ -235,7 +237,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     void shoot()
     {
         shootTimer = 0;
-        weaponList[weaponListpos].amoCur--;
+        weaponList[weaponListpos].ammoCur--;
 
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
@@ -249,11 +251,11 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
                 //Wrath
                 if (hasWrath)
                 {
-                    dmg.takeDamage((int)(shootDamage * wrathDamageMult));
+                    dmg.takeDamage((int)(shootDamage * wrathDamageMult * (DamageLevelUp * level + 1)));
                 }
                 else
                 {
-                    dmg.takeDamage(shootDamage);
+                    dmg.takeDamage((int)(shootDamage * (DamageLevelUp * level + 1)));
                 }
 
                 //Sloth
@@ -318,7 +320,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     public void updatePlayerUI()
     {
         gamemanager.instance.playerHPBar.fillAmount = (float)HP / HPMax;
-        gamemanager.instance.playerEXPBar.fillAmount = (float)EXP / expReqOrig;
+        gamemanager.instance.playerEXPBar.fillAmount = (float)EXP / expReq;
     }
 
     IEnumerator damageFlash()
@@ -347,7 +349,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         throw new System.NotImplementedException();
     }
 
-    public void getWeaponStat(weaponStat weapon)
+    public void getWeaponStat(weaponStats weapon)
     {
         weaponList.Add(weapon);
         weaponListpos = weaponList.Count - 1;
@@ -357,17 +359,17 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
 
     void changeWeapon()
     {
-        shootDamage = weaponList[weaponListpos].shoDam;
-        shootDist = weaponList[weaponListpos].shoDis;
-        shootRate = weaponList[weaponListpos].shoRat;
-        hitDamage = weaponList[weaponListpos].hitDam;
-        hitDist = weaponList[weaponListpos].hitDis;
-        hitRate = weaponList[weaponListpos].hitRat;
+        shootDamage = weaponList[weaponListpos].shootDamage;
+        shootDist = weaponList[weaponListpos].shootDist;
+        shootRate = weaponList[weaponListpos].shootRate;
+        hitDamage = weaponList[weaponListpos].meleeDamage;
+        hitDist = weaponList[weaponListpos].meleeDist;
+        hitRate = weaponList[weaponListpos].meleeRate;
 
         meleeModel.GetComponent<MeshFilter>().sharedMesh = weaponList[weaponListpos].meleeModel.GetComponent<MeshFilter>().sharedMesh;
         meleeModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[weaponListpos].meleeModel.GetComponent<MeshRenderer>().sharedMaterial;
-        rangeModel.GetComponent<MeshFilter>().sharedMesh = weaponList[weaponListpos].rangeModel.GetComponent<MeshFilter>().sharedMesh;
-        rangeModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[weaponListpos].rangeModel.GetComponent<MeshRenderer>().sharedMaterial;
+        rangeModel.GetComponent<MeshFilter>().sharedMesh = weaponList[weaponListpos].gunModel.GetComponent<MeshFilter>().sharedMesh;
+        rangeModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[weaponListpos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
     }
 
     void selectWeapon()
@@ -383,5 +385,4 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
             changeWeapon();
         }
     }
-
 }
