@@ -17,6 +17,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     [SerializeField] int jumpMax;
     [SerializeField] int gravity;
 
+    [SerializeField] weaponStats startingWeapon;
     //Range Weapon
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
@@ -91,6 +92,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         level = 1;
         EXP = 0;
         expReq = expReqOrig;
+        getWeaponStat(startingWeapon);
         updatePlayerUI();
     }
 
@@ -209,7 +211,6 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         expReq += expReqScaling;
 
         HPMax += maxHPLevelUp;
-        //Implement damage on lvl up
     }
 
     void jump()
@@ -250,11 +251,11 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
                 //Wrath
                 if (hasWrath)
                 {
-                    dmg.takeDamage((int)(shootDamage * wrathDamageMult));
+                    dmg.takeDamage((int)(shootDamage * wrathDamageMult * (DamageLevelUp * level + 1)));
                 }
                 else
                 {
-                    dmg.takeDamage(shootDamage);
+                    dmg.takeDamage((int)(shootDamage * (DamageLevelUp * level + 1)));
                 }
 
                 //Sloth
@@ -319,7 +320,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     public void updatePlayerUI()
     {
         gamemanager.instance.playerHPBar.fillAmount = (float)HP / HPMax;
-        gamemanager.instance.playerEXPBar.fillAmount = (float)EXP / expReqOrig;
+        gamemanager.instance.playerEXPBar.fillAmount = (float)EXP / expReq;
     }
 
     IEnumerator damageFlash()

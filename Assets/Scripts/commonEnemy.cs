@@ -101,7 +101,7 @@ public class CommonEnemyScript : Enemy, IDamage
         attackTimer = 0;
 
         anim.SetTrigger("Shoot");
-
+        anim.SetTrigger("Attack");
         Instantiate(weapon, attackPos.position, transform.rotation);
     }
 
