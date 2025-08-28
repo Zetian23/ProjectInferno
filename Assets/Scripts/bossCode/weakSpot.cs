@@ -72,7 +72,7 @@ public class weakSpot : MonoBehaviour, IDamage
             if (parent.HP <= 0) // If the boss health is deplinished.
             {
                 Destroy(parent.gameObject);                     // Then destroy the boss object
-                gamemanager.instance.updateGameGoal(-1, 0, 0);  // and update the game goal to decrease the boss amount.
+                gamemanager.instance.youWin();                  // and update the game goal to decrease the boss amount.
             }
         }
         else if (parent.isLust)
