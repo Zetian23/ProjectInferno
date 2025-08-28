@@ -1,19 +1,23 @@
 
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 //code written by William
 public class CommonEnemyScript : Enemy, IDamage
 {
     [SerializeField] GameObject weapon;
 
     
+    [SerializeField] bool isSkelenton;
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTimer;
+    [SerializeField] Animator anim;
+    [SerializeField] float animTranSpeed;
 
     public playerController expGained;
 
     float roamTimer;
-    //enum enemyType {ranged, melee, flying, idle}
+    //enum enemyType { skeleton, demon }
     //[SerializeField] enemyType type;
 
     Vector3 startingPos;
@@ -22,7 +26,7 @@ public class CommonEnemyScript : Enemy, IDamage
     void Start()
     {
         colorOrg = model.material.color;
-        gamemanager.instance.updateGameGoal(0, 1, 0);
+        gamemanager.instance.updateGameGoal(0, 0, 1);
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
     }
@@ -30,6 +34,8 @@ public class CommonEnemyScript : Enemy, IDamage
     // Update is called once per frame
     void Update()
     {
+        setAnimLoco();
+
         attackTimer += Time.deltaTime;
 
         if (agent.remainingDistance < 0.01f)
@@ -47,6 +53,13 @@ public class CommonEnemyScript : Enemy, IDamage
         }
     }
 
+    void setAnimLoco()
+    {
+        float agentSpeedCur = agent.velocity.normalized.magnitude;
+        float animSpeedCur = anim.GetFloat("Speed");
+
+        anim.SetFloat("Speed", Mathf.Lerp(animSpeedCur, agentSpeedCur, Time.deltaTime * animTranSpeed));
+    }
     void checkRoam()
     {
         if (roamTimer >= roamPauseTimer && agent.remainingDistance < 0.01f)
@@ -83,43 +96,38 @@ public class CommonEnemyScript : Enemy, IDamage
         Quaternion rotation = Quaternion.LookRotation(playerDirection);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * faceTargetSpeed);
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerInTrigger = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerInTrigger = false;
-            agent.stoppingDistance = 0;
-        }
-    }
+    
     public override void Attack()
     {
         attackTimer = 0;
-        Instantiate(weapon, attackPos.position, transform.rotation);
+
+        anim.SetTrigger("Shoot");
+        anim.SetTrigger("Attack");
+        if(isSkelenton)
+        {
+            meleeAttack();
+        }
+        else
+        {
+            if(agent.remainingDistance <= agent.stoppingDistance)
+                Instantiate(weapon, attackPos.position, transform.rotation);
+        }
     }
 
     public override void takeDamage(int amount)
     {
+        Debug.Log("Ow");
         if (HP > 0)
         {
             HP -= amount;
             agent.SetDestination(gamemanager.instance.player.transform.position);
-            StartCoroutine(flashRed());
+            StartCoroutine(flashDamage());
         }
         if (HP <= 0)
         {
-            gamemanager.instance.updateGameGoal(0, -1, 0);
+            gamemanager.instance.updateGameGoal(0, 0, -1);
             Destroy(gameObject);
             CallGainEXP();
-            
         }
     }
 

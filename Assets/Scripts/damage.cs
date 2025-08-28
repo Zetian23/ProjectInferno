@@ -4,7 +4,7 @@ using System.Collections;
 // Code added by Naseem will be commented with "-N"
 public class damage : MonoBehaviour
 {
-    enum damageType { moving, stationary, DOT, homing, death}
+    enum damageType { moving, stationary, DOT, homing, death, jav }
     [SerializeField] damageType type;
     [SerializeField] Rigidbody rb;
 
@@ -13,11 +13,14 @@ public class damage : MonoBehaviour
     [SerializeField] int speed;
     [SerializeField] int destroyTime;
 
+    bool isGrounded;
+
     bool isDamaging;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        isGrounded = false;
         if (type == damageType.moving || type == damageType.homing)
         {
             Destroy(gameObject, destroyTime);
@@ -55,11 +58,22 @@ public class damage : MonoBehaviour
             damage.takeDamage(777);
         }
 
-
         if (type == damageType.moving || type == damageType.homing)
         {
             Destroy(gameObject);
         }
+
+        if (other.CompareTag("Platform"))
+        {
+            isGrounded = true;
+        }
+
+        if (other.CompareTag("Player") && type == damageType.jav)
+        {
+            rb.linearVelocity = Vector3.zero;
+            isGrounded = true;
+        }
+       
     }
 
     private void OnTriggerStay(Collider other)
@@ -82,5 +96,15 @@ public class damage : MonoBehaviour
         dmg.takeDamage(damageAmount);
         yield return new WaitForSeconds(damageRate);
         isDamaging = false;
+    }
+
+    public bool GetIfGrounded()
+    {
+        return isGrounded;
+    }
+
+    public void SetIfGrounded(bool grounded)
+    {
+        isGrounded = grounded;
     }
 }

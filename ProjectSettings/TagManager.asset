@@ -9,6 +9,8 @@ TagManager:
   - Platform
   - Enemy
   - WeakSpot
+  - Weapon
+  - Javelin
   layers:
   - Default
   - TransparentFX
@@ -18,11 +20,11 @@ TagManager:
   - UI
   - Camera
   - Enemy
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Floor
+  - Javelin
+  - Weapon
+  - MiniMap
+  - EnemyBullet
   - 
   - 
   - 
