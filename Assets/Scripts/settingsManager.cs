@@ -74,13 +74,13 @@ public class settingsManager : gamemanager
 
     public void setCameraSensitivity(int amount)
     {
-        playerCam.sensModifier = amount;
+        //playerCam.sensModifier = amount;
     }
 
 
     public void toggleYInversion()
     {
-        playerCam.invertYToggle = true;
+        //playerCam.invertYToggle = true;
     }
 
 
