@@ -51,7 +51,7 @@ public class slothAI : sinEnemy
     {
         attackTimer += Time.deltaTime;  // Ticks the attackTimer up so it can know when to attack based off the attackRate.
 
-        checkHealth(80, 40);    // Checks the phases between the health periods.
+        checkHealth(150, 100);    // Checks the phases between the health periods.
 
         if (!javThrown) // Checks if the Javelin is not thrown
         {

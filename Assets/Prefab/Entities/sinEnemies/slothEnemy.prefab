@@ -270,7 +270,7 @@ MonoBehaviour:
   model: {fileID: 441785420376394931}
   agent: {fileID: 3373250161200135835}
   headPos: {fileID: 195381548306638925}
-  HP: 100
+  HP: 250
   faceTargetSpeed: 50
   attackRate: 1
   attackDistance: 5
@@ -284,6 +284,7 @@ MonoBehaviour:
   - {fileID: 7692675984959964837}
   isInvensible: 0
   weakSpotHit: 0
+  isLust: 0
   Javelin: {fileID: 1786827681177662366}
   javRB: {fileID: 6622474707441358026}
   javThrowingSpeed: 30
