@@ -25,6 +25,11 @@ public class buttonFunctions : MonoBehaviour
         #endif
     }
 
+    public void load()
+    {
+        gamemanager.instance.openLoad();
+    }
+
     public void loadLevel(int lvl)
     {
         SceneManager.LoadScene(lvl);

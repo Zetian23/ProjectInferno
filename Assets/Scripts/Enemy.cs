@@ -1,18 +1,18 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
-// Code written by Nathaniel and William
+// Code written by Nathaniel King <3 and William
 // Base class for any enemies that will be created throughout Project Inferno
 public class Enemy : MonoBehaviour, IDamage
 {
     // These SerializedField will show up in any enemy that inherits from this parent
+    [SerializeField] protected LayerMask ignoreLayer;   // This is set for anything that needs to be ignored in the attacks.
 
     [SerializeField] public Renderer model;        // The enemies renderer made for that enemy or enemy prefab
     [SerializeField] public NavMeshAgent agent;    // The agent that seperate enemies will have to have pathing
     [SerializeField] Transform headPos;
 
     [SerializeField] public int HP;
-    [SerializeField] public float enemySpeed;
 
     [SerializeField] public int faceTargetSpeed;
 
@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour, IDamage
     protected float attackTimer;               // Each enemy will have different time it takes to attack.
     protected float angleToPlayer;
     protected float stoppingDistOrig;
+    protected float startSpeed;
 
     protected bool playerInTrigger;            // Player enters the area where the enemy will be aware of the player.
 
@@ -38,7 +39,6 @@ public class Enemy : MonoBehaviour, IDamage
         playerDirection = gamemanager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(playerDirection, transform.forward);
         Debug.DrawRay(headPos.position, playerDirection);
-
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDirection, out hit))
         {
@@ -72,12 +72,28 @@ public class Enemy : MonoBehaviour, IDamage
         }
     }
 
-    protected void OnTriggerExit(Collider other)
+    protected virtual void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             playerInTrigger = false;
             agent.stoppingDistance = 0;
+        }
+    }
+
+    protected virtual void meleeAttack()  // Base attack for when the boss is close up attacking.
+    {
+        attackTimer = 0;// Reset the timer so that the attack will happen again after a period of time.
+
+        RaycastHit hit;
+        if (Physics.Raycast(headPos.position, playerDirection, out hit, attackDistance, ~ignoreLayer)) // Draws a ling with the attackDistance to see if the player is within the distance.
+        {
+            IDamage dmg = hit.collider.GetComponent<IDamage>(); // Initializing the IDamage script.
+
+            if (dmg != null)    // Checks if the thing collided took damage.
+            {
+                dmg.takeDamage(attackDamage);   // Make the player take damage.
+            }
         }
     }
 
@@ -95,6 +111,6 @@ public class Enemy : MonoBehaviour, IDamage
 
     public void slothSlow(float percent)
     {
-       enemySpeed *= percent;
+       startSpeed *= percent;
     }
 }
