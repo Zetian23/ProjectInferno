@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01e8ca1e06b141d44bf4a783393b3ba5, type: 3}
   m_Name: Spear & AK
   m_EditorClassIdentifier: 
-  gunModel: {fileID: 919132149155446097, guid: 6edd3b2acbe615d478ce69869b7c17e5, type: 3}
+  gunModel: {fileID: 4300261660335563999, guid: 44c2e91df8c054c43a65fb5915e5299b, type: 3}
   shootDamage: 3
   shootDist: 500
   shootRate: 0.3
-  ammoCur: 0
+  ammoCur: 32
   ammoMax: 32
   shootEffect: {fileID: 0}
   shootSound: {fileID: 0}
   shootVol: 0.5
-  meleeModel: {fileID: 919132149155446097, guid: 289f952c40dfbd6428f88b9ae791d0d7, type: 3}
+  meleeModel: {fileID: 8521929692648105099, guid: 00beaf20d541b894b84d7200907b0430, type: 3}
   meleeDamage: 1
   meleeDist: 60
   meleeRate: 0.2

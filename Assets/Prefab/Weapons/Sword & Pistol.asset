@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01e8ca1e06b141d44bf4a783393b3ba5, type: 3}
   m_Name: Sword & Pistol
   m_EditorClassIdentifier: 
-  gunModel: {fileID: 919132149155446097, guid: aaedcafc70b4b92489777f53584bd1d4, type: 3}
+  gunModel: {fileID: 395176681054935724, guid: b62238622c245624489ee5a42c227526, type: 3}
   shootDamage: 10
   shootDist: 300
   shootRate: 0.1
-  ammoCur: 0
+  ammoCur: 16
   ammoMax: 16
   shootEffect: {fileID: 0}
   shootSound: {fileID: 0}
   shootVol: 0.5
-  meleeModel: {fileID: 919132149155446097, guid: a6208fb82c017e54ba58903901e0314d, type: 3}
+  meleeModel: {fileID: 5210588698842596110, guid: 0156691f8c84c9d4dbc7b77fe0485c7f, type: 3}
   meleeDamage: 20
   meleeDist: 100
   meleeRate: 0.5
