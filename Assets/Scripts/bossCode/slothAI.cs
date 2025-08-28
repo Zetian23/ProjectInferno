@@ -30,6 +30,8 @@ public class slothAI : sinEnemy
     {
         InitVar(); // This calls the method in sinEnemy that initializes all fields in that script needed for this.
 
+        gamemanager.instance.updateGameGoal(1, 0, 0);   // Add one boss to the game goal.
+
         speedBoostTimer = speedBoostLength;     // Initializing the set timer for when speedBoost() is called.
         startSpeed = agent.speed;               // Initializing how fast the boss was initially set to.
 
@@ -42,6 +44,7 @@ public class slothAI : sinEnemy
 
         gamemanager.instance.SetBossText("Sloth");              // Setting the boss nametag to "Sloth".
         gamemanager.instance.boss = gamemanager.bossType.sloth; // Setting the bossType to the Sloth Boss.
+        updateBossUI();                                         // Initializing the boss UI.
     }
 
     void Update()
@@ -64,22 +67,6 @@ public class slothAI : sinEnemy
         }
 
         if (weakSpotHit == true && phase == 2) speedBoost();    // During the second phase if the weak spot is hit the boss speeds up.
-    }
-
-    void meleeAttack()  // Base attack for when the boss is close up attacking.
-    {
-        attackTimer = 0;// Reset the timer so that the attack will happen again after a period of time.
-
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, playerDirection, out hit, attackDistance, ~ignoreLayer)) // Draws a ling with the attackDistance to see if the player is within the distance.
-        {
-            IDamage dmg = hit.collider.GetComponent<IDamage>(); // Initializing the IDamage script.
-
-            if (dmg != null)    // Checks if the thing collided took damage.
-            {
-                dmg.takeDamage(attackDamage);   // Make the player take damage.
-            }
-        }
     }
 
     void speedBoost()   // Move the boss faster for a bit of time.

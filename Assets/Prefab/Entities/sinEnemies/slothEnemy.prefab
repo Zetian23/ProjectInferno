@@ -265,8 +265,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 441785420376394931}
   agent: {fileID: 3373250161200135835}
+  headPos: {fileID: 195381548306638925}
   HP: 100
-  faceTargetSpeed: 70
+  faceTargetSpeed: 50
   attackRate: 1
   attackDistance: 5
   attackDamage: 10
@@ -276,10 +277,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   skinObjects:
+  - {fileID: 2816282464898321781}
   - {fileID: 4287513235018137627}
   - {fileID: 2298801085699853030}
   - {fileID: 7692675984959964837}
-  - {fileID: 2816282464898321781}
   isInvensible: 0
   weakSpotHit: 0
   Javelin: {fileID: 1786827681177662366}
@@ -367,16 +368,16 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 10
-  m_Acceleration: 8
+  m_Acceleration: 30
   avoidancePriority: 50
-  m_AngularSpeed: 150
+  m_AngularSpeed: 120
   m_StoppingDistance: 4
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 1
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
 --- !u!135 &4065543331240422131
 SphereCollider:
@@ -439,7 +440,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 2
+  m_Radius: 1
   m_Center: {x: 0, y: -1, z: 0}
 --- !u!1 &4460161714340775461
 GameObject:
@@ -561,7 +562,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1033,7 +1034,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0

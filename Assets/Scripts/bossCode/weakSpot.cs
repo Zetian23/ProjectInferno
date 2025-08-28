@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
-// Written By Nathaniel
+// Written By Nathaniel King <3
+// Completed
 
 public class weakSpot : MonoBehaviour, IDamage
 {

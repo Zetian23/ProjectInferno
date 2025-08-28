@@ -30,6 +30,7 @@ public class gamemanager : MonoBehaviour
     public playerController playerScript;
 
     public bool isPaused;
+    public int lustIIIArcana;
     float timeScaleOrig;
 
     public enum bossType { sloth, wrath, gluttony, envy, lust, greed, pride, final };
@@ -99,8 +100,8 @@ public class gamemanager : MonoBehaviour
         rangedEnemyCountText.text = rangedEnemyCount.ToString("F0");
         bossEnemyCountText.text = bossEnemyCount.ToString("F0");
 
-        
-        
+
+
         if (bossEnemyCount <= 0)
         {
             statePause();

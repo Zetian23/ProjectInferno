@@ -38,7 +38,6 @@ public class Enemy : MonoBehaviour, IDamage
         playerDirection = gamemanager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(playerDirection, transform.forward);
         Debug.DrawRay(headPos.position, playerDirection);
-
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDirection, out hit))
         {
@@ -60,6 +59,7 @@ public class Enemy : MonoBehaviour, IDamage
                 return true;
             }
         }
+        Debug.Log("bitch");
         agent.stoppingDistance = 0;
         return false;
     }

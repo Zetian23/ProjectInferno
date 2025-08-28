@@ -72,6 +72,7 @@ public class damage : MonoBehaviour
         {
             rb.linearVelocity = Vector3.zero;
         }
+       
     }
 
     private void OnTriggerStay(Collider other)

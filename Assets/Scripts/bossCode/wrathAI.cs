@@ -34,6 +34,8 @@ public class wrathAI : sinEnemy
     {
         InitVar();  // Initializes all of the bases varibles.
 
+        gamemanager.instance.updateGameGoal(1, 0, 0);   // Add one boss to the game goal.
+
         startingLocalRotation = Sword.transform.localRotation;  // Initializing the LOCAL rotation of the Sword.
         landingRotation = Quaternion.Euler(90, 0, 0);           // Initializing where the sword will rotate to.
 
@@ -44,6 +46,7 @@ public class wrathAI : sinEnemy
 
         gamemanager.instance.SetBossText("Wrath");              // Setting the boss nametag to "Wrath".
         gamemanager.instance.boss = gamemanager.bossType.wrath; // Setting the bossType to the Wrath Boss.
+        updateBossUI();                                         // Initializing the boss UI.
     }
 
     private void Update()
@@ -66,7 +69,7 @@ public class wrathAI : sinEnemy
         if(phase == 3) agent.speed = sprintSpeed;   // Sets the speed of the boss when in phase three.
     }
 
-    void meleeAttack()  // Base attack for when the boss is close up attacking.
+    protected override void meleeAttack()  // Base attack for when the boss is close up attacking.
     {
         attackTimer = 0;// Reset the timer so that the attack will happen again after a period of time.
 
