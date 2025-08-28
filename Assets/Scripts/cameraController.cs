@@ -8,6 +8,7 @@ public class cameraController : MonoBehaviour
 
     float rotX;
 
+    //These two will be used to for camera settings
     public int sensModifier;
     public bool invertYToggle;
 
