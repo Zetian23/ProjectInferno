@@ -512,10 +512,10 @@ PrefabInstance:
     - target: {fileID: 1813772753520359014, guid: e1f2c2c8f1f360a4389e4b6188146695, type: 3}
       propertyPath: m_NavMeshData
       value: 
-      objectReference: {fileID: 23800000, guid: af22519a6f9201347988425e51d73b61, type: 2}
+      objectReference: {fileID: 23800000, guid: 07244f270e1488845a8ba7fe5088f5da, type: 2}
     - target: {fileID: 1813772753520359014, guid: e1f2c2c8f1f360a4389e4b6188146695, type: 3}
       propertyPath: m_LayerMask.m_Bits
-      value: 256
+      value: 257
       objectReference: {fileID: 0}
     - target: {fileID: 6006921359161118363, guid: e1f2c2c8f1f360a4389e4b6188146695, type: 3}
       propertyPath: m_LocalPosition.x
@@ -848,6 +848,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 195154883219336297, guid: 605f24c1e5af56c4bbf0026872603677, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7187383584660632649, guid: 605f24c1e5af56c4bbf0026872603677, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8336273097458209616, guid: 605f24c1e5af56c4bbf0026872603677, type: 3}
