@@ -8,6 +8,7 @@ public class cameraController : MonoBehaviour
 
     float rotX;
 
+    //These two will be used to for camera settings
     public int sensModifier;
     public bool invertYToggle;
 
@@ -39,7 +40,5 @@ public class cameraController : MonoBehaviour
 
         transform.parent.Rotate(Vector3.up, mouseX);
 
-        sens = sensModifier; 
-        invertYToggle = invertY;
     }
 }
