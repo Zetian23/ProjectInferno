@@ -71,6 +71,7 @@ public class damage : MonoBehaviour
         if (other.CompareTag("Player") && type == damageType.jav)
         {
             rb.linearVelocity = Vector3.zero;
+            isGrounded = true;
         }
        
     }

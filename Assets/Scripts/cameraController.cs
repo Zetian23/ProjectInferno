@@ -38,8 +38,5 @@ public class cameraController : MonoBehaviour
         transform.localRotation = Quaternion.Euler(rotX, 0, 0);
 
         transform.parent.Rotate(Vector3.up, mouseX);
-
-        sens = sensModifier; 
-        invertYToggle = invertY;
     }
 }

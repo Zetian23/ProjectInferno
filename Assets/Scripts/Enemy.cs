@@ -6,6 +6,7 @@ using System.Collections;
 public class Enemy : MonoBehaviour, IDamage
 {
     // These SerializedField will show up in any enemy that inherits from this parent
+    [SerializeField] protected LayerMask ignoreLayer;   // This is set for anything that needs to be ignored in the attacks.
 
     [SerializeField] public Renderer model;        // The enemies renderer made for that enemy or enemy prefab
     [SerializeField] public NavMeshAgent agent;    // The agent that seperate enemies will have to have pathing
@@ -59,7 +60,6 @@ public class Enemy : MonoBehaviour, IDamage
                 return true;
             }
         }
-        Debug.Log("bitch");
         agent.stoppingDistance = 0;
         return false;
     }
@@ -78,6 +78,22 @@ public class Enemy : MonoBehaviour, IDamage
         {
             playerInTrigger = false;
             agent.stoppingDistance = 0;
+        }
+    }
+
+    protected virtual void meleeAttack()  // Base attack for when the boss is close up attacking.
+    {
+        attackTimer = 0;// Reset the timer so that the attack will happen again after a period of time.
+
+        RaycastHit hit;
+        if (Physics.Raycast(headPos.position, playerDirection, out hit, attackDistance, ~ignoreLayer)) // Draws a ling with the attackDistance to see if the player is within the distance.
+        {
+            IDamage dmg = hit.collider.GetComponent<IDamage>(); // Initializing the IDamage script.
+
+            if (dmg != null)    // Checks if the thing collided took damage.
+            {
+                dmg.takeDamage(attackDamage);   // Make the player take damage.
+            }
         }
     }
 

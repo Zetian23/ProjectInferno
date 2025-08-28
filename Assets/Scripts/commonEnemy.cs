@@ -8,6 +8,7 @@ public class CommonEnemyScript : Enemy, IDamage
     [SerializeField] GameObject weapon;
 
     
+    [SerializeField] bool isSkelenton;
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTimer;
     [SerializeField] Animator anim;
@@ -16,7 +17,7 @@ public class CommonEnemyScript : Enemy, IDamage
     public playerController expGained;
 
     float roamTimer;
-    //enum enemyType {ranged, melee, flying, idle}
+    //enum enemyType { skeleton, demon }
     //[SerializeField] enemyType type;
 
     Vector3 startingPos;
@@ -102,7 +103,14 @@ public class CommonEnemyScript : Enemy, IDamage
 
         anim.SetTrigger("Shoot");
         anim.SetTrigger("Attack");
-        Instantiate(weapon, attackPos.position, transform.rotation);
+        if(isSkelenton)
+        {
+            meleeAttack();
+        }
+        else
+        {
+            Instantiate(weapon, attackPos.position, transform.rotation);
+        }
     }
 
     public override void takeDamage(int amount)
