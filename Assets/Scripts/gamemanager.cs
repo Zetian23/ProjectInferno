@@ -50,6 +50,7 @@ public class gamemanager : MonoBehaviour
         bossEnemyCount = 1;
         instance = this;
         timeScaleOrig = Time.timeScale;
+        lustIIIArcana = 4;
 
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
@@ -71,6 +72,8 @@ public class gamemanager : MonoBehaviour
                 stateUnpause();
             }
         }
+
+        if (lustIIIArcana == 0) youWin();
     }
 
     public void statePause()

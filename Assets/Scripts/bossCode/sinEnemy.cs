@@ -14,6 +14,7 @@ public class sinEnemy : Enemy
     protected int BHPOrig;      // This is for the amount of health the boss starts out with.
     public bool isInvensible;   // This is if a boss is invinsible to any attacks.
     public bool weakSpotHit;    // This checks if a weakness has been struck.
+    public bool isLust;         // This is if the boss is the lust one.
 
     public void InitVar() 
     {

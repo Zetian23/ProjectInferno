@@ -24,8 +24,8 @@ public class lustAI : sinEnemy
             gamemanager.instance.SetBossText("Lust");               // Setting the boss nametag to "Lust".
             gamemanager.instance.boss = gamemanager.bossType.lust;  // Setting the bossType to the Lust Boss.
             updateBossUI();                                         // Initializing the boss UI.
+            isLust = true;                                          // Initializing it as lust.
             gamemanager.instance.updateGameGoal(1, 0, 0);           // Add one boss to the game goal.
-            gamemanager.instance.lustIIIArcana = 4;                 // Set the amount of third arcana sub enemies that will be spawned.
         }
     }
 
@@ -61,11 +61,8 @@ public class lustAI : sinEnemy
                 Instantiate(lustChildArcana, transform.position, transform.rotation);   // Then Instantiate
                 Instantiate(lustChildArcana, transform.position, transform.rotation);   // two child enemies of this.
 
-                if (lustArcana == 2)    // Check if this is the third arcana.
-                    gamemanager.instance.lustIIIArcana--;   // If so then subtract one from the four that are made.
-
-                if(gamemanager.instance.lustIIIArcana == 0) // If there is no third arcana lust bosses,
-                    gamemanager.instance.updateGameGoal(-1, 0, 0);  // then subtract one boss from the game goal.
+                if (lustArcana == 3)    // Check if this is the third arcana.
+                    gamemanager.instance.lustIIIArcana--;   // If so then subtract one from the four that are made.\
 
                 Destroy(gameObject);    // Destroy this object when done.
             }
