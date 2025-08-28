@@ -2,6 +2,8 @@ using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+// Code Written By Nathaniel King <3
+// Completed
 
 public class Waves : MonoBehaviour
 {
@@ -13,7 +15,6 @@ public class Waves : MonoBehaviour
     [SerializeField] float waveSpawnCooldownTime;
     [SerializeField] float waveCooldownTime;
 
-    List<GameObject> currSpawnPoints;
     Quaternion enemyRotation;
     int waveSpawnPointsAmount;
     int waveEnemyAmount;
@@ -47,13 +48,13 @@ public class Waves : MonoBehaviour
             if (allEnemiesDead)
             {
                 allEnemiesDead = false;
-                waveSpawnPointsAmount = Random.Range(0, 3);
+                waveSpawnPointsAmount = Random.Range(0, 5);
             }
             if (waveSpawnCooldownTimer >= waveSpawnCooldownTime)
             {
                 gamemanager.instance.WaveUI.SetActive(false);
                 waveEnemyAmount = Random.Range(1, 11);
-                choosenPoint = Random.Range(1, 11);
+                choosenPoint = Random.Range(1, SpawnPoints.Count);
                 StartCoroutine(flashSpawnIcon(SpawnPoints[choosenPoint]));
                 initateWave();
                 waveSpawnCooldownTimer = 0;
@@ -65,7 +66,7 @@ public class Waves : MonoBehaviour
             if (allEnemiesDead)
             {
                 allEnemiesDead = false;
-                waveSpawnPointsAmount = Random.Range(2, 5);
+                waveSpawnPointsAmount = Random.Range(2, 9);
                 Debug.Log(waveSpawnPointsAmount);
             }
             if (waveSpawnCooldownTimer >= waveSpawnCooldownTime)
@@ -73,7 +74,7 @@ public class Waves : MonoBehaviour
                 gamemanager.instance.WaveUI.SetActive(false);
                 waveEnemyAmount = Random.Range(5, 16);
                 Debug.Log(waveEnemyAmount);
-                choosenPoint = Random.Range(1, 11);
+                choosenPoint = Random.Range(1, SpawnPoints.Count);
                 StartCoroutine(flashSpawnIcon(SpawnPoints[choosenPoint]));
                 initateWave();
                 waveSpawnCooldownTimer = 0;
@@ -85,15 +86,15 @@ public class Waves : MonoBehaviour
             if (allEnemiesDead)
             {
                 allEnemiesDead = false;
-                waveSpawnPointsAmount = Random.Range(3, 6);
+                waveSpawnPointsAmount = Random.Range(6, SpawnPoints.Count);
                 Debug.Log(waveSpawnPointsAmount);
             }
             if (waveSpawnCooldownTimer >= waveSpawnCooldownTime)
             {
                 gamemanager.instance.WaveUI.SetActive(false);
-                waveEnemyAmount = Random.Range(5, 16);
+                waveEnemyAmount = Random.Range(10, 20);
                 Debug.Log(waveEnemyAmount);
-                choosenPoint = Random.Range(1, 11);
+                choosenPoint = Random.Range(1, SpawnPoints.Count);
                 StartCoroutine(flashSpawnIcon(SpawnPoints[choosenPoint]));
                 initateWave();
                 waveSpawnCooldownTimer = 0;
@@ -111,9 +112,10 @@ public class Waves : MonoBehaviour
             waveCooldownTimer += Time.deltaTime;
             if (waveCooldownTimer >= waveCooldownTime)
             {
-                gamemanager.instance.SetWaveText((currWave + 1).ToString());
-                allEnemiesDead = true;
                 currWave++;
+                gamemanager.instance.SetWaveText((currWave + 1).ToString());
+                gamemanager.instance.WaveUI.SetActive(true);
+                allEnemiesDead = true;
                 currSpawned = 0;
                 waveCooldownTimer = 0;
                 waveSpawnCooldownTimer = 0;

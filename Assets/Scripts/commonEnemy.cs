@@ -109,12 +109,14 @@ public class CommonEnemyScript : Enemy, IDamage
         }
         else
         {
-            Instantiate(weapon, attackPos.position, transform.rotation);
+            if(agent.remainingDistance <= agent.stoppingDistance)
+                Instantiate(weapon, attackPos.position, transform.rotation);
         }
     }
 
     public override void takeDamage(int amount)
     {
+        Debug.Log("Ow");
         if (HP > 0)
         {
             HP -= amount;
@@ -126,7 +128,6 @@ public class CommonEnemyScript : Enemy, IDamage
             gamemanager.instance.updateGameGoal(0, 0, -1);
             Destroy(gameObject);
             CallGainEXP();
-            
         }
     }
 

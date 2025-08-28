@@ -54,7 +54,7 @@ public class wrathAI : sinEnemy
         attackTimer += Time.deltaTime;  // Ticks the attackTimer up so it can know when to attack based off the attackRate.
         invensibleCooldownTimer += Time.deltaTime;  // Ticks the attackTimer up so it can know when to attack based off the attackRate.
 
-        checkHealth(175, 100);   // Checks the phases between the health periods.
+        checkHealth(400, 200);   // Checks the phases between the health periods.
 
         if (playerInTrigger && canSeePlayer()) { }  // Checks if player is in the trigger and uses the canSeePlayer() method in the Enemy script.
 

@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+// Code Written By Nathaniel King <3
+// Completed
 
 public class healingSpread : MonoBehaviour
 {
@@ -11,7 +13,9 @@ public class healingSpread : MonoBehaviour
     void Start()
     {
         spawnTimer = 0;
-        healingInPos = new List<bool>() { false, false, false, false, false };
+        healingInPos = new List<bool>();
+        for (int i = 0;  i < healingLocations.Count; i++)
+            healingInPos.Add(false);
     }
 
     // Update is called once per frame

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
-// Code written by Nathaniel and William
+// Code written by Nathaniel King <3 and William
 // Base class for any enemies that will be created throughout Project Inferno
 public class Enemy : MonoBehaviour, IDamage
 {

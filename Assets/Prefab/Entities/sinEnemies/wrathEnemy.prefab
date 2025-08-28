@@ -1036,7 +1036,7 @@ MonoBehaviour:
   model: {fileID: 7473847887764187564}
   agent: {fileID: 2119789900909074469}
   headPos: {fileID: 6910435717726348068}
-  HP: 250
+  HP: 600
   faceTargetSpeed: 80
   attackRate: 1
   attackDistance: 8
