@@ -54,15 +54,14 @@ public class lustAI : sinEnemy
         {
             if(lustChildArcana == null) // Check if the next child is non existant.
             {
+                if (lustArcana == 3)    // Check if this is the third arcana.
+                    gamemanager.instance.lustIIIArcana--;   // If so then subtract one from the four that are made.
                 Destroy(gameObject);    // Destroy only this Object with no Instantiate.
             }
             else    // If there is an object in the lustChildArcana.
             {
                 Instantiate(lustChildArcana, transform.position, transform.rotation);   // Then Instantiate
                 Instantiate(lustChildArcana, transform.position, transform.rotation);   // two child enemies of this.
-
-                if (lustArcana == 3)    // Check if this is the third arcana.
-                    gamemanager.instance.lustIIIArcana--;   // If so then subtract one from the four that are made.\
 
                 Destroy(gameObject);    // Destroy this object when done.
             }
