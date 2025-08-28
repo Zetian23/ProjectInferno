@@ -47,6 +47,11 @@ public class damage : MonoBehaviour
 
         IDamage damage = other.GetComponent<IDamage>();
 
+        if (other.CompareTag("Platform"))
+        {
+            isGrounded = true;
+        }
+
         if (damage != null && type != damageType.DOT)
         {
             damage.takeDamage(damageAmount);
@@ -61,11 +66,6 @@ public class damage : MonoBehaviour
         if (type == damageType.moving || type == damageType.homing)
         {
             Destroy(gameObject);
-        }
-
-        if (other.CompareTag("Platform"))
-        {
-            isGrounded = true;
         }
 
         if (other.CompareTag("Player") && type == damageType.jav)

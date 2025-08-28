@@ -30,8 +30,6 @@ public class slothAI : sinEnemy
     {
         InitVar(); // This calls the method in sinEnemy that initializes all fields in that script needed for this.
 
-        gamemanager.instance.updateGameGoal(1, 0, 0);   // Add one boss to the game goal.
-
         speedBoostTimer = speedBoostLength;     // Initializing the set timer for when speedBoost() is called.
         startSpeed = agent.speed;               // Initializing how fast the boss was initially set to.
 
@@ -126,7 +124,7 @@ public class slothAI : sinEnemy
     {
         base.OnTriggerEnter(collider);  // Calls the OnTriggerEnter(collider) from the Enemy class.
 
-        if (collider.CompareTag("Javelin") && Javelin.GetComponent<damage>().GetIfGrounded() == true)   // Checks if the object that collided is on the ground and is the javelin.
+        if (collider.CompareTag("Javelin") && (Javelin.GetComponent<damage>().GetIfGrounded() == true || javRB.linearVelocity == Vector3.zero))   // Checks if the object that collided is on the ground and is the javelin.
         {
             javPickUp = true;   // Sets the javPickUp to true so that in navToJav() it picks it up.
         }
@@ -134,7 +132,7 @@ public class slothAI : sinEnemy
 
     void OnTriggerStay(Collider collider)   // This is called when an object stays in the collider like if it was thrown at the player nearby and never left the collider.
     {
-        if (collider.CompareTag("Javelin") && Javelin.GetComponent<damage>().GetIfGrounded() == true)   // Checks if the collider is the javelin and is on the ground so it won't just keep picking it up.
+        if (collider.CompareTag("Javelin") && (Javelin.GetComponent<damage>().GetIfGrounded() == true || javRB.linearVelocity == Vector3.zero))   // Checks if the collider is the javelin and is on the ground so it won't just keep picking it up.
         {
             javPickUp = true;   // Sets the javPickUp to true so that in navToJav() it picks it up.
         }
@@ -148,7 +146,9 @@ public class slothAI : sinEnemy
         }
         if (phase > 2)  // Checks if it has hit the third phase.
         {
-            throwJavelin(); // If so then the boss will throw the javelin.
+            weakSpotHit = false;        // Set weakSpot to false.
+            agent.speed = startSpeed;   // Set speed back to the startingSpeed.
+            throwJavelin();             // Then the boss will throw the javelin.
         }
     }
 }

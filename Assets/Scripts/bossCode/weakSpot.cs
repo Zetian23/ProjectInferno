@@ -75,9 +75,9 @@ public class weakSpot : MonoBehaviour, IDamage
                 gamemanager.instance.youWin();                  // and update the game goal to decrease the boss amount.
             }
         }
-        else if (parent.isLust)
+        else if (parent.isLust) // If the parent is the lust enemy.
         {
-            parent.takeDamage(amount);
+            parent.takeDamage(amount * damageMod);      // Then call the parent bosses take damage with the modifyier.
         }
     }
 

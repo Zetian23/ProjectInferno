@@ -52,6 +52,7 @@ public class Waves : MonoBehaviour
             }
             if (waveSpawnCooldownTimer >= waveSpawnCooldownTime)
             {
+                gamemanager.instance.RemainingEnemiesUI.SetActive(true);
                 gamemanager.instance.WaveUI.SetActive(false);
                 waveEnemyAmount = Random.Range(1, 11);
                 choosenPoint = Random.Range(1, SpawnPoints.Count);
@@ -71,6 +72,8 @@ public class Waves : MonoBehaviour
             }
             if (waveSpawnCooldownTimer >= waveSpawnCooldownTime)
             {
+
+                gamemanager.instance.RemainingEnemiesUI.SetActive(true);
                 gamemanager.instance.WaveUI.SetActive(false);
                 waveEnemyAmount = Random.Range(5, 16);
                 Debug.Log(waveEnemyAmount);
@@ -91,6 +94,8 @@ public class Waves : MonoBehaviour
             }
             if (waveSpawnCooldownTimer >= waveSpawnCooldownTime)
             {
+
+                gamemanager.instance.RemainingEnemiesUI.SetActive(true);
                 gamemanager.instance.WaveUI.SetActive(false);
                 waveEnemyAmount = Random.Range(10, 20);
                 Debug.Log(waveEnemyAmount);
@@ -109,12 +114,17 @@ public class Waves : MonoBehaviour
                 StartCoroutine(flashSpawnIcon(SpawnPoints[0]));
                 bossIsSpawned = true;
             }
+            gamemanager.instance.RemainingEnemiesUI.SetActive(false);
+            if(!bossIsSpawned) gamemanager.instance.WaveCooldownUI.SetActive(true);
+            int timeTillWave = (int) (waveCooldownTime - waveSpawnCooldownTimer);
+            gamemanager.instance.SetWaveCooldownText(timeTillWave.ToString("F0"));
             waveCooldownTimer += Time.deltaTime;
             if (waveCooldownTimer >= waveCooldownTime)
             {
                 currWave++;
                 gamemanager.instance.SetWaveText((currWave + 1).ToString());
                 gamemanager.instance.WaveUI.SetActive(true);
+                gamemanager.instance.WaveCooldownUI.SetActive(false);
                 allEnemiesDead = true;
                 currSpawned = 0;
                 waveCooldownTimer = 0;

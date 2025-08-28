@@ -753,6 +753,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4732473658616705846, guid: d1a937f83d1008846afd41946df58fb2, type: 3}
+      propertyPath: waveCooldownTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732473658616705846, guid: d1a937f83d1008846afd41946df58fb2, type: 3}
+      propertyPath: waveSpawnCooldownTime
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4758171537716004764, guid: d1a937f83d1008846afd41946df58fb2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
