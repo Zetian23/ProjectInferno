@@ -39,7 +39,8 @@ public class itemHandler : MonoBehaviour
         if (dmg != null && type == itemType.healing)
         {
             dmg.takeDamage(modifierAmt);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            //Destroy(gameObject);
         }
     }
 

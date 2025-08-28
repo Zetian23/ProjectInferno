@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class buttonFunctions : MonoBehaviour
 {
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void resume()
     {
@@ -22,6 +23,11 @@ public class buttonFunctions : MonoBehaviour
         #else
                     Application.Quit();
         #endif
+    }
+
+    public void load()
+    {
+        gamemanager.instance.openLoad();
     }
 
     public void loadLevel(int lvl)
