@@ -8,6 +8,9 @@ public class cameraController : MonoBehaviour
 
     float rotX;
 
+    public int sensModifier;
+    public bool invertYToggle;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -35,5 +38,8 @@ public class cameraController : MonoBehaviour
         transform.localRotation = Quaternion.Euler(rotX, 0, 0);
 
         transform.parent.Rotate(Vector3.up, mouseX);
+
+        sens = sensModifier; 
+        invertYToggle = invertY;
     }
 }
