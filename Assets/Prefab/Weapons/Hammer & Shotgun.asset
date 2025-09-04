@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01e8ca1e06b141d44bf4a783393b3ba5, type: 3}
   m_Name: Hammer & Shotgun
   m_EditorClassIdentifier: 
-  gunModel: {fileID: 919132149155446097, guid: d43b387a0af0a214e8e13ec26711623b, type: 3}
+  gunModel: {fileID: 1089117124901216228, guid: 527c1d08809bfab42a99ebb497f44b5e, type: 3}
   shootDamage: 7
   shootDist: 100
   shootRate: 1
-  ammoCur: 0
+  ammoCur: 2
   ammoMax: 2
   shootEffect: {fileID: 0}
   shootSound: {fileID: 0}
   shootVol: 0.5
-  meleeModel: {fileID: 919132149155446097, guid: 78102cf37417cf94a9016383bf28063f, type: 3}
+  meleeModel: {fileID: 9066336674390956741, guid: 7a9c1eb8a7ded3d419a157f92903175f, type: 3}
   meleeDamage: 5
   meleeDist: 40
   meleeRate: 1

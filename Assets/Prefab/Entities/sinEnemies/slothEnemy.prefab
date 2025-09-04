@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 4065543331240422131}
   - component: {fileID: 5527777770192249237}
   - component: {fileID: 5667351257892453309}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: slothEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -249,6 +249,7 @@ Transform:
   - {fileID: 7649752064674035988}
   - {fileID: 1407312089015232804}
   - {fileID: 914488004853663273}
+  - {fileID: 2253537863885284747}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8490352575143536838
@@ -263,26 +264,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec13ce4cc35aa3e4a9c9fae6f412310d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 128
   model: {fileID: 441785420376394931}
   agent: {fileID: 3373250161200135835}
-  headPos: {fileID: 1709088604076472190}
-  HP: 100
-  enemySpeed: 0
-  faceTargetSpeed: 70
+  headPos: {fileID: 195381548306638925}
+  HP: 250
+  faceTargetSpeed: 50
   attackRate: 1
   attackDistance: 5
   attackDamage: 10
   FOV: 360
   attackPos: {fileID: 914488004853663273}
-  ignoreLayer:
-    serializedVersion: 2
-    m_Bits: 0
   skinObjects:
+  - {fileID: 2816282464898321781}
   - {fileID: 4287513235018137627}
   - {fileID: 2298801085699853030}
   - {fileID: 7692675984959964837}
-  - {fileID: 2816282464898321781}
+  isInvensible: 0
   weakSpotHit: 0
+  isLust: 0
   Javelin: {fileID: 1786827681177662366}
   javRB: {fileID: 6622474707441358026}
   javThrowingSpeed: 30
@@ -368,16 +370,16 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 10
-  m_Acceleration: 8
+  m_Acceleration: 30
   avoidancePriority: 50
-  m_AngularSpeed: 150
+  m_AngularSpeed: 120
   m_StoppingDistance: 4
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 1
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
 --- !u!135 &4065543331240422131
 SphereCollider:
@@ -440,7 +442,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 2
+  m_Radius: 1
   m_Center: {x: 0, y: -1, z: 0}
 --- !u!1 &4460161714340775461
 GameObject:
@@ -490,11 +492,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 5752278018439253001}
+  pulseColor: {r: 1, g: 0, b: 0.0032806396, a: 0}
   hitAmount: 5
   damageMod: 2
-  intensity: 50
+  startIntensity: 25
+  endIntensity: 50
   pulseDuration: 1
-  pulseColor: {r: 1, g: 0, b: 0.0032806396, a: 0}
 --- !u!33 &3033687197558881258
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -561,7 +564,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -741,6 +744,115 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7660792791062276680
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2253537863885284747}
+  - component: {fileID: 3939479646889057002}
+  - component: {fileID: 8555140098205171702}
+  - component: {fileID: 8486196438951141803}
+  m_Layer: 11
+  m_Name: SlothIcon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2253537863885284747
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7660792791062276680}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 2.4999995, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 195381548306638925}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!33 &3939479646889057002
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7660792791062276680}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &8555140098205171702
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7660792791062276680}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 206ad940c53ad4948b41faecf278474f, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8486196438951141803
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7660792791062276680}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &7838983682976738896
 GameObject:
   m_ObjectHideFlags: 0
@@ -961,11 +1073,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 3023194801638304852}
+  pulseColor: {r: 1, g: 0, b: 0.0032806396, a: 0}
   hitAmount: 5
   damageMod: 2
-  intensity: 50
+  startIntensity: 25
+  endIntensity: 50
   pulseDuration: 1
-  pulseColor: {r: 1, g: 0, b: 0.0032806396, a: 0}
 --- !u!33 &3659482769187158820
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1032,7 +1145,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1218,11 +1331,11 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.03
   m_Center: {x: 0, y: 0.02, z: 0.02}
