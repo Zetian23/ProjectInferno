@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Code written by brady (Movement-wise)
-public class playerController : MonoBehaviour, IDamage, iPickUp
+public class playerController : MonoBehaviour, IDamage
 {
     [SerializeField] LayerMask ignoreLayer;
     [SerializeField] CharacterController controller;
