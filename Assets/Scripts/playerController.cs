@@ -302,7 +302,11 @@ public class playerController : MonoBehaviour, IDamage
 
     public void takeDamage(int amount)
     {
-        HP -= amount;
+        if (amount < 0)
+            StartCoroutine(healingFlash());
+        else
+            StartCoroutine(damageFlash());
+        HP = HP - amount;
 
         if (HP > HPMax) 
         {

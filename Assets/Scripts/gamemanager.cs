@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Xml.Serialization;
 
 public class gamemanager : MonoBehaviour
 {
@@ -10,19 +11,21 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
+    [SerializeField] GameObject menuLoad;
 
-    [SerializeField] TMP_Text meleeEnemyCountText;
-    [SerializeField] TMP_Text rangedEnemyCountText;
+    //[SerializeField] TMP_Text meleeEnemyCountText;
+    //[SerializeField] TMP_Text rangedEnemyCountText;
     [SerializeField] TMP_Text bossEnemyCountText;
+    [SerializeField] TMP_Text waveText;
     [SerializeField] TMP_Text bossNameText;
-
-    [SerializeField] int Wave;
 
     public Image playerHPBar;
     public Image playerEXPBar;
     public GameObject playerDamageFlash;
     public GameObject playerHealFlash;
     public GameObject playerLevelUPFlash;
+    public GameObject bossUI;
+    public GameObject WaveUI;
 
     public Image bossHPBar;
 
@@ -30,13 +33,15 @@ public class gamemanager : MonoBehaviour
     public playerController playerScript;
 
     public bool isPaused;
+    public int lustIIIArcana;
+    public int enemies;
     float timeScaleOrig;
 
     public enum bossType { sloth, wrath, gluttony, envy, lust, greed, pride, final };
     public bossType boss;
 
-    int meleeEnemyCount;
-    int rangedEnemyCount;
+    //int meleeEnemyCount;
+    //int rangedEnemyCount;
     int bossEnemyCount;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -45,6 +50,7 @@ public class gamemanager : MonoBehaviour
         bossEnemyCount = 1;
         instance = this;
         timeScaleOrig = Time.timeScale;
+        lustIIIArcana = 4;
 
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
@@ -66,6 +72,8 @@ public class gamemanager : MonoBehaviour
                 stateUnpause();
             }
         }
+
+        if (lustIIIArcana == 0) youWin();
     }
 
     public void statePause()
@@ -88,41 +96,47 @@ public class gamemanager : MonoBehaviour
 
     public void updateGameGoal(int numBoss, int nummel, int numran)
     {
-        meleeEnemyCount += nummel;
-        rangedEnemyCount += numran;
+        //meleeEnemyCount += nummel;
+        //rangedEnemyCount += numran;
+        enemies += numran;
         bossEnemyCount += numBoss;
 
-        if (bossEnemyCount > 1)
-            bossEnemyCount--;
+        //if (bossEnemyCount > 1)
+        //    bossEnemyCount--;
 
-        meleeEnemyCountText.text = meleeEnemyCount.ToString("F0");
-        rangedEnemyCountText.text = rangedEnemyCount.ToString("F0");
-        bossEnemyCountText.text = bossEnemyCount.ToString("F0");
-
-        
-        
-        if (bossEnemyCount <= 0)
-        {
-            statePause();
-            menuActive = menuWin;
-            menuActive.SetActive(true);
-        }
+        //meleeEnemyCountText.text = meleeEnemyCount.ToString("F0");
+        //rangedEnemyCountText.text = rangedEnemyCount.ToString("F0");
+        //bossEnemyCountText.text = bossEnemyCount.ToString("F0");
     }
 
     public void SetBossText(string boss)
     {
         bossNameText.text = boss;
     }
-
-    public void updateWave(int wa)
+    public void SetWaveText(string wave)
     {
-        Wave = wa;
+        waveText.text = wave;
+    }
+
+    public void youWin()
+    {
+        statePause();
+        menuActive = menuWin;
+        menuActive.SetActive(true);
     }
 
     public void youLose()
     {
         statePause();
         menuActive = menuLose;
+        menuActive.SetActive(true);
+    }
+
+    public void openLoad()
+    {
+        statePause();
+        menuActive.SetActive(false);
+        menuActive = menuLoad;
         menuActive.SetActive(true);
     }
 }
