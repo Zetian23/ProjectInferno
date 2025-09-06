@@ -22,11 +22,13 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
+    [SerializeField] ParticleSystem shootEffect;
 
     //Melee Weapon
     [SerializeField] int hitDamage;
     [SerializeField] float hitRate;
     [SerializeField] int hitDist;
+    [SerializeField] ParticleSystem meleeEffect;
 
     //Weapon Model and Skin
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
@@ -137,7 +139,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         playerVelocity.y -= gravity * Time.deltaTime;
 
 
-        if (Input.GetButton("Fire1") && shootTimer >= shootRate && weaponList.Count > 0 && weaponList[weaponListpos].ammoCur > 0)
+        if (Input.GetButton("Fire1") && shootTimer >= shootRate)
         {
             shoot();
         }
@@ -244,6 +246,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         {
             Debug.Log(hit.collider.name);
 
+            Instantiate(shootEffect, hit.point, Quaternion.identity);
+
             IDamage dmg = hit.collider.GetComponent<IDamage>();
 
             if (dmg != null)
@@ -275,6 +279,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, hitDist, ~ignoreLayer))
         {
             Debug.Log(hit.collider.name);
+
+            Instantiate(meleeEffect, hit.point, Quaternion.identity);
 
             IDamage dmg = hit.collider.GetComponent<IDamage>();
 
@@ -366,9 +372,11 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         shootDamage = weaponList[weaponListpos].shootDamage;
         shootDist = weaponList[weaponListpos].shootDist;
         shootRate = weaponList[weaponListpos].shootRate;
+        shootEffect = weaponList[weaponListpos].shootEffect;
         hitDamage = weaponList[weaponListpos].meleeDamage;
         hitDist = weaponList[weaponListpos].meleeDist;
         hitRate = weaponList[weaponListpos].meleeRate;
+        meleeEffect = weaponList[weaponListpos].meleeEffect;
 
         meleeModel.GetComponent<MeshFilter>().sharedMesh = weaponList[weaponListpos].meleeModel.GetComponent<MeshFilter>().sharedMesh;
         meleeModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[weaponListpos].meleeModel.GetComponent<MeshRenderer>().sharedMaterial;

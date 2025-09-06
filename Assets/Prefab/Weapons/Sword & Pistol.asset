@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: Sword & Pistol
   m_EditorClassIdentifier: 
   gunModel: {fileID: 919132149155446097, guid: aaedcafc70b4b92489777f53584bd1d4, type: 3}
-  shootDamage: 10
-  shootDist: 300
-  shootRate: 0.1
-  ammoCur: 0
+  shootDamage: 15
+  shootDist: 50
+  shootRate: 0.25
+  ammoCur: -2054
   ammoMax: 16
-  shootEffect: {fileID: 0}
+  shootEffect: {fileID: 8567743453655228817, guid: 212ef1a41838ce044a9ac54994866708, type: 3}
   shootSound: {fileID: 0}
   shootVol: 0.5
   meleeModel: {fileID: 919132149155446097, guid: a6208fb82c017e54ba58903901e0314d, type: 3}
-  meleeDamage: 20
-  meleeDist: 100
-  meleeRate: 0.5
-  meleeEffect: {fileID: 0}
+  meleeDamage: 30
+  meleeDist: 20
+  meleeRate: 1
+  meleeEffect: {fileID: 1301697207402410478, guid: 39f852c28f9c3fd45a427c24f3564ba7, type: 3}
   meleeSound: {fileID: 0}
   meleeVol: 0.5
