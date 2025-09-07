@@ -26,7 +26,7 @@ public class CommonEnemyScript : Enemy, IDamage
     void Start()
     {
         colorOrg = model.material.color;
-        gamemanager.instance.updateGameGoal(0, 0, 1);
+        gamemanager.instance.updateGameGoal(1);
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
     }
@@ -125,7 +125,7 @@ public class CommonEnemyScript : Enemy, IDamage
         }
         if (HP <= 0)
         {
-            gamemanager.instance.updateGameGoal(0, 0, -1);
+            gamemanager.instance.updateGameGoal(-1);
             Destroy(gameObject);
             CallGainEXP();
         }

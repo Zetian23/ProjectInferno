@@ -17,15 +17,14 @@ public class lustAI : sinEnemy
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        InitVar();  // Initializing all the data in the sinEnemy.
+        InitVar();      // Initializing all the data in the sinEnemy.
+        isLust = true;  // Initializing it as lust.
 
-        if(lustArcana == 1) // If the object initiated is of the first arcana.
+        if (lustArcana == 1) // If the object initiated is of the first arcana.
         {
             gamemanager.instance.SetBossText("Lust");               // Setting the boss nametag to "Lust".
             gamemanager.instance.boss = gamemanager.bossType.lust;  // Setting the bossType to the Lust Boss.
             updateBossUI();                                         // Initializing the boss UI.
-            isLust = true;                                          // Initializing it as lust.
-            gamemanager.instance.updateGameGoal(1, 0, 0);           // Add one boss to the game goal.
         }
     }
 
@@ -54,15 +53,17 @@ public class lustAI : sinEnemy
         {
             if(lustChildArcana == null) // Check if the next child is non existant.
             {
+                if (lustArcana == 3)    // Check if this is the third arcana.
+                    gamemanager.instance.lustIIIArcana--;   // If so then subtract one from the four that are made.
+
+                if (gamemanager.instance.lustIIIArcana == 0) gamemanager.instance.youWin(); // If the last third arcana has died then activate the you win screen.
+
                 Destroy(gameObject);    // Destroy only this Object with no Instantiate.
             }
             else    // If there is an object in the lustChildArcana.
             {
                 Instantiate(lustChildArcana, transform.position, transform.rotation);   // Then Instantiate
                 Instantiate(lustChildArcana, transform.position, transform.rotation);   // two child enemies of this.
-
-                if (lustArcana == 3)    // Check if this is the third arcana.
-                    gamemanager.instance.lustIIIArcana--;   // If so then subtract one from the four that are made.\
 
                 Destroy(gameObject);    // Destroy this object when done.
             }
