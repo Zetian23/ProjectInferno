@@ -27,14 +27,15 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     //Weapon Model and Skin
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
     [SerializeField] GameObject gunModel;
+    [SerializeField] GameObject powerModel;
 
     //Dashing
     [SerializeField] float dashTime;
     [SerializeField] float dashRate;
     [SerializeField] int dashSpeed;
-    //Sins
     [SerializeField] int dashIFrames;
 
+    //Sins
     [SerializeField] bool hasLust;
     [SerializeField] bool hasGreed;
     [SerializeField] bool hasSloth;
@@ -63,6 +64,17 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     [SerializeField] int maxHPLevelUp;
     [SerializeField] float DamageLevelUp;
 
+    //Powers
+    int powerPos;
+    List<bool> powerList = new();
+    List<GameObject> powerModels = new();
+    //Fire
+    [SerializeField] GameObject fireModel;
+    [SerializeField] int fireDamage;
+    [SerializeField] float fireCooldown;
+    [SerializeField] float fireAOERange;
+    [SerializeField] float fireSpeed;
+
     Vector3 moveDirection;
     Vector3 dashDirection;
     Vector3 playerVelocity;
@@ -87,6 +99,14 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         level = 1;
         EXP = 0;
         expReq = expReqOrig;
+
+        for (int i = 0; i < 5; i++)
+        {
+            powerList.Add(false);
+        }
+
+        powerModels.Add(fireModel);
+
         updatePlayerUI();
     }
 
@@ -136,7 +156,15 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
             shoot();
         }
 
-        selectWeapon();
+        if (Input.GetButton("Fire2") && powerList[0])
+        {
+            power();
+        }
+
+        if (powerList[0])
+        {
+            selectPower();
+        }
 
         //reload
         if (Input.GetButton("Reload") && weaponList.Count != 0 && weaponList[weaponListpos].ammoCur != weaponList[weaponListpos].ammoMax)
@@ -274,6 +302,23 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         }
     }
 
+    void power()
+    {
+        switch (powerPos)
+        {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+        }
+    }
+
     public void takeDamage(int amount)
     {
         if (amount < 0)
@@ -346,15 +391,44 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         gunModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[weaponListpos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
     }
 
-    void selectWeapon()
+    void selectPower()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && weaponListpos < weaponList.Count - 1)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
-            
+            while (!powerList[powerPos])
+            {
+                powerPos++;
+                if(powerPos >= 5)
+                {
+                    powerPos = 0;
+                }
+            }
+            equipPower();
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && weaponListpos > 0)
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
-            
+            while (!powerList[powerPos])
+            {
+                powerPos++;
+                if (powerPos <= -1)
+                {
+                    powerPos = 4;
+                }
+            }
+            equipPower();
         }
+    }
+
+    void equipPower()
+    {
+        powerModel.GetComponent<MeshFilter>().sharedMesh = powerModels[powerPos].GetComponent<MeshFilter>().sharedMesh;
+        powerModel.GetComponent<MeshRenderer>().sharedMaterial = powerModels[powerPos].GetComponent<MeshRenderer>().sharedMaterial;
+    }
+
+    public void getPower(int powerID)
+    {
+        powerList[powerID] = true;
+        powerPos = powerID;
+        equipPower();
     }
 }
