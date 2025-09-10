@@ -10,21 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01e8ca1e06b141d44bf4a783393b3ba5, type: 3}
-  m_Name: Hammer & Shotgun
+  m_Name: Pistol
   m_EditorClassIdentifier: 
-  gunModel: {fileID: 919132149155446097, guid: d43b387a0af0a214e8e13ec26711623b, type: 3}
-  shootDamage: 7
-  shootDist: 100
-  shootRate: 1
+  gunModel: {fileID: 919132149155446097, guid: aaedcafc70b4b92489777f53584bd1d4, type: 3}
+  shootDamage: 15
+  shootDist: 50
+  shootRate: 0.25
   ammoCur: 0
-  ammoMax: 2
-  shootEffect: {fileID: 0}
+  ammoMax: 16
+  shootEffect: {fileID: 8567743453655228817, guid: 212ef1a41838ce044a9ac54994866708, type: 3}
   shootSound: {fileID: 0}
   shootVol: 0.5
-  meleeModel: {fileID: 919132149155446097, guid: 78102cf37417cf94a9016383bf28063f, type: 3}
-  meleeDamage: 5
-  meleeDist: 40
-  meleeRate: 1
-  meleeEffect: {fileID: 0}
-  meleeSound: {fileID: 0}
-  meleeVol: 0.5
