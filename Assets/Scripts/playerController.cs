@@ -1,4 +1,5 @@
 using NUnit.Framework.Interfaces;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,29 +18,23 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     [SerializeField] int jumpMax;
     [SerializeField] int gravity;
 
-    [SerializeField] weaponStats startingWeapon;
     //Range Weapon
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
-
-    //Melee Weapon
-    [SerializeField] int hitDamage;
-    [SerializeField] float hitRate;
-    [SerializeField] int hitDist;
+    [SerializeField] ParticleSystem shootEffect;
 
     //Weapon Model and Skin
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
-    [SerializeField] GameObject meleeModel;
-    [SerializeField] GameObject rangeModel;
+    [SerializeField] GameObject gunModel;
 
     //Dashing
     [SerializeField] float dashTime;
     [SerializeField] float dashRate;
     [SerializeField] int dashSpeed;
+    //Sins
     [SerializeField] int dashIFrames;
 
-    //Sins
     [SerializeField] bool hasLust;
     [SerializeField] bool hasGreed;
     [SerializeField] bool hasSloth;
@@ -92,7 +87,6 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         level = 1;
         EXP = 0;
         expReq = expReqOrig;
-        getWeaponStat(startingWeapon);
         updatePlayerUI();
     }
 
@@ -137,17 +131,18 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         playerVelocity.y -= gravity * Time.deltaTime;
 
 
-        if (Input.GetButton("Fire1") && shootTimer >= shootRate && weaponList.Count > 0 && weaponList[weaponListpos].ammoCur > 0)
+        if (Input.GetButton("Fire1") && weaponList.Count != 0 && shootTimer >= shootRate && weaponList[weaponListpos].ammoCur != 0)
         {
             shoot();
         }
 
-        if (Input.GetButton("Fire2") && shootTimer >= hitRate)
-        {
-            melee();
-        }
-
         selectWeapon();
+
+        //reload
+        if (Input.GetButton("Reload") && weaponList.Count != 0 && weaponList[weaponListpos].ammoCur != weaponList[weaponListpos].ammoMax)
+        {
+            reload();
+        }
 
         //Dash function
         if (Input.GetButtonDown("Dash") && dashTimer >= dashRate && !hasAirDashed)
@@ -186,7 +181,12 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         }
     }
 
-   public virtual void gainEXP(int expGained)
+    void reload()
+    {
+        weaponList[weaponListpos].ammoCur = weaponList[weaponListpos].ammoMax;
+    }
+
+    public virtual void gainEXP(int expGained)
     {
         EXP += expGained;
 
@@ -244,6 +244,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         {
             Debug.Log(hit.collider.name);
 
+            Instantiate(shootEffect, hit.point, Quaternion.identity);
+
             IDamage dmg = hit.collider.GetComponent<IDamage>();
 
             if (dmg != null)
@@ -263,42 +265,14 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
                 {
                     dmg.slothSlow(slothSpeedReduction);
                 }
-            }
-        }
-    }
 
-    void melee()
-    {
-        shootTimer = 0;
-
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, hitDist, ~ignoreLayer))
-        {
-            Debug.Log(hit.collider.name);
-
-            IDamage dmg = hit.collider.GetComponent<IDamage>();
-
-            if (dmg != null)
-            {
-                //Wrath
-                if (hasWrath)
-                {
-                    dmg.takeDamage((int)(hitDamage * wrathDamageMult));
-                }
-                else
-                {
-                    dmg.takeDamage(hitDamage);
-                }
-
-                //Envy
                 if (hasEnvy)
                 {
-                    takeDamage((int)(hitDamage * envyHealPercent));
+                    takeDamage((int)(shootDamage * envyHealPercent));
                 }
             }
         }
     }
-
 
     public void takeDamage(int amount)
     {
@@ -366,27 +340,21 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         shootDamage = weaponList[weaponListpos].shootDamage;
         shootDist = weaponList[weaponListpos].shootDist;
         shootRate = weaponList[weaponListpos].shootRate;
-        hitDamage = weaponList[weaponListpos].meleeDamage;
-        hitDist = weaponList[weaponListpos].meleeDist;
-        hitRate = weaponList[weaponListpos].meleeRate;
+        shootEffect = weaponList[weaponListpos].shootEffect;
 
-        meleeModel.GetComponent<MeshFilter>().sharedMesh = weaponList[weaponListpos].meleeModel.GetComponent<MeshFilter>().sharedMesh;
-        meleeModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[weaponListpos].meleeModel.GetComponent<MeshRenderer>().sharedMaterial;
-        rangeModel.GetComponent<MeshFilter>().sharedMesh = weaponList[weaponListpos].gunModel.GetComponent<MeshFilter>().sharedMesh;
-        rangeModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[weaponListpos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
+        gunModel.GetComponent<MeshFilter>().sharedMesh = weaponList[weaponListpos].gunModel.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[weaponListpos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
     }
 
     void selectWeapon()
     {
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && weaponListpos < weaponList.Count - 1)
         {
-            weaponListpos++;
-            changeWeapon();
+            
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0 && weaponListpos > 0)
         {
-            weaponListpos--;
-            changeWeapon();
+            
         }
     }
 }

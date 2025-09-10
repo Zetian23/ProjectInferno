@@ -14,13 +14,4 @@ public class weaponStats : ScriptableObject
     public ParticleSystem shootEffect;
     public AudioClip shootSound;
     public float shootVol;
-
-    public GameObject meleeModel;
-    public int meleeDamage;
-    public int meleeDist;
-    public float meleeRate;
-
-    public ParticleSystem meleeEffect;
-    public AudioClip meleeSound;
-    public float meleeVol;
 }
