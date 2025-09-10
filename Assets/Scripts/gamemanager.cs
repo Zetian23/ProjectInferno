@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Xml.Serialization;
+using System.Collections.Generic;
 
 public class gamemanager : MonoBehaviour
 {
@@ -25,9 +26,10 @@ public class gamemanager : MonoBehaviour
     public GameObject playerHealFlash;
     public GameObject playerLevelUPFlash;
     public GameObject bossUI;
+    public List<GameObject> bossHealthUI;
     public GameObject WaveUI;
 
-    public Image bossHPBar;
+    public List<Image> bossHPBar;
 
     public GameObject player;
     public playerController playerScript;
@@ -43,6 +45,7 @@ public class gamemanager : MonoBehaviour
     //int meleeEnemyCount;
     //int rangedEnemyCount;
     int bossEnemyCount;
+    int currBossPhase;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -117,6 +120,9 @@ public class gamemanager : MonoBehaviour
     {
         waveText.text = wave;
     }
+
+    public void SetPhase(int phase) { currBossPhase = phase; }
+    public int GetPhase() { return currBossPhase; }
 
     public void youWin()
     {
