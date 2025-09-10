@@ -18,7 +18,6 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     [SerializeField] int jumpMax;
     [SerializeField] int gravity;
 
-    [SerializeField] weaponStats startingWeapon;
     //Range Weapon
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
@@ -88,7 +87,6 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         level = 1;
         EXP = 0;
         expReq = expReqOrig;
-        getWeaponStat(startingWeapon);
         updatePlayerUI();
     }
 
@@ -133,7 +131,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         playerVelocity.y -= gravity * Time.deltaTime;
 
 
-        if (Input.GetButton("Fire1") && shootTimer >= shootRate && weaponList[weaponListpos].ammoCur != 0)
+        if (Input.GetButton("Fire1") && weaponList.Count != 0 && shootTimer >= shootRate && weaponList[weaponListpos].ammoCur != 0)
         {
             shoot();
         }
@@ -141,7 +139,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         selectWeapon();
 
         //reload
-        if (Input.GetButton("Reload") && shootTimer >= shootRate && weaponList[weaponListpos].ammoCur != 0)
+        if (Input.GetButton("Reload") && weaponList.Count != 0 && weaponList[weaponListpos].ammoCur != weaponList[weaponListpos].ammoMax)
         {
             reload();
         }
@@ -352,13 +350,11 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     {
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && weaponListpos < weaponList.Count - 1)
         {
-            weaponListpos++;
-            changeWeapon();
+            
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0 && weaponListpos > 0)
         {
-            weaponListpos--;
-            changeWeapon();
+            
         }
     }
 }
