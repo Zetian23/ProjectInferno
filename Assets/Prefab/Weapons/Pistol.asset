@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01e8ca1e06b141d44bf4a783393b3ba5, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
-  gunModel: {fileID: 919132149155446097, guid: aaedcafc70b4b92489777f53584bd1d4, type: 3}
-  shootDamage: 15
-  shootDist: 50
-  shootRate: 0.25
-  ammoCur: 0
+  gunModel: {fileID: 395176681054935724, guid: b62238622c245624489ee5a42c227526, type: 3}
+  shootDamage: 10
+  shootDist: 300
+  shootRate: 0.1
+  ammoCur: 16
   ammoMax: 16
   shootEffect: {fileID: 8567743453655228817, guid: 212ef1a41838ce044a9ac54994866708, type: 3}
   shootSound: {fileID: 0}
   shootVol: 0.5
+
