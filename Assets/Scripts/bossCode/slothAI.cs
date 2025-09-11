@@ -30,9 +30,8 @@ public class slothAI : sinEnemy
     {
         InitVar(); // This calls the method in sinEnemy that initializes all fields in that script needed for this.
 
-        //gamemanager.instance.updateGameGoal(1, 0, 0);   // Add one boss to the game goal.
-
         speedBoostTimer = speedBoostLength;     // Initializing the set timer for when speedBoost() is called.
+        startSpeed = agent.speed;               // Initializing how fast the boss was initially set to.
 
         damageTrigger = Javelin.GetComponent<SphereCollider>(); // Initializing the trigger to the javelin sphere collider.
 
@@ -65,7 +64,7 @@ public class slothAI : sinEnemy
             navToJav();// If the javelin has been thrown then the enemy needs to head straight to that position to grab it before returning focus on the player again.
         }
 
-        if (weakSpotHit == true && gamemanager.instance.GetPhase() == 2) speedBoost();    // During the second phase if the weak spot is hit the boss speeds up.
+        if (weakSpotHit == true && phase == 2) speedBoost();    // During the second phase if the weak spot is hit the boss speeds up.
     }
 
     void speedBoost()   // Move the boss faster for a bit of time.
@@ -125,23 +124,15 @@ public class slothAI : sinEnemy
     {
         base.OnTriggerEnter(collider);  // Calls the OnTriggerEnter(collider) from the Enemy class.
 
-        if (collider.CompareTag("Javelin") && Javelin.GetComponent<damage>().GetIfGrounded() == true)   // Checks if the object that collided is on the ground and is the javelin.
+        if (collider.CompareTag("Javelin") && (Javelin.GetComponent<damage>().GetIfGrounded() == true || javRB.linearVelocity == Vector3.zero))   // Checks if the object that collided is on the ground and is the javelin.
         {
             javPickUp = true;   // Sets the javPickUp to true so that in navToJav() it picks it up.
         }
     }
 
-    protected override void phaseChange()
-    {
-        if(gamemanager.instance.GetPhase() == 2)
-        {
-
-        }
-    }
-
     void OnTriggerStay(Collider collider)   // This is called when an object stays in the collider like if it was thrown at the player nearby and never left the collider.
     {
-        if (collider.CompareTag("Javelin") && Javelin.GetComponent<damage>().GetIfGrounded() == true)   // Checks if the collider is the javelin and is on the ground so it won't just keep picking it up.
+        if (collider.CompareTag("Javelin") && (Javelin.GetComponent<damage>().GetIfGrounded() == true || javRB.linearVelocity == Vector3.zero))   // Checks if the collider is the javelin and is on the ground so it won't just keep picking it up.
         {
             javPickUp = true;   // Sets the javPickUp to true so that in navToJav() it picks it up.
         }
@@ -149,13 +140,15 @@ public class slothAI : sinEnemy
 
     public override void Attack()   // Overrides the Attack() method to fit the Sloth Boss.
     {
-        if (gamemanager.instance.GetPhase() <= 2) // Checks if it's phase one or two.
+        if (phase <= 2) // Checks if it's phase one or two.
         {
             meleeAttack();  // If so then the meleeAttack() is called for close up damage.
         }
-        if (gamemanager.instance.GetPhase() > 2)  // Checks if it has hit the third phase.
+        if (phase > 2)  // Checks if it has hit the third phase.
         {
-            throwJavelin(); // If so then the boss will throw the javelin.
+            weakSpotHit = false;        // Set weakSpot to false.
+            agent.speed = startSpeed;   // Set speed back to the startingSpeed.
+            throwJavelin();             // Then the boss will throw the javelin.
         }
     }
 }
