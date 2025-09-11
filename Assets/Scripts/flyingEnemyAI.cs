@@ -71,7 +71,7 @@ public class NewMonoBehaviourScript : Enemy
             transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, faceTargetSpeed * Time.deltaTime);
         }
 
-        if(dist <= stoppingDist && attackTimer >= attackRate)
+        if(dist == stoppingDist && attackTimer >= attackRate)
         {
             Attack();
         }
@@ -96,17 +96,21 @@ public class NewMonoBehaviourScript : Enemy
     public override void Attack()
     {
         attackTimer = 0;
-        if(bullet != null && attackPos != null)
-        {
-            Instantiate(bullet,attackPos.position, attackPos.rotation);
-        }
+        
+            if (agent.remainingDistance <= agent.stoppingDistance)
+                Instantiate(bullet,attackPos.position, attackPos.rotation);
+           
+        
     }
 
     public override void takeDamage(int amount)
     {
-        HP -= amount;
-        StartCoroutine(flashDamage());
-
+        if (HP > 0)
+        {
+            HP -= amount;
+            //agent.SetDestination(gamemanager.instance.player.transform.position);
+            StartCoroutine(flashDamage());
+        }
         if(HP <= 0)
         {
             Destroy(gameObject);
