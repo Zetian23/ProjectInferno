@@ -64,7 +64,7 @@ public class slothAI : sinEnemy
             navToJav();// If the javelin has been thrown then the enemy needs to head straight to that position to grab it before returning focus on the player again.
         }
 
-        if (weakSpotHit == true && phase == 2) speedBoost();    // During the second phase if the weak spot is hit the boss speeds up.
+        if (weakSpotHit == true && gamemanager.instance.GetPhase() == 2) speedBoost();    // During the second phase if the weak spot is hit the boss speeds up.
     }
 
     void speedBoost()   // Move the boss faster for a bit of time.
@@ -130,6 +130,14 @@ public class slothAI : sinEnemy
         }
     }
 
+    protected override void phaseChange()
+    {
+        if(gamemanager.instance.GetPhase() == 2)
+        {
+
+        }
+    }
+
     void OnTriggerStay(Collider collider)   // This is called when an object stays in the collider like if it was thrown at the player nearby and never left the collider.
     {
         if (collider.CompareTag("Javelin") && (Javelin.GetComponent<damage>().GetIfGrounded() == true || javRB.linearVelocity == Vector3.zero))   // Checks if the collider is the javelin and is on the ground so it won't just keep picking it up.
@@ -140,11 +148,11 @@ public class slothAI : sinEnemy
 
     public override void Attack()   // Overrides the Attack() method to fit the Sloth Boss.
     {
-        if (phase <= 2) // Checks if it's phase one or two.
+        if (gamemanager.instance.GetPhase() <= 2) // Checks if it's phase one or two.
         {
             meleeAttack();  // If so then the meleeAttack() is called for close up damage.
         }
-        if (phase > 2)  // Checks if it has hit the third phase.
+        if (gamemanager.instance.GetPhase() > 2)  // Checks if it has hit the third phase.
         {
             weakSpotHit = false;        // Set weakSpot to false.
             agent.speed = startSpeed;   // Set speed back to the startingSpeed.

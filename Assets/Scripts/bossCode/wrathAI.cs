@@ -58,13 +58,13 @@ public class wrathAI : sinEnemy
 
         if (isAttacking) meleeAttack(); // If the attack is happening then do a melee attack, I check this so the attack doesnt happen again until this is done.
 
-        if (invensibleCooldownTimer >= invensibleCooldownTime && phase >= 2)    // Checks if the invensibilty cooldown is ready and if it is phase two.
+        if (invensibleCooldownTimer >= invensibleCooldownTime && gamemanager.instance.GetPhase() >= 2)    // Checks if the invensibilty cooldown is ready and if it is phase two.
         {
             isInvensible = true;                    // Set invensiblity to true so the boss doesn't take damage.
             StartCoroutine(flashInvensiblity());    // Calls the flashInvensibilty while the invensibilty is active.
         }
 
-        if(phase == 3) agent.speed = sprintSpeed;   // Sets the speed of the boss when in phase three.
+        if(gamemanager.instance.GetPhase() == 3) agent.speed = sprintSpeed;   // Sets the speed of the boss when in phase three.
     }
 
     protected override void meleeAttack()  // Base attack for when the boss is close up attacking.
