@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 
-public class NewMonoBehaviourScript : Enemy
+public class flyingEnemyAI : Enemy
 {
     [SerializeField] float speed;
     [SerializeField] float hoverHeight;
