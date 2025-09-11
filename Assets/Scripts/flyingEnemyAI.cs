@@ -61,7 +61,7 @@ public class NewMonoBehaviourScript : Enemy
             transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, faceTargetSpeed * Time.deltaTime);
         }
 
-        if(dist >= stoppingDist && attackTimer >= attackRate)
+        if(dist <= stoppingDist && attackTimer >= attackRate)
         {
             Attack();
         }
