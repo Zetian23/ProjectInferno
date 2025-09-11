@@ -109,6 +109,13 @@ public class Waves : MonoBehaviour
                 StartCoroutine(flashSpawnIcon(SpawnPoints[0]));
                 bossIsSpawned = true;
             }
+<<<<<<< HEAD
+=======
+            gamemanager.instance.RemainingEnemiesUI.SetActive(false);
+            if(!bossIsSpawned) gamemanager.instance.WaveCooldownUI.SetActive(true);
+            int timeTillWave = (int) (waveCooldownTime - waveSpawnCooldownTimer);
+            //gamemanager.instance.SetWaveCooldownText(timeTillWave.ToString("F0"));
+>>>>>>> parent of 19aab6b (revert)
             waveCooldownTimer += Time.deltaTime;
             if (waveCooldownTimer >= waveCooldownTime)
             {

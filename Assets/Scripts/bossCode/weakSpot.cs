@@ -55,7 +55,7 @@ public class weakSpot : MonoBehaviour, IDamage
 
     public void takeDamage(int amount)  // Uses this method to deal damage the enemy within this script.
     {
-        if (!parent.isInvensible && !parent.isLust)   // If the enemy is in an invensible state then it shouldn't take any damage.
+        if (!parent.isInvinsible && !parent.isLust)   // If the enemy is in an invensible state then it shouldn't take any damage.
         {
             if (parent.HP > 0)  // If the enemy this is attached to has HP
             {
@@ -71,8 +71,9 @@ public class weakSpot : MonoBehaviour, IDamage
             }
             if (parent.HP <= 0) // If the boss health is deplinished.
             {
-                Destroy(parent.gameObject);                     // Then destroy the boss object
-                gamemanager.instance.youWin();                  // and update the game goal to decrease the boss amount.
+                Destroy(parent.gameObject);                             // Then destroy the boss object
+                gamemanager.instance.bossHealthUI[0].SetActive(false);
+                gamemanager.instance.youWin();                          // and update the game goal to decrease the boss amount.
             }
         }
         else if (parent.isLust)

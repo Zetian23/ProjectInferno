@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: d7dff897dd88d2447965f5e650b5c9fc
+=======
+guid: fdf5a3e5d1302f34cb64d671f1865a68
+>>>>>>> parent of 19aab6b (revert)
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
