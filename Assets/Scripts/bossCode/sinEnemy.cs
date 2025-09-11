@@ -11,7 +11,7 @@ public class sinEnemy : Enemy
     protected Color emissionColorOrig;  // This is the original emission color of the skin.
 
     protected int BHPOrig;      // This is for the amount of health the boss starts out with.
-    public bool isInvensible;   // This is if a boss is invinsible to any attacks.
+    public bool isInvinsible;   // This is if a boss is invinsible to any attacks.
     public bool weakSpotHit;    // This checks if a weakness has been struck.
     public bool isLust;         // This is if the boss is the lust one.
 
@@ -19,8 +19,9 @@ public class sinEnemy : Enemy
     {
         gamemanager.instance.bossUI.SetActive(true);                            // Showing the boss UI.
         gamemanager.instance.SetPhase(1);                                       // Initializing phase to the first phase.
-        isInvensible = false;                                                   // Initializing that there is no invensibility.
-        colorOrg = model.material.color;                                        // Initializing the original color of the bosses material.
+        startSpeed = agent.speed;                                               // Initializing how fast the boss was initially set to.
+        isInvinsible = false;                                                   // Initializing that there is no invensibility.
+        colorOrg = skinObjects[0].material.color;                               // Initializing the original color of the bosses material.
         emissionColorOrig = skinObjects[0].material.GetColor("_EmissionColor"); // Initializing the original emission color of the bosses skin.
         attackTimer = 0;                                                        // Initializing the attack timer to zero.
         BHPOrig = HP;                                                           // Initializing the BHOrig to the amout of health it starts with.
@@ -35,7 +36,7 @@ public class sinEnemy : Enemy
 
     public override void takeDamage(int amount) // This is an override of take damage on the base Enemy script.
     {
-        if (!isInvensible) {    // If invensible then it shouldn't take damage.
+        if (!isInvinsible) {    // If invensible then it shouldn't take damage.
             if (HP > 0)     // If the health is more than zero.
             {
                 HP -= amount;                   // Then subtract the amount of health taken,
