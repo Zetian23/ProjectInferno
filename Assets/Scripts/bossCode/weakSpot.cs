@@ -55,7 +55,7 @@ public class weakSpot : MonoBehaviour, IDamage
 
     public void takeDamage(int amount)  // Uses this method to deal damage the enemy within this script.
     {
-        if (!parent.isInvensible && !parent.isLust)   // If the enemy is in an invensible state then it shouldn't take any damage.
+        if (!parent.isInvinsible && !parent.isLust)   // If the enemy is in an invensible state then it shouldn't take any damage.
         {
             if (parent.HP > 0)  // If the enemy this is attached to has HP
             {
