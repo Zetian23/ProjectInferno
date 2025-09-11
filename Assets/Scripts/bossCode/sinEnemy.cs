@@ -10,7 +10,6 @@ public class sinEnemy : Enemy
 
     protected Color emissionColorOrig;  // This is the original emission color of the skin.
 
-    protected int phase;        // This is the current phase that the boss is on when needed.
     protected int BHPOrig;      // This is for the amount of health the boss starts out with.
     public bool isInvensible;   // This is if a boss is invinsible to any attacks.
     public bool weakSpotHit;    // This checks if a weakness has been struck.
@@ -19,10 +18,10 @@ public class sinEnemy : Enemy
     public void InitVar() 
     {
         gamemanager.instance.bossUI.SetActive(true);                            // Showing the boss UI.
+        gamemanager.instance.SetPhase(1);                                       // Initializing phase to the first phase.
         isInvensible = false;                                                   // Initializing that there is no invensibility.
         colorOrg = model.material.color;                                        // Initializing the original color of the bosses material.
         emissionColorOrig = skinObjects[0].material.GetColor("_EmissionColor"); // Initializing the original emission color of the bosses skin.
-        phase = 1;                                                              // Initializing phase to the first phase.
         attackTimer = 0;                                                        // Initializing the attack timer to zero.
         BHPOrig = HP;                                                           // Initializing the BHOrig to the amout of health it starts with.
         stoppingDistOrig = agent.stoppingDistance;                              // Initializing the starting stopping distance.
@@ -45,11 +44,14 @@ public class sinEnemy : Enemy
             }
             if (HP <= 0)    // If the health has been depleted.
             { 
-                Destroy(gameObject);            // Then destroy this object,
-                gamemanager.instance.youWin();  // and win the level.
+                Destroy(gameObject);                                    // Then destroy this object,
+                gamemanager.instance.bossHealthUI[2].SetActive(false);
+                gamemanager.instance.youWin();                          // and win the level.
             }
         }
     }
+
+    protected virtual void phaseChange() { }
 
     public override IEnumerator flashDamage()   // This is override used to show the boss has taken through all the skin.
     {
@@ -62,12 +64,30 @@ public class sinEnemy : Enemy
 
     protected void checkHealth(int phase1HealthMin, int phase2HealthMin)    // Checks health between phases.
     {
-        if (HP < phase1HealthMin) phase = 2;    // If the health has gone lower than the first phase than change to phase two.
-        if (HP < phase2HealthMin) phase = 3;    // If the health has gone lower than the second phase than change to phase three.
+        if (HP < phase1HealthMin) gamemanager.instance.SetPhase(2);    // If the health has gone lower than the first phase than change to phase two.
+        if (HP < phase2HealthMin) gamemanager.instance.SetPhase(3);    // If the health has gone lower than the second phase than change to phase three.
     }
 
     public void updateBossUI()  // Used to change the health on the UI.
     {
-        gamemanager.instance.bossHPBar.fillAmount = (float) HP / BHPOrig;   // When updated the health bar will be at the same vaule as this bosses health.
+        if (gamemanager.instance.GetPhase() == 1)
+        {
+            gamemanager.instance.bossHPBar[0].fillAmount = (float)HP / BHPOrig;   // When updated the health bar will be at the same vaule as this bosses health.
+            gamemanager.instance.bossHealthUI[0].SetActive(true);
+            gamemanager.instance.bossHealthUI[1].SetActive(false);
+            gamemanager.instance.bossHealthUI[2].SetActive(false);
+        }
+        if (gamemanager.instance.GetPhase() == 2)
+        {
+            gamemanager.instance.bossHPBar[1].fillAmount = (float)HP / BHPOrig;   // When updated the health bar will be at the same vaule as this bosses health.
+            gamemanager.instance.bossHealthUI[0].SetActive(false);
+            gamemanager.instance.bossHealthUI[1].SetActive(true);
+        }
+        if (gamemanager.instance.GetPhase() == 3)
+        {
+            gamemanager.instance.bossHPBar[2].fillAmount = (float)HP / BHPOrig;   // When updated the health bar will be at the same vaule as this bosses health.
+            gamemanager.instance.bossHealthUI[1].SetActive(false);
+            gamemanager.instance.bossHealthUI[2].SetActive(true);
+        }
     }
 }

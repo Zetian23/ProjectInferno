@@ -34,8 +34,6 @@ public class wrathAI : sinEnemy
     {
         InitVar();  // Initializes all of the bases varibles.
 
-        gamemanager.instance.updateGameGoal(1, 0, 0);   // Add one boss to the game goal.
-
         startingLocalRotation = Sword.transform.localRotation;  // Initializing the LOCAL rotation of the Sword.
         landingRotation = Quaternion.Euler(90, 0, 0);           // Initializing where the sword will rotate to.
 
@@ -60,13 +58,13 @@ public class wrathAI : sinEnemy
 
         if (isAttacking) meleeAttack(); // If the attack is happening then do a melee attack, I check this so the attack doesnt happen again until this is done.
 
-        if (invensibleCooldownTimer >= invensibleCooldownTime && phase >= 2)    // Checks if the invensibilty cooldown is ready and if it is phase two.
+        if (invensibleCooldownTimer >= invensibleCooldownTime && gamemanager.instance.GetPhase() >= 2)    // Checks if the invensibilty cooldown is ready and if it is phase two.
         {
             isInvensible = true;                    // Set invensiblity to true so the boss doesn't take damage.
             StartCoroutine(flashInvensiblity());    // Calls the flashInvensibilty while the invensibilty is active.
         }
 
-        if(phase == 3) agent.speed = sprintSpeed;   // Sets the speed of the boss when in phase three.
+        if(gamemanager.instance.GetPhase() == 3) agent.speed = sprintSpeed;   // Sets the speed of the boss when in phase three.
     }
 
     protected override void meleeAttack()  // Base attack for when the boss is close up attacking.

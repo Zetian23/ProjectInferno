@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Xml.Serialization;
+using System.Collections.Generic;
 
 public class gamemanager : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class gamemanager : MonoBehaviour
     //[SerializeField] TMP_Text rangedEnemyCountText;
     [SerializeField] TMP_Text bossEnemyCountText;
     [SerializeField] TMP_Text waveText;
+    [SerializeField] TMP_Text enemiesLeftText;
+    [SerializeField] TMP_Text waveCooldownText;
     [SerializeField] TMP_Text bossNameText;
 
     public Image playerHPBar;
@@ -25,9 +28,12 @@ public class gamemanager : MonoBehaviour
     public GameObject playerHealFlash;
     public GameObject playerLevelUPFlash;
     public GameObject bossUI;
+    public List<GameObject> bossHealthUI;
     public GameObject WaveUI;
+    public GameObject WaveCooldownUI;
+    public GameObject RemainingEnemiesUI;
 
-    public Image bossHPBar;
+    public List<Image> bossHPBar;
 
     public GameObject player;
     public playerController playerScript;
@@ -36,18 +42,20 @@ public class gamemanager : MonoBehaviour
     public int lustIIIArcana;
     public int enemies;
     float timeScaleOrig;
+    bool waveTextIsActive;
 
-    public enum bossType { sloth, wrath, gluttony, envy, lust, greed, pride, final };
+    public enum bossType { sloth, wrath, lust};
     public bossType boss;
 
     //int meleeEnemyCount;
     //int rangedEnemyCount;
-    int bossEnemyCount;
+    //int bossEnemyCount;
+    int currBossPhase;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        bossEnemyCount = 1;
+        //bossEnemyCount = 1;
         instance = this;
         timeScaleOrig = Time.timeScale;
         lustIIIArcana = 4;
@@ -72,13 +80,20 @@ public class gamemanager : MonoBehaviour
                 stateUnpause();
             }
         }
-
-        if (lustIIIArcana == 0) youWin();
     }
 
     public void statePause()
     {
         isPaused = !isPaused;
+        if (WaveUI.activeInHierarchy)
+        {
+            waveTextIsActive = true;
+            WaveUI.SetActive(false);
+        }
+        else
+        {
+            waveTextIsActive = false;
+        }
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;   
@@ -90,16 +105,17 @@ public class gamemanager : MonoBehaviour
         Time.timeScale = timeScaleOrig;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        if(waveTextIsActive) WaveUI.SetActive(true);
         menuActive.SetActive(false);
         menuActive = null;
     }
 
-    public void updateGameGoal(int numBoss, int nummel, int numran)
+    public void updateGameGoal(int enemyInit)
     {
         //meleeEnemyCount += nummel;
         //rangedEnemyCount += numran;
-        enemies += numran;
-        bossEnemyCount += numBoss;
+        enemies += enemyInit;
+        enemiesLeftText.text = enemies.ToString("F0");
 
         //if (bossEnemyCount > 1)
         //    bossEnemyCount--;
@@ -113,10 +129,14 @@ public class gamemanager : MonoBehaviour
     {
         bossNameText.text = boss;
     }
+
     public void SetWaveText(string wave)
     {
         waveText.text = wave;
     }
+
+    public void SetPhase(int phase) { currBossPhase = phase; }
+    public int GetPhase() { return currBossPhase; }
 
     public void youWin()
     {
