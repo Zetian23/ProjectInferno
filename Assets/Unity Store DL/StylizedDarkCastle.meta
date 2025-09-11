@@ -1,8 +1,14 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Unity Store DL/StylizedDarkCastle.meta
 guid: 56e3da8eba8f4ce4a856960af98086ab
 folderAsset: yes
 DefaultImporter:
+========
+guid: 36a2d6900e5be464591b85960044ec07
+NativeFormatImporter:
+>>>>>>>> dev_main:Assets/Prefab/Weapons/Spear & AK.asset.meta
   externalObjects: {}
+  mainObjectFileID: 11400000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
