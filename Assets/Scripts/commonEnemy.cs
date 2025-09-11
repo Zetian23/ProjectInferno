@@ -1,4 +1,5 @@
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
@@ -7,22 +8,12 @@ public class CommonEnemyScript : Enemy, IDamage
 {
     [SerializeField] GameObject weapon;
 
-    
-    [SerializeField] bool isMelee;
-    [SerializeField] bool isFlying;
 
+    [SerializeField] bool isSkelenton;
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTimer;
-
-    //for animation
     [SerializeField] Animator anim;
     [SerializeField] float animTranSpeed;
-
-    //for flying enemies
-    [SerializeField] float speed;
-   
-    [SerializeField] float hoverHeight;
-    [SerializeField] float chaseRange;
 
     public playerController expGained;
 
@@ -48,19 +39,6 @@ public class CommonEnemyScript : Enemy, IDamage
 
         attackTimer += Time.deltaTime;
 
-        if (isFlying)
-        {
-            flyingEnemy();
-        }
-        else
-        {
-            groundEnemy();
-        }
-
-    }
-
-    void groundEnemy()
-    {
         if (agent.remainingDistance < 0.01f)
         {
             roamTimer += Time.deltaTime;
@@ -76,49 +54,6 @@ public class CommonEnemyScript : Enemy, IDamage
         }
     }
 
-    void flyingEnemy()
-    {
-        float dist = Vector3.Distance(transform.position, gamemanager.instance.player.transform.position);
-
-        if(dist < chaseRange && canSeePlayer())
-        {
-            Vector3 target = gamemanager.instance.player.transform.position + Vector3.up * hoverHeight;
-
-            transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-
-            faceTarget();
-
-            if(dist <= agent.stoppingDistance+ 1f)
-            {
-                Attack();
-            }
-        }
-        else
-        {
-            checkFlying();
-        }
-    }
-
-    void checkFlying()
-    {
-        roamTimer += Time.deltaTime;
-        if (roamTimer >= roamPauseTimer)
-        {
-            roamFlying();
-        }
-
-    }
-
-    void roamFlying()
-    {
-        roamTimer = 0;
-        Vector3 target = gamemanager.instance.player.transform.position + Vector3.up * hoverHeight;
-        Vector3 ranPos = Random.insideUnitSphere * roamDist;
-        ranPos += startingPos;
-        ranPos.y = startingPos.y + hoverHeight;
-
-        transform.position = Vector3.MoveTowards(transform.position, ranPos, speed * Time.deltaTime);
-    }
     void setAnimLoco()
     {
         float agentSpeedCur = agent.velocity.normalized.magnitude;
@@ -142,6 +77,7 @@ public class CommonEnemyScript : Enemy, IDamage
 
         Vector3 ranPos = Random.insideUnitSphere * roamDist;
         ranPos += startingPos;
+
         NavMeshHit hit;
         NavMesh.SamplePosition(ranPos, out hit, roamDist, 1);
         agent.SetDestination(hit.position);
@@ -161,20 +97,20 @@ public class CommonEnemyScript : Enemy, IDamage
         Quaternion rotation = Quaternion.LookRotation(playerDirection);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * faceTargetSpeed);
     }
-    
+
     public override void Attack()
     {
         attackTimer = 0;
 
         anim.SetTrigger("Shoot");
         anim.SetTrigger("Attack");
-        if (isMelee)
+        if (isSkelenton)
         {
             meleeAttack();
         }
         else
         {
-            if(agent.remainingDistance <= agent.stoppingDistance)
+            if (agent.remainingDistance <= agent.stoppingDistance)
                 Instantiate(weapon, attackPos.position, transform.rotation);
         }
     }
@@ -185,11 +121,6 @@ public class CommonEnemyScript : Enemy, IDamage
         if (HP > 0)
         {
             HP -= amount;
-
-            if(!isFlying)
-            {
-                agent.SetDestination(gamemanager.instance.player.transform.position);
-            }
             agent.SetDestination(gamemanager.instance.player.transform.position);
             StartCoroutine(flashDamage());
         }
@@ -203,12 +134,12 @@ public class CommonEnemyScript : Enemy, IDamage
 
     public void CallGainEXP()
     {
-        if(expGained != null)
+        if (expGained != null)
         {
             expGained.gainEXP(5);
             Debug.Log("EXP gained");
         }
-        
+
     }
-    
+
 }
