@@ -62,14 +62,14 @@ Camera:
     serializedVersion: 2
     x: 0.8
     y: 0.6
-    width: 0.25
-    height: 0.5
+    width: 1
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
   orthographic: 1
   orthographic size: 25
-  m_Depth: 1
+  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 2048
@@ -440,7 +440,7 @@ GameObject:
   - component: {fileID: 2801620379932768916}
   - component: {fileID: 6814798939741025144}
   m_Layer: 10
-  m_Name: Element Model
+  m_Name: Melee Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -581,9 +581,12 @@ MonoBehaviour:
   shootDamage: 10
   shootRate: 0.25
   shootDist: 10
-  shootEffect: {fileID: 0}
+  hitDamage: 15
+  hitRate: 0.5
+  hitDist: 5
   weaponList: []
-  gunModel: {fileID: 2177925833472728496}
+  meleeModel: {fileID: 5073280782674185641}
+  rangeModel: {fileID: 2177925833472728496}
   dashTime: 0.1
   dashRate: 0.75
   dashSpeed: 75
