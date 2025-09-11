@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 
-public class NewMonoBehaviourScript : Enemy
+public class flyingEnemyAI : Enemy
 {
     [SerializeField] float speed;
     [SerializeField] float hoverHeight;
@@ -71,7 +71,7 @@ public class NewMonoBehaviourScript : Enemy
             transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, faceTargetSpeed * Time.deltaTime);
         }
 
-        if(dist == stoppingDist && attackTimer >= attackRate)
+        if(dist >= stoppingDist && attackTimer >= attackRate)
         {
             Attack();
         }
