@@ -1,16 +1,9 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 09227b73067e2ae4aaf1651cc11bcfd6
-folderAsset: yes
-DefaultImporter:
-  externalObjects: {}
-=======
 guid: ff2b5bf81f95f634f89aea659e3489bd
 folderAsset: yes
 timeCreated: 1556077997
 licenseType: Store
 DefaultImporter:
->>>>>>> parent of 19aab6b (revert)
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -36,14 +36,7 @@ public class wrathAI : sinEnemy
     {
         InitVar();  // Initializes all of the bases varibles.
 
-<<<<<<< HEAD
-        gamemanager.instance.updateGameGoal(1, 0, 0);   // Add one boss to the game goal.
-
-        startingLocalRotation = Sword.transform.localRotation;  // Initializing the LOCAL rotation of the Sword.
-        landingRotation = Quaternion.Euler(90, 0, 0);           // Initializing where the sword will rotate to.
-=======
         //gamemanager.instance.updateGameGoal(1, 0, 0);   // Add one boss to the game goal.
->>>>>>> parent of 19aab6b (revert)
 
         isAttacking = false;            // Initializing that an attack is not happening.
         rotTime = 0.5f;                 // Initializing that the time the swing will happen is half a second.

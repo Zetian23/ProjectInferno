@@ -30,11 +30,7 @@ public class slothAI : sinEnemy
     {
         InitVar(); // This calls the method in sinEnemy that initializes all fields in that script needed for this.
 
-<<<<<<< HEAD
-        gamemanager.instance.updateGameGoal(1, 0, 0);   // Add one boss to the game goal.
-=======
         //gamemanager.instance.updateGameGoal(1, 0, 0);   // Add one boss to the game goal.
->>>>>>> parent of 19aab6b (revert)
 
         speedBoostTimer = speedBoostLength;     // Initializing the set timer for when speedBoost() is called.
 

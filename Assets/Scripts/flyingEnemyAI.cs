@@ -24,13 +24,23 @@ public class flyingEnemyAI : Enemy
        startPos = transform.position;
        roamTarget = startPos;
 
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null )
+        {
+            rb.useGravity = false;
+            rb.isKinematic = true;
+        }
+
         attackTimer = attackRate;
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+        if(gamemanager.instance.player == null)
+        {
+            return;
+        }
 
         attackTimer += Time.deltaTime;
 
@@ -49,7 +59,7 @@ public class flyingEnemyAI : Enemy
 
     private void ChasePlayer(Vector3 playerPos, float dist)
     {
-        Vector3 targetPos = playerPos;
+        Vector3 targetPos = new Vector3(playerPos.x, startPos.y + hoverHeight, playerPos.z);
         transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
 
         Vector3 dir = playerPos - transform.position;
@@ -61,7 +71,7 @@ public class flyingEnemyAI : Enemy
             transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, faceTargetSpeed * Time.deltaTime);
         }
 
-        if(dist <= stoppingDist && attackTimer >= attackRate)
+        if(dist >= stoppingDist && attackTimer >= attackRate)
         {
             Attack();
         }
