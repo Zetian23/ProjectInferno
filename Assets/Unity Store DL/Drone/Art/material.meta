@@ -1,12 +1,7 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Prefab/Weapons/Ice Shock Pickup.prefab.meta
-guid: 1188db2eb33f7074c8b9c1d85ad29e81
-PrefabImporter:
-========
-guid: 903b6361449ebcc47a8cce7dd4ec366e
+guid: fd5049f110c81c94586dd2a62d245abd
 folderAsset: yes
 DefaultImporter:
->>>>>>>> dev_main:Assets/Unity Store DL/Drone/Art/material.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

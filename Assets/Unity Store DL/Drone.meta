@@ -1,12 +1,7 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Prefab/Weapons/Lazer Gun.prefab.meta
-guid: fc62bf098e47c9f4084b1c45a4590aab
-PrefabImporter:
-========
-guid: eb03b28bcef1c604d9787931885cc378
+guid: c6469ed3d393bba468a67fa9ae5feb6f
 folderAsset: yes
 DefaultImporter:
->>>>>>>> dev_main:Assets/Unity Store DL/Drone.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
