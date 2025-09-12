@@ -11,6 +11,7 @@ TagManager:
   - WeakSpot
   - Weapon
   - Javelin
+  - Planet
   layers:
   - Default
   - TransparentFX
