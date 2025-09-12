@@ -23,6 +23,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
     [SerializeField] ParticleSystem shootEffect;
+    [SerializeField] GameObject shootPos;
 
     //Weapon Model and Skin
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
@@ -68,12 +69,18 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     int powerPos;
     List<bool> powerList = new();
     List<GameObject> powerModels = new();
-    //Fire
+    //Fireball
     [SerializeField] GameObject fireModel;
-    [SerializeField] int fireDamage;
+    [SerializeField] GameObject fireProjectile;
     [SerializeField] float fireCooldown;
-    [SerializeField] float fireAOERange;
-    [SerializeField] float fireSpeed;
+    //Chain Lightning
+    [SerializeField] GameObject lightningModel;
+    //Ice Shock
+    [SerializeField] GameObject iceModel;
+    //Wind Charge
+    [SerializeField] GameObject windModel;
+    //Stone Model
+    [SerializeField] GameObject stoneModel;
 
     Vector3 moveDirection;
     Vector3 dashDirection;
@@ -82,6 +89,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     float shootTimer;
     float dashTimer;
     float activeDashTimer;
+    float powerTimer;
 
     int jumpCount;
     int HP;
@@ -106,6 +114,10 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         }
 
         powerModels.Add(fireModel);
+        powerModels.Add(lightningModel);
+        powerModels.Add(iceModel);
+        powerModels.Add(windModel);
+        powerModels.Add(stoneModel);
 
         updatePlayerUI();
     }
@@ -115,6 +127,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     {
         movement();
         sprint();
+
+        //Debug.Log(powerPos);
 
         //Lust
         if (hasLust)
@@ -133,6 +147,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     {
         shootTimer += Time.deltaTime;
         dashTimer += Time.deltaTime;
+        powerTimer += Time.deltaTime;
 
         if (controller.isGrounded)
         {
@@ -270,7 +285,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
         {
-            Debug.Log(hit.collider.name);
+            //Debug.Log(hit.collider.name);
 
             Instantiate(shootEffect, hit.point, Quaternion.identity);
 
@@ -307,6 +322,11 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         switch (powerPos)
         {
             case 0:
+                if (powerTimer >= fireCooldown)
+                {
+                    Instantiate(fireProjectile, shootPos.transform.position, Camera.main.transform.rotation);
+                    powerTimer = 0;
+                }
                 break;
             case 1:
                 break;
@@ -377,7 +397,6 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         weaponList.Add(weapon);
         weaponListpos = weaponList.Count - 1;
         changeWeapon();
-
     }
 
     void changeWeapon()
@@ -395,24 +414,38 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     {
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
+            powerPos--;
+
+            if (powerPos <= -1)
+            {
+                powerPos = 4;
+            }
+
             while (!powerList[powerPos])
             {
-                powerPos++;
-                if(powerPos >= 5)
+                powerPos--;
+                if (powerPos <= -1)
                 {
-                    powerPos = 0;
+                    powerPos = 4;
                 }
             }
             equipPower();
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
+            powerPos++;
+
+            if (powerPos >= 5)
+            {
+                powerPos = 0;
+            }
+
             while (!powerList[powerPos])
             {
                 powerPos++;
-                if (powerPos <= -1)
+                if(powerPos >= 5)
                 {
-                    powerPos = 4;
+                    powerPos = 0;
                 }
             }
             equipPower();
