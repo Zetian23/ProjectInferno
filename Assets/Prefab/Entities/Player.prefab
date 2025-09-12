@@ -642,6 +642,10 @@ MonoBehaviour:
   fireModel: {fileID: 2418821246720150014, guid: d01ce1c4a1f1f6a47895b4f3d278f1fe, type: 3}
   fireProjectile: {fileID: 2848584684710248561, guid: b8a735e54a187fb40ae10ec583e2c55f, type: 3}
   fireCooldown: 1
+  lightningModel: {fileID: 7999194325651606627, guid: 4c121610a55da5549935444ff13730bc, type: 3}
+  iceModel: {fileID: 4743175917821572282, guid: b31c92d108b4863479c2ad01180cd0e0, type: 3}
+  windModel: {fileID: 4410008311502816302, guid: 7e31edaaf5be00e4cb347c4d34c0f665, type: 3}
+  stoneModel: {fileID: 3539493396844785670, guid: f6712d1930fc39546b1529789537dc89, type: 3}
 --- !u!143 &4964581508061618816
 CharacterController:
   m_ObjectHideFlags: 0

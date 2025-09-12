@@ -69,10 +69,18 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     int powerPos;
     List<bool> powerList = new();
     List<GameObject> powerModels = new();
-    //Fire
+    //Fireball
     [SerializeField] GameObject fireModel;
     [SerializeField] GameObject fireProjectile;
     [SerializeField] float fireCooldown;
+    //Chain Lightning
+    [SerializeField] GameObject lightningModel;
+    //Ice Shock
+    [SerializeField] GameObject iceModel;
+    //Wind Charge
+    [SerializeField] GameObject windModel;
+    //Stone Model
+    [SerializeField] GameObject stoneModel;
 
     Vector3 moveDirection;
     Vector3 dashDirection;
@@ -106,6 +114,10 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         }
 
         powerModels.Add(fireModel);
+        powerModels.Add(lightningModel);
+        powerModels.Add(iceModel);
+        powerModels.Add(windModel);
+        powerModels.Add(stoneModel);
 
         updatePlayerUI();
     }
@@ -115,6 +127,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     {
         movement();
         sprint();
+
+        Debug.Log(powerPos);
 
         //Lust
         if (hasLust)
@@ -400,24 +414,38 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     {
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
+            powerPos--;
+
+            if (powerPos <= -1)
+            {
+                powerPos = 4;
+            }
+
             while (!powerList[powerPos])
             {
-                powerPos++;
-                if(powerPos >= 5)
+                powerPos--;
+                if (powerPos <= -1)
                 {
-                    powerPos = 0;
+                    powerPos = 4;
                 }
             }
             equipPower();
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
+            powerPos++;
+
+            if (powerPos >= 5)
+            {
+                powerPos = 0;
+            }
+
             while (!powerList[powerPos])
             {
                 powerPos++;
-                if (powerPos <= -1)
+                if(powerPos >= 5)
                 {
-                    powerPos = 4;
+                    powerPos = 0;
                 }
             }
             equipPower();
