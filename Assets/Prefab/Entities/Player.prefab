@@ -640,7 +640,7 @@ MonoBehaviour:
   maxHPLevelUp: 5
   DamageLevelUp: 0.1
   fireModel: {fileID: 2418821246720150014, guid: d01ce1c4a1f1f6a47895b4f3d278f1fe, type: 3}
-  fireProjectile: {fileID: 2848584684710248561, guid: b8a735e54a187fb40ae10ec583e2c55f, type: 3}
+  fireProjectile: {fileID: 1913136077730146043, guid: 7377c0d3331660547bec132abbb31d56, type: 3}
   fireCooldown: 1
   lightningModel: {fileID: 7999194325651606627, guid: 4c121610a55da5549935444ff13730bc, type: 3}
   iceModel: {fileID: 4743175917821572282, guid: b31c92d108b4863479c2ad01180cd0e0, type: 3}
