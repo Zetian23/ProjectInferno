@@ -1,15 +1,8 @@
 fileFormatVersion: 2
-guid: 719efd02f6cfa794ea0a203cf90365a6
+guid: e3509453f84f65c42abacdde7236ef85
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 190684
-  packageName: Simple Drone
-  packageVersion: 1.0
-  assetPath: Assets/Drone/Art/material/grey.mat
-  uploadId: 429130
