@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Prefab/Entities/Flying Enemy drone.prefab.meta
-guid: 5050d8e69d014794086aea85ba8fb123
-========
-guid: b8a735e54a187fb40ae10ec583e2c55f
->>>>>>>> dev_loop:Assets/Prefab/Weapons/Fireball.prefab.meta
+guid: 290cf48afd34ebc4c9035235be616a6e
 PrefabImporter:
   externalObjects: {}
   userData: 

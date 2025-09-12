@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Unity Store DL/Drone.meta
-guid: 9780db5849b179347b4acdcdf5843c85
-========
-guid: 60c63879f8c4af24a982e68cfecb6a02
->>>>>>>> dev_loop:Assets/Materials/Powers.meta
+guid: eb03b28bcef1c604d9787931885cc378
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
