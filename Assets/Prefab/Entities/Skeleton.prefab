@@ -1204,7 +1204,7 @@ MonoBehaviour:
   model: {fileID: 7708569823948824095}
   agent: {fileID: 6675039181276780033}
   headPos: {fileID: 747103168127543911}
-  HP: 50
+  HP: 20
   faceTargetSpeed: 8
   attackRate: 1.1
   attackDistance: 3
@@ -1212,7 +1212,7 @@ MonoBehaviour:
   FOV: 90
   attackPos: {fileID: 8734794291921730348}
   weapon: {fileID: 3354401941124468285, guid: 4693239b4751a284c8879765ed4759aa, type: 3}
-  isMelee: 1
+  isSkelenton: 1
   roamDist: 15
   roamPauseTimer: 3
   anim: {fileID: 20884049279535654}
