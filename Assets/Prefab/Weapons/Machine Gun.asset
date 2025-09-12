@@ -12,12 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01e8ca1e06b141d44bf4a783393b3ba5, type: 3}
   m_Name: Machine Gun
   m_EditorClassIdentifier: 
-  gunModel: {fileID: 2329924192777663082, guid: 81dc10effe397ec4b9c9be7b1e5c3141, type: 3}
+  gunModel: {fileID: 4459484288770166102, guid: 971c33d03ae4ceb41b98db2d22ecc577, type: 3}
   shootDamage: 3
   shootDist: 300
   shootRate: 0.1
-  ammoCur: 158
+  ammoCur: 200
   ammoMax: 200
+  lazer: 0
+  spread: 0
+  headshots: 0
   shootEffect: {fileID: 8567743453655228817, guid: 212ef1a41838ce044a9ac54994866708, type: 3}
   shootSound: {fileID: 0}
   shootVol: 0.5

@@ -324,7 +324,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
             case 0:
                 if (powerTimer >= fireCooldown)
                 {
-                    Instantiate(fireProjectile, shootPos.transform.position, Camera.main.transform.rotation);
+                    //Instantiate(fireProjectile, shootPos.transform.position, Camera.main.transform.rotation);
                     powerTimer = 0;
                 }
                 break;
