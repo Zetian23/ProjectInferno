@@ -30,10 +30,9 @@ public class slothAI : sinEnemy
     {
         InitVar(); // This calls the method in sinEnemy that initializes all fields in that script needed for this.
 
-        gamemanager.instance.updateGameGoal(1, 0, 0);   // Add one boss to the game goal.
+        //gamemanager.instance.updateGameGoal(1, 0, 0);   // Add one boss to the game goal.
 
         speedBoostTimer = speedBoostLength;     // Initializing the set timer for when speedBoost() is called.
-        startSpeed = agent.speed;               // Initializing how fast the boss was initially set to.
 
         damageTrigger = Javelin.GetComponent<SphereCollider>(); // Initializing the trigger to the javelin sphere collider.
 

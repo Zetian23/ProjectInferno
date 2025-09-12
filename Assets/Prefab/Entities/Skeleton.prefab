@@ -1212,11 +1212,15 @@ MonoBehaviour:
   FOV: 90
   attackPos: {fileID: 8734794291921730348}
   weapon: {fileID: 3354401941124468285, guid: 4693239b4751a284c8879765ed4759aa, type: 3}
-  isSkelenton: 1
+  isMelee: 1
+  isFlying: 0
   roamDist: 15
   roamPauseTimer: 3
   anim: {fileID: 20884049279535654}
   animTranSpeed: 8
+  speed: 0
+  hoverHeight: 0
+  chaseRange: 0
   expGained: {fileID: 0}
 --- !u!195 &6675039181276780033
 NavMeshAgent:

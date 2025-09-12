@@ -9,7 +9,7 @@ public class healingSpread : MonoBehaviour
     [SerializeField] float spawnTime;
     float spawnTimer;
     List<bool> healingInPos;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         spawnTimer = 0;
@@ -18,7 +18,6 @@ public class healingSpread : MonoBehaviour
             healingInPos.Add(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         spawnTimer += Time.deltaTime;
