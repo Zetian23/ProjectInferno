@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01e8ca1e06b141d44bf4a783393b3ba5, type: 3}
-  m_Name: Pistol
+  m_Name: Machine Gun
   m_EditorClassIdentifier: 
-  gunModel: {fileID: 9011480589029022835, guid: 57e6a758c7fc5114780b8183074ef0ef, type: 3}
-  shootDamage: 10
+  gunModel: {fileID: 4459484288770166102, guid: 971c33d03ae4ceb41b98db2d22ecc577, type: 3}
+  shootDamage: 3
   shootDist: 300
-  shootRate: 0.33
-  ammoCur: 10
-  ammoMax: 16
+  shootRate: 0.1
+  ammoCur: 200
+  ammoMax: 200
   lazer: 0
   spread: 0
   headshots: 0
