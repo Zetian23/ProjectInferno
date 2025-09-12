@@ -1,4 +1,5 @@
 using NUnit.Framework.Interfaces;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,21 +18,17 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     [SerializeField] int jumpMax;
     [SerializeField] int gravity;
 
-    [SerializeField] weaponStats startingWeapon;
     //Range Weapon
     [SerializeField] int shootDamage;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
-
-    //Melee Weapon
-    [SerializeField] int hitDamage;
-    [SerializeField] float hitRate;
-    [SerializeField] int hitDist;
+    [SerializeField] ParticleSystem shootEffect;
+    [SerializeField] GameObject shootPos;
 
     //Weapon Model and Skin
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
-    [SerializeField] GameObject meleeModel;
-    [SerializeField] GameObject rangeModel;
+    [SerializeField] GameObject gunModel;
+    [SerializeField] GameObject powerModel;
 
     //Dashing
     [SerializeField] float dashTime;
@@ -68,6 +65,15 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     [SerializeField] int maxHPLevelUp;
     [SerializeField] float DamageLevelUp;
 
+    //Powers
+    int powerPos;
+    List<bool> powerList = new();
+    List<GameObject> powerModels = new();
+    //Fire
+    [SerializeField] GameObject fireModel;
+    [SerializeField] GameObject fireProjectile;
+    [SerializeField] float fireCooldown;
+
     Vector3 moveDirection;
     Vector3 dashDirection;
     Vector3 playerVelocity;
@@ -75,6 +81,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     float shootTimer;
     float dashTimer;
     float activeDashTimer;
+    float powerTimer;
 
     int jumpCount;
     int HP;
@@ -92,7 +99,14 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         level = 1;
         EXP = 0;
         expReq = expReqOrig;
-        getWeaponStat(startingWeapon);
+
+        for (int i = 0; i < 5; i++)
+        {
+            powerList.Add(false);
+        }
+
+        powerModels.Add(fireModel);
+
         updatePlayerUI();
     }
 
@@ -119,6 +133,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     {
         shootTimer += Time.deltaTime;
         dashTimer += Time.deltaTime;
+        powerTimer += Time.deltaTime;
 
         if (controller.isGrounded)
         {
@@ -137,17 +152,26 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         playerVelocity.y -= gravity * Time.deltaTime;
 
 
-        if (Input.GetButton("Fire1") && shootTimer >= shootRate && weaponList.Count > 0 && weaponList[weaponListpos].ammoCur > 0)
+        if (Input.GetButton("Fire1") && weaponList.Count != 0 && shootTimer >= shootRate && weaponList[weaponListpos].ammoCur != 0)
         {
             shoot();
         }
 
-        if (Input.GetButton("Fire2") && shootTimer >= hitRate)
+        if (Input.GetButton("Fire2") && powerList[0])
         {
-            melee();
+            power();
         }
 
-        selectWeapon();
+        if (powerList[0])
+        {
+            selectPower();
+        }
+
+        //reload
+        if (Input.GetButton("Reload") && weaponList.Count != 0 && weaponList[weaponListpos].ammoCur != weaponList[weaponListpos].ammoMax)
+        {
+            reload();
+        }
 
         //Dash function
         if (Input.GetButtonDown("Dash") && dashTimer >= dashRate && !hasAirDashed)
@@ -186,7 +210,12 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         }
     }
 
-   public virtual void gainEXP(int expGained)
+    void reload()
+    {
+        weaponList[weaponListpos].ammoCur = weaponList[weaponListpos].ammoMax;
+    }
+
+    public virtual void gainEXP(int expGained)
     {
         EXP += expGained;
 
@@ -244,6 +273,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         {
             Debug.Log(hit.collider.name);
 
+            Instantiate(shootEffect, hit.point, Quaternion.identity);
+
             IDamage dmg = hit.collider.GetComponent<IDamage>();
 
             if (dmg != null)
@@ -263,42 +294,36 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
                 {
                     dmg.slothSlow(slothSpeedReduction);
                 }
-            }
-        }
-    }
 
-    void melee()
-    {
-        shootTimer = 0;
-
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, hitDist, ~ignoreLayer))
-        {
-            Debug.Log(hit.collider.name);
-
-            IDamage dmg = hit.collider.GetComponent<IDamage>();
-
-            if (dmg != null)
-            {
-                //Wrath
-                if (hasWrath)
-                {
-                    dmg.takeDamage((int)(hitDamage * wrathDamageMult));
-                }
-                else
-                {
-                    dmg.takeDamage(hitDamage);
-                }
-
-                //Envy
                 if (hasEnvy)
                 {
-                    takeDamage((int)(hitDamage * envyHealPercent));
+                    takeDamage((int)(shootDamage * envyHealPercent));
                 }
             }
         }
     }
 
+    void power()
+    {
+        switch (powerPos)
+        {
+            case 0:
+                if (powerTimer >= fireCooldown)
+                {
+                    Instantiate(fireProjectile, shootPos.transform.position, Camera.main.transform.rotation);
+                    powerTimer = 0;
+                }
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+        }
+    }
 
     public void takeDamage(int amount)
     {
@@ -358,7 +383,6 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         weaponList.Add(weapon);
         weaponListpos = weaponList.Count - 1;
         changeWeapon();
-
     }
 
     void changeWeapon()
@@ -366,27 +390,50 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         shootDamage = weaponList[weaponListpos].shootDamage;
         shootDist = weaponList[weaponListpos].shootDist;
         shootRate = weaponList[weaponListpos].shootRate;
-        hitDamage = weaponList[weaponListpos].meleeDamage;
-        hitDist = weaponList[weaponListpos].meleeDist;
-        hitRate = weaponList[weaponListpos].meleeRate;
+        shootEffect = weaponList[weaponListpos].shootEffect;
 
-        meleeModel.GetComponent<MeshFilter>().sharedMesh = weaponList[weaponListpos].meleeModel.GetComponent<MeshFilter>().sharedMesh;
-        meleeModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[weaponListpos].meleeModel.GetComponent<MeshRenderer>().sharedMaterial;
-        rangeModel.GetComponent<MeshFilter>().sharedMesh = weaponList[weaponListpos].gunModel.GetComponent<MeshFilter>().sharedMesh;
-        rangeModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[weaponListpos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
+        gunModel.GetComponent<MeshFilter>().sharedMesh = weaponList[weaponListpos].gunModel.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[weaponListpos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
     }
 
-    void selectWeapon()
+    void selectPower()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && weaponListpos < weaponList.Count - 1)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
-            weaponListpos++;
-            changeWeapon();
+            while (!powerList[powerPos])
+            {
+                powerPos++;
+                if(powerPos >= 5)
+                {
+                    powerPos = 0;
+                }
+            }
+            equipPower();
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && weaponListpos > 0)
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
-            weaponListpos--;
-            changeWeapon();
+            while (!powerList[powerPos])
+            {
+                powerPos++;
+                if (powerPos <= -1)
+                {
+                    powerPos = 4;
+                }
+            }
+            equipPower();
         }
+    }
+
+    void equipPower()
+    {
+        powerModel.GetComponent<MeshFilter>().sharedMesh = powerModels[powerPos].GetComponent<MeshFilter>().sharedMesh;
+        powerModel.GetComponent<MeshRenderer>().sharedMaterial = powerModels[powerPos].GetComponent<MeshRenderer>().sharedMaterial;
+    }
+
+    public void getPower(int powerID)
+    {
+        powerList[powerID] = true;
+        powerPos = powerID;
+        equipPower();
     }
 }

@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefab/Entities/Helicopter Enemy.prefab.meta
+guid: 3ba4af3cee750014aaace637be5d6dab
+========
+guid: 81dc10effe397ec4b9c9be7b1e5c3141
+>>>>>>>> dev_loop:Assets/Prefab/Weapons/Machine Gun.prefab.meta
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
