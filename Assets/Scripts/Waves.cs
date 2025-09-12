@@ -117,7 +117,7 @@ public class Waves : MonoBehaviour
             gamemanager.instance.RemainingEnemiesUI.SetActive(false);
             if(!bossIsSpawned) gamemanager.instance.WaveCooldownUI.SetActive(true);
             int timeTillWave = (int) (waveCooldownTime - waveSpawnCooldownTimer);
-            gamemanager.instance.SetWaveCooldownText(timeTillWave.ToString("F0"));
+            //gamemanager.instance.SetWaveCooldownText(timeTillWave.ToString("F0"));
             waveCooldownTimer += Time.deltaTime;
             if (waveCooldownTimer >= waveCooldownTime)
             {
