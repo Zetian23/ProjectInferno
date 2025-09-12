@@ -23,6 +23,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
     [SerializeField] ParticleSystem shootEffect;
+    [SerializeField] GameObject shootPos;
 
     //Weapon Model and Skin
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
@@ -70,10 +71,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     List<GameObject> powerModels = new();
     //Fire
     [SerializeField] GameObject fireModel;
-    [SerializeField] int fireDamage;
+    [SerializeField] GameObject fireProjectile;
     [SerializeField] float fireCooldown;
-    [SerializeField] float fireAOERange;
-    [SerializeField] float fireSpeed;
 
     Vector3 moveDirection;
     Vector3 dashDirection;
@@ -82,6 +81,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     float shootTimer;
     float dashTimer;
     float activeDashTimer;
+    float powerTimer;
 
     int jumpCount;
     int HP;
@@ -133,6 +133,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     {
         shootTimer += Time.deltaTime;
         dashTimer += Time.deltaTime;
+        powerTimer += Time.deltaTime;
 
         if (controller.isGrounded)
         {
@@ -307,6 +308,11 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         switch (powerPos)
         {
             case 0:
+                if (powerTimer >= fireCooldown)
+                {
+                    Instantiate(fireProjectile, shootPos.transform.position, Camera.main.transform.rotation);
+                    powerTimer = 0;
+                }
                 break;
             case 1:
                 break;
@@ -377,7 +383,6 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         weaponList.Add(weapon);
         weaponListpos = weaponList.Count - 1;
         changeWeapon();
-
     }
 
     void changeWeapon()
