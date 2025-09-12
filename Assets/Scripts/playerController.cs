@@ -128,7 +128,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         movement();
         sprint();
 
-        Debug.Log(powerPos);
+        //Debug.Log(powerPos);
 
         //Lust
         if (hasLust)
@@ -285,7 +285,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
         {
-            Debug.Log(hit.collider.name);
+            //Debug.Log(hit.collider.name);
 
             Instantiate(shootEffect, hit.point, Quaternion.identity);
 
