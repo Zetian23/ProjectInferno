@@ -11,6 +11,7 @@ TagManager:
   - WeakSpot
   - Weapon
   - Javelin
+  - Lightning
   layers:
   - Default
   - TransparentFX
@@ -24,9 +25,9 @@ TagManager:
   - Javelin
   - Weapon
   - MiniMap
-  - EnemyBullet
+  - EnemyWeapons
   - FlyingEnemy
-  - 
+  - Powers
   - 
   - 
   - 
