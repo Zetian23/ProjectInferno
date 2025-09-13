@@ -368,13 +368,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2177925833472728496}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: 0.63, y: 0.71, z: 0.79}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.57, y: 0.57, z: 0.77}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5465347934386927082}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6387717127224973339
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -428,6 +428,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &3987552549311882196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9056091204756527920}
+  m_Layer: 0
+  m_Name: ShootPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9056091204756527920
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3987552549311882196}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8433951875941243616}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5073280782674185641
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,13 +485,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5073280782674185641}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.5, y: 0, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: -0.63, y: 0.71, z: 0.67}
-  m_LocalScale: {x: 19, y: 19, z: 19}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.48, y: 0.8, z: 0.67}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5465347934386927082}
-  m_LocalEulerAnglesHint: {x: -60, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2801620379932768916
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -577,13 +608,14 @@ MonoBehaviour:
   jumpSpeed: 12
   jumpMax: 2
   gravity: 35
-  startingWeapon: {fileID: 11400000, guid: 053d514160681b3459db6e7ee9521227, type: 2}
   shootDamage: 10
   shootRate: 0.25
   shootDist: 10
   shootEffect: {fileID: 0}
+  shootPos: {fileID: 3987552549311882196}
   weaponList: []
   gunModel: {fileID: 2177925833472728496}
+  powerModel: {fileID: 5073280782674185641}
   dashTime: 0.1
   dashRate: 0.75
   dashSpeed: 75
@@ -607,6 +639,19 @@ MonoBehaviour:
   expReqScaling: 25
   maxHPLevelUp: 5
   DamageLevelUp: 0.1
+  fireModel: {fileID: 2418821246720150014, guid: d01ce1c4a1f1f6a47895b4f3d278f1fe, type: 3}
+  fireProjectile: {fileID: 1913136077730146043, guid: 7377c0d3331660547bec132abbb31d56, type: 3}
+  fireRate: 5
+  lightningModel: {fileID: 7999194325651606627, guid: 4c121610a55da5549935444ff13730bc, type: 3}
+  iceModel: {fileID: 4743175917821572282, guid: b31c92d108b4863479c2ad01180cd0e0, type: 3}
+  iceRate: 10
+  iceTime: 3
+  iceZone: {fileID: 3372317573944819934, guid: 5d0975f569815cb48aa820178a5f4e9c, type: 3}
+  windModel: {fileID: 4410008311502816302, guid: 7e31edaaf5be00e4cb347c4d34c0f665, type: 3}
+  windRate: 5
+  windSpeed: 25
+  windBox: {fileID: 3372317573944819934, guid: 028ef213d898030478dd46423012001b, type: 3}
+  stoneModel: {fileID: 3539493396844785670, guid: f6712d1930fc39546b1529789537dc89, type: 3}
 --- !u!143 &4964581508061618816
 CharacterController:
   m_ObjectHideFlags: 0
@@ -717,7 +762,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 9056091204756527920}
   m_Father: {fileID: 5465347934386927082}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1979094982027281157
@@ -777,7 +823,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 5119
+    m_Bits: 29695
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
