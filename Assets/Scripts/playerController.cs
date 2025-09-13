@@ -72,13 +72,16 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     //Fireball
     [SerializeField] GameObject fireModel;
     [SerializeField] GameObject fireProjectile;
-    [SerializeField] float fireCooldown;
+    [SerializeField] float fireRate;
     //Chain Lightning
     [SerializeField] GameObject lightningModel;
     //Ice Shock
     [SerializeField] GameObject iceModel;
     //Wind Charge
     [SerializeField] GameObject windModel;
+    [SerializeField] float windRate;
+    [SerializeField] int windSpeed;
+    [SerializeField] GameObject windBox;
     //Stone Model
     [SerializeField] GameObject stoneModel;
 
@@ -322,7 +325,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         switch (powerPos)
         {
             case 0:
-                if (powerTimer >= fireCooldown)
+                if (powerTimer >= fireRate)
                 {
                     Instantiate(fireProjectile, shootPos.transform.position, Camera.main.transform.rotation);
                     powerTimer = 0;
@@ -333,6 +336,12 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
             case 2:
                 break;
             case 3:
+                if (powerTimer >= windRate)
+                {
+                    Instantiate(windBox, transform.position, Quaternion.identity);
+                    playerVelocity.y = windSpeed;
+                    powerTimer = 0;
+                }
                 break;
             case 4:
                 break;
