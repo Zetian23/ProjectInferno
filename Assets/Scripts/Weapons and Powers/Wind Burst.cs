@@ -15,7 +15,7 @@ public class WindBurst : MonoBehaviour
         
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         Debug.Log(other.gameObject);
     }
