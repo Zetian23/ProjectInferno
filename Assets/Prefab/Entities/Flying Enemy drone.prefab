@@ -414,7 +414,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6748153575442990734}
   - component: {fileID: 7146679070750719995}
-  - component: {fileID: 776144250364485750}
+  - component: {fileID: 7500243580424927222}
   - component: {fileID: 8631810218015530957}
   - component: {fileID: 3177006938024141449}
   - component: {fileID: 6972544761296557606}
@@ -453,7 +453,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3271736406669613933}
   m_Mesh: {fileID: 2403283451262950110, guid: 77ec979c4a1053f4fb90fee3d17b240c, type: 3}
---- !u!114 &776144250364485750
+--- !u!114 &7500243580424927222
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -462,7 +462,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3271736406669613933}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e311b9167b60544a80c7da3cb7fbcb6, type: 3}
+  m_Script: {fileID: 11500000, guid: 80a1d972923daa1478e0e4d12479fc8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ignoreLayer:
@@ -472,16 +472,16 @@ MonoBehaviour:
   agent: {fileID: 3177006938024141449}
   headPos: {fileID: 6911566888059824998}
   HP: 50
-  faceTargetSpeed: 10
-  attackRate: 0.2
-  attackDistance: 20
-  attackDamage: 15
-  FOV: 90
+  faceTargetSpeed: 8
+  attackRate: 1
+  attackDistance: 75
+  attackDamage: 5
+  FOV: 360
   attackPos: {fileID: 1774811038406233621}
-  speed: 20
-  hoverHeight: 10
-  chaseRange: 40
-  stoppingDist: 15
+  speed: 8
+  hoverHeight: 30
+  chaseRange: 10
+  stoppingDist: 10
   roamRadius: 10
   roampauseTime: 2
   bullet: {fileID: 4899955644511866292, guid: 6f42f12b290b8fc42be544a367b394a8, type: 3}
@@ -539,11 +539,11 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3271736406669613933}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -334000983
   m_Radius: 5
   m_Speed: 3.5
   m_Acceleration: 8
-  avoidancePriority: 50
+  avoidancePriority: 5
   m_AngularSpeed: 120
   m_StoppingDistance: 10
   m_AutoTraverseOffMeshLink: 1
@@ -566,7 +566,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -732,7 +732,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4654852762047047853}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.036913957, y: -0, z: -0, w: 0.9993184}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: 0.0056964164, y: -0.1422381, z: 0.9997559}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -740,7 +740,7 @@ Transform:
   - {fileID: 6911566888059824998}
   - {fileID: 1774811038406233621}
   m_Father: {fileID: 6748153575442990734}
-  m_LocalEulerAnglesHint: {x: -4.231, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8249394650490169432
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1036,10 +1036,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9210820190643257099}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.18923672, y: -0, z: -0, w: 0.9819315}
-  m_LocalPosition: {x: -0.3, y: 0.25, z: -1.28}
+  m_LocalRotation: {x: 0.9981045, y: -0, z: -0, w: -0.061541878}
+  m_LocalPosition: {x: 0, y: 1.08, z: 0.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1052040535238762091}
-  m_LocalEulerAnglesHint: {x: 21.816, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 187.057, y: 0, z: 0}
