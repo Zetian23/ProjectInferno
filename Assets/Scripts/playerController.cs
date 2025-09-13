@@ -77,6 +77,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     [SerializeField] GameObject lightningModel;
     //Ice Shock
     [SerializeField] GameObject iceModel;
+    [SerializeField] float iceRate;
+    [SerializeField] GameObject iceZone;
     //Wind Charge
     [SerializeField] GameObject windModel;
     [SerializeField] float windRate;
@@ -334,6 +336,11 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
             case 1:
                 break;
             case 2:
+                if (powerTimer >= iceRate)
+                {
+                    Instantiate(iceZone, Camera.main.transform.position, Quaternion.identity);
+                    powerTimer = 0;
+                }
                 break;
             case 3:
                 if (powerTimer >= windRate)
