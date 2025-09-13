@@ -8,7 +8,7 @@ public class CommonEnemyScript : Enemy, IDamage
     [SerializeField] GameObject weapon;
 
     
-    [SerializeField] bool isSkelenton;
+    [SerializeField] bool isMelee;
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTimer;
     [SerializeField] Animator anim;
@@ -103,7 +103,7 @@ public class CommonEnemyScript : Enemy, IDamage
 
         anim.SetTrigger("Shoot");
         anim.SetTrigger("Attack");
-        if(isSkelenton)
+        if(isMelee)
         {
             meleeAttack();
         }
