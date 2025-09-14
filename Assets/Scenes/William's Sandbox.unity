@@ -796,6 +796,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: ef65da638635cb94aa6bd39c63d79ad0, type: 2}
     - target: {fileID: 7638756227924456729, guid: c77924f2e0efca04e98b9f126981867c, type: 3}
+      propertyPath: roamDist
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7638756227924456729, guid: c77924f2e0efca04e98b9f126981867c, type: 3}
       propertyPath: isSkelenton
       value: 1
       objectReference: {fileID: 0}
