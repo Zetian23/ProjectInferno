@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 690137664883c5f49ba00426540464c3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 48.370533
+      value: -3.658602
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 690137664883c5f49ba00426540464c3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.27
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 690137664883c5f49ba00426540464c3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 47.187717
+      value: 6.78473
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 690137664883c5f49ba00426540464c3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -58,15 +58,31 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 690137664883c5f49ba00426540464c3, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1783993696064941558}
+      addedObject: {fileID: 8613539769903090990}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 690137664883c5f49ba00426540464c3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8113331156151194098}
   m_SourcePrefab: {fileID: 100100000, guid: 690137664883c5f49ba00426540464c3, type: 3}
 --- !u!1 &7742171018978598726 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 690137664883c5f49ba00426540464c3, type: 3}
   m_PrefabInstance: {fileID: 7471716235315913239}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &1783993696064941558
-MeshCollider:
+--- !u!114 &8613539769903090990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7742171018978598726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 375a02dc6aaab1d4e95873389f6ed879, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleportTarget: {fileID: 0}
+--- !u!135 &8113331156151194098
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -83,7 +99,6 @@ MeshCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2124705421725058983, guid: 690137664883c5f49ba00426540464c3, type: 3}
+  serializedVersion: 3
+  m_Radius: 0.012
+  m_Center: {x: -1.536798e-17, y: 0, z: 0.01}
