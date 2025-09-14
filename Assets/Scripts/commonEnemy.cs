@@ -101,15 +101,17 @@ public class CommonEnemyScript : Enemy, IDamage
     {
         attackTimer = 0;
 
-        anim.SetTrigger("Shoot");
-        anim.SetTrigger("Attack");
+        
+       
         if(isMelee)
         {
+            anim.SetTrigger("Attack");
             meleeAttack();
         }
         else
         {
-            if(agent.remainingDistance <= agent.stoppingDistance)
+            anim.SetTrigger("Shoot");
+            if (agent.remainingDistance <= agent.stoppingDistance)
                 Instantiate(weapon, attackPos.position, transform.rotation);
         }
     }
