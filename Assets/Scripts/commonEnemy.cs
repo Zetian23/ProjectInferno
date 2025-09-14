@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
 //code written by William
-public class CommonEnemyScript : Enemy, IDamage
+public class CommonEnemyScript : Enemy
 {
     [SerializeField] GameObject weapon;
 
