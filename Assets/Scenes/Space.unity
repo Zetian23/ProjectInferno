@@ -238,6 +238,7 @@ GameObject:
   - component: {fileID: 314097709}
   - component: {fileID: 314097708}
   - component: {fileID: 314097707}
+  - component: {fileID: 314097710}
   m_Layer: 0
   m_Name: FourthPlanet
   m_TagString: Untagged
@@ -313,6 +314,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &314097710
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314097706}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.009999998
+  m_Center: {x: -0.000000003259629, y: 0.0000000032596283, z: -2.3161057e-23}
 --- !u!1 &424779647
 GameObject:
   m_ObjectHideFlags: 0
@@ -852,6 +874,7 @@ GameObject:
   - component: {fileID: 1281264050}
   - component: {fileID: 1281264049}
   - component: {fileID: 1281264048}
+  - component: {fileID: 1281264051}
   m_Layer: 0
   m_Name: SixthFifthPlanet
   m_TagString: Untagged
@@ -928,6 +951,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1281264051
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1281264047}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.009977017
+  m_Center: {x: -0.000000003259629, y: 0.0000000032596283, z: -2.3161057e-23}
 --- !u!1 &1518928180
 GameObject:
   m_ObjectHideFlags: 0
@@ -1509,6 +1553,7 @@ GameObject:
   - component: {fileID: 416101213929648274}
   - component: {fileID: 1609127129242739259}
   - component: {fileID: 2731232478772285237}
+  - component: {fileID: 2731232478772285238}
   m_Layer: 0
   m_Name: FifthPlanet
   m_TagString: Untagged
@@ -1572,6 +1617,7 @@ GameObject:
   - component: {fileID: 3613573019358054722}
   - component: {fileID: 4214692207826880416}
   - component: {fileID: 1405470370386855127}
+  - component: {fileID: 4214692207826880417}
   m_Layer: 0
   m_Name: ThirdPlanet
   m_TagString: Untagged
@@ -1590,6 +1636,7 @@ GameObject:
   - component: {fileID: 642164314919458385}
   - component: {fileID: 3176810037337166196}
   - component: {fileID: 3778473700428811938}
+  - component: {fileID: 3778473700428811939}
   m_Layer: 0
   m_Name: River
   m_TagString: Untagged
@@ -1643,6 +1690,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &2731232478772285238
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877003720177532604}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.009977017
+  m_Center: {x: -0.000000003259629, y: 0.0000000032596283, z: -2.3161057e-23}
 --- !u!33 &2800055377036440336
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1719,6 +1787,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &3778473700428811939
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2257653807851030282}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.009999998
+  m_Center: {x: 0.0000000041909516, y: 0.0000000032596283, z: 2.220446e-16}
 --- !u!33 &4214692207826880416
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1727,6 +1816,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2172877505271031299}
   m_Mesh: {fileID: 212370497460711607, guid: 7960b3d38b0cd2f40b5bc1b936b944e6, type: 3}
+--- !u!135 &4214692207826880417
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2172877505271031299}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.009999998
+  m_Center: {x: -0.000000003259629, y: 0.0000000032596283, z: -2.3161057e-23}
 --- !u!4 &4218932432947418259
 Transform:
   m_ObjectHideFlags: 0
@@ -1753,6 +1863,7 @@ GameObject:
   - component: {fileID: 4218932432947418259}
   - component: {fileID: 2800055377036440336}
   - component: {fileID: 1939676046485137167}
+  - component: {fileID: 4367202618573168100}
   m_Layer: 0
   m_Name: FirstPlanet
   m_TagString: Untagged
@@ -1760,6 +1871,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!135 &4367202618573168100
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4367202618573168099}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.009999998
+  m_Center: {x: -0.000000003259629, y: 0.0000000032596283, z: -2.3161057e-23}
 --- !u!23 &4408337160045146632
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1848,6 +1980,7 @@ GameObject:
   - component: {fileID: 747657315333691362}
   - component: {fileID: 771081408614416577}
   - component: {fileID: 4408337160045146632}
+  - component: {fileID: 8079753364597656152}
   m_Layer: 0
   m_Name: SecondPlanet
   m_TagString: Untagged
@@ -1855,6 +1988,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!135 &8079753364597656152
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8079753364597656151}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.009999998
+  m_Center: {x: -0.000000003259629, y: 0.0000000032596283, z: -2.3161057e-23}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
