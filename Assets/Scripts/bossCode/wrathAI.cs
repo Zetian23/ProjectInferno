@@ -1,15 +1,14 @@
 using System.Collections;
-using UnityEditor.Animations;
 using UnityEngine;
 // Code Written By Nathaniel King <3
 // Completed
 
 // Phase 1: (HP >= 175)
-    // Melee Attack     | Sword slash onto player.
+// Melee Attack     | Sword slash onto player.
 // Phase 2: (HP >= 100)
-    // Invinsibility    | After a cooldown the boss will flash and be invensible to attacks.
+// Invinsibility    | After a cooldown the boss will flash and be invensible to attacks.
 // Phase 3: (HP < 100)
-    // Spinning         | Once hit to this point the boss will do a spin move when invincible.
+// Spinning         | Once hit to this point the boss will do a spin move when invincible.
 
 public class wrathAI : sinEnemy
 {
