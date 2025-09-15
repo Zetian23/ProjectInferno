@@ -49,10 +49,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 8941295566186154620}
-  speed: 40
+  speed: 70
   destroyTime: 5
   chargeValue: 5
-  chainArea: {fileID: 1913136077730146043, guid: c35cdbf0954810a4087eb5c4e118b343, type: 3}
+  chainArea: {fileID: 1913136077730146043, guid: b8a52e607d7aff94592aac4c5e34841d, type: 3}
 --- !u!33 &6331984587032491344
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -84,7 +84,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 985534a9f6e69414aa16ecebbf32278e, type: 2}
+  - {fileID: 2100000, guid: 6859c0b223fef514d8a6ffe254771ee6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

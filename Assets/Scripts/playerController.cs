@@ -88,6 +88,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     [SerializeField] GameObject windBox;
     //Stone Model
     [SerializeField] GameObject stoneModel;
+    [SerializeField] GameObject stone;
+    [SerializeField] float stoneRate;
 
     Vector3 moveDirection;
     Vector3 dashDirection;
@@ -358,6 +360,11 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
                 }
                 break;
             case 4:
+                if (powerTimer >= stoneRate)
+                {
+                    Instantiate(stone, Camera.main.transform.position, Camera.main.transform.rotation);
+                    powerTimer = 0;
+                }
                 break;
         }
     }

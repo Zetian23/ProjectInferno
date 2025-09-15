@@ -653,6 +653,8 @@ MonoBehaviour:
   windSpeed: 25
   windBox: {fileID: 3372317573944819934, guid: 028ef213d898030478dd46423012001b, type: 3}
   stoneModel: {fileID: 3539493396844785670, guid: f6712d1930fc39546b1529789537dc89, type: 3}
+  stone: {fileID: 1913136077730146043, guid: 41881a91fbbcb8742887789cc4346160, type: 3}
+  stoneRate: 7
 --- !u!143 &4964581508061618816
 CharacterController:
   m_ObjectHideFlags: 0

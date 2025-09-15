@@ -16,14 +16,14 @@ public class slimeEnemy : Enemy
     [SerializeField] float shockwaveRadius;
     [SerializeField] int shockwaveDamage;
 
-    private Rigidbody Rb;
+    private Rigidbody rb;
     private bool isAttacking = false;
-    private Transform playerPos; 
-
+    private Transform playerPos;
+    public playerController expGained;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
         playerPos = gamemanager.instance.player.transform;
         attackTimer = attackRate;
     }
@@ -39,7 +39,7 @@ public class slimeEnemy : Enemy
             {
                 Vector3 dir = (playerPos.position - transform.position).normalized;
                 dir.y = 0;
-                Rb.linearVelocity = dir * speed;
+                rb.linearVelocity = dir * speed;
                 transform.rotation = Quaternion.LookRotation(dir);
             }
             else if (attackTimer >= attackRate)
@@ -49,7 +49,7 @@ public class slimeEnemy : Enemy
         }
         else
         {
-            Rb.linearVelocity = new Vector3(0, Rb.angularVelocity.y, 0);
+            rb.linearVelocity = new Vector3(0, rb.angularVelocity.y, 0);
         }
 
         attackTimer += Time.deltaTime;
@@ -66,12 +66,12 @@ public class slimeEnemy : Enemy
     {
         isAttacking = true;
 
-        Rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
         yield return new WaitForSeconds(jumpDelay);
 
-        Rb.linearVelocity = new Vector3(0,0,0);
-        Rb.AddForce(Vector3.down * jumpForce, ForceMode.Impulse);
+        rb.linearVelocity = new Vector3(0,0,0);
+        rb.AddForce(Vector3.down * jumpForce, ForceMode.Impulse);
     }
 
     private void OnCollisionEnter(Collision collision) 
@@ -96,7 +96,17 @@ public class slimeEnemy : Enemy
         if(HP <= 0)
         {
            Destroy(gameObject);
+            agent.SetDestination(gamemanager.instance.player.transform.position);
+            CallGainEXP();
         }
     }
+    public void CallGainEXP()
+    {
+        if (expGained != null)
+        {
+            expGained.gainEXP(5);
+            Debug.Log("EXP gained");
+        }
 
+    }
 }
