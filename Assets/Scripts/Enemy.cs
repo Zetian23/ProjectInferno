@@ -3,7 +3,7 @@ using UnityEngine.AI;
 using System.Collections;
 // Code written by Nathaniel King <3 and William
 // Base class for any enemies that will be created throughout Project Inferno
-public class Enemy : MonoBehaviour, IDamage
+public class Enemy : MonoBehaviour, IDamage, IFreezable
 {
     // These SerializedField will show up in any enemy that inherits from this parent
     [SerializeField] protected LayerMask ignoreLayer;   // This is set for anything that needs to be ignored in the attacks.
@@ -22,7 +22,8 @@ public class Enemy : MonoBehaviour, IDamage
     [SerializeField] public int FOV;
     [SerializeField] public Transform attackPos;
 
-
+    [SerializeField] public Animator anim;
+    [SerializeField] public float animTranSpeed;
     protected Color colorOrg;
 
     protected Vector3 playerDirection;         // In the child classes this will be used to update in that class based on the player direction.
@@ -31,6 +32,10 @@ public class Enemy : MonoBehaviour, IDamage
     protected float angleToPlayer;
     protected float stoppingDistOrig;
     protected float startSpeed;
+   
+    //for freeze
+    public bool isFroze = false;
+    private float ogSpeed;
 
     protected bool playerInTrigger;            // Player enters the area where the enemy will be aware of the player.
 
@@ -113,4 +118,43 @@ public class Enemy : MonoBehaviour, IDamage
     {
        startSpeed *= percent;
     }
+
+    public void freeze()
+    {
+        isFroze = true;
+
+        if (agent != null)
+        {
+            ogSpeed = agent.speed;
+            agent.speed = 0;
+            agent.isStopped = true;
+        }
+
+        if (anim != null)
+        {
+            anim.speed = 0;
+        }
+
+    }
+
+    public void unfreeze()
+    {
+        if (!isFroze)
+        {
+            return;
+        }
+        isFroze = false;
+
+        if (agent != null)
+        {
+            agent.speed = ogSpeed;
+            agent.isStopped = false;
+        }
+
+        if (anim != null)
+        {
+            anim.speed = animTranSpeed;
+        }
+    }
+
 }

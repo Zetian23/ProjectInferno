@@ -11,11 +11,10 @@ public class CommonEnemyScript : Enemy
     [SerializeField] bool isMelee;
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTimer;
-    [SerializeField] Animator anim;
-    [SerializeField] float animTranSpeed;
-
+   
     public playerController expGained;
 
+    
     float roamTimer;
     //enum enemyType { skeleton, demon }
     //[SerializeField] enemyType type;
@@ -122,6 +121,7 @@ public class CommonEnemyScript : Enemy
         Debug.Log("Ow");
         if (HP > 0)
         {
+            
             HP -= amount;
             agent.SetDestination(gamemanager.instance.player.transform.position);
             StartCoroutine(flashDamage());
@@ -134,6 +134,7 @@ public class CommonEnemyScript : Enemy
         }
     }
 
+   
     public void CallGainEXP()
     {
         if(expGained != null)
