@@ -27,7 +27,7 @@ public class buttonFunctions : MonoBehaviour
 
     public void load()
     {
-        gamemanager.instance.openLoad();
+        SavedDataManager.instance.loadGame();
     }
 
     public void loadLevel(int lvl)
@@ -36,7 +36,10 @@ public class buttonFunctions : MonoBehaviour
         gamemanager.instance.stateUnpause();
     }
 
-
+    public void save()
+    {
+        SavedDataManager.instance.saveGame();
+    }
     public void openSettingsMenu()
     {
 
