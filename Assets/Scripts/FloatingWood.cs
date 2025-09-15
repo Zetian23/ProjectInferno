@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FloatingWood : MonoBehaviour
+public class FloatingWood : MonoBehaviour, IFreezable
 {
     
     [SerializeField] int speed;
@@ -10,15 +10,27 @@ public class FloatingWood : MonoBehaviour
     [SerializeField] Transform midOne;
     [SerializeField] Transform midTwo;
     [SerializeField] GameObject wood;
-    bool midpoint1Reached = false;
-    bool midpoint2Reached = false;
-    
+    [SerializeField] bool midpoint1Reached = false;
+    [SerializeField] bool midpoint2Reached = false;
+    bool frozen = false;
+
 
     Vector3 startingPos;
+
+    public void freeze()
+    {
+        frozen = true;
+    }
+
+    public void unfreeze()
+    {
+        frozen = false;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        platform.position = startingpos.position;
     }
 
     // Update is called once per frame
@@ -38,18 +50,37 @@ public class FloatingWood : MonoBehaviour
             midpoint2Reached = false;
         }
 
+        if (!frozen)
+        {
+            if (midpoint2Reached)
+            {
+                platform.position = Vector3.MoveTowards(platform.position, destination.position, speed * Time.deltaTime);
+            }
+            else if (midpoint1Reached)
+            {
+                platform.position = Vector3.MoveTowards(platform.position, midTwo.position, speed * Time.deltaTime);
+            }
+            else
+            {
+                platform.position = Vector3.MoveTowards(platform.position, midOne.position, speed * Time.deltaTime);
+            }
+        }
+    }
 
-        if (midpoint2Reached)
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.F))
         {
-            platform.position = Vector3.MoveTowards(platform.position, destination.position, speed * Time.deltaTime);
-        } else if (midpoint1Reached)
-        {
-            platform.position = Vector3.MoveTowards(platform.position, midTwo.position, speed * Time.deltaTime);
+            other.transform.parent = transform;
+            other.transform.position = platform.position;
         }
-        else
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
         {
-            platform.position = Vector3.MoveTowards(platform.position, midOne.position, speed * Time.deltaTime);
+            other.transform.parent = null;
         }
-        
     }
 }
