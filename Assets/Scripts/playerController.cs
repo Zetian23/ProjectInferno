@@ -75,6 +75,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     [SerializeField] float fireRate;
     //Chain Lightning
     [SerializeField] GameObject lightningModel;
+    [SerializeField] GameObject lightningProjectile;
+    [SerializeField] float lightningRate;
     //Ice Shock
     [SerializeField] GameObject iceModel;
     [SerializeField] float iceRate;
@@ -334,6 +336,11 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
                 }
                 break;
             case 1:
+                if (powerTimer >= lightningRate)
+                {
+                    Instantiate(lightningProjectile, shootPos.transform.position, Camera.main.transform.rotation);
+                    powerTimer = 0;
+                }
                 break;
             case 2:
                 if (powerTimer >= iceRate)
