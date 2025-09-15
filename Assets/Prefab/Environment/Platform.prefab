@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2204190564228305143}
   - component: {fileID: 7625343464468757163}
   - component: {fileID: 4783438031639511064}
-  - component: {fileID: 3752194503329536462}
+  - component: {fileID: 5560034985192296972}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Untagged
@@ -109,24 +109,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3752194503329536462
+--- !u!114 &5560034985192296972
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5605703178334930432}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 838b908c06320a34fb6fd5a082e6dc5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  platform: {fileID: 0}
+  speed: 3
+  platform: {fileID: 2972891987799275061}
   startingpos: {fileID: 0}
   destination: {fileID: 0}
   midOne: {fileID: 0}
   midTwo: {fileID: 0}
-  wood: {fileID: 0}
+  wood: {fileID: 5605703178334930432}
   midpoint1Reached: 0
   midpoint2Reached: 0

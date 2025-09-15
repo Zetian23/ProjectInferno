@@ -4,6 +4,7 @@ public class FloatingWood : MonoBehaviour, IFreezable
 {
     
     [SerializeField] int speed;
+    int OrigSpeed;
     [SerializeField] Transform platform;
     [SerializeField] Transform startingpos;
     [SerializeField] Transform destination;
@@ -12,19 +13,20 @@ public class FloatingWood : MonoBehaviour, IFreezable
     [SerializeField] GameObject wood;
     [SerializeField] bool midpoint1Reached = false;
     [SerializeField] bool midpoint2Reached = false;
-    bool frozen = false;
+    
 
 
     Vector3 startingPos;
 
     public void freeze()
     {
-        frozen = true;
+        OrigSpeed = speed;
+        speed = 0;
     }
 
     public void unfreeze()
     {
-        frozen = false;
+        //speed = OrigSpeed;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -50,8 +52,7 @@ public class FloatingWood : MonoBehaviour, IFreezable
             midpoint2Reached = false;
         }
 
-        if (!frozen)
-        {
+        
             if (midpoint2Reached)
             {
                 platform.position = Vector3.MoveTowards(platform.position, destination.position, speed * Time.deltaTime);
@@ -64,7 +65,7 @@ public class FloatingWood : MonoBehaviour, IFreezable
             {
                 platform.position = Vector3.MoveTowards(platform.position, midOne.position, speed * Time.deltaTime);
             }
-        }
+        
     }
 
     private void OnTriggerStay(Collider other)
