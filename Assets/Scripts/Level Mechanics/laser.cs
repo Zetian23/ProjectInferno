@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 // Code Written By Nathaniel King <3
 
-public class laser : MonoBehaviour
+public class laser : MonoBehaviour, IChargable
 {
     [SerializeField] GameObject laserBeam;
     [SerializeField] bool isPatterned;
@@ -36,12 +36,9 @@ public class laser : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    public void charge(int chargeVal)
     {
-        if (other.CompareTag("Lightning"))
-        {
-            isPatterned = false;
-            laserBeam.SetActive(false);
-        }
+        isPatterned = false;
+        laserBeam.SetActive(false);
     }
 }

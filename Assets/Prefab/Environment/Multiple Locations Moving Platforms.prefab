@@ -255,8 +255,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   freezeTime: 5
+  disappearTime: 0
   platformSpeed: 10
-  platform: {fileID: 1443288610966142524}
+  platform: {fileID: 2973729184473029142}
   endPosition: {fileID: 4314250074930600357}
   separateTrans:
   - {fileID: 7222306529312189638}

@@ -48,10 +48,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   freezeTime: 5
+  disappearTime: 0
   platformSpeed: 10
-  platform: {fileID: 5131482054672159325}
+  platform: {fileID: 5692630548862885536}
   endPosition: {fileID: 4797887139037999370}
+  separateTrans: []
   platformType: 1
+  isPatteredDisappear: 0
 --- !u!54 &3140508749120164596
 Rigidbody:
   m_ObjectHideFlags: 0
