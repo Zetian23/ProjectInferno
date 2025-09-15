@@ -17,28 +17,28 @@ public class FloatingWood : MonoBehaviour, IFreezable
 
 
     Vector3 startingPos;
-
-    public void freeze()
-    {
-        OrigSpeed = speed;
-        speed = 0;
-    }
-
-    public void unfreeze()
-    {
-        //speed = OrigSpeed;
-    }
+    bool isFrozen = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         platform.position = startingpos.position;
+        OrigSpeed = speed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(platform.position == midOne.position)
+        if (isFrozen)
+        {
+            OrigSpeed = speed;
+            speed = 0;
+        } else
+        {
+            speed = OrigSpeed;
+        }
+
+        if (platform.position == midOne.position)
         {
             midpoint1Reached = true;
         } else if(platform.position == midTwo.position)
@@ -84,4 +84,16 @@ public class FloatingWood : MonoBehaviour, IFreezable
             other.transform.parent = null;
         }
     }
+
+    public void freeze()
+    {
+        isFrozen = true;
+    }
+
+    public void unfreeze()
+    {
+        isFrozen = false;
+    }
+
+
 }
