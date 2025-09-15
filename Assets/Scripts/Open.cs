@@ -2,21 +2,22 @@ using UnityEngine;
 
 public class Open : MonoBehaviour, IChargable
 {
-
+    GameObject player;
     [SerializeField] int maxCharge = 5;
-    int currcharge = 0;
-    bool open = false;
+    public Animator chest;
+    [SerializeField]int currcharge = 0;
 
-    public void charge(int chargeVal)
+    public void charge(int chargeVal = 1)
     {
-        currcharge += chargeVal;
+        Destroy(player);
+        //currcharge += chargeVal;
     }
     // Update is called once per frame
     void Update()
     {
         if(currcharge >= maxCharge)
         {
-            open = true;
+            chest.SetBool("Opening", true);
         }
     }
 }
