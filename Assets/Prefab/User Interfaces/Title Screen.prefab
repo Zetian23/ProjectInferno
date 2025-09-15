@@ -802,20 +802,29 @@ MonoBehaviour:
   menuPause: {fileID: 0}
   menuWin: {fileID: 0}
   menuLose: {fileID: 0}
-  meleeEnemyCountText: {fileID: 0}
-  rangedEnemyCountText: {fileID: 0}
+  menuLoad: {fileID: 0}
   bossEnemyCountText: {fileID: 0}
+  waveText: {fileID: 0}
+  enemiesLeftText: {fileID: 0}
+  waveCooldownText: {fileID: 0}
   bossNameText: {fileID: 0}
-  Wave: 0
   playerHPBar: {fileID: 0}
   playerEXPBar: {fileID: 0}
   playerDamageFlash: {fileID: 0}
   playerHealFlash: {fileID: 0}
   playerLevelUPFlash: {fileID: 0}
-  bossHPBar: {fileID: 0}
+  bossUI: {fileID: 0}
+  bossHealthUI: []
+  WaveUI: {fileID: 0}
+  WaveCooldownUI: {fileID: 0}
+  RemainingEnemiesUI: {fileID: 0}
+  bossHPBar:
+  - {fileID: 0}
   player: {fileID: 0}
   playerScript: {fileID: 0}
   isPaused: 0
+  lustIIIArcana: 0
+  enemies: 0
   boss: 0
   parentMenu: {fileID: 6083025330533424486}
   settingsMenu: {fileID: 6891187943404173447}
@@ -1532,7 +1541,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Project Inferno
+  m_text: 'Mindscape
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

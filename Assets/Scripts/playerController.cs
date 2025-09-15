@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 //Code written by brady (Movement-wise)
 public class playerController : MonoBehaviour, IDamage, iPickUp
@@ -232,6 +233,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     void reload()
     {
         weaponList[weaponListpos].ammoCur = weaponList[weaponListpos].ammoMax;
+        updateGunUI();
     }
 
     public virtual void gainEXP(int expGained)
@@ -286,6 +288,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     {
         shootTimer = 0;
         weaponList[weaponListpos].ammoCur--;
+        updateGunUI();
 
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
@@ -376,10 +379,18 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         }
     }
 
+
+
     public void updatePlayerUI()
     {
         gamemanager.instance.playerHPBar.fillAmount = (float)HP / HPMax;
         gamemanager.instance.playerEXPBar.fillAmount = (float)EXP / expReq;
+    }
+
+    public void updateGunUI()
+    {
+        gamemanager.instance.playerAmmoCur = weaponList[weaponListpos].ammoCur;
+        gamemanager.instance.playerAmmoMax = weaponList[weaponListpos].ammoMax;
     }
 
     IEnumerator damageFlash()
@@ -412,6 +423,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     {
         weaponList.Add(weapon);
         weaponListpos = weaponList.Count - 1;
+        updateGunUI();
         changeWeapon();
     }
 
@@ -421,6 +433,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         shootDist = weaponList[weaponListpos].shootDist;
         shootRate = weaponList[weaponListpos].shootRate;
         shootEffect = weaponList[weaponListpos].shootEffect;
+        
+        
 
         gunModel.GetComponent<MeshFilter>().sharedMesh = weaponList[weaponListpos].gunModel.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[weaponListpos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;

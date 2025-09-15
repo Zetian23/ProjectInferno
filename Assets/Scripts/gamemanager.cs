@@ -3,6 +3,8 @@ using TMPro;
 using UnityEngine.UI;
 using System.Xml.Serialization;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using NUnit.Framework.Internal;
 
 public class gamemanager : MonoBehaviour
 {
@@ -14,6 +16,8 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuLoad;
 
+    [SerializeField] TMP_Text ammoCurrentText;
+    [SerializeField] TMP_Text ammoMaxText;
     //[SerializeField] TMP_Text meleeEnemyCountText;
     //[SerializeField] TMP_Text rangedEnemyCountText;
     [SerializeField] TMP_Text bossEnemyCountText;
@@ -38,6 +42,9 @@ public class gamemanager : MonoBehaviour
     public GameObject player;
     public playerController playerScript;
 
+    public int playerAmmoCur;
+    public int playerAmmoMax;
+
     public bool isPaused;
     public int lustIIIArcana;
     public int enemies;
@@ -60,6 +67,7 @@ public class gamemanager : MonoBehaviour
         timeScaleOrig = Time.timeScale;
         lustIIIArcana = 4;
 
+
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
     }
@@ -80,6 +88,10 @@ public class gamemanager : MonoBehaviour
                 stateUnpause();
             }
         }
+
+        //I plan on removing these two from update.
+        ammoCurrentText.text = playerAmmoCur.ToString("F0");
+        ammoMaxText.text = playerAmmoMax.ToString("F0");
     }
 
     public void statePause()
@@ -134,6 +146,8 @@ public class gamemanager : MonoBehaviour
     {
         waveText.text = wave;
     }
+
+
 
     public void SetPhase(int phase) { currBossPhase = phase; }
     public int GetPhase() { return currBossPhase; }
