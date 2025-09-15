@@ -12,6 +12,7 @@ TagManager:
   - Weapon
   - Javelin
   - Planet
+  - Floor
   layers:
   - Default
   - TransparentFX

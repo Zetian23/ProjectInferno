@@ -96,6 +96,7 @@ public class slimeEnemy : Enemy
         if(HP <= 0)
         {
            Destroy(gameObject);
+            agent.SetDestination(gamemanager.instance.player.transform.position);
             CallGainEXP();
         }
     }

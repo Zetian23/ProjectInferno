@@ -55,6 +55,7 @@ public class CommonEnemyScript : Enemy
 
     void setAnimLoco()
     {
+        
         float agentSpeedCur = agent.velocity.normalized.magnitude;
         float animSpeedCur = anim.GetFloat("Speed");
 
