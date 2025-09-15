@@ -1207,12 +1207,12 @@ MonoBehaviour:
   HP: 20
   faceTargetSpeed: 8
   attackRate: 1.1
-  attackDistance: 3
+  attackDistance: 20
   attackDamage: 20
   FOV: 90
   attackPos: {fileID: 8734794291921730348}
   weapon: {fileID: 3354401941124468285, guid: 4693239b4751a284c8879765ed4759aa, type: 3}
-  isSkelenton: 1
+  isMelee: 1
   roamDist: 15
   roamPauseTimer: 3
   anim: {fileID: 20884049279535654}
@@ -1226,7 +1226,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3337997396714622698}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -334000983
   m_Radius: 0.6
   m_Speed: 3
   m_Acceleration: 15
@@ -1304,7 +1304,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 20
+  m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3423918100196249295
 GameObject:
@@ -2599,7 +2599,7 @@ Transform:
   m_GameObject: {fileID: 9159735742975068626}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.20517813, y: -0.08540882, z: 0.49712938}
+  m_LocalPosition: {x: 0.073, y: 0.905, z: 0.041}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

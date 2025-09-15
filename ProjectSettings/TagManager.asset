@@ -12,6 +12,7 @@ TagManager:
   - Weapon
   - Javelin
   - Planet
+  - Floor
   layers:
   - Default
   - TransparentFX
@@ -26,7 +27,7 @@ TagManager:
   - Weapon
   - MiniMap
   - EnemyBullet
-  - Power
+  - Flying Enemy
   - 
   - 
   - 

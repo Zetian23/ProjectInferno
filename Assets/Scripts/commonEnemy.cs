@@ -1,24 +1,31 @@
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
 //code written by William
-public class CommonEnemyScript : Enemy, IDamage
+public class CommonEnemyScript : Enemy
 {
     [SerializeField] GameObject weapon;
 
     
-    [SerializeField] bool isSkelenton;
+    [SerializeField] bool isMelee;
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTimer;
-    [SerializeField] Animator anim;
-    [SerializeField] float animTranSpeed;
-
+   
     public playerController expGained;
 
+    
     float roamTimer;
-    //enum enemyType { skeleton, demon }
-    //[SerializeField] enemyType type;
+
+    //for dodging
+    [SerializeField] float dodgeDist;
+    [SerializeField] float dodgeSpeed;
+    [SerializeField] float dodgeCooldown;
+    [SerializeField] float dodgeTime;
+
+    private bool isDodging = false;
+    private float dodgeTimer = 0;
 
     Vector3 startingPos;
 
@@ -38,23 +45,36 @@ public class CommonEnemyScript : Enemy, IDamage
 
         attackTimer += Time.deltaTime;
 
-        if (agent.remainingDistance < 0.01f)
+        if (dodgeTimer > 0)
         {
-            roamTimer += Time.deltaTime;
+            dodgeTimer -= Time.deltaTime;
         }
 
-        if (playerInTrigger && !canSeePlayer())
+        if (!isDodging)
         {
-            checkRoam();
+            if (agent.remainingDistance < 0.01f)
+            {
+                roamTimer += Time.deltaTime;
+            }
+
+            if (playerInTrigger && !canSeePlayer())
+            {
+                checkRoam();
+            }
+            else if (!playerInTrigger)
+            {
+                checkRoam();
+            }
         }
-        else if(!playerInTrigger)
+        if(canSeePlayer() && Random.value < 0.1f)
         {
-            checkRoam();
+            TryDodge();
         }
     }
 
     void setAnimLoco()
     {
+        
         float agentSpeedCur = agent.velocity.normalized.magnitude;
         float animSpeedCur = anim.GetFloat("Speed");
 
@@ -82,35 +102,37 @@ public class CommonEnemyScript : Enemy, IDamage
         agent.SetDestination(hit.position);
     }
 
-
-    //public void checkEnemyType()
-    //{
-    //    if (type == enemyType.ranged || type == enemyType.idle)
-    //    {
-
-    //    }
-    //}
-
     public override void faceTarget()
     {
-        Quaternion rotation = Quaternion.LookRotation(playerDirection);
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * faceTargetSpeed);
+        if (!isFroze)
+        {
+            Quaternion rotation = Quaternion.LookRotation(playerDirection);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * faceTargetSpeed);
+        }
     }
     
     public override void Attack()
     {
         attackTimer = 0;
 
-        anim.SetTrigger("Shoot");
-        anim.SetTrigger("Attack");
-        if(isSkelenton)
+        
+       
+        if(isMelee)
         {
-            meleeAttack();
+            if (!isFroze)
+            {
+                anim.SetTrigger("Attack");
+                meleeAttack();
+            }
         }
         else
         {
-            if(agent.remainingDistance <= agent.stoppingDistance)
-                Instantiate(weapon, attackPos.position, transform.rotation);
+            if (!isFroze)
+            {
+                anim.SetTrigger("Shoot");
+                if (agent.remainingDistance <= agent.stoppingDistance)
+                    Instantiate(weapon, attackPos.position, transform.rotation);
+            }
         }
     }
 
@@ -119,6 +141,7 @@ public class CommonEnemyScript : Enemy, IDamage
         Debug.Log("Ow");
         if (HP > 0)
         {
+            
             HP -= amount;
             agent.SetDestination(gamemanager.instance.player.transform.position);
             StartCoroutine(flashDamage());
@@ -131,6 +154,7 @@ public class CommonEnemyScript : Enemy, IDamage
         }
     }
 
+   
     public void CallGainEXP()
     {
         if(expGained != null)
@@ -140,5 +164,35 @@ public class CommonEnemyScript : Enemy, IDamage
         }
         
     }
+
+    private void TryDodge()
+    {
+        if(!isDodging && dodgeTimer <= 0)
+        {
+            StartCoroutine(Dodge());
+        }
+    }
     
+    private IEnumerator Dodge()
+    {
+            isDodging = true;
+            dodgeTimer = dodgeCooldown;
+
+            Vector3 playerDir = (gamemanager.instance.player.transform.position - transform.position).normalized;
+            Vector3 dodgeDir = Vector3.Cross(playerDir, Vector3.up).normalized;
+
+            if (Random.value > 0.5)
+            {
+                dodgeDir = -dodgeDir;
+            }
+            float elapsed = 0;
+            while (elapsed < dodgeTime)
+            {
+                agent.Move(dodgeDir * dodgeSpeed * Time.deltaTime);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+        
+        isDodging = false; 
+    }
 }
