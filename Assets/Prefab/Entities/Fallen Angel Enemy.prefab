@@ -2602,13 +2602,18 @@ MonoBehaviour:
   attackDamage: 20
   FOV: 90
   attackPos: {fileID: 701567939578132492}
+  anim: {fileID: 4551031290360525340}
+  animTranSpeed: 8
+  isFroze: 0
   weapon: {fileID: 3354401941124468285, guid: 4693239b4751a284c8879765ed4759aa, type: 3}
   isMelee: 1
   roamDist: 10
   roamPauseTimer: 3
-  anim: {fileID: 4551031290360525340}
-  animTranSpeed: 8
   expGained: {fileID: 0}
+  dodgeDist: 1
+  dodgeSpeed: 8
+  dodgeCooldown: 8
+  dodgeTime: 1
 --- !u!195 &3957097369166512990
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -16,7 +16,7 @@ public class flyingEnemyAI : Enemy
     private Vector3 startPos;
     private Vector3 roamTarget;
     private float roamTimer;
-
+    public playerController expGained;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -113,6 +113,18 @@ public class flyingEnemyAI : Enemy
         if(HP <= 0)
         {
             Destroy(gameObject);
+            CallGainEXP();
         }
+    }
+
+    public void CallGainEXP()
+    {
+        if (expGained != null)
+        {
+            expGained.gainEXP(5);
+            Debug.Log("EXP gained");
+
+        }
+
     }
 }

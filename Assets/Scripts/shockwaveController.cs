@@ -39,7 +39,7 @@ public class shockwaveController : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             Debug.Log("Shockwave hit Player!");
-            other.GetComponent<IDamage>()?.takeDamage(damage);
+            other.GetComponent<IDamage>().takeDamage(damage);
         }
     }
 }

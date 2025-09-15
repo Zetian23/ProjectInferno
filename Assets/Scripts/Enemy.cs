@@ -3,7 +3,7 @@ using UnityEngine.AI;
 using System.Collections;
 // Code written by Nathaniel King <3 and William
 // Base class for any enemies that will be created throughout Project Inferno
-public class Enemy : MonoBehaviour, IDamage
+public class Enemy : MonoBehaviour, IDamage, IFreezable
 {
     // These SerializedField will show up in any enemy that inherits from this parent
     [SerializeField] protected LayerMask ignoreLayer;   // This is set for anything that needs to be ignored in the attacks.
@@ -22,7 +22,8 @@ public class Enemy : MonoBehaviour, IDamage
     [SerializeField] public int FOV;
     [SerializeField] public Transform attackPos;
 
-
+    [SerializeField] public Animator anim;
+    [SerializeField] public float animTranSpeed;
     protected Color colorOrg;
 
     protected Vector3 playerDirection;         // In the child classes this will be used to update in that class based on the player direction.
@@ -31,6 +32,12 @@ public class Enemy : MonoBehaviour, IDamage
     protected float angleToPlayer;
     protected float stoppingDistOrig;
     protected float startSpeed;
+    protected float ogAnimSpeed;
+    protected int ogAttackDam;
+   
+    //for freeze
+    public bool isFroze = false;
+    private float ogSpeed = 0;
 
     protected bool playerInTrigger;            // Player enters the area where the enemy will be aware of the player.
 
@@ -85,16 +92,17 @@ public class Enemy : MonoBehaviour, IDamage
     {
         attackTimer = 0;// Reset the timer so that the attack will happen again after a period of time.
 
-        RaycastHit hit;
-        if (Physics.Raycast(headPos.position, playerDirection, out hit, attackDistance, ~ignoreLayer)) // Draws a ling with the attackDistance to see if the player is within the distance.
-        {
-            IDamage dmg = hit.collider.GetComponent<IDamage>(); // Initializing the IDamage script.
-
-            if (dmg != null)    // Checks if the thing collided took damage.
+          RaycastHit hit;
+            if (Physics.Raycast(headPos.position, playerDirection, out hit, attackDistance, ~ignoreLayer)) // Draws a ling with the attackDistance to see if the player is within the distance.
             {
-                dmg.takeDamage(attackDamage);   // Make the player take damage.
+                IDamage dmg = hit.collider.GetComponent<IDamage>(); // Initializing the IDamage script.
+
+                if (dmg != null)    // Checks if the thing collided took damage.
+                {
+                    dmg.takeDamage(attackDamage);   // Make the player take damage.
+                }
             }
-        }
+        
     }
 
     virtual public void faceTarget() { }    // Basic method that keeps the enemy faced to the player after the enemy is at the desired position,
@@ -113,4 +121,47 @@ public class Enemy : MonoBehaviour, IDamage
     {
        startSpeed *= percent;
     }
+
+    public void freeze()
+    {
+        isFroze = true;
+
+        if (agent != null)
+        {
+            ogSpeed = agent.speed;
+            agent.speed = 0;
+            
+            agent.isStopped = true;
+            
+        }
+
+        if (anim != null)
+        {
+            ogAnimSpeed = anim.speed;
+            anim.speed = 0;
+        }
+        ogAttackDam = attackDamage;
+        attackDamage = 0;
+    }
+
+    public void unfreeze()
+    {
+       
+        isFroze = false;
+
+        if (agent != null)
+        {
+           
+            agent.speed = ogSpeed;
+           
+            agent.isStopped = false;
+        }
+
+        if (anim != null)
+        {
+            anim.speed = ogAnimSpeed;
+        }
+        attackDamage = ogAttackDam;
+    }
+
 }

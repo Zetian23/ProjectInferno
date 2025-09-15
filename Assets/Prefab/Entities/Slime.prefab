@@ -99,11 +99,12 @@ MonoBehaviour:
   speed: 30
   detRange: 10
   attackRange: 3
-  jumpForce: 10
+  jumpForce: 5
   jumpDelay: 0.5
   shockwave: {fileID: 8459739613476375937, guid: 8487d53c5c239ac468b1d47bdb312054, type: 3}
   shockwaveRadius: 10
   shockwaveDamage: 20
+  expGained: {fileID: 0}
 --- !u!195 &3802020889016226954
 NavMeshAgent:
   m_ObjectHideFlags: 0
