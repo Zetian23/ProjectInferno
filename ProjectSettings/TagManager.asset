@@ -16,6 +16,7 @@ TagManager:
   - Ice
   - Wind
   - Rock Shifting
+  - Planet
   layers:
   - Default
   - TransparentFX
@@ -30,8 +31,9 @@ TagManager:
   - Weapon
   - MiniMap
   - EnemyWeapons
-  - FlyingEnemy
   - Powers
+  - EnemyBullet
+  - Flying Enemy
   - 
   - 
   - 

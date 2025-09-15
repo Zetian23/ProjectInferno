@@ -92,7 +92,7 @@ NavMeshProjectSettings:
   - serializedVersion: 3
     agentTypeID: -334000983
     agentRadius: 0.5
-    agentHeight: 1
+    agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
     ledgeDropHeight: 0
@@ -108,5 +108,5 @@ NavMeshProjectSettings:
     debug:
       m_Flags: 0
   m_SettingNames:
+  - Flying Enemies
   - Humanoid
-  - Enemy Helicopter

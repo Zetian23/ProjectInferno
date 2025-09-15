@@ -1,15 +1,14 @@
 
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
 //code written by William
-public class CommonEnemyScript : Enemy, IDamage
+public class CommonEnemyScript : Enemy
 {
     [SerializeField] GameObject weapon;
 
-
-    [SerializeField] bool isSkelenton;
+    
+    [SerializeField] bool isMelee;
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTimer;
     [SerializeField] Animator anim;
@@ -27,7 +26,7 @@ public class CommonEnemyScript : Enemy, IDamage
     void Start()
     {
         colorOrg = model.material.color;
-        gamemanager.instance.updateGameGoal(1);
+        gamemanager.instance.updateGameGoal(0, 0, 1);
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
     }
@@ -48,7 +47,7 @@ public class CommonEnemyScript : Enemy, IDamage
         {
             checkRoam();
         }
-        else if (!playerInTrigger)
+        else if(!playerInTrigger)
         {
             checkRoam();
         }
@@ -97,19 +96,21 @@ public class CommonEnemyScript : Enemy, IDamage
         Quaternion rotation = Quaternion.LookRotation(playerDirection);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * faceTargetSpeed);
     }
-
+    
     public override void Attack()
     {
         attackTimer = 0;
 
-        anim.SetTrigger("Shoot");
-        anim.SetTrigger("Attack");
-        if (isSkelenton)
+        
+       
+        if(isMelee)
         {
+            anim.SetTrigger("Attack");
             meleeAttack();
         }
         else
         {
+            anim.SetTrigger("Shoot");
             if (agent.remainingDistance <= agent.stoppingDistance)
                 Instantiate(weapon, attackPos.position, transform.rotation);
         }
@@ -126,7 +127,7 @@ public class CommonEnemyScript : Enemy, IDamage
         }
         if (HP <= 0)
         {
-            gamemanager.instance.updateGameGoal(-1);
+            gamemanager.instance.updateGameGoal(0, 0, -1);
             Destroy(gameObject);
             CallGainEXP();
         }
@@ -134,12 +135,12 @@ public class CommonEnemyScript : Enemy, IDamage
 
     public void CallGainEXP()
     {
-        if (expGained != null)
+        if(expGained != null)
         {
             expGained.gainEXP(5);
             Debug.Log("EXP gained");
         }
-
+        
     }
-
+    
 }
