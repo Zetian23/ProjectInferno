@@ -68,9 +68,9 @@ public class FloatingWood : MonoBehaviour, IFreezable
         
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.F))
+        if (other.CompareTag("Player"))
         {
             other.transform.parent = transform;
             other.transform.position = platform.position;
