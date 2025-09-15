@@ -119,14 +119,20 @@ public class CommonEnemyScript : Enemy
        
         if(isMelee)
         {
-            anim.SetTrigger("Attack");
-            meleeAttack();
+            if (!isFroze)
+            {
+                anim.SetTrigger("Attack");
+                meleeAttack();
+            }
         }
         else
         {
-            anim.SetTrigger("Shoot");
-            if (agent.remainingDistance <= agent.stoppingDistance)
-                Instantiate(weapon, attackPos.position, transform.rotation);
+            if (!isFroze)
+            {
+                anim.SetTrigger("Shoot");
+                if (agent.remainingDistance <= agent.stoppingDistance)
+                    Instantiate(weapon, attackPos.position, transform.rotation);
+            }
         }
     }
 
@@ -161,7 +167,7 @@ public class CommonEnemyScript : Enemy
 
     private void TryDodge()
     {
-        if(!isDodging && dodgeTimer <= 0 && !isFroze)
+        if(!isDodging && dodgeTimer <= 0)
         {
             StartCoroutine(Dodge());
         }

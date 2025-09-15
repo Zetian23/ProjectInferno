@@ -32,10 +32,12 @@ public class Enemy : MonoBehaviour, IDamage, IFreezable
     protected float angleToPlayer;
     protected float stoppingDistOrig;
     protected float startSpeed;
+    protected float ogAnimSpeed;
+    protected int ogAttackDam;
    
     //for freeze
     public bool isFroze = false;
-    private float ogSpeed;
+    private float ogSpeed = 0;
 
     protected bool playerInTrigger;            // Player enters the area where the enemy will be aware of the player.
 
@@ -128,16 +130,18 @@ public class Enemy : MonoBehaviour, IDamage, IFreezable
         {
             ogSpeed = agent.speed;
             agent.speed = 0;
-            attackDamage = 0;
+            
             agent.isStopped = true;
             
         }
 
         if (anim != null)
         {
+            ogAnimSpeed = anim.speed;
             anim.speed = 0;
         }
-
+        ogAttackDam = attackDamage;
+        attackDamage = 0;
     }
 
     public void unfreeze()
@@ -147,16 +151,17 @@ public class Enemy : MonoBehaviour, IDamage, IFreezable
 
         if (agent != null)
         {
-            agent.speed = 0;
+           
             agent.speed = ogSpeed;
-            
+           
             agent.isStopped = false;
         }
 
         if (anim != null)
         {
-            anim.speed = animTranSpeed;
+            anim.speed = ogAnimSpeed;
         }
+        attackDamage = ogAttackDam;
     }
 
 }
