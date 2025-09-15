@@ -1,4 +1,5 @@
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
@@ -16,8 +17,15 @@ public class CommonEnemyScript : Enemy
 
     
     float roamTimer;
-    //enum enemyType { skeleton, demon }
-    //[SerializeField] enemyType type;
+
+    //for dodging
+    [SerializeField] float dodgeDist;
+    [SerializeField] float dodgeSpeed;
+    [SerializeField] float dodgeCooldown;
+    [SerializeField] float dodgeTime;
+
+    private bool isDodging = false;
+    private float dodgeTimer = 0;
 
     Vector3 startingPos;
 
@@ -37,18 +45,30 @@ public class CommonEnemyScript : Enemy
 
         attackTimer += Time.deltaTime;
 
-        if (agent.remainingDistance < 0.01f)
+        if (dodgeTimer > 0)
         {
-            roamTimer += Time.deltaTime;
+            dodgeTimer -= Time.deltaTime;
         }
 
-        if (playerInTrigger && !canSeePlayer())
+        if (!isDodging)
         {
-            checkRoam();
+            if (agent.remainingDistance < 0.01f)
+            {
+                roamTimer += Time.deltaTime;
+            }
+
+            if (playerInTrigger && !canSeePlayer())
+            {
+                checkRoam();
+            }
+            else if (!playerInTrigger)
+            {
+                checkRoam();
+            }
         }
-        else if(!playerInTrigger)
+        if(canSeePlayer() && Random.value < 0.1f)
         {
-            checkRoam();
+            TryDodge();
         }
     }
 
@@ -81,15 +101,6 @@ public class CommonEnemyScript : Enemy
         NavMesh.SamplePosition(ranPos, out hit, roamDist, 1);
         agent.SetDestination(hit.position);
     }
-
-
-    //public void checkEnemyType()
-    //{
-    //    if (type == enemyType.ranged || type == enemyType.idle)
-    //    {
-
-    //    }
-    //}
 
     public override void faceTarget()
     {
@@ -144,5 +155,34 @@ public class CommonEnemyScript : Enemy
         }
         
     }
+
+    private void TryDodge()
+    {
+        if(!isDodging && dodgeTimer <= 0 && !isFroze)
+        {
+            StartCoroutine(Dodge());
+        }
+    }
     
+    private IEnumerator Dodge()
+    {
+        isDodging = true;
+        dodgeTimer = dodgeCooldown;
+
+        Vector3 playerDir = (gamemanager.instance.player.transform.position - transform.position).normalized;
+        Vector3 dodgeDir = Vector3.Cross(playerDir, Vector3.up).normalized; 
+
+        if(Random.value > 0.5)
+        {
+            dodgeDir = -dodgeDir;
+        }
+        float elapsed = 0;
+        while (elapsed < dodgeTime)
+        {
+            agent.Move(dodgeDir * dodgeSpeed * Time.deltaTime);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        isDodging = false; 
+    }
 }
