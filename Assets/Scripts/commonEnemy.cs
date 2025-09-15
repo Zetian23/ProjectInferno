@@ -104,8 +104,11 @@ public class CommonEnemyScript : Enemy
 
     public override void faceTarget()
     {
-        Quaternion rotation = Quaternion.LookRotation(playerDirection);
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * faceTargetSpeed);
+        if (!isFroze)
+        {
+            Quaternion rotation = Quaternion.LookRotation(playerDirection);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * faceTargetSpeed);
+        }
     }
     
     public override void Attack()
@@ -166,23 +169,24 @@ public class CommonEnemyScript : Enemy
     
     private IEnumerator Dodge()
     {
-        isDodging = true;
-        dodgeTimer = dodgeCooldown;
+            isDodging = true;
+            dodgeTimer = dodgeCooldown;
 
-        Vector3 playerDir = (gamemanager.instance.player.transform.position - transform.position).normalized;
-        Vector3 dodgeDir = Vector3.Cross(playerDir, Vector3.up).normalized; 
+            Vector3 playerDir = (gamemanager.instance.player.transform.position - transform.position).normalized;
+            Vector3 dodgeDir = Vector3.Cross(playerDir, Vector3.up).normalized;
 
-        if(Random.value > 0.5)
-        {
-            dodgeDir = -dodgeDir;
-        }
-        float elapsed = 0;
-        while (elapsed < dodgeTime)
-        {
-            agent.Move(dodgeDir * dodgeSpeed * Time.deltaTime);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
+            if (Random.value > 0.5)
+            {
+                dodgeDir = -dodgeDir;
+            }
+            float elapsed = 0;
+            while (elapsed < dodgeTime)
+            {
+                agent.Move(dodgeDir * dodgeSpeed * Time.deltaTime);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+        
         isDodging = false; 
     }
 }
