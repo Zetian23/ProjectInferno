@@ -36,6 +36,11 @@ public class gamemanager : MonoBehaviour
     public GameObject WaveUI;
     public GameObject WaveCooldownUI;
     public GameObject RemainingEnemiesUI;
+    public GameObject fireIcon;
+    public GameObject lightningIcon;
+    public GameObject iceIcon;
+    public GameObject windIcon;
+    public GameObject stoneIcon;
 
     public List<Image> bossHPBar;
 
@@ -147,7 +152,48 @@ public class gamemanager : MonoBehaviour
         waveText.text = wave;
     }
 
-
+    public void DisplayPowerIcon(int power)
+    {
+        switch (power)
+        {
+            case 0:
+                if (stoneIcon.activeSelf)
+                {
+                    stoneIcon.SetActive(false);
+                }
+                fireIcon.SetActive(true);
+                break;
+            case 1:
+                if (fireIcon.activeSelf)
+                {
+                    fireIcon.SetActive(false);
+                }
+                lightningIcon.SetActive(true);
+                break;
+            case 2:
+                if (lightningIcon.activeSelf)
+                {
+                    lightningIcon.SetActive(false);
+                }
+                iceIcon.SetActive(true);
+                break;
+            case 3:
+                if (iceIcon.activeSelf)
+                {
+                    iceIcon.SetActive(false);
+                }
+                windIcon.SetActive(true);
+                break;
+            case 4:
+                if (windIcon.activeSelf)
+                {
+                    windIcon.SetActive(false);
+                }
+                stoneIcon.SetActive(true);
+                break;
+                
+        }
+    }
 
     public void SetPhase(int phase) { currBossPhase = phase; }
     public int GetPhase() { return currBossPhase; }

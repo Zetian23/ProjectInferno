@@ -331,6 +331,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
 
     void power()
     {
+       
         switch (powerPos)
         {
             case 0:
@@ -341,6 +342,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
                 }
                 break;
             case 1:
+                
                 if (powerTimer >= lightningRate)
                 {
                     Instantiate(lightningProjectile, shootPos.transform.position, Camera.main.transform.rotation);
@@ -406,6 +408,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         gamemanager.instance.playerAmmoCur = weaponList[weaponListpos].ammoCur;
         gamemanager.instance.playerAmmoMax = weaponList[weaponListpos].ammoMax;
     }
+
 
     IEnumerator damageFlash()
     {
@@ -506,6 +509,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     {
         powerList[powerID] = true;
         powerPos = powerID;
+        gamemanager.instance.DisplayPowerIcon(powerPos);
         equipPower();
+
     }
 }
