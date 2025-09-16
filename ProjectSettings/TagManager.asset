@@ -11,6 +11,8 @@ TagManager:
   - WeakSpot
   - Weapon
   - Javelin
+  - Planet
+  - Floor
   layers:
   - Default
   - TransparentFX
@@ -25,7 +27,7 @@ TagManager:
   - Weapon
   - MiniMap
   - EnemyBullet
-  - FlyingEnemy
+  - Flying Enemy
   - 
   - 
   - 

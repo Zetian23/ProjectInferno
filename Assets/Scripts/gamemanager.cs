@@ -110,11 +110,11 @@ public class gamemanager : MonoBehaviour
         menuActive = null;
     }
 
-    public void updateGameGoal(int enemyInit)
+    public void updateGameGoal(int nummel, int numran, int numboss)
     {
         //meleeEnemyCount += nummel;
         //rangedEnemyCount += numran;
-        enemies += enemyInit;
+        enemies += nummel + numran + numboss;
         enemiesLeftText.text = enemies.ToString("F0");
 
         //if (bossEnemyCount > 1)

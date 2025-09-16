@@ -23,6 +23,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
     [SerializeField] ParticleSystem shootEffect;
+    [SerializeField] GameObject shootPos;
 
     //Weapon Model and Skin
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
@@ -68,12 +69,27 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
     int powerPos;
     List<bool> powerList = new();
     List<GameObject> powerModels = new();
-    //Fire
+    //Fireball
     [SerializeField] GameObject fireModel;
-    [SerializeField] int fireDamage;
-    [SerializeField] float fireCooldown;
-    [SerializeField] float fireAOERange;
-    [SerializeField] float fireSpeed;
+    [SerializeField] GameObject fireProjectile;
+    [SerializeField] float fireRate;
+    //Chain Lightning
+    [SerializeField] GameObject lightningModel;
+    [SerializeField] GameObject lightningProjectile;
+    [SerializeField] float lightningRate;
+    //Ice Shock
+    [SerializeField] GameObject iceModel;
+    [SerializeField] float iceRate;
+    [SerializeField] GameObject iceZone;
+    //Wind Charge
+    [SerializeField] GameObject windModel;
+    [SerializeField] float windRate;
+    [SerializeField] int windSpeed;
+    [SerializeField] GameObject windBox;
+    //Stone Model
+    [SerializeField] GameObject stoneModel;
+    [SerializeField] GameObject stone;
+    [SerializeField] float stoneRate;
 
     Vector3 moveDirection;
     Vector3 dashDirection;
@@ -82,6 +98,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
     float shootTimer;
     float dashTimer;
     float activeDashTimer;
+    float powerTimer;
 
     int jumpCount;
     int HP;
@@ -106,6 +123,10 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
         }
 
         powerModels.Add(fireModel);
+        powerModels.Add(lightningModel);
+        powerModels.Add(iceModel);
+        powerModels.Add(windModel);
+        powerModels.Add(stoneModel);
 
         updatePlayerUI();
     }
@@ -115,6 +136,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
     {
         movement();
         sprint();
+
+        //Debug.Log(powerPos);
 
         //Lust
         if (hasLust)
@@ -133,6 +156,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
     {
         shootTimer += Time.deltaTime;
         dashTimer += Time.deltaTime;
+        powerTimer += Time.deltaTime;
 
         if (controller.isGrounded)
         {
@@ -270,7 +294,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
         {
-            Debug.Log(hit.collider.name);
+            //Debug.Log(hit.collider.name);
 
             Instantiate(shootEffect, hit.point, Quaternion.identity);
 
@@ -307,14 +331,40 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
         switch (powerPos)
         {
             case 0:
+                if (powerTimer >= fireRate)
+                {
+                    Instantiate(fireProjectile, shootPos.transform.position, Camera.main.transform.rotation);
+                    powerTimer = 0;
+                }
                 break;
             case 1:
+                if (powerTimer >= lightningRate)
+                {
+                    Instantiate(lightningProjectile, shootPos.transform.position, Camera.main.transform.rotation);
+                    powerTimer = 0;
+                }
                 break;
             case 2:
+                if (powerTimer >= iceRate)
+                {
+                    Instantiate(iceZone, Camera.main.transform.position, Quaternion.identity);
+                    powerTimer = 0;
+                }
                 break;
             case 3:
+                if (powerTimer >= windRate)
+                {
+                    Instantiate(windBox, transform.position, Quaternion.identity);
+                    playerVelocity.y = windSpeed;
+                    powerTimer = 0;
+                }
                 break;
             case 4:
+                if (powerTimer >= stoneRate)
+                {
+                    Instantiate(stone, Camera.main.transform.position, Camera.main.transform.rotation);
+                    powerTimer = 0;
+                }
                 break;
         }
     }
@@ -377,7 +427,6 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
         weaponList.Add(weapon);
         weaponListpos = weaponList.Count - 1;
         changeWeapon();
-
     }
 
     void changeWeapon()
@@ -395,24 +444,38 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
     {
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
+            powerPos--;
+
+            if (powerPos <= -1)
+            {
+                powerPos = 4;
+            }
+
             while (!powerList[powerPos])
             {
-                powerPos++;
-                if(powerPos >= 5)
+                powerPos--;
+                if (powerPos <= -1)
                 {
-                    powerPos = 0;
+                    powerPos = 4;
                 }
             }
             equipPower();
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
+            powerPos++;
+
+            if (powerPos >= 5)
+            {
+                powerPos = 0;
+            }
+
             while (!powerList[powerPos])
             {
                 powerPos++;
-                if (powerPos <= -1)
+                if(powerPos >= 5)
                 {
-                    powerPos = 4;
+                    powerPos = 0;
                 }
             }
             equipPower();

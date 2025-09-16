@@ -1624,13 +1624,18 @@ MonoBehaviour:
   attackDamage: 10
   FOV: 90
   attackPos: {fileID: 8760329123105245952}
-  weapon: {fileID: 4899955644511866292, guid: 6f42f12b290b8fc42be544a367b394a8, type: 3}
-  isSkelenton: 0
-  roamDist: 10
-  roamPauseTimer: 3
   anim: {fileID: 1433150372868879176}
   animTranSpeed: 8
+  isFroze: 0
+  weapon: {fileID: 4899955644511866292, guid: 6f42f12b290b8fc42be544a367b394a8, type: 3}
+  isMelee: 0
+  roamDist: 10
+  roamPauseTimer: 3
   expGained: {fileID: 0}
+  dodgeDist: 0
+  dodgeSpeed: 0
+  dodgeCooldown: 0
+  dodgeTime: 0
 --- !u!195 &6391723746366365653
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1639,7 +1644,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1421356479818715183}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -334000983
   m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 32

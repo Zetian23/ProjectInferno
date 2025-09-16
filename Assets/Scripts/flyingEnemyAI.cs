@@ -16,21 +16,13 @@ public class flyingEnemyAI : Enemy
     private Vector3 startPos;
     private Vector3 roamTarget;
     private float roamTimer;
-
+    public playerController expGained;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
        startPos = transform.position;
        roamTarget = startPos;
-
-        Rigidbody rb = GetComponent<Rigidbody>();
-        if (rb != null )
-        {
-            rb.useGravity = false;
-            rb.isKinematic = true;
-        }
-
         attackTimer = attackRate;
     }
 
@@ -59,19 +51,26 @@ public class flyingEnemyAI : Enemy
 
     private void ChasePlayer(Vector3 playerPos, float dist)
     {
-        Vector3 targetPos = new Vector3(playerPos.x, startPos.y + hoverHeight, playerPos.z);
+        Vector3 dir = (playerPos - transform.position).normalized;
+
+        Vector3 targetPos = playerPos - dir * stoppingDist;
+        targetPos.y = playerPos.y + hoverHeight;
         transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
 
-        Vector3 dir = playerPos - transform.position;
-        dir.y = 0;
+        if(dist > stoppingDist)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
+        }
 
-        if(dir.sqrMagnitude > 0.01f)
+        
+
+        if (dir.sqrMagnitude > 0.01f)
         {
             Quaternion lookRotation = Quaternion.LookRotation(dir);
             transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, faceTargetSpeed * Time.deltaTime);
         }
 
-        if(dist >= stoppingDist && attackTimer >= attackRate)
+        if(dist <= stoppingDist && attackTimer >= attackRate)
         {
             Attack();
         }
@@ -96,8 +95,8 @@ public class flyingEnemyAI : Enemy
     public override void Attack()
     {
         attackTimer = 0;
-        
-            if (agent.remainingDistance <= agent.stoppingDistance)
+
+        if (bullet != null && attackPos != null)
                 Instantiate(bullet,attackPos.position, attackPos.rotation);
            
         
@@ -114,6 +113,18 @@ public class flyingEnemyAI : Enemy
         if(HP <= 0)
         {
             Destroy(gameObject);
+            CallGainEXP();
         }
+    }
+
+    public void CallGainEXP()
+    {
+        if (expGained != null)
+        {
+            expGained.gainEXP(5);
+            Debug.Log("EXP gained");
+
+        }
+
     }
 }

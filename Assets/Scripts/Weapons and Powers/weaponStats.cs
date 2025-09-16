@@ -11,6 +11,10 @@ public class weaponStats : ScriptableObject
     public int ammoCur;
     public int ammoMax;
 
+    public bool lazer;
+    public bool spread;
+    public bool headshots;
+
     public ParticleSystem shootEffect;
     public AudioClip shootSound;
     public float shootVol;
