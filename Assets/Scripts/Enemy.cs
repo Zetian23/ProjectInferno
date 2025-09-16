@@ -56,7 +56,8 @@ public class Enemy : MonoBehaviour, IDamage, IFreezable, ISavedData
             // Hey I can see you!!!
             if (hit.collider.CompareTag("Player") && angleToPlayer <= FOV)
             {
-                agent.SetDestination(gamemanager.instance.player.transform.position);
+                if(gamemanager.instance.currBoss != 5)
+                    agent.SetDestination(gamemanager.instance.player.transform.position);
 
                 if (attackTimer >= attackRate)
                 {

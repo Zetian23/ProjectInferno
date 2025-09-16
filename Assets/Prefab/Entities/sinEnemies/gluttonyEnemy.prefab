@@ -944,11 +944,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 1193492117886192261}
-  pulseColor: {r: 0.15008354, g: 0, b: 1, a: 0}
+  pulseColor: {r: 0.15008354, g: 0, b: 1, a: 1}
   hitAmount: 40
   damageMod: 2
-  startIntensity: 0
-  endIntensity: 0
+  startIntensity: 5
+  endIntensity: 20
   pulseDuration: 0.5
 --- !u!1 &7809232824316235876
 GameObject:

@@ -23,9 +23,9 @@ public class lustAI : sinEnemy
         {
             gamemanager.instance.SetBossText("Lust");               // Setting the boss nametag to "Lust".
             gamemanager.instance.boss = gamemanager.bossType.lust;  // Setting the bossType to the Lust Boss.
+            gamemanager.instance.currBoss = 4;                      // Setting the boss in gameManger of the index for the Boss.
             updateBossUI();                                         // Initializing the boss UI.
             isLust = true;                                          // Initializing it as lust.
-            gamemanager.instance.updateGameGoal(1, 0, 0);           // Add one boss to the game goal.
         }
     }
 
@@ -56,6 +56,8 @@ public class lustAI : sinEnemy
             {
                 if (lustArcana == 3)    // Check if this is the third arcana.
                     gamemanager.instance.lustIIIArcana--;   // If so then subtract one from the four that are made.
+                if (gamemanager.instance.lustIIIArcana == 0)
+                    isKilled = true;
                 Destroy(gameObject);    // Destroy only this Object with no Instantiate.
             }
             else    // If there is an object in the lustChildArcana.

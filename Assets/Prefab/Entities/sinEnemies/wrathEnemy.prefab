@@ -1045,12 +1045,14 @@ MonoBehaviour:
   attackPos: {fileID: 3456991433255818020}
   anim: {fileID: 0}
   animTranSpeed: 0
+  shockwave: {fileID: 0}
+  shockwaveRadius: 0
+  shockwaveDamage: 0
+  shockwavePos: {fileID: 0}
   isFroze: 0
   rotTime: 0.5
   xRotAngle: 60
   weaponPos: {fileID: 3285767140154618329}
-  shockWaveCollider: {fileID: 0}
-  enemyPlayerTriggerCollider: {fileID: 6850717934235017262}
   skinObjects:
   - {fileID: 1259377485923919422}
   - {fileID: 4953121199232054927}

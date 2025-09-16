@@ -205,11 +205,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3775381937288860048}
-  - component: {fileID: 5493487240819344425}
+  - component: {fileID: 2767162108527803209}
   - component: {fileID: 4401426667417620440}
   - component: {fileID: 5945096480201044853}
   - component: {fileID: 351051716618880481}
-  m_Layer: 0
+  - component: {fileID: 2253793462388084872}
+  m_Layer: 7
   m_Name: greedEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -225,7 +226,7 @@ Transform:
   m_GameObject: {fileID: 1024489705129027090}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 67.33417, y: 0.78, z: 13.06249}
+  m_LocalPosition: {x: 11.750589, y: 0, z: 41.067886}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -235,6 +236,8 @@ Transform:
   - {fileID: 492617541191177646}
   - {fileID: 6866583247973569620}
   - {fileID: 1695807673112624042}
+  - {fileID: 6851403626498456329}
+  - {fileID: 8241183498572496547}
   - {fileID: 5525038429193901471}
   - {fileID: 8281714041610454185}
   - {fileID: 8305249472258443493}
@@ -243,7 +246,7 @@ Transform:
   - {fileID: 7718642675838484386}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5493487240819344425
+--- !u!114 &2767162108527803209
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -252,23 +255,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 1024489705129027090}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: debe6de9eb0d60344961adea99b6acc4, type: 3}
+  m_Script: {fileID: 11500000, guid: fb8a454601e377e4fadfaab0b5ddb34e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 8194844779895835821}
-  agent: {fileID: 6826098471350094001}
-  HP: 3000
-  faceTargetSpeed: 100
-  attackRate: 1
-  attackDistance: 60
-  attackDamage: 40
-  FOV: 180
-  attackPos: {fileID: 7718642675838484386}
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 0
-  sinner: 5
-  waves: 5
+  model: {fileID: 4401426667417620440}
+  agent: {fileID: 2253793462388084872}
+  headPos: {fileID: 5525038429193901471}
+  HP: 1000
+  faceTargetSpeed: 200
+  attackRate: 1
+  attackDistance: 50
+  attackDamage: 10
+  FOV: 360
+  attackPos: {fileID: 5525038429193901471}
+  anim: {fileID: 0}
+  animTranSpeed: 0
+  shockwave: {fileID: 0}
+  shockwaveRadius: 0
+  shockwaveDamage: 0
+  shockwavePos: {fileID: 0}
+  isFroze: 0
+  rotTime: 0
+  xRotAngle: 0
+  weaponPos: {fileID: 5564466561237825519}
   skinObjects:
   - {fileID: 1779012071069444440}
   - {fileID: 6698767588844426551}
@@ -276,6 +288,12 @@ MonoBehaviour:
   - {fileID: 3912766632893508871}
   - {fileID: 5142341189152900827}
   - {fileID: 5905992169703993897}
+  isInvinsible: 0
+  weakSpotHit: 0
+  isLust: 0
+  isKilled: 0
+  eyePos: {fileID: 5525038429193901471}
+  bullet: {fileID: 8131744305422753014, guid: d783103a8f7b8534e91b8dee50d80ba9, type: 3}
 --- !u!23 &4401426667417620440
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -363,6 +381,28 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 50
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!195 &2253793462388084872
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024489705129027090}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 0
+  m_Acceleration: 0
+  avoidancePriority: 50
+  m_AngularSpeed: 0
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &1463892388229380998
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,7 +539,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1761073582878848018}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2, y: 2.5, z: -2}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
@@ -519,11 +559,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 2695825469202103030}
-  hitAmount: 50
-  damageMod: 3
-  intensity: 40
-  pulseDuration: 0.5
   pulseColor: {r: 0, g: 1, b: 0.60027647, a: 1}
+  hitAmount: 20
+  damageMod: 3
+  startIntensity: 10
+  endIntensity: 75
+  pulseDuration: 0.5
 --- !u!33 &2225463375711099743
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -738,7 +779,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2590560654266063820}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2, y: 2.5, z: 2}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
@@ -758,11 +799,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 77428712991645235}
-  hitAmount: 50
-  damageMod: 3
-  intensity: 40
-  pulseDuration: 0.5
   pulseColor: {r: 0, g: 1, b: 0.6, a: 1}
+  hitAmount: 20
+  damageMod: 3
+  startIntensity: 10
+  endIntensity: 75
+  pulseDuration: 0.5
 --- !u!33 &1173272427250292677
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1092,12 +1134,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4819834064139020917}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.76, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.35, z: 0.8}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 11.53, z: 0}
+  m_LocalScale: {x: 2.4, y: 1.05, z: 2.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5525038429193901471}
+  m_Father: {fileID: 3775381937288860048}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2949675419369442176
 MeshFilter:
@@ -1180,7 +1222,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5215200041920738686}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2, y: 2.5, z: -2}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
@@ -1200,11 +1242,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 553565594698424845}
-  hitAmount: 50
-  damageMod: 3
-  intensity: 40
-  pulseDuration: 0.5
   pulseColor: {r: 0, g: 1, b: 0.6, a: 1}
+  hitAmount: 20
+  damageMod: 3
+  startIntensity: 10
+  endIntensity: 75
+  pulseDuration: 0.5
 --- !u!33 &4061818390770285952
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1292,7 +1335,6 @@ GameObject:
   - component: {fileID: 5525038429193901471}
   - component: {fileID: 2659572011813554202}
   - component: {fileID: 8194844779895835821}
-  - component: {fileID: 6826098471350094001}
   m_Layer: 0
   m_Name: Eye
   m_TagString: Untagged
@@ -1315,8 +1357,6 @@ Transform:
   m_Children:
   - {fileID: 201699886915987794}
   - {fileID: 3082516638269839814}
-  - {fileID: 6851403626498456329}
-  - {fileID: 8241183498572496547}
   m_Father: {fileID: 3775381937288860048}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2659572011813554202
@@ -1372,28 +1412,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!195 &6826098471350094001
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5564466561237825519}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 0
-  m_Acceleration: 0
-  avoidancePriority: 50
-  m_AngularSpeed: 400
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 0
-  m_AutoRepath: 1
-  m_Height: 0.9999995
-  m_BaseOffset: 3.2
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!1 &5589424693314818897
 GameObject:
   m_ObjectHideFlags: 0
@@ -1422,7 +1440,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5589424693314818897}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2, y: 2.5, z: 2}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
@@ -1442,11 +1460,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 2924743794078686503}
-  hitAmount: 50
-  damageMod: 3
-  intensity: 40
-  pulseDuration: 0.5
   pulseColor: {r: 0, g: 1, b: 0.6, a: 1}
+  hitAmount: 20
+  damageMod: 3
+  startIntensity: 10
+  endIntensity: 75
+  pulseDuration: 0.5
 --- !u!33 &7554741985652461954
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1549,12 +1568,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6011263088090859794}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.4166667, z: 0}
-  m_LocalScale: {x: 1, y: 0.05, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 10.5, z: 0}
+  m_LocalScale: {x: 3, y: 0.15, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5525038429193901471}
+  m_Father: {fileID: 3775381937288860048}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8881488306814348972
 MeshFilter:

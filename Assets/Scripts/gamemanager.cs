@@ -45,7 +45,7 @@ public class gamemanager : MonoBehaviour
     float timeScaleOrig;
     bool waveTextIsActive;
 
-    public enum bossType { sloth, wrath, gluttony, lust };
+    public enum bossType { sloth, wrath, gluttony, envy, lust, greed, pride };
     public bossType boss;
 
     //int meleeEnemyCount;
