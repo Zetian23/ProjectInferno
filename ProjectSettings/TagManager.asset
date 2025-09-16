@@ -11,6 +11,11 @@ TagManager:
   - WeakSpot
   - Weapon
   - Javelin
+  - Lightning
+  - Fireball
+  - Ice
+  - Wind
+  - Rock Shifting
   - Planet
   - Floor
   layers:
@@ -26,9 +31,10 @@ TagManager:
   - Javelin
   - Weapon
   - MiniMap
+  - EnemyWeapons
+  - Powers
   - EnemyBullet
   - Flying Enemy
-  - 
   - 
   - 
   - 

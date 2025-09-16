@@ -17,7 +17,7 @@ public class turretEnemy : CommonEnemyScript
     {
         fireCooldown -= Time.deltaTime;
 
-        if (canSeePlayer())
+        if (canSeePlayer() && playerInTrigger)
         {
             Vector3 dirToPlayer = gamemanager.instance.player.transform.position - transform.position;
             Vector3 horizonDir = dirToPlayer;
@@ -28,7 +28,10 @@ public class turretEnemy : CommonEnemyScript
             if(angleToPlayer <= FOV / 2 && dirToPlayer.magnitude <= detRange)
             {
                 RotateBarrel(dirToPlayer);
-
+                if(FOV == 360)
+                {
+                    faceTarget();
+                }
                 if (fireCooldown <= 0)
                 {
                     Attack();
