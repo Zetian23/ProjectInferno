@@ -8,7 +8,6 @@ public class CommonEnemyScript : Enemy
 {
     [SerializeField] GameObject weapon;
 
-    
     [SerializeField] bool isMelee;
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTimer;

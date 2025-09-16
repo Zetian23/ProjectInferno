@@ -6,7 +6,10 @@ using UnityEngine;
 
 public class sinEnemy : Enemy
 {
-    [SerializeField] protected List<Renderer> skinObjects;  // This is for all the parts that will flash when damaged.
+    [SerializeField] protected float rotTime;                   
+    [SerializeField] protected float xRotAngle;                 
+    [SerializeField] GameObject weaponPos;                        
+    [SerializeField] protected List<Renderer> skinObjects;              // This is for all the parts that will flash when damaged.
 
     protected Color emissionColorOrig;  // This is the original emission color of the skin.
 
@@ -14,9 +17,16 @@ public class sinEnemy : Enemy
     public bool isInvinsible;   // This is if a boss is invinsible to any attacks.
     public bool weakSpotHit;    // This checks if a weakness has been struck.
     public bool isLust;         // This is if the boss is the lust one.
+    public bool isKilled;       // Has the boss been killed?
+    protected float rotTimer;   // 
+    protected bool isSpinning;  // Is the boss spinning?
+    protected bool isInSpecial; // Is the boss in the special move?
+    protected bool isLowerred;  // 
+    protected bool isAttacking; // 
 
     public void InitVar() 
     {
+        if (isKilled) Destroy(gameObject);
         gamemanager.instance.bossUI.SetActive(true);                            // Showing the boss UI.
         gamemanager.instance.SetPhase(1);                                       // Initializing phase to the first phase.
         startSpeed = agent.speed;                                               // Initializing how fast the boss was initially set to.
@@ -46,13 +56,11 @@ public class sinEnemy : Enemy
             if (HP <= 0)    // If the health has been depleted.
             { 
                 Destroy(gameObject);                                    // Then destroy this object,
-                gamemanager.instance.bossHealthUI[2].SetActive(false);
+                gamemanager.instance.bossHealthUI[2].SetActive(false);  //
                 gamemanager.instance.youWin();                          // and win the level.
             }
         }
     }
-
-    protected virtual void phaseChange() { }
 
     public override IEnumerator flashDamage()   // This is override used to show the boss has taken through all the skin.
     {
@@ -90,5 +98,71 @@ public class sinEnemy : Enemy
             gamemanager.instance.bossHealthUI[1].SetActive(false);
             gamemanager.instance.bossHealthUI[2].SetActive(true);
         }
+    }
+
+    protected IEnumerator swingWeapon()    // Set motion that brings down the sword and raises it.
+    {
+        rotTimer += Time.deltaTime;   // Incerement the amount of time the swing has happen.
+
+        if (rotTimer < rotTime && !isLowerred)  // If the swing hasn't hit the landingRotation and timer is less than the time it needs to swing.
+            weaponPos.transform.localRotation = Quaternion.Slerp(Quaternion.Euler(0, 0, 0), Quaternion.Euler(60, 0, 0), rotTimer * 2);   // Then use Slerp (which is like Lerp but deals with spherical motions overtime) to move the sword down.
+        else if (rotTimer < rotTime && isLowerred)  // If the sword has been lowerred and the timer is less than the time it needs to raise.
+            weaponPos.transform.localRotation = Quaternion.Slerp(Quaternion.Euler(xRotAngle, 0, 0), Quaternion.Euler(0, 0, 0), rotTimer * 2);   // Then move the sword back up to the starting LOCAL rotation.
+        else if (rotTimer >= rotTime)   // If the timer has exceeded the time given.
+        {
+            rotTimer = 0;             // Set the timer back to zero.
+            if (isLowerred)             // Check if the the sword is lowerred.
+            {
+                if (!isSpinning && gamemanager.instance.currBoss == 1) isInSpecial = false;
+                isLowerred = false;                                                         // If so then set the islowerred to false as it has raised,
+                isAttacking = false;                                                        // and isAttacking to false so that the boss can attack again.
+            }
+            else isLowerred = true;     // Also if isLowerred is not set to true then set it to true.
+        }
+        yield return null;  // Incerement after one frame.
+    }
+
+    protected override void meleeAttack()  // Base attack for when the boss is close up attacking.
+    {
+        attackTimer = 0;// Reset the timer so that the attack will happen again after a period of time.
+
+        RaycastHit hit;
+        if (!isLowerred)    // If the sword hasn't been lowered.
+            StartCoroutine(swingWeapon());   // Then swing the sword down until it hits the landingRotation.  
+        if (Physics.Raycast(transform.position, playerDirection, out hit, attackDistance, ~ignoreLayer)
+            && isLowerred && rotTimer == 0 && gamemanager.instance.currBoss != 2) // Draws a ling with the attackDistance to see if the player is within the distance, if the sword has been lowerd and the swingTimer is set to 0.
+        {
+            IDamage dmg = hit.collider.GetComponent<IDamage>(); // Initializing the IDamage script.
+
+            if (dmg != null)    // Checks if the thing collided took damage.
+            {
+                dmg.takeDamage(attackDamage);   // Make the player take damage.
+            }
+        }
+        else if (isLowerred && rotTimer == 0 && gamemanager.instance.currBoss == 2)
+        {
+            Instantiate(shockwave, shockwavePos.position, Quaternion.identity);
+        }
+        if (isLowerred) StartCoroutine(swingWeapon());    // If the sword has been lowered then raise the sword back to startingLocalRotaion.
+    }
+
+    public override void Attack()   // Once attackRate is equal to the attackTimer this will be called if the player is in the line of sight of the boss.
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, playerDirection, out hit, attackDistance + 2f, ~ignoreLayer) && !isAttacking)   // If the player is 2 over the attack distance.
+            isAttacking = true; // Then the attack is ready to be done.
+    }
+
+    public override void saveData(ref gameData data)
+    {
+        if (isKilled)
+        {
+            data.bossDefeated[gamemanager.instance.currBoss] = true;
+        }
+    }
+
+    public override void loadData(gameData data)
+    {
+        isKilled = true;
     }
 }

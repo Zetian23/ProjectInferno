@@ -277,14 +277,23 @@ MonoBehaviour:
   attackDamage: 10
   FOV: 360
   attackPos: {fileID: 914488004853663273}
+  anim: {fileID: 0}
+  animTranSpeed: 0
+  isFroze: 0
+  rotTime: 0
+  xRotAngle: 0
+  weaponPos: {fileID: 1786827681177662366}
+  shockWaveCollider: {fileID: 0}
+  enemyPlayerTriggerCollider: {fileID: 4065543331240422131}
   skinObjects:
   - {fileID: 2816282464898321781}
   - {fileID: 4287513235018137627}
   - {fileID: 2298801085699853030}
   - {fileID: 7692675984959964837}
-  isInvensible: 0
+  isInvinsible: 0
   weakSpotHit: 0
   isLust: 0
+  isKilled: 0
   Javelin: {fileID: 1786827681177662366}
   javRB: {fileID: 6622474707441358026}
   javThrowingSpeed: 30

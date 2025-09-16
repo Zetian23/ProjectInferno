@@ -12,9 +12,6 @@ public class slimeEnemy : Enemy
     //for the jump attack
     [SerializeField] float jumpForce;
     [SerializeField] float jumpDelay;
-    [SerializeField] GameObject shockwave;
-    [SerializeField] float shockwaveRadius;
-    [SerializeField] int shockwaveDamage;
 
     private Rigidbody rb;
     private bool isAttacking = false;
