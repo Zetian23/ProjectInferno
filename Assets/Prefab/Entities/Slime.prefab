@@ -24,13 +24,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3937927611642036748}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.57795554, y: -0.002595255, z: -0.18024056, w: 0.79591084}
+  m_LocalRotation: {x: -0.12004396, y: -0.08958529, z: -0.15642214, w: 0.9762664}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7914796042636340155}
-  m_LocalEulerAnglesHint: {x: -67.064, y: 31.601, z: -46.762}
+  m_LocalEulerAnglesHint: {x: -15.213, y: -8.184, z: -17.111}
 --- !u!1 &4191435564668749638
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,7 +91,7 @@ MonoBehaviour:
   headPos: {fileID: 4557046465604870512}
   HP: 100
   faceTargetSpeed: 90
-  attackRate: 2
+  attackRate: 1
   attackDistance: 50
   attackDamage: 10
   FOV: 90
@@ -99,7 +99,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   animTranSpeed: 0
   isFroze: 0
-  speed: 60
+  speed: 100
   detRange: 15
   attackRange: 3
   jumpForce: 10
@@ -118,7 +118,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: -334000983
   m_Radius: 1
-  m_Speed: 3.5
+  m_Speed: 15
   m_Acceleration: 32
   avoidancePriority: 50
   m_AngularSpeed: 32
@@ -276,10 +276,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5327197648528454623}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.09324445, y: -0.16093819, z: -0.1254591, w: 0.9745073}
+  m_LocalRotation: {x: 0.97831315, y: -0.14550628, z: 0.14307004, w: 0.035529904}
   m_LocalPosition: {x: -0.275, y: -0.011, z: 0.711}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7914796042636340155}
-  m_LocalEulerAnglesHint: {x: 8.126, y: -19.907, z: -16.1}
+  m_LocalEulerAnglesHint: {x: 6.382, y: -195.74, z: -163.964}
