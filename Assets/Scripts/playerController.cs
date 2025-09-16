@@ -499,11 +499,14 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
     {
         powerList = data.powers;
         weaponList = data.weapons;
+        level = data.Level;
+        changeWeapon();
     }
 
     public void saveData(ref gameData data)
     {
         data.powers = powerList;
         data.weapons = weaponList;
+        data.Level = level;
     }
 }

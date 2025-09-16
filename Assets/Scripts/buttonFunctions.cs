@@ -40,13 +40,13 @@ public class buttonFunctions : MonoBehaviour
     {
         SavedDataManager.instance.saveGame();
     }
+
     public void openSettingsMenu()
     {
 
         settingsManager.Instance.enableMenu();
 
     }
-
 
     public void back()
     {
@@ -59,7 +59,4 @@ public class buttonFunctions : MonoBehaviour
 
 
     }
-
-
-
 }
