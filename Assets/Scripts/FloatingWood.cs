@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class FloatingWood : MonoBehaviour, IFreezable
 {
@@ -88,6 +89,7 @@ public class FloatingWood : MonoBehaviour, IFreezable
     public void freeze()
     {
         isFrozen = true;
+        waitToUnfreeze();
     }
 
     public void unfreeze()
@@ -95,5 +97,10 @@ public class FloatingWood : MonoBehaviour, IFreezable
         isFrozen = false;
     }
 
+    IEnumerator waitToUnfreeze()
+    {
+        yield return new WaitForSeconds(10);
+        unfreeze();
+    }
 
 }
