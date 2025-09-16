@@ -5,7 +5,7 @@ public class FloatingWood : MonoBehaviour, IFreezable
 {
     
     [SerializeField] int speed;
-    int OrigSpeed;
+    public int OrigSpeed;
     [SerializeField] Transform platform;
     [SerializeField] Transform startingpos;
     [SerializeField] Transform destination;
@@ -18,7 +18,7 @@ public class FloatingWood : MonoBehaviour, IFreezable
 
 
     Vector3 startingPos;
-    bool isFrozen = false;
+    public bool isFrozen = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -32,7 +32,6 @@ public class FloatingWood : MonoBehaviour, IFreezable
     {
         if (isFrozen)
         {
-            OrigSpeed = speed;
             speed = 0;
         } else
         {
@@ -89,7 +88,8 @@ public class FloatingWood : MonoBehaviour, IFreezable
     public void freeze()
     {
         isFrozen = true;
-        waitToUnfreeze();
+        StartCoroutine(waitToUnfreeze());
+        
     }
 
     public void unfreeze()
@@ -99,7 +99,7 @@ public class FloatingWood : MonoBehaviour, IFreezable
 
     IEnumerator waitToUnfreeze()
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(7f);
         unfreeze();
     }
 

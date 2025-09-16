@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 50eb12ee55d015e45bb69a9e262d6c85, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.620417
+      value: 1584.1218
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 50eb12ee55d015e45bb69a9e262d6c85, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 50eb12ee55d015e45bb69a9e262d6c85, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -19.814867
+      value: 455.71695
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 50eb12ee55d015e45bb69a9e262d6c85, type: 3}
       propertyPath: m_LocalRotation.w
@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 50eb12ee55d015e45bb69a9e262d6c85, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c46088cab83434d40acff625714ea2d7, type: 2}
     - target: {fileID: 919132149155446097, guid: 50eb12ee55d015e45bb69a9e262d6c85, type: 3}
       propertyPath: m_Name
       value: Rope
@@ -71,6 +75,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 50eb12ee55d015e45bb69a9e262d6c85, type: 3}
       insertIndex: -1
       addedObject: {fileID: 350040764924803399}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 50eb12ee55d015e45bb69a9e262d6c85, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4222876305558367385}
   m_SourcePrefab: {fileID: 100100000, guid: 50eb12ee55d015e45bb69a9e262d6c85, type: 3}
 --- !u!1 &7261159416858901813 stripped
 GameObject:
@@ -100,3 +107,16 @@ CapsuleCollider:
   m_Height: 0.31
   m_Direction: 2
   m_Center: {x: -9.313299e-10, y: 2.646978e-23, z: 0.15000002}
+--- !u!114 &4222876305558367385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7261159416858901813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82c6dabd31e0aec48b1b60dfa4847c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rope: {fileID: 0}
