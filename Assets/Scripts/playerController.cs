@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Code written by brady (Movement-wise)
-public class playerController : MonoBehaviour, IDamage, iPickUp
+public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
 {
     [SerializeField] LayerMask ignoreLayer;
     [SerializeField] CharacterController controller;
@@ -493,5 +493,20 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         powerList[powerID] = true;
         powerPos = powerID;
         equipPower();
+    }
+
+    public void loadData(gameData data)
+    {
+        powerList = data.powers;
+        weaponList = data.weapons;
+        level = data.Level;
+        changeWeapon();
+    }
+
+    public void saveData(ref gameData data)
+    {
+        data.powers = powerList;
+        data.weapons = weaponList;
+        data.Level = level;
     }
 }
