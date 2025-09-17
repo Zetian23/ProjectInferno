@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 //Code written by brady (Movement-wise)
 public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
@@ -236,6 +237,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
     void reload()
     {
         weaponList[weaponListpos].ammoCur = weaponList[weaponListpos].ammoMax;
+        updateGunUI();
     }
 
     public virtual void gainEXP(int expGained)
@@ -290,6 +292,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
     {
         shootTimer = 0;
         weaponList[weaponListpos].ammoCur--;
+        updateGunUI();
 
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
@@ -328,6 +331,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
 
     void power()
     {
+       
         switch (powerPos)
         {
             case 0:
@@ -338,6 +342,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
                 }
                 break;
             case 1:
+                
                 if (powerTimer >= lightningRate)
                 {
                     Instantiate(lightningProjectile, shootPos.transform.position, Camera.main.transform.rotation);
@@ -390,11 +395,20 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
         }
     }
 
+
+
     public void updatePlayerUI()
     {
         gamemanager.instance.playerHPBar.fillAmount = (float)HP / HPMax;
         gamemanager.instance.playerEXPBar.fillAmount = (float)EXP / expReq;
     }
+
+    public void updateGunUI()
+    {
+        gamemanager.instance.playerAmmoCur = weaponList[weaponListpos].ammoCur;
+        gamemanager.instance.playerAmmoMax = weaponList[weaponListpos].ammoMax;
+    }
+
 
     IEnumerator damageFlash()
     {
@@ -426,6 +440,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
     {
         weaponList.Add(weapon);
         weaponListpos = weaponList.Count - 1;
+        updateGunUI();
         changeWeapon();
     }
 
@@ -440,6 +455,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
         shootDist = weaponList[weaponListpos].shootDist;
         shootRate = weaponList[weaponListpos].shootRate;
         shootEffect = weaponList[weaponListpos].shootEffect;
+        
+        
 
         gunModel.GetComponent<MeshFilter>().sharedMesh = weaponList[weaponListpos].gunModel.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[weaponListpos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
@@ -497,7 +514,9 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
     {
         powerList[powerID] = true;
         powerPos = powerID;
+        gamemanager.instance.DisplayPowerIcon(powerPos);
         equipPower();
+
     }
 
     public List<weaponStats> getWeaponList()

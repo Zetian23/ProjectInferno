@@ -44,10 +44,7 @@ public class slimeEnemy : Enemy
                 Attack();
             }
         }
-        else
-        {
-            rb.linearVelocity = new Vector3(0, rb.angularVelocity.y, 0);
-        }
+       
 
         attackTimer += Time.deltaTime;
     }
