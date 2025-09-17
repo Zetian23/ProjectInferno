@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Shotgun
   m_EditorClassIdentifier: 
   gunModel: {fileID: 7311155808425219379, guid: 07a9029124b5d81489fccaa712951172, type: 3}
-  shootDamage: 10
+  shootDamage: 15
   shootDist: 50
   shootRate: 0.75
-  ammoCur: 4
+  ammoCur: 0
   ammoMax: 6
   lazer: 0
   spread: 1
