@@ -16,6 +16,9 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuLoad;
 
+    [SerializeField] GameObject TutorialBox;
+
+    [SerializeField] TMP_Text tutorialText;
     [SerializeField] TMP_Text ammoCurrentText;
     [SerializeField] TMP_Text ammoMaxText;
     //[SerializeField] TMP_Text meleeEnemyCountText;
@@ -41,6 +44,7 @@ public class gamemanager : MonoBehaviour
     public GameObject iceIcon;
     public GameObject windIcon;
     public GameObject stoneIcon;
+
 
     public List<Image> bossHPBar;
 
@@ -156,6 +160,12 @@ public class gamemanager : MonoBehaviour
     public void SetWaveText(string wave)
     {
         waveText.text = wave;
+    }
+
+    public void ShowTutorialMessage(string message)
+    {
+        tutorialText.text = message;
+        TutorialBox.SetActive(true);
     }
 
     public void DisplayPowerIcon(int power)
