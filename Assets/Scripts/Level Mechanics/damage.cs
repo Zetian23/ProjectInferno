@@ -4,7 +4,7 @@ using System.Collections;
 // Code added by Naseem will be commented with "-N"
 public class damage : MonoBehaviour
 {
-    enum damageType { moving, stationary, DOT, homing, death, jav }
+    enum damageType { moving, stationary, DOT, homing, death, jav, prideShot }
     [SerializeField] damageType type;
     [SerializeField] Rigidbody rb;
 

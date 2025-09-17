@@ -406,12 +406,24 @@ MonoBehaviour:
   attackDamage: 30
   FOV: 360
   attackPos: {fileID: 7846564383830393719}
+  anim: {fileID: 0}
+  animTranSpeed: 0
+  shockwave: {fileID: 0}
+  shockwaveRadius: 0
+  shockwaveDamage: 0
+  shockwavePos: {fileID: 0}
+  isFroze: 0
+  rotTime: 0
+  xRotAngle: 0
+  weaponPos: {fileID: 0}
   skinObjects:
   - {fileID: 5969418238800741923}
   - {fileID: 9102025665557120122}
   - {fileID: 1854078124968564652}
-  isInvensible: 0
+  isInvinsible: 0
   weakSpotHit: 0
+  isLust: 0
+  isKilled: 0
   lustChildArcana: {fileID: 989819244454301129, guid: 412d43a53b093944bb6b4c20a5676955, type: 3}
   lustArcana: 1
 --- !u!195 &2744354914477621597

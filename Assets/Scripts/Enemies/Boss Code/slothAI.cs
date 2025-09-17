@@ -43,6 +43,7 @@ public class slothAI : sinEnemy
 
         gamemanager.instance.SetBossText("Sloth");              // Setting the boss nametag to "Sloth".
         gamemanager.instance.boss = gamemanager.bossType.sloth; // Setting the bossType to the Sloth Boss.
+        gamemanager.instance.currBoss = 0;                      // Setting the boss in gameManger of the index for the Boss.
         updateBossUI();                                         // Initializing the boss UI.
     }
 
@@ -131,14 +132,6 @@ public class slothAI : sinEnemy
         }
     }
 
-    protected override void phaseChange()
-    {
-        if(gamemanager.instance.GetPhase() == 2)
-        {
-
-        }
-    }
-
     void OnTriggerStay(Collider collider)   // This is called when an object stays in the collider like if it was thrown at the player nearby and never left the collider.
     {
         if (collider.CompareTag("Javelin") && Javelin.GetComponent<damage>().GetIfGrounded() == true)   // Checks if the collider is the javelin and is on the ground so it won't just keep picking it up.
@@ -149,6 +142,8 @@ public class slothAI : sinEnemy
 
     public override void Attack()   // Overrides the Attack() method to fit the Sloth Boss.
     {
+        base.Attack();
+
         if (gamemanager.instance.GetPhase() <= 2) // Checks if it's phase one or two.
         {
             meleeAttack();  // If so then the meleeAttack() is called for close up damage.

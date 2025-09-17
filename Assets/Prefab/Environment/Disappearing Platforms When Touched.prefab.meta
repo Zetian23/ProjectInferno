@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefab/Entities/Enemies.meta
+guid: 5ad2fd7e75920554bbc1640de4ce2a3d
+folderAsset: yes
+DefaultImporter:
+========
 guid: 1a4886b797da9e14da5d40909325e77b
 PrefabImporter:
+>>>>>>>> 87155d10e9712fb0ba40897fb4c8bca5a816eb93:Assets/Prefab/Environment/Disappearing Platforms When Touched.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

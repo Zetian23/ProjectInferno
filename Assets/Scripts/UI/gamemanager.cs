@@ -56,10 +56,12 @@ public class gamemanager : MonoBehaviour
     public bool isPaused;
     public int lustIIIArcana;
     public int enemies;
+    public int currBoss;
+    public int currLevel;
     float timeScaleOrig;
     bool waveTextIsActive;
 
-    public enum bossType { sloth, wrath, lust};
+    public enum bossType { sloth, wrath, gluttony, envy, lust, greed, pride };
     public bossType boss;
 
     //int meleeEnemyCount;

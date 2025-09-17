@@ -3,7 +3,7 @@ using UnityEngine.AI;
 using System.Collections;
 // Code written by Nathaniel King <3 and William
 // Base class for any enemies that will be created throughout Project Inferno
-public class Enemy : MonoBehaviour, IDamage, IFreezable
+public class Enemy : MonoBehaviour, IDamage, IFreezable, ISavedData
 {
     // These SerializedField will show up in any enemy that inherits from this parent
     [SerializeField] protected LayerMask ignoreLayer;   // This is set for anything that needs to be ignored in the attacks.
@@ -24,6 +24,10 @@ public class Enemy : MonoBehaviour, IDamage, IFreezable
 
     [SerializeField] public Animator anim;
     [SerializeField] public float animTranSpeed;
+    [SerializeField] protected GameObject shockwave;
+    [SerializeField] protected float shockwaveRadius;
+    [SerializeField] protected int shockwaveDamage;
+    [SerializeField] protected Transform shockwavePos;
     protected Color colorOrg;
 
     protected Vector3 playerDirection;         // In the child classes this will be used to update in that class based on the player direction.
@@ -52,7 +56,8 @@ public class Enemy : MonoBehaviour, IDamage, IFreezable
             // Hey I can see you!!!
             if (hit.collider.CompareTag("Player") && angleToPlayer <= FOV)
             {
-                agent.SetDestination(gamemanager.instance.player.transform.position);
+                if(gamemanager.instance.currBoss != 5)
+                    agent.SetDestination(gamemanager.instance.player.transform.position);
 
                 if (attackTimer >= attackRate)
                 {
@@ -164,4 +169,13 @@ public class Enemy : MonoBehaviour, IDamage, IFreezable
         attackDamage = ogAttackDam;
     }
 
+    public virtual void loadData(gameData data)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public virtual void saveData(ref gameData data)
+    {
+        throw new System.NotImplementedException();
+    }
 }

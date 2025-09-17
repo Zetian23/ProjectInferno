@@ -25,6 +25,11 @@ public class buttonFunctions : MonoBehaviour
         #endif
     }
 
+    public void newGame()
+    {
+        SavedDataManager.instance.newGame();
+    }
+
     public void load()
     {
         SavedDataManager.instance.loadGame();

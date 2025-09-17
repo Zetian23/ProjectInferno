@@ -2610,10 +2610,10 @@ MonoBehaviour:
   roamDist: 10
   roamPauseTimer: 3
   expGained: {fileID: 0}
-  dodgeDist: 1
-  dodgeSpeed: 8
-  dodgeCooldown: 8
-  dodgeTime: 1
+  dodgeDist: 2
+  dodgeSpeed: 2
+  dodgeCooldown: 10
+  dodgeTime: 5
 --- !u!195 &3957097369166512990
 NavMeshAgent:
   m_ObjectHideFlags: 0
