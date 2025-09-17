@@ -14,7 +14,7 @@ public class gameData
     {
         powers = new ();
         weapons = new ();
-        bossDefeated = new ();
+        bossDefeated = new List<bool>(7);
         respawnPoint = Vector3.Zero;
         Level = 0;
     }

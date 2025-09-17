@@ -132,7 +132,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4096
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -153,11 +153,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 4325511375925822127}
+  pulseColor: {r: 1, g: 0, b: 0, a: 1}
   hitAmount: 50
   damageMod: 2
-  intensity: 20
+  startIntensity: 5
+  endIntensity: 30
   pulseDuration: 3
-  pulseColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &3000719243202064957
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +256,6 @@ GameObject:
   - component: {fileID: 4510432239296970015}
   - component: {fileID: 6696516294445965455}
   - component: {fileID: 8053567918264166072}
-  - component: {fileID: 3759042284757550680}
   m_Layer: 0
   m_Name: Butt
   m_TagString: Untagged
@@ -331,27 +331,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3759042284757550680
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3985872525343774032}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4891332798482930438
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,7 +342,6 @@ GameObject:
   - component: {fileID: 1075624800176900452}
   - component: {fileID: 4720170958224001959}
   - component: {fileID: 4151868312744502853}
-  - component: {fileID: 6146953274830731218}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -439,27 +417,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6146953274830731218
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4891332798482930438}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5281529898408128723
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,7 +428,6 @@ GameObject:
   - component: {fileID: 7895189526172354051}
   - component: {fileID: 3613146536925919518}
   - component: {fileID: 3015363122177515694}
-  - component: {fileID: 525982968017816902}
   m_Layer: 0
   m_Name: Legs
   m_TagString: Untagged
@@ -547,27 +503,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &525982968017816902
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5281529898408128723}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5890835143419008110
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,7 +514,6 @@ GameObject:
   - component: {fileID: 70297328176358130}
   - component: {fileID: 8688743683606591168}
   - component: {fileID: 2920272830979676346}
-  - component: {fileID: 4431186358655447517}
   m_Layer: 0
   m_Name: Face Plate
   m_TagString: Untagged
@@ -655,27 +589,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4431186358655447517
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5890835143419008110}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6990897252663359869
 GameObject:
   m_ObjectHideFlags: 0
@@ -798,11 +711,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 5639605712782507399}
+  pulseColor: {r: 0, g: 1, b: 0.3073542, a: 1}
   hitAmount: 100
   damageMod: 3
-  intensity: 40
+  startIntensity: 10
+  endIntensity: 50
   pulseDuration: 0.5
-  pulseColor: {r: 0, g: 1, b: 0.3073542, a: 1}
 --- !u!1 &7408658361382680583
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,7 +818,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4096
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -925,11 +839,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 2566060344576194402}
+  pulseColor: {r: 1, g: 0, b: 0, a: 1}
   hitAmount: 50
   damageMod: 2
-  intensity: 20
+  startIntensity: 5
+  endIntensity: 30
   pulseDuration: 3
-  pulseColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &7505599809724656940
 GameObject:
   m_ObjectHideFlags: 0
@@ -939,15 +854,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 992886126038499885}
-  - component: {fileID: 7891054072734346895}
+  - component: {fileID: 7997397620610788641}
   - component: {fileID: 7660235504891288021}
   - component: {fileID: 6639914162851997021}
   - component: {fileID: 5281625588905135472}
-  - component: {fileID: 1634776906084983146}
   - component: {fileID: 8035341078996198126}
   - component: {fileID: 1102601568456045754}
   - component: {fileID: 1534485946382642627}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: envyEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -979,7 +893,7 @@ Transform:
   - {fileID: 5157853481180542048}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7891054072734346895
+--- !u!114 &7997397620610788641
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -988,27 +902,42 @@ MonoBehaviour:
   m_GameObject: {fileID: 7505599809724656940}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: debe6de9eb0d60344961adea99b6acc4, type: 3}
+  m_Script: {fileID: 11500000, guid: a6fa3420746c315419d733886530e96a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 6639914162851997021}
-  agent: {fileID: 7660235504891288021}
-  HP: 800
-  faceTargetSpeed: 200
-  attackRate: 0.5
-  attackDistance: 40
-  attackDamage: 20
-  FOV: 130
-  attackPos: {fileID: 5157853481180542048}
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 0
-  sinner: 3
-  waves: 3
+  model: {fileID: 6639914162851997021}
+  agent: {fileID: 7660235504891288021}
+  headPos: {fileID: 992886126038499885}
+  HP: 750
+  faceTargetSpeed: 40
+  attackRate: 1
+  attackDistance: 10
+  attackDamage: 5
+  FOV: 180
+  attackPos: {fileID: 992886126038499885}
+  anim: {fileID: 0}
+  animTranSpeed: 0
+  shockwave: {fileID: 0}
+  shockwaveRadius: 0
+  shockwaveDamage: 0
+  shockwavePos: {fileID: 0}
+  isFroze: 0
+  rotTime: 0
+  xRotAngle: 0
+  weaponPos: {fileID: 5890835143419008110}
   skinObjects:
   - {fileID: 8689818065518775689}
+  - {fileID: 1980408673470808980}
   - {fileID: 4151868312744502853}
   - {fileID: 8053567918264166072}
+  isInvinsible: 0
+  weakSpotHit: 0
+  isLust: 0
+  isKilled: 0
+  lasers: {fileID: 2323212411500108330, guid: 04d5f56e8234c1c4d9d3addf47a62373, type: 3}
 --- !u!195 &7660235504891288021
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1020,10 +949,10 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 5
-  m_Acceleration: 8
+  m_Acceleration: 15
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 15
+  m_StoppingDistance: 8
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1097,29 +1026,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 0.5, z: 0.7}
   m_Center: {x: 0, y: 1, z: 0.1}
---- !u!136 &1634776906084983146
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7505599809724656940}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.25
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.5, z: 0.1}
 --- !u!65 &8035341078996198126
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1181,7 +1087,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 50
+  m_Radius: 200
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8362791638630930736
 GameObject:
@@ -1194,7 +1100,6 @@ GameObject:
   - component: {fileID: 4467812886515824464}
   - component: {fileID: 1723485489081711295}
   - component: {fileID: 8689818065518775689}
-  - component: {fileID: 2397912773219064547}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -1270,24 +1175,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2397912773219064547
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8362791638630930736}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

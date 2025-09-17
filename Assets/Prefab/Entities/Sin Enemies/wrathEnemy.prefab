@@ -1020,6 +1020,16 @@ MonoBehaviour:
   attackDamage: 20
   FOV: 360
   attackPos: {fileID: 3456991433255818020}
+  anim: {fileID: 0}
+  animTranSpeed: 0
+  shockwave: {fileID: 0}
+  shockwaveRadius: 0
+  shockwaveDamage: 0
+  shockwavePos: {fileID: 0}
+  isFroze: 0
+  rotTime: 0.5
+  xRotAngle: 60
+  weaponPos: {fileID: 3285767140154618329}
   skinObjects:
   - {fileID: 1259377485923919422}
   - {fileID: 4953121199232054927}
@@ -1028,10 +1038,10 @@ MonoBehaviour:
   isInvinsible: 0
   weakSpotHit: 0
   isLust: 0
-  SwordPos: {fileID: 3285767140154618329}
-  Sword: {fileID: 1708317191739614853}
-  invinsiblityEmissionColor: {r: 0.8156863, g: 0.1254902, b: 0.5647059, a: 1}
-  invinsibleCooldownTime: 10
+  isKilled: 0
+  Sword: {fileID: 3285767140154618329}
+  invinsiblityEmissionColor: {r: 0.7803922, g: 0.08235294, b: 0.5215687, a: 1}
+  invinsibleCooldownTime: 5
   invinsibleFlashTime: 5
   invinsibleFlashes: 5
 --- !u!195 &2119789900909074469
