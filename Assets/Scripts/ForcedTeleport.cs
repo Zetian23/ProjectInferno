@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Teleport : MonoBehaviour
+public class ForcedTeleport : MonoBehaviour
 {
     [SerializeField] Transform teleportTarget;
 

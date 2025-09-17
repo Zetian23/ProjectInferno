@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 130fcac541cf5034f8ff5b322309f80c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 134.25575
+      value: 129.11847
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 130fcac541cf5034f8ff5b322309f80c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 130fcac541cf5034f8ff5b322309f80c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 186.36292
+      value: 162.28767
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 130fcac541cf5034f8ff5b322309f80c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -94,6 +94,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 130fcac541cf5034f8ff5b322309f80c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5192566667473579457}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 130fcac541cf5034f8ff5b322309f80c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2155212633306009308}
     - targetCorrespondingSourceObject: {fileID: -8391222552659086748, guid: 130fcac541cf5034f8ff5b322309f80c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8734995930127679284}
@@ -217,3 +220,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2155212633306009308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7865321735798187354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 400c9c7c3feb9334f820782217f14cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obj: {fileID: 7865321735798187354}
+  animate: {fileID: 5192566667473579457}
+  cho: 0
+  gameobj: {fileID: 0}
