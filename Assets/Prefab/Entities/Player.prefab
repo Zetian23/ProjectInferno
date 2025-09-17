@@ -487,6 +487,7 @@ MonoBehaviour:
   weaponList: []
   gunModel: {fileID: 2177925833472728496}
   powerModel: {fileID: 5073280782674185641}
+  lazerProjectile: {fileID: 3424504605062874569, guid: ef0bfa210e6c277498941173da1450ca, type: 3}
   dashTime: 0.1
   dashRate: 0.75
   dashSpeed: 75
