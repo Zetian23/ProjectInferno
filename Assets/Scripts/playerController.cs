@@ -11,7 +11,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
     [SerializeField] CharacterController controller;
 
     //base stats
-    [SerializeField] int HPMax;
+    [SerializeField] public int HPMax;
     [SerializeField] float speed;
     [SerializeField] float sprintMod;
     [SerializeField] int jumpSpeed;
@@ -50,20 +50,20 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
     [SerializeField] float lustRate;
     [SerializeField] float lustHealPercent;
     [SerializeField] float greedEXPMod;
-    [SerializeField] float slothSpeedReduction;
+    [SerializeField] public float slothSpeedReduction;
     [SerializeField] float gluttonyHealthMod;
-    [SerializeField] float wrathDamageMult;
+    [SerializeField] public float wrathDamageMult;
     [SerializeField] float PrideSpeedAdd;
-    [SerializeField] float envyHealPercent;
+    [SerializeField] public float envyHealPercent;
 
     //Leveling
-    int level;
+    public int level;
     [SerializeField] int expReqOrig;
     [SerializeField] int expReqScaling;
     int EXP;
     int expReq;
     [SerializeField] int maxHPLevelUp;
-    [SerializeField] float DamageLevelUp;
+    [SerializeField] public float DamageLevelUp;
 
     //Powers
     int powerPos;
@@ -429,6 +429,11 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
         changeWeapon();
     }
 
+    public List<bool> getPlayersUpgrade()
+    {
+        return new List<bool>() { hasSloth, hasWrath, hasGluttony, hasEnvy, hasLust, hasGreed, hasPride };
+    }
+
     void changeWeapon()
     {
         shootDamage = weaponList[weaponListpos].shootDamage;
@@ -493,6 +498,16 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
         powerList[powerID] = true;
         powerPos = powerID;
         equipPower();
+    }
+
+    public List<weaponStats> getWeaponList()
+    {
+        return weaponList;
+    }
+
+    public int getWeaponIndex()
+    {
+        return weaponListpos;
     }
 
     public void loadData(gameData data)

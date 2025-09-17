@@ -42,6 +42,7 @@ public class gamemanager : MonoBehaviour
     public int lustIIIArcana;
     public int enemies;
     public int currBoss;
+    public int currLevel;
     float timeScaleOrig;
     bool waveTextIsActive;
 
