@@ -46,6 +46,10 @@ public class buttonFunctions : MonoBehaviour
         SavedDataManager.instance.saveGame();
     }
 
+    public void returnToTitle()
+    {
+        SceneManager.LoadScene("Title Screen");
+    }
     public void openSettingsMenu()
     {
 

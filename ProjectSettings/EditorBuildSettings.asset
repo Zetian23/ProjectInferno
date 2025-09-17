@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: e0b5e28b3488c8f4095f92980d553612
   - enabled: 1
+    path: Assets/Scenes/Title Screen.unity
+    guid: fe5a4b716717adf4e98971e3bf16eb59
+  - enabled: 1
     path: Assets/Scenes/ForestLevel.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
