@@ -3,15 +3,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 //Code written by brady (Movement-wise)
-public class playerController : MonoBehaviour, IDamage, iPickUp
+public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
 {
     [SerializeField] LayerMask ignoreLayer;
     [SerializeField] CharacterController controller;
 
     //base stats
-    [SerializeField] int HPMax;
+    [SerializeField] public int HPMax;
     [SerializeField] float speed;
     [SerializeField] float sprintMod;
     [SerializeField] int jumpSpeed;
@@ -23,6 +24,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
     [SerializeField] ParticleSystem shootEffect;
+    [SerializeField] GameObject shootPos;
 
     //Weapon Model and Skin
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
@@ -49,31 +51,46 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     [SerializeField] float lustRate;
     [SerializeField] float lustHealPercent;
     [SerializeField] float greedEXPMod;
-    [SerializeField] float slothSpeedReduction;
+    [SerializeField] public float slothSpeedReduction;
     [SerializeField] float gluttonyHealthMod;
-    [SerializeField] float wrathDamageMult;
+    [SerializeField] public float wrathDamageMult;
     [SerializeField] float PrideSpeedAdd;
-    [SerializeField] float envyHealPercent;
+    [SerializeField] public float envyHealPercent;
 
     //Leveling
-    int level;
+    public int level;
     [SerializeField] int expReqOrig;
     [SerializeField] int expReqScaling;
     int EXP;
     int expReq;
     [SerializeField] int maxHPLevelUp;
-    [SerializeField] float DamageLevelUp;
+    [SerializeField] public float DamageLevelUp;
 
     //Powers
     int powerPos;
     List<bool> powerList = new();
     List<GameObject> powerModels = new();
-    //Fire
+    //Fireball
     [SerializeField] GameObject fireModel;
-    [SerializeField] int fireDamage;
-    [SerializeField] float fireCooldown;
-    [SerializeField] float fireAOERange;
-    [SerializeField] float fireSpeed;
+    [SerializeField] GameObject fireProjectile;
+    [SerializeField] float fireRate;
+    //Chain Lightning
+    [SerializeField] GameObject lightningModel;
+    [SerializeField] GameObject lightningProjectile;
+    [SerializeField] float lightningRate;
+    //Ice Shock
+    [SerializeField] GameObject iceModel;
+    [SerializeField] float iceRate;
+    [SerializeField] GameObject iceZone;
+    //Wind Charge
+    [SerializeField] GameObject windModel;
+    [SerializeField] float windRate;
+    [SerializeField] int windSpeed;
+    [SerializeField] GameObject windBox;
+    //Stone Model
+    [SerializeField] GameObject stoneModel;
+    [SerializeField] GameObject stone;
+    [SerializeField] float stoneRate;
 
     Vector3 moveDirection;
     Vector3 dashDirection;
@@ -82,6 +99,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     float shootTimer;
     float dashTimer;
     float activeDashTimer;
+    float powerTimer;
 
     int jumpCount;
     int HP;
@@ -106,6 +124,10 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         }
 
         powerModels.Add(fireModel);
+        powerModels.Add(lightningModel);
+        powerModels.Add(iceModel);
+        powerModels.Add(windModel);
+        powerModels.Add(stoneModel);
 
         updatePlayerUI();
     }
@@ -115,6 +137,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     {
         movement();
         sprint();
+
+        //Debug.Log(powerPos);
 
         //Lust
         if (hasLust)
@@ -133,6 +157,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     {
         shootTimer += Time.deltaTime;
         dashTimer += Time.deltaTime;
+        powerTimer += Time.deltaTime;
 
         if (controller.isGrounded)
         {
@@ -212,6 +237,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     void reload()
     {
         weaponList[weaponListpos].ammoCur = weaponList[weaponListpos].ammoMax;
+        updateGunUI();
     }
 
     public virtual void gainEXP(int expGained)
@@ -266,11 +292,12 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     {
         shootTimer = 0;
         weaponList[weaponListpos].ammoCur--;
+        updateGunUI();
 
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
         {
-            Debug.Log(hit.collider.name);
+            //Debug.Log(hit.collider.name);
 
             Instantiate(shootEffect, hit.point, Quaternion.identity);
 
@@ -304,17 +331,45 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
 
     void power()
     {
+       
         switch (powerPos)
         {
             case 0:
+                if (powerTimer >= fireRate)
+                {
+                    Instantiate(fireProjectile, shootPos.transform.position, Camera.main.transform.rotation);
+                    powerTimer = 0;
+                }
                 break;
             case 1:
+                
+                if (powerTimer >= lightningRate)
+                {
+                    Instantiate(lightningProjectile, shootPos.transform.position, Camera.main.transform.rotation);
+                    powerTimer = 0;
+                }
                 break;
             case 2:
+                if (powerTimer >= iceRate)
+                {
+                    Instantiate(iceZone, Camera.main.transform.position, Quaternion.identity);
+                    powerTimer = 0;
+                }
                 break;
             case 3:
+                if (powerTimer >= windRate)
+                {
+                    Instantiate(windBox, transform.position, Quaternion.identity);
+                    playerVelocity.y = windSpeed;
+                    powerTimer = 0;
+                }
                 break;
             case 4:
+                if (powerTimer >= stoneRate)
+                {
+                    Instantiate(stone, Camera.main.transform.position, Camera.main.transform.rotation);
+                    powerTimer = 0;
+                }
                 break;
         }
     }
@@ -340,11 +395,20 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         }
     }
 
+
+
     public void updatePlayerUI()
     {
         gamemanager.instance.playerHPBar.fillAmount = (float)HP / HPMax;
         gamemanager.instance.playerEXPBar.fillAmount = (float)EXP / expReq;
     }
+
+    public void updateGunUI()
+    {
+        gamemanager.instance.playerAmmoCur = weaponList[weaponListpos].ammoCur;
+        gamemanager.instance.playerAmmoMax = weaponList[weaponListpos].ammoMax;
+    }
+
 
     IEnumerator damageFlash()
     {
@@ -376,8 +440,13 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     {
         weaponList.Add(weapon);
         weaponListpos = weaponList.Count - 1;
+        updateGunUI();
         changeWeapon();
+    }
 
+    public List<bool> getPlayersUpgrade()
+    {
+        return new List<bool>() { hasSloth, hasWrath, hasGluttony, hasEnvy, hasLust, hasGreed, hasPride };
     }
 
     void changeWeapon()
@@ -386,6 +455,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
         shootDist = weaponList[weaponListpos].shootDist;
         shootRate = weaponList[weaponListpos].shootRate;
         shootEffect = weaponList[weaponListpos].shootEffect;
+        
+        
 
         gunModel.GetComponent<MeshFilter>().sharedMesh = weaponList[weaponListpos].gunModel.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[weaponListpos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
@@ -395,24 +466,38 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     {
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
+            powerPos--;
+
+            if (powerPos <= -1)
+            {
+                powerPos = 4;
+            }
+
             while (!powerList[powerPos])
             {
-                powerPos++;
-                if(powerPos >= 5)
+                powerPos--;
+                if (powerPos <= -1)
                 {
-                    powerPos = 0;
+                    powerPos = 4;
                 }
             }
             equipPower();
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
+            powerPos++;
+
+            if (powerPos >= 5)
+            {
+                powerPos = 0;
+            }
+
             while (!powerList[powerPos])
             {
                 powerPos++;
-                if (powerPos <= -1)
+                if(powerPos >= 5)
                 {
-                    powerPos = 4;
+                    powerPos = 0;
                 }
             }
             equipPower();
@@ -429,6 +514,33 @@ public class playerController : MonoBehaviour, IDamage, iPickUp
     {
         powerList[powerID] = true;
         powerPos = powerID;
+        gamemanager.instance.DisplayPowerIcon(powerPos);
         equipPower();
+
+    }
+
+    public List<weaponStats> getWeaponList()
+    {
+        return weaponList;
+    }
+
+    public int getWeaponIndex()
+    {
+        return weaponListpos;
+    }
+
+    public void loadData(gameData data)
+    {
+        powerList = data.powers;
+        weaponList = data.weapons;
+        level = data.Level;
+        changeWeapon();
+    }
+
+    public void saveData(ref gameData data)
+    {
+        data.powers = powerList;
+        data.weapons = weaponList;
+        data.Level = level;
     }
 }

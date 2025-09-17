@@ -5,15 +5,42 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Prototype_2 - Level 1.unity
     guid: 3d2eb82d6659f9948952fe4b1b33f783
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Prototype_2 - Level 3.unity
     guid: 0df23f7c00e3da948b294d2ad07e3a8e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Prototype_2 - Level 2.unity
     guid: dda4ff3e8c9ab044a9ea9aafa9b8304a
+  - enabled: 0
+    path: Assets/Scenes/SampleScene.unity
+    guid: e0b5e28b3488c8f4095f92980d553612
+  - enabled: 1
+    path: Assets/Scenes/ForestLevel.unity
+    guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/HouseLevel.unity
+    guid: 15e754bb3f8393f449d24da4cc2d0856
+  - enabled: 1
+    path: Assets/Scenes/RiverLevel.unity
+    guid: e1aa2d21a5495ef4aaa84a471e24dc98
+  - enabled: 1
+    path: Assets/Scenes/CitySkyLineLevel.unity
+    guid: 95bac1256629b284c8461acb4606aae1
+  - enabled: 1
+    path: Assets/Scenes/PrisonLevel.unity
+    guid: 7f875ab7c3c6ed6449acca10a1ae88f7
+  - enabled: 1
+    path: Assets/Scenes/CastleLevel.unity
+    guid: 05d6482bc321246499ff572bf5b1c518
+  - enabled: 1
+    path: Assets/Scenes/Space.unity
+    guid: 5c827062b01686a4c992ee1b161e7034
+  - enabled: 1
+    path: Assets/Scenes/MindHub.unity
+    guid: 65d8af96bfa22914ab755fa48ddfa4c2
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
