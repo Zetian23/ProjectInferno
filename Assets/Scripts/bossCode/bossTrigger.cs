@@ -1,16 +1,17 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class bossTrigger : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] List<GameObject> bosses;
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Player"))
+        {
+            Instantiate(bosses[gamemanager.instance.currLevel], transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
     }
 }
