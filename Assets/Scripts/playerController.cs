@@ -501,6 +501,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
 
     void equipPower()
     {
+        gamemanager.instance.DisplayPowerIcon(powerPos);
         powerModel.GetComponent<MeshFilter>().sharedMesh = powerModels[powerPos].GetComponent<MeshFilter>().sharedMesh;
         powerModel.GetComponent<MeshRenderer>().sharedMaterial = powerModels[powerPos].GetComponent<MeshRenderer>().sharedMaterial;
     }

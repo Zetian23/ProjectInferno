@@ -47,6 +47,9 @@ public class gamemanager : MonoBehaviour
     public GameObject player;
     public playerController playerScript;
 
+    public GameObject currentIcon;
+    public GameObject previousIcon;
+
     public int playerAmmoCur;
     public int playerAmmoMax;
 
@@ -75,6 +78,7 @@ public class gamemanager : MonoBehaviour
 
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
+
     }
 
     // Update is called once per frame
@@ -154,45 +158,45 @@ public class gamemanager : MonoBehaviour
 
     public void DisplayPowerIcon(int power)
     {
+        if (currentIcon != null) { 
+        
+            currentIcon.SetActive(false);
+            previousIcon = currentIcon;
+        }
+
+
+
         switch (power)
         {
             case 0:
-                if (stoneIcon.activeSelf)
-                {
-                    stoneIcon.SetActive(false);
-                }
-                fireIcon.SetActive(true);
+
+                currentIcon = fireIcon;
+                currentIcon.SetActive(true);
                 break;
             case 1:
-                if (fireIcon.activeSelf)
-                {
-                    fireIcon.SetActive(false);
-                }
-                lightningIcon.SetActive(true);
+
+                currentIcon = lightningIcon;
+                currentIcon.SetActive(true);
                 break;
             case 2:
-                if (lightningIcon.activeSelf)
-                {
-                    lightningIcon.SetActive(false);
-                }
-                iceIcon.SetActive(true);
+
+
+                currentIcon = iceIcon;
+                currentIcon.SetActive(true);
                 break;
             case 3:
-                if (iceIcon.activeSelf)
-                {
-                    iceIcon.SetActive(false);
-                }
-                windIcon.SetActive(true);
+
+                currentIcon = windIcon;
+                currentIcon.SetActive(true);
                 break;
             case 4:
-                if (windIcon.activeSelf)
-                {
-                    windIcon.SetActive(false);
-                }
-                stoneIcon.SetActive(true);
+
+                currentIcon = stoneIcon;
+                currentIcon.SetActive(true);
                 break;
                 
         }
+
     }
 
     public void SetPhase(int phase) { currBossPhase = phase; }
