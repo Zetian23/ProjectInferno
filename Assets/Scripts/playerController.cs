@@ -2,16 +2,18 @@ using NUnit.Framework.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Overlays;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 //Code written by brady (Movement-wise)
-public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable
+public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISavedData
 {
     [SerializeField] LayerMask ignoreLayer;
     [SerializeField] CharacterController controller;
 
     //base stats
-    [SerializeField] int HPMax;
+    [SerializeField] public int HPMax;
     [SerializeField] float speed;
     [SerializeField] float sprintMod;
     [SerializeField] int jumpSpeed;
@@ -51,20 +53,20 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable
     [SerializeField] float lustRate;
     [SerializeField] float lustHealPercent;
     [SerializeField] float greedEXPMod;
-    [SerializeField] float slothSpeedReduction;
+    [SerializeField] public float slothSpeedReduction;
     [SerializeField] float gluttonyHealthMod;
-    [SerializeField] float wrathDamageMult;
+    [SerializeField] public float wrathDamageMult;
     [SerializeField] float PrideSpeedAdd;
-    [SerializeField] float envyHealPercent;
+    [SerializeField] public float envyHealPercent;
 
     //Leveling
-    int level;
+    public int level;
     [SerializeField] int expReqOrig;
     [SerializeField] int expReqScaling;
     int EXP;
     int expReq;
     [SerializeField] int maxHPLevelUp;
-    [SerializeField] float DamageLevelUp;
+    [SerializeField] public float DamageLevelUp;
 
     //Powers
     int powerPos;
@@ -237,6 +239,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable
     void reload()
     {
         weaponList[weaponListpos].ammoCur = weaponList[weaponListpos].ammoMax;
+        updateGunUI();
     }
 
     public virtual void gainEXP(int expGained)
@@ -598,6 +601,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable
 
     void power()
     {
+       
         switch (powerPos)
         {
             case 0:
@@ -608,6 +612,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable
                 }
                 break;
             case 1:
+                
                 if (powerTimer >= lightningRate)
                 {
                     Instantiate(lightningProjectile, shootPos.transform.position, Camera.main.transform.rotation);
@@ -660,11 +665,20 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable
         }
     }
 
+
+
     public void updatePlayerUI()
     {
         gamemanager.instance.playerHPBar.fillAmount = (float)HP / HPMax;
         gamemanager.instance.playerEXPBar.fillAmount = (float)EXP / expReq;
     }
+
+    public void updateGunUI()
+    {
+        gamemanager.instance.playerAmmoCur = weaponList[weaponListpos].ammoCur;
+        gamemanager.instance.playerAmmoMax = weaponList[weaponListpos].ammoMax;
+    }
+
 
     IEnumerator damageFlash()
     {
@@ -696,7 +710,13 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable
     {
         weaponList.Add(weapon);
         weaponListpos = weaponList.Count - 1;
+        updateGunUI();
         changeWeapon();
+    }
+
+    public List<bool> getPlayersUpgrade()
+    {
+        return new List<bool>() { hasSloth, hasWrath, hasGluttony, hasEnvy, hasLust, hasGreed, hasPride };
     }
 
     void changeWeapon()
@@ -705,6 +725,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable
         shootDist = weaponList[weaponListpos].shootDist;
         shootRate = weaponList[weaponListpos].shootRate;
         shootEffect = weaponList[weaponListpos].shootEffect;
+        
+        
 
         gunModel.GetComponent<MeshFilter>().sharedMesh = weaponList[weaponListpos].gunModel.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[weaponListpos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
@@ -754,6 +776,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable
 
     void equipPower()
     {
+        gamemanager.instance.DisplayPowerIcon(powerPos);
         powerModel.GetComponent<MeshFilter>().sharedMesh = powerModels[powerPos].GetComponent<MeshFilter>().sharedMesh;
         powerModel.GetComponent<MeshRenderer>().sharedMaterial = powerModels[powerPos].GetComponent<MeshRenderer>().sharedMaterial;
     }
@@ -762,7 +785,34 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable
     {
         powerList[powerID] = true;
         powerPos = powerID;
+        gamemanager.instance.DisplayPowerIcon(powerPos);
         equipPower();
+
+    }
+
+    public List<weaponStats> getWeaponList()
+    {
+        return weaponList;
+    }
+
+    public int getWeaponIndex()
+    {
+        return weaponListpos;
+    }
+
+    public void loadData(gameData data)
+    {
+        powerList = data.powers;
+        weaponList = data.weapons;
+        level = data.Level;
+        changeWeapon();
+    }
+
+    public void saveData(ref gameData data)
+    {
+        data.powers = powerList;
+        data.weapons = weaponList;
+        data.Level = level;
     }
 
     public void freeze()

@@ -1,0 +1,181 @@
+using UnityEngine;
+using UnityEngine.AI;
+using System.Collections;
+// Code written by Nathaniel King <3 and William
+// Base class for any enemies that will be created throughout Project Inferno
+public class Enemy : MonoBehaviour, IDamage, IFreezable, ISavedData
+{
+    // These SerializedField will show up in any enemy that inherits from this parent
+    [SerializeField] protected LayerMask ignoreLayer;   // This is set for anything that needs to be ignored in the attacks.
+
+    [SerializeField] public Renderer model;        // The enemies renderer made for that enemy or enemy prefab
+    [SerializeField] public NavMeshAgent agent;    // The agent that seperate enemies will have to have pathing
+    [SerializeField] Transform headPos;
+
+    [SerializeField] public int HP;
+
+    [SerializeField] public int faceTargetSpeed;
+
+    [SerializeField] public float attackRate;
+    [SerializeField] public float attackDistance;
+    [SerializeField] public int attackDamage;
+    [SerializeField] public int FOV;
+    [SerializeField] public Transform attackPos;
+
+    [SerializeField] public Animator anim;
+    [SerializeField] public float animTranSpeed;
+    [SerializeField] protected GameObject shockwave;
+    [SerializeField] protected float shockwaveRadius;
+    [SerializeField] protected int shockwaveDamage;
+    [SerializeField] protected Transform shockwavePos;
+    protected Color colorOrg;
+
+    protected Vector3 playerDirection;         // In the child classes this will be used to update in that class based on the player direction.
+
+    protected float attackTimer;               // Each enemy will have different time it takes to attack.
+    protected float angleToPlayer;
+    protected float stoppingDistOrig;
+    protected float startSpeed;
+    protected float ogAnimSpeed;
+    protected int ogAttackDam;
+   
+    //for freeze
+    public bool isFroze = false;
+    private float ogSpeed = 0;
+
+    protected bool playerInTrigger;            // Player enters the area where the enemy will be aware of the player.
+
+    public bool canSeePlayer()
+    {
+        playerDirection = gamemanager.instance.player.transform.position - headPos.position;
+        angleToPlayer = Vector3.Angle(playerDirection, transform.forward);
+        Debug.DrawRay(headPos.position, playerDirection);
+        RaycastHit hit;
+        if (Physics.Raycast(headPos.position, playerDirection, out hit))
+        {
+            // Hey I can see you!!!
+            if (hit.collider.CompareTag("Player") && angleToPlayer <= FOV)
+            {
+                if(gamemanager.instance.currBoss != 5)
+                    agent.SetDestination(gamemanager.instance.player.transform.position);
+
+                if (attackTimer >= attackRate)
+                {
+                    Attack();
+                }
+                if (agent.remainingDistance <= agent.stoppingDistance)
+                {
+                    faceTarget();
+                }
+
+                agent.stoppingDistance = stoppingDistOrig;
+                return true;
+            }
+        }
+        agent.stoppingDistance = 0;
+        return false;
+    }
+
+    protected virtual void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInTrigger = true;
+        }
+    }
+
+    protected virtual void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInTrigger = false;
+            agent.stoppingDistance = 0;
+        }
+    }
+
+    protected virtual void meleeAttack()  // Base attack for when the boss is close up attacking.
+    {
+        attackTimer = 0;// Reset the timer so that the attack will happen again after a period of time.
+
+          RaycastHit hit;
+            if (Physics.Raycast(headPos.position, playerDirection, out hit, attackDistance, ~ignoreLayer)) // Draws a ling with the attackDistance to see if the player is within the distance.
+            {
+                IDamage dmg = hit.collider.GetComponent<IDamage>(); // Initializing the IDamage script.
+
+                if (dmg != null)    // Checks if the thing collided took damage.
+                {
+                    dmg.takeDamage(attackDamage);   // Make the player take damage.
+                }
+            }
+        
+    }
+
+    virtual public void faceTarget() { }    // Basic method that keeps the enemy faced to the player after the enemy is at the desired position,
+                                            // this will have logic in the update of the child enemy script.
+    public virtual void Attack() { }   // Method that is called when an enemy attack, which will be different in the child classes.
+    public virtual void takeDamage(int amount) { }    // Method that is called when the enemy takes damage based on the Idamage delt from the player.
+
+    public virtual IEnumerator flashDamage()
+    {
+        model.material.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        model.material.color = colorOrg;
+    }
+
+    public void slothSlow(float percent)
+    {
+       startSpeed *= percent;
+    }
+
+    public void freeze()
+    {
+        isFroze = true;
+
+        if (agent != null)
+        {
+            ogSpeed = agent.speed;
+            agent.speed = 0;
+            
+            agent.isStopped = true;
+            
+        }
+
+        if (anim != null)
+        {
+            ogAnimSpeed = anim.speed;
+            anim.speed = 0;
+        }
+        ogAttackDam = attackDamage;
+        attackDamage = 0;
+    }
+
+    public void unfreeze()
+    {
+       
+        isFroze = false;
+
+        if (agent != null)
+        {
+           
+            agent.speed = ogSpeed;
+           
+            agent.isStopped = false;
+        }
+
+        if (anim != null)
+        {
+            anim.speed = ogAnimSpeed;
+        }
+        attackDamage = ogAttackDam;
+    }
+
+    public virtual void loadData(gameData data)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public virtual void saveData(ref gameData data)
+    {
+        throw new System.NotImplementedException();
+    }
+}
