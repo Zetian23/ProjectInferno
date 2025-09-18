@@ -1,8 +1,8 @@
+
 using NUnit.Framework.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Overlays;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -644,6 +644,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         }
     }
 
+
     public void takeDamage(int amount)
     {
         if (amount < 0)
@@ -731,7 +732,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         gunModel.GetComponent<MeshFilter>().sharedMesh = weaponList[weaponListpos].gunModel.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[weaponListpos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
     }
-
+    
     void selectPower()
     {
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
@@ -774,6 +775,12 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         }
     }
 
+    public void setPowerFromWheel(int Power)
+    {
+        powerPos = Power;
+        equipPower();
+    }
+
     void equipPower()
     {
         gamemanager.instance.DisplayPowerIcon(powerPos);
@@ -785,6 +792,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
     {
         powerList[powerID] = true;
         powerPos = powerID;
+        gamemanager.instance.updatePowerWheel(powerPos);
         gamemanager.instance.DisplayPowerIcon(powerPos);
         equipPower();
 

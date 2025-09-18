@@ -18,11 +18,11 @@ public class buttonFunctions : MonoBehaviour
 
     public void quit()
     {
-        #if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
-        #else
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
                     Application.Quit();
-        #endif
+#endif
     }
 
     public void newGame()
@@ -62,6 +62,7 @@ public class buttonFunctions : MonoBehaviour
 
         settingsManager.Instance.disableMenu();
     }
+
 
     public void changeSensitivty()
     {
