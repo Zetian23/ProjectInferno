@@ -2,11 +2,12 @@ using NUnit.Framework.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Overlays;
 using UnityEngine;
 using UnityEngine.Rendering;
 
 //Code written by brady (Movement-wise)
-public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
+public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISavedData
 {
     [SerializeField] LayerMask ignoreLayer;
     [SerializeField] CharacterController controller;
@@ -30,6 +31,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
     [SerializeField] GameObject gunModel;
     [SerializeField] GameObject powerModel;
+    [SerializeField] GameObject lazerProjectile;
 
     //Dashing
     [SerializeField] float dashTime;
@@ -176,7 +178,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
         playerVelocity.y -= gravity * Time.deltaTime;
 
 
-        if (Input.GetButton("Fire1") && weaponList.Count != 0 && shootTimer >= shootRate && weaponList[weaponListpos].ammoCur != 0)
+        if (Input.GetButton("Fire1") && weaponList.Count != 0 && shootTimer >= shootRate && (weaponList[weaponListpos].ammoCur != 0 || weaponList[weaponListpos].lazer))
         {
             shoot();
         }
@@ -291,41 +293,309 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
     void shoot()
     {
         shootTimer = 0;
-        weaponList[weaponListpos].ammoCur--;
-        updateGunUI();
 
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
+        if (!weaponList[weaponListpos].lazer)
         {
-            //Debug.Log(hit.collider.name);
+            weaponList[weaponListpos].ammoCur--;
 
-            Instantiate(shootEffect, hit.point, Quaternion.identity);
-
-            IDamage dmg = hit.collider.GetComponent<IDamage>();
-
-            if (dmg != null)
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
             {
-                //Wrath
-                if (hasWrath)
-                {
-                    dmg.takeDamage((int)(shootDamage * wrathDamageMult * (DamageLevelUp * level + 1)));
-                }
-                else
-                {
-                    dmg.takeDamage((int)(shootDamage * (DamageLevelUp * level + 1)));
-                }
+                //Debug.Log(hit.collider.name);
 
-                //Sloth
-                if (hasSloth)
-                {
-                    dmg.slothSlow(slothSpeedReduction);
-                }
+                Instantiate(shootEffect, hit.point, Quaternion.identity);
 
-                if (hasEnvy)
+                IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+                if (dmg != null)
                 {
-                    takeDamage((int)(shootDamage * envyHealPercent));
+                    //Wrath
+                    if (hasWrath)
+                    {
+                        dmg.takeDamage((int)(shootDamage * wrathDamageMult));
+                    }
+                    else
+                    {
+                        dmg.takeDamage((int)(shootDamage));
+                    }
+
+                    //Sloth
+                    if (hasSloth)
+                    {
+                        dmg.slothSlow(slothSpeedReduction);
+                    }
+
+                    if (hasEnvy)
+                    {
+                        takeDamage((int)(shootDamage * envyHealPercent));
+                    }
                 }
             }
+            if (weaponList[weaponListpos].spread)
+            {
+                float spread = 0.25f;
+
+                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward + new Vector3(0, spread, 0), out hit, shootDist, ~ignoreLayer))
+                {
+                    //Debug.Log(hit.collider.name);
+
+                    Instantiate(shootEffect, hit.point, Quaternion.identity);
+
+                    IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+                    if (dmg != null)
+                    {
+                        //Wrath
+                        if (hasWrath)
+                        {
+                            dmg.takeDamage((int)(shootDamage * wrathDamageMult));
+                        }
+                        else
+                        {
+                            dmg.takeDamage((int)(shootDamage));
+                        }
+
+                        //Sloth
+                        if (hasSloth)
+                        {
+                            dmg.slothSlow(slothSpeedReduction);
+                        }
+
+                        if (hasEnvy)
+                        {
+                            takeDamage((int)(shootDamage * envyHealPercent));
+                        }
+                    }
+                }
+                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward + new Vector3(0, -spread, 0), out hit, shootDist, ~ignoreLayer))
+                {
+                    //Debug.Log(hit.collider.name);
+
+                    Instantiate(shootEffect, hit.point, Quaternion.identity);
+
+                    IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+                    if (dmg != null)
+                    {
+                        //Wrath
+                        if (hasWrath)
+                        {
+                            dmg.takeDamage((int)(shootDamage * wrathDamageMult));
+                        }
+                        else
+                        {
+                            dmg.takeDamage((int)(shootDamage));
+                        }
+
+                        //Sloth
+                        if (hasSloth)
+                        {
+                            dmg.slothSlow(slothSpeedReduction);
+                        }
+
+                        if (hasEnvy)
+                        {
+                            takeDamage((int)(shootDamage * envyHealPercent));
+                        }
+                    }
+                }
+                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward + new Vector3(0, spread, spread), out hit, shootDist, ~ignoreLayer))
+                {
+                    //Debug.Log(hit.collider.name);
+
+                    Instantiate(shootEffect, hit.point, Quaternion.identity);
+
+                    IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+                    if (dmg != null)
+                    {
+                        //Wrath
+                        if (hasWrath)
+                        {
+                            dmg.takeDamage((int)(shootDamage * wrathDamageMult));
+                        }
+                        else
+                        {
+                            dmg.takeDamage((int)(shootDamage));
+                        }
+
+                        //Sloth
+                        if (hasSloth)
+                        {
+                            dmg.slothSlow(slothSpeedReduction);
+                        }
+
+                        if (hasEnvy)
+                        {
+                            takeDamage((int)(shootDamage * envyHealPercent));
+                        }
+                    }
+                }
+                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward + new Vector3(0, -spread, spread), out hit, shootDist, ~ignoreLayer))
+                {
+                    //Debug.Log(hit.collider.name);
+
+                    Instantiate(shootEffect, hit.point, Quaternion.identity);
+
+                    IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+                    if (dmg != null)
+                    {
+                        //Wrath
+                        if (hasWrath)
+                        {
+                            dmg.takeDamage((int)(shootDamage * wrathDamageMult));
+                        }
+                        else
+                        {
+                            dmg.takeDamage((int)(shootDamage));
+                        }
+
+                        //Sloth
+                        if (hasSloth)
+                        {
+                            dmg.slothSlow(slothSpeedReduction);
+                        }
+
+                        if (hasEnvy)
+                        {
+                            takeDamage((int)(shootDamage * envyHealPercent));
+                        }
+                    }
+                }
+                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward + new Vector3(0, spread, -spread), out hit, shootDist, ~ignoreLayer))
+                {
+                    //Debug.Log(hit.collider.name);
+
+                    Instantiate(shootEffect, hit.point, Quaternion.identity);
+
+                    IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+                    if (dmg != null)
+                    {
+                        //Wrath
+                        if (hasWrath)
+                        {
+                            dmg.takeDamage((int)(shootDamage * wrathDamageMult));
+                        }
+                        else
+                        {
+                            dmg.takeDamage((int)(shootDamage));
+                        }
+
+                        //Sloth
+                        if (hasSloth)
+                        {
+                            dmg.slothSlow(slothSpeedReduction);
+                        }
+
+                        if (hasEnvy)
+                        {
+                            takeDamage((int)(shootDamage * envyHealPercent));
+                        }
+                    }
+                }
+                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward + new Vector3(0, -spread, -spread), out hit, shootDist, ~ignoreLayer))
+                {
+                    //Debug.Log(hit.collider.name);
+
+                    Instantiate(shootEffect, hit.point, Quaternion.identity);
+
+                    IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+                    if (dmg != null)
+                    {
+                        //Wrath
+                        if (hasWrath)
+                        {
+                            dmg.takeDamage((int)(shootDamage * wrathDamageMult));
+                        }
+                        else
+                        {
+                            dmg.takeDamage((int)(shootDamage));
+                        }
+
+                        //Sloth
+                        if (hasSloth)
+                        {
+                            dmg.slothSlow(slothSpeedReduction);
+                        }
+
+                        if (hasEnvy)
+                        {
+                            takeDamage((int)(shootDamage * envyHealPercent));
+                        }
+                    }
+                }
+                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward + new Vector3(0, spread / 2, 0), out hit, shootDist, ~ignoreLayer))
+                {
+                    //Debug.Log(hit.collider.name);
+
+                    Instantiate(shootEffect, hit.point, Quaternion.identity);
+
+                    IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+                    if (dmg != null)
+                    {
+                        //Wrath
+                        if (hasWrath)
+                        {
+                            dmg.takeDamage((int)(shootDamage * wrathDamageMult));
+                        }
+                        else
+                        {
+                            dmg.takeDamage((int)(shootDamage));
+                        }
+
+                        //Sloth
+                        if (hasSloth)
+                        {
+                            dmg.slothSlow(slothSpeedReduction);
+                        }
+
+                        if (hasEnvy)
+                        {
+                            takeDamage((int)(shootDamage * envyHealPercent));
+                        }
+                    }
+                }
+                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward + new Vector3(0, -spread / 2, 0), out hit, shootDist, ~ignoreLayer))
+                {
+                    //Debug.Log(hit.collider.name);
+
+                    Instantiate(shootEffect, hit.point, Quaternion.identity);
+
+                    IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+                    if (dmg != null)
+                    {
+                        //Wrath
+                        if (hasWrath)
+                        {
+                            dmg.takeDamage((int)(shootDamage * wrathDamageMult));
+                        }
+                        else
+                        {
+                            dmg.takeDamage((int)(shootDamage));
+                        }
+
+                        //Sloth
+                        if (hasSloth)
+                        {
+                            dmg.slothSlow(slothSpeedReduction);
+                        }
+
+                        if (hasEnvy)
+                        {
+                            takeDamage((int)(shootDamage * envyHealPercent));
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            Instantiate(lazerProjectile, shootPos.transform.position, Camera.main.transform.rotation);
         }
     }
 
@@ -543,5 +813,15 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
         data.powers = powerList;
         data.weapons = weaponList;
         data.Level = level;
+    }
+
+    public void freeze()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void unfreeze()
+    {
+        throw new NotImplementedException();
     }
 }
