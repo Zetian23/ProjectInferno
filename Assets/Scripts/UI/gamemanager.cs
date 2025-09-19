@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using NUnit.Framework.Internal;
+using JetBrains.Annotations;
 
 public class gamemanager : MonoBehaviour
 {
@@ -44,6 +45,8 @@ public class gamemanager : MonoBehaviour
     public GameObject iceIcon;
     public GameObject windIcon;
     public GameObject stoneIcon;
+
+    public GameObject iceTint;
 
 
     public List<Image> bossHPBar;
@@ -109,6 +112,8 @@ public class gamemanager : MonoBehaviour
         ammoMaxText.text = playerAmmoMax.ToString("F0");
     }
 
+
+
     public void statePause()
     {
         isPaused = !isPaused;
@@ -168,6 +173,7 @@ public class gamemanager : MonoBehaviour
         TutorialBox.SetActive(true);
     }
 
+    
     public void DisplayPowerIcon(int power)
     {
         if (currentIcon != null) { 
@@ -211,6 +217,22 @@ public class gamemanager : MonoBehaviour
 
     }
 
+    public void stateIceShock (bool active)
+    {
+        iceTint.SetActive(active); 
+    }
+
+    public void updatePowerWheel(int power)
+    {
+        //Display button to select power when acquired.
+
+    }
+
+    public void updateWeaponWheel()
+    {
+        //same but for weapon
+    }
+
     public void SetPhase(int phase) { currBossPhase = phase; }
     public int GetPhase() { return currBossPhase; }
 
@@ -234,6 +256,7 @@ public class gamemanager : MonoBehaviour
         menuActive.SetActive(false);
         menuActive = menuLoad;
         menuActive.SetActive(true);
+
     }
 }
 

@@ -1,8 +1,8 @@
+
 using NUnit.Framework.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Overlays;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -120,6 +120,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         EXP = 0;
         expReq = expReqOrig;
 
+        gamemanager.instance.stateIceShock(false);
+
         for (int i = 0; i < 5; i++)
         {
             powerList.Add(false);
@@ -151,6 +153,44 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
             {
                 takeDamage((int)(HPMax * lustHealPercent * -1));
                 lustTimer = 0;
+            }
+        }
+
+        if(powerList[0] && powerTimer < 20)
+        {
+            switch (powerPos)
+            {
+                case 0:
+                    powerModel.GetComponent<MeshRenderer>().sharedMaterial.color =
+                        new Color(powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.r, powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.g,
+                        powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.b, (powerTimer / fireRate) * 0.6f);
+                    break;
+                case 1:
+                    powerModel.GetComponent<MeshRenderer>().sharedMaterial.color =
+                        new Color(powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.r, powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.g,
+                        powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.b, (powerTimer / lightningRate) * 0.6f);
+                    break;
+                case 2:
+                    powerModel.GetComponent<MeshRenderer>().sharedMaterial.color =
+                        new Color(powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.r, powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.g,
+                        powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.b, (powerTimer / iceRate) * 0.6f);
+                    break;
+                case 3:
+                    powerModel.GetComponent<MeshRenderer>().sharedMaterial.color =
+                        new Color(powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.r, powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.g,
+                        powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.b, (powerTimer / windRate) * 0.6f);
+                    break;
+                case 4:
+                    powerModel.GetComponent<MeshRenderer>().sharedMaterial.color =
+                        new Color(powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.r, powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.g,
+                        powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.b, (powerTimer / stoneRate) * 0.6f);
+                    break;
+            }
+            if (powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.a > 0.6f)
+            {
+                powerModel.GetComponent<MeshRenderer>().sharedMaterial.color =
+                        new Color(powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.r, powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.g,
+                        powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.b, 1);
             }
         }
     }
@@ -642,7 +682,12 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
                 }
                 break;
         }
+
+        powerModel.GetComponent<MeshRenderer>().sharedMaterial.color =
+            new Color(powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.r, powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.g,
+            powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.b, 0);
     }
+
 
     public void takeDamage(int amount)
     {
@@ -731,7 +776,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         gunModel.GetComponent<MeshFilter>().sharedMesh = weaponList[weaponListpos].gunModel.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[weaponListpos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
     }
-
+    
     void selectPower()
     {
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
@@ -774,6 +819,12 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         }
     }
 
+    public void setPowerFromWheel(int Power)
+    {
+        powerPos = Power;
+        equipPower();
+    }
+
     void equipPower()
     {
         gamemanager.instance.DisplayPowerIcon(powerPos);
@@ -785,6 +836,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
     {
         powerList[powerID] = true;
         powerPos = powerID;
+        gamemanager.instance.updatePowerWheel(powerPos);
         gamemanager.instance.DisplayPowerIcon(powerPos);
         equipPower();
 
@@ -817,11 +869,11 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
 
     public void freeze()
     {
-        throw new NotImplementedException();
+        gamemanager.instance.stateIceShock(true);
     }
 
     public void unfreeze()
     {
-        throw new NotImplementedException();
+        gamemanager.instance.stateIceShock(false);
     }
 }

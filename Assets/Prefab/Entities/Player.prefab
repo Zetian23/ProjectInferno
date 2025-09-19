@@ -507,6 +507,7 @@ MonoBehaviour:
   wrathDamageMult: 1.5
   PrideSpeedAdd: 10
   envyHealPercent: 0.25
+  level: 0
   expReqOrig: 100
   expReqScaling: 25
   maxHPLevelUp: 5
@@ -515,18 +516,18 @@ MonoBehaviour:
   fireProjectile: {fileID: 1913136077730146043, guid: 7377c0d3331660547bec132abbb31d56, type: 3}
   fireRate: 5
   lightningModel: {fileID: 7999194325651606627, guid: 4c121610a55da5549935444ff13730bc, type: 3}
-  lightningProjectile: {fileID: 0}
-  lightningRate: 0
+  lightningProjectile: {fileID: 3424504605062874569, guid: af45d324540c2734e9f0d1075c4934f7, type: 3}
+  lightningRate: 3
   iceModel: {fileID: 4743175917821572282, guid: b31c92d108b4863479c2ad01180cd0e0, type: 3}
   iceRate: 10
   iceZone: {fileID: 3372317573944819934, guid: 5d0975f569815cb48aa820178a5f4e9c, type: 3}
   windModel: {fileID: 4410008311502816302, guid: 7e31edaaf5be00e4cb347c4d34c0f665, type: 3}
-  windRate: 5
+  windRate: 7
   windSpeed: 25
   windBox: {fileID: 3372317573944819934, guid: 028ef213d898030478dd46423012001b, type: 3}
   stoneModel: {fileID: 3539493396844785670, guid: f6712d1930fc39546b1529789537dc89, type: 3}
-  stone: {fileID: 0}
-  stoneRate: 0
+  stone: {fileID: 1913136077730146043, guid: 41881a91fbbcb8742887789cc4346160, type: 3}
+  stoneRate: 8
 --- !u!143 &4964581508061618816
 CharacterController:
   m_ObjectHideFlags: 0

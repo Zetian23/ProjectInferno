@@ -51,7 +51,7 @@ MonoBehaviour:
   rb: {fileID: 4559364000791504349}
   speed: 20
   destroyTime: 3
-  plate: {fileID: 1058433012566526663, guid: d00ee77220a659c45802e5b8f5373f8c, type: 3}
+  plate: {fileID: 4045747508408374557, guid: d00ee77220a659c45802e5b8f5373f8c, type: 3}
 --- !u!33 &5898427161492831240
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -145,7 +145,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
