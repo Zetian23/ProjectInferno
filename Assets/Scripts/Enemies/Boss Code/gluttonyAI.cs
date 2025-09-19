@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 // Code Written By Nathaniel King <3
 
 // Phase 1: (HP >= 500)
@@ -11,6 +12,14 @@ using UnityEngine;
 
 public class gluttonyAI : sinEnemy
 {
+    [SerializeField] Transform jumpPos;
+    [SerializeField] float jumpCooldown;
+
+    float jumpCooldownTimer;
+    Vector3 playerLocationAtJump;
+    bool isJumping;
+    bool isLanded;
+
     void Start()
     {
         InitVar(); // This calls the method in sinEnemy that initializes all fields in that script needed for this.
@@ -29,16 +38,74 @@ public class gluttonyAI : sinEnemy
 
         checkHealth(500, 250);   // Checks the phases between the health periods.
 
-        if (playerInTrigger && canSeePlayer()) { }  // Checks if player is in the trigger and uses the canSeePlayer() method in the Enemy script.
+        if (!isJumping)
+        {
+            if (playerInTrigger && canSeePlayer()) { }  // Checks if player is in the trigger and uses the canSeePlayer() method in the Enemy script.
+        }
 
-        if (isAttacking)
+        if (isAttacking && gamemanager.instance.GetPhase() != 3)
         {
             meleeAttack();  // If the attack is happening then do a melee attack, I check this so the attack doesnt happen again until this is done.
+        }
+        else if (isJumping && isAttacking && gamemanager.instance.GetPhase() == 3)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
+            if (isLanded)
+            {
+                meleeAttack();
+                isJumping = false;
+                isLanded = false;
+            }
         }
 
         if (isLowerred)
         {
-            swingWeapon();  
+            swingWeapon();
         }
+
+        if (gamemanager.instance.GetPhase() == 2)
+        {
+            rangedAttack();
+        }
+
+        if(gamemanager.instance.GetPhase() == 3 && !isAttacking)
+        {
+            jumpAttack();
+        }
+    }
+
+    protected override void rangedAttack()
+    {
+        RaycastHit hit;
+        if (!Physics.Raycast(headPos.position, playerDirection, out hit, attackDistance, ~ignoreLayer) && playerInTrigger && attackTimer >= attackRate) // Draws a ling with the attackDistance to see if the player is within the distance.
+        {
+            base.rangedAttack();
+            attackTimer = 0;
+        }
+    }
+
+    void jumpAttack()
+    {
+        jumpCooldownTimer += Time.deltaTime;
+
+        if(jumpCooldownTimer >= jumpCooldown)
+        {
+            isJumping = true;
+            agent.stoppingDistance = 0;
+            if (playerLocationAtJump == null) playerLocationAtJump = gamemanager.instance.player.transform.position;
+            transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
+            if (transform.position == jumpPos.position)
+            {
+                isAttacking = true;
+                jumpCooldownTimer = 0;
+            }
+        }
+    }
+
+    protected override void OnTriggerEnter(Collider other)
+    {
+        base.OnTriggerEnter(other);
+
+        if (other.CompareTag("Platform")) isLanded = true;
     }
 }
