@@ -1229,7 +1229,7 @@ MonoBehaviour:
   dodgeTime: 0
   maxReanimations: 3
   reanimateDelay: 5
-  reanimateAnimTime: 1
+  reanimateAnimTime: 2
   reanimateHP: 30
 --- !u!195 &6675039181276780033
 NavMeshAgent:
