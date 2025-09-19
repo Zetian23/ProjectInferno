@@ -219,9 +219,7 @@ public class gamemanager : MonoBehaviour
 
     public void stateIceShock (bool active)
     {
-        if (active) iceTint.SetActive(true);
-        else iceTint.SetActive(false);
-          
+        iceTint.SetActive(active); 
     }
 
     public void updatePowerWheel(int power)

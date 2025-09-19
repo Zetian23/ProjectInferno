@@ -120,6 +120,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         EXP = 0;
         expReq = expReqOrig;
 
+        gamemanager.instance.stateIceShock(false);
+
         for (int i = 0; i < 5; i++)
         {
             powerList.Add(false);
