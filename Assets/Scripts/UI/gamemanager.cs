@@ -46,6 +46,8 @@ public class gamemanager : MonoBehaviour
     public GameObject windIcon;
     public GameObject stoneIcon;
 
+    public GameObject iceTint;
+
 
     public List<Image> bossHPBar;
 
@@ -215,6 +217,12 @@ public class gamemanager : MonoBehaviour
 
     }
 
+    public void stateIceShock (bool active)
+    {
+        if (active) iceTint.SetActive(true);
+        else iceTint.SetActive(false);
+          
+    }
 
     public void updatePowerWheel(int power)
     {
