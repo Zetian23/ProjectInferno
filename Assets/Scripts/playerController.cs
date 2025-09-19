@@ -155,6 +155,44 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
                 lustTimer = 0;
             }
         }
+
+        if(powerList[0] && powerTimer < 20)
+        {
+            switch (powerPos)
+            {
+                case 0:
+                    powerModel.GetComponent<MeshRenderer>().sharedMaterial.color =
+                        new Color(powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.r, powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.g,
+                        powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.b, (powerTimer / fireRate) * 0.6f);
+                    break;
+                case 1:
+                    powerModel.GetComponent<MeshRenderer>().sharedMaterial.color =
+                        new Color(powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.r, powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.g,
+                        powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.b, (powerTimer / lightningRate) * 0.6f);
+                    break;
+                case 2:
+                    powerModel.GetComponent<MeshRenderer>().sharedMaterial.color =
+                        new Color(powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.r, powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.g,
+                        powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.b, (powerTimer / iceRate) * 0.6f);
+                    break;
+                case 3:
+                    powerModel.GetComponent<MeshRenderer>().sharedMaterial.color =
+                        new Color(powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.r, powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.g,
+                        powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.b, (powerTimer / windRate) * 0.6f);
+                    break;
+                case 4:
+                    powerModel.GetComponent<MeshRenderer>().sharedMaterial.color =
+                        new Color(powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.r, powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.g,
+                        powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.b, (powerTimer / stoneRate) * 0.6f);
+                    break;
+            }
+            if (powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.a > 0.6f)
+            {
+                powerModel.GetComponent<MeshRenderer>().sharedMaterial.color =
+                        new Color(powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.r, powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.g,
+                        powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.b, 1);
+            }
+        }
     }
 
     void movement()
@@ -644,6 +682,10 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
                 }
                 break;
         }
+
+        powerModel.GetComponent<MeshRenderer>().sharedMaterial.color =
+            new Color(powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.r, powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.g,
+            powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.b, 0);
     }
 
 
@@ -827,11 +869,11 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
 
     public void freeze()
     {
-        throw new NotImplementedException();
+        gamemanager.instance.stateIceShock(true);
     }
 
     public void unfreeze()
     {
-        throw new NotImplementedException();
+        gamemanager.instance.stateIceShock(false);
     }
 }

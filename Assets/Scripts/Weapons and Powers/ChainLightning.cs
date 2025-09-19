@@ -6,7 +6,6 @@ public class ChainLightning : MonoBehaviour
     [SerializeField] int damageAmount;
     [SerializeField] float speed;
     [SerializeField] float expansion;
-    [SerializeField] Collider Collider;
 
     int chainCount;
     
@@ -23,7 +22,6 @@ public class ChainLightning : MonoBehaviour
         if(transform.localScale.x < expansion)
         {
             transform.localScale += Vector3.one * speed * Time.deltaTime;
-            Collider.transform.localScale += Vector3.one * speed * Time.deltaTime;
         }
         else
         {
