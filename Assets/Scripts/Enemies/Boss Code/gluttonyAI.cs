@@ -14,11 +14,14 @@ public class gluttonyAI : sinEnemy
 {
     [SerializeField] Transform jumpPos;
     [SerializeField] float jumpCooldown;
+    [SerializeField] float jumpRate;
 
     float jumpCooldownTimer;
+    float jumpTimer;
+    Vector3 startJumpPos;
+    Vector3 currPos;
     Vector3 playerLocationAtJump;
     bool isJumping;
-    bool isLanded;
 
     void Start()
     {
@@ -41,29 +44,35 @@ public class gluttonyAI : sinEnemy
         if (!isJumping)
         {
             if (playerInTrigger && canSeePlayer()) { }  // Checks if player is in the trigger and uses the canSeePlayer() method in the Enemy script.
+            currPos = transform.position;
+            startJumpPos = jumpPos.position;
         }
 
-        if (isAttacking && gamemanager.instance.GetPhase() != 3)
+        if (!isJumping && isAttacking)
         {
             meleeAttack();  // If the attack is happening then do a melee attack, I check this so the attack doesnt happen again until this is done.
         }
-        else if (isJumping && isAttacking && gamemanager.instance.GetPhase() == 3)
+        else if (isJumping && isAttacking)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
-            if (isLanded)
+            currPos = Vector3.Lerp(currPos, playerLocationAtJump, jumpTimer);
+            transform.position = currPos;
+            jumpTimer += Time.deltaTime * jumpRate;
+            if (transform.position.y <= 3.7f)
             {
-                meleeAttack();
+                jumpTimer = 0;
+                transform.position = new Vector3(currPos.x, 3.7f, currPos.z);
                 isJumping = false;
-                isLanded = false;
+                agent.stoppingDistance = stoppingDistOrig;
             }
         }
 
         if (isLowerred)
         {
             swingWeapon();
+            isJumping = false;
         }
 
-        if (gamemanager.instance.GetPhase() == 2)
+        if (gamemanager.instance.GetPhase() >= 2 && !isJumping)
         {
             rangedAttack();
         }
@@ -87,25 +96,31 @@ public class gluttonyAI : sinEnemy
     void jumpAttack()
     {
         jumpCooldownTimer += Time.deltaTime;
+        isAttacking = false;
 
         if(jumpCooldownTimer >= jumpCooldown)
         {
+            jumpTimer += Time.deltaTime * jumpRate;
             isJumping = true;
             agent.stoppingDistance = 0;
-            if (playerLocationAtJump == null) playerLocationAtJump = gamemanager.instance.player.transform.position;
-            transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
-            if (transform.position == jumpPos.position)
+            transform.position = Vector3.Lerp(currPos, startJumpPos, jumpTimer);
+            if (transform.position.y >= startJumpPos.y)
             {
                 isAttacking = true;
+                jumpTimer = 0;
                 jumpCooldownTimer = 0;
+                currPos = transform.position;
+                transform.position = currPos;
+                playerLocationAtJump = gamemanager.instance.playerScript.transform.position;
             }
         }
     }
 
-    protected override void OnTriggerEnter(Collider other)
+    public override void Attack()
     {
-        base.OnTriggerEnter(other);
-
-        if (other.CompareTag("Platform")) isLanded = true;
+        if (!isJumping)
+        {
+            base.Attack();
+        }
     }
 }
