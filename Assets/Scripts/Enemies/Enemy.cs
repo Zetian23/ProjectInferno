@@ -118,7 +118,7 @@ public class Enemy : MonoBehaviour, IDamage, IFreezable, ISavedData
     public virtual IEnumerator flashDamage()
     {
         model.material.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
         model.material.color = colorOrg;
     }
 

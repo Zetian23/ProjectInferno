@@ -1574,7 +1574,7 @@ GameObject:
   - component: {fileID: 1433150372868879176}
   m_Layer: 7
   m_Name: Devil_Red (Origin)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1626,6 +1626,10 @@ MonoBehaviour:
   attackPos: {fileID: 8760329123105245952}
   anim: {fileID: 1433150372868879176}
   animTranSpeed: 8
+  shockwave: {fileID: 0}
+  shockwaveRadius: 0
+  shockwaveDamage: 0
+  shockwavePos: {fileID: 0}
   isFroze: 0
   weapon: {fileID: 4899955644511866292, guid: 6f42f12b290b8fc42be544a367b394a8, type: 3}
   isMelee: 0

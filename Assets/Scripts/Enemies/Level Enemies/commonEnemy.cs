@@ -120,9 +120,11 @@ public class CommonEnemyScript : Enemy
         {
             if (!isFroze)
             {
-                if(agent.remainingDistance <= agent.stoppingDistance)
-                anim.SetTrigger("Attack");
-                meleeAttack();
+                if (agent.remainingDistance <= agent.stoppingDistance)
+                {
+                    anim.SetTrigger("Attack");
+                    meleeAttack();
+                }
             }
         }
         else
