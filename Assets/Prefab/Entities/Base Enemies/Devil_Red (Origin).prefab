@@ -1618,7 +1618,7 @@ MonoBehaviour:
   agent: {fileID: 6391723746366365653}
   headPos: {fileID: 8739141048277580261}
   HP: 50
-  faceTargetSpeed: 8
+  faceTargetSpeed: 16
   attackRate: 0.25
   attackDistance: 15
   attackDamage: 10

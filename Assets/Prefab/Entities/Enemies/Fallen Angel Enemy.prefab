@@ -2599,7 +2599,7 @@ MonoBehaviour:
   HP: 50
   faceTargetSpeed: 8
   attackRate: 0.75
-  attackDistance: 3
+  attackDistance: 5
   attackDamage: 20
   FOV: 90
   attackPos: {fileID: 701567939578132492}

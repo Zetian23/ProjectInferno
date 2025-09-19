@@ -96,6 +96,7 @@ public class flyingEnemyAI : Enemy
     {
         attackTimer = 0;
 
+
         if (bullet != null && attackPos != null)
                 Instantiate(bullet,attackPos.position, attackPos.rotation);
            

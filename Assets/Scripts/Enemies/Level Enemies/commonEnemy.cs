@@ -161,7 +161,7 @@ public class CommonEnemyScript : Enemy
     {
         if(expGained != null)
         {
-            expGained.gainEXP(5);
+            expGained.gainEXP(10);
             Debug.Log("EXP gained");
         }
         
