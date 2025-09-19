@@ -74,8 +74,15 @@ public class sinEnemy : Enemy
 
     protected void checkHealth(int phase1HealthMin, int phase2HealthMin)    // Checks health between phases.
     {
-        if (HP < phase1HealthMin) gamemanager.instance.SetPhase(2);    // If the health has gone lower than the first phase than change to phase two.
-        if (HP < phase2HealthMin) gamemanager.instance.SetPhase(3);    // If the health has gone lower than the second phase than change to phase three.
+        if (HP < phase1HealthMin) {
+            gamemanager.instance.SetPhase(2);    // If the health has gone lower than the first phase than change to phase two.
+            updateBossUI();
+        }
+        if (HP < phase2HealthMin)
+        {
+            gamemanager.instance.SetPhase(3);    // If the health has gone lower than the second phase than change to phase three.
+            updateBossUI();
+        }
     }
 
     public void updateBossUI()  // Used to change the health on the UI.
