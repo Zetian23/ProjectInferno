@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
 //Code written by brady (Movement-wise)
@@ -26,6 +27,11 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
     [SerializeField] int shootDist;
     [SerializeField] ParticleSystem shootEffect;
     [SerializeField] GameObject shootPos;
+    [SerializeField] AudioClip shootSound;
+    [SerializeField] AudioClip emptySound;
+    [SerializeField] AudioClip reloadSound;
+    [SerializeField] float recoil;
+    float reloadRate;
 
     //Weapon Model and Skin
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
@@ -102,12 +108,14 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
     float dashTimer;
     float activeDashTimer;
     float powerTimer;
+    float reloadTimer;
 
     int jumpCount;
     int HP;
     int weaponListpos;
 
     bool isDashing;
+    bool isReloading;
     bool hasAirDashed;
     bool hasPrideAdded = false;
     bool hasGluttAdded = false;
@@ -218,7 +226,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         playerVelocity.y -= gravity * Time.deltaTime;
 
 
-        if (Input.GetButton("Fire1") && weaponList.Count != 0 && shootTimer >= shootRate && (weaponList[weaponListpos].ammoCur != 0 || weaponList[weaponListpos].lazer))
+        if (Input.GetButton("Fire1") && weaponList.Count != 0 && shootTimer >= shootRate && !isReloading && !gamemanager.instance.isPaused)
         {
             shoot();
         }
@@ -234,9 +242,9 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         }
 
         //reload
-        if (Input.GetButton("Reload") && weaponList.Count != 0 && weaponList[weaponListpos].ammoCur != weaponList[weaponListpos].ammoMax)
+        if (Input.GetButtonDown("Reload") && weaponList.Count != 0 && weaponList[weaponListpos].ammoCur != weaponList[weaponListpos].ammoMax && !weaponList[weaponListpos].lazer)
         {
-            reload();
+            StartCoroutine(reload());
         }
 
         //Dash function
@@ -276,9 +284,17 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         }
     }
 
-    void reload()
+    IEnumerator reload()
     {
+        gunModel.GetComponent<AudioSource>().clip = reloadSound;
+        gunModel.GetComponent<AudioSource>().Play();
+        isReloading = true;
+        gunModel.transform.Rotate(new Vector3(90, 0, 0));
+        yield return new WaitForSeconds(weaponList[weaponListpos].reloadRate);
+        gunModel.transform.Rotate(new Vector3(-90, 0, 0));
         weaponList[weaponListpos].ammoCur = weaponList[weaponListpos].ammoMax;
+        gunModel.GetComponent<AudioSource>().clip = weaponList[weaponListpos].shootSound;
+        isReloading = false;
         updateGunUI();
     }
 
@@ -334,7 +350,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
     {
         shootTimer = 0;
 
-        if (!weaponList[weaponListpos].lazer)
+        if (!weaponList[weaponListpos].lazer && (weaponList[weaponListpos].ammoCur != 0))
         {
             weaponList[weaponListpos].ammoCur--;
 
@@ -371,11 +387,12 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
                     }
                 }
             }
+            gunModel.GetComponent<AudioSource>().Play();
             if (weaponList[weaponListpos].spread)
             {
-                float spread = 0.25f;
+                float spread = 1f;
 
-                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward + new Vector3(0, spread, 0), out hit, shootDist, ~ignoreLayer))
+                if (Physics.Raycast(Camera.main.transform.position + new Vector3(0, spread, 0), Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
                 {
                     //Debug.Log(hit.collider.name);
 
@@ -407,7 +424,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
                         }
                     }
                 }
-                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward + new Vector3(0, -spread, 0), out hit, shootDist, ~ignoreLayer))
+                if (Physics.Raycast(Camera.main.transform.position + new Vector3(0, -spread, 0), Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
                 {
                     //Debug.Log(hit.collider.name);
 
@@ -439,7 +456,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
                         }
                     }
                 }
-                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward + new Vector3(0, spread, spread), out hit, shootDist, ~ignoreLayer))
+                if (Physics.Raycast(Camera.main.transform.position + new Vector3(0, spread, spread), Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
                 {
                     //Debug.Log(hit.collider.name);
 
@@ -471,7 +488,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
                         }
                     }
                 }
-                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward + new Vector3(0, -spread, spread), out hit, shootDist, ~ignoreLayer))
+                if (Physics.Raycast(Camera.main.transform.position + new Vector3(0, -spread, spread), Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
                 {
                     //Debug.Log(hit.collider.name);
 
@@ -503,7 +520,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
                         }
                     }
                 }
-                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward + new Vector3(0, spread, -spread), out hit, shootDist, ~ignoreLayer))
+                if (Physics.Raycast(Camera.main.transform.position + new Vector3(0, spread, -spread), Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
                 {
                     //Debug.Log(hit.collider.name);
 
@@ -535,7 +552,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
                         }
                     }
                 }
-                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward + new Vector3(0, -spread, -spread), out hit, shootDist, ~ignoreLayer))
+                if (Physics.Raycast(Camera.main.transform.position + new Vector3(0, -spread, -spread), Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
                 {
                     //Debug.Log(hit.collider.name);
 
@@ -567,7 +584,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
                         }
                     }
                 }
-                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward + new Vector3(0, spread / 2, 0), out hit, shootDist, ~ignoreLayer))
+                if (Physics.Raycast(Camera.main.transform.position + new Vector3(0, 0, spread), Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
                 {
                     //Debug.Log(hit.collider.name);
 
@@ -599,7 +616,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
                         }
                     }
                 }
-                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward + new Vector3(0, -spread / 2, 0), out hit, shootDist, ~ignoreLayer))
+                if (Physics.Raycast(Camera.main.transform.position + new Vector3(0, 0, -spread), Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
                 {
                     //Debug.Log(hit.collider.name);
 
@@ -633,10 +650,18 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
                 }
             }
         }
-        else
+        else if (weaponList[weaponListpos].lazer)
         {
             Instantiate(lazerProjectile, shootPos.transform.position, Camera.main.transform.rotation);
+            gunModel.GetComponent<AudioSource>().Play();
         }
+        else
+        {
+            gunModel.GetComponent<AudioSource>().clip = emptySound;
+            gunModel.GetComponent<AudioSource>().Play();
+        }
+
+        updateGunUI();
     }
 
     void power()
@@ -770,11 +795,11 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         shootDist = weaponList[weaponListpos].shootDist;
         shootRate = weaponList[weaponListpos].shootRate;
         shootEffect = weaponList[weaponListpos].shootEffect;
-        
-        
 
         gunModel.GetComponent<MeshFilter>().sharedMesh = weaponList[weaponListpos].gunModel.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[weaponListpos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
+        gunModel.GetComponent<AudioSource>().clip = weaponList[weaponListpos].shootSound;
+        gunModel.GetComponent<AudioSource>().volume = weaponList[weaponListpos].shootVol;
     }
     
     void selectPower()
@@ -817,12 +842,6 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
             }
             equipPower();
         }
-    }
-
-    public void setPowerFromWheel(int Power)
-    {
-        powerPos = Power;
-        equipPower();
     }
 
     void equipPower()

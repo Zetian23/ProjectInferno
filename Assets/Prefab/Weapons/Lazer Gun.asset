@@ -18,9 +18,10 @@ MonoBehaviour:
   shootRate: 0.33
   ammoCur: 0
   ammoMax: 0
+  reloadRate: 0
   lazer: 1
   spread: 0
   headshots: 0
   shootEffect: {fileID: 8567743453655228817, guid: 212ef1a41838ce044a9ac54994866708, type: 3}
-  shootSound: {fileID: 0}
-  shootVol: 0.5
+  shootSound: {fileID: 8300000, guid: 1d608fe6bdf7162499b82b476ab86c0e, type: 3}
+  shootVol: 0.3

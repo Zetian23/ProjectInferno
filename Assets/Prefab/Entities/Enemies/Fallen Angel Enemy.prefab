@@ -2555,7 +2555,7 @@ GameObject:
   - component: {fileID: 4551031290360525340}
   m_Layer: 0
   m_Name: Fallen Angel Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2604,6 +2604,10 @@ MonoBehaviour:
   attackPos: {fileID: 701567939578132492}
   anim: {fileID: 4551031290360525340}
   animTranSpeed: 8
+  shockwave: {fileID: 0}
+  shockwaveRadius: 0
+  shockwaveDamage: 0
+  shockwavePos: {fileID: 0}
   isFroze: 0
   weapon: {fileID: 3354401941124468285, guid: 4693239b4751a284c8879765ed4759aa, type: 3}
   isMelee: 1
