@@ -100,6 +100,24 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
     [SerializeField] GameObject stone;
     [SerializeField] float stoneRate;
 
+
+    //UI for power wheel
+    [SerializeField] GameObject selectWheel;
+    //weapons
+    [SerializeField] GameObject weapon1Button;
+    [SerializeField] GameObject weapon2Button;
+    [SerializeField] GameObject weapon3Button;
+    [SerializeField] GameObject weapon4Button;
+    [SerializeField] GameObject weapon5Button;
+    //Powers
+    [SerializeField] GameObject fireButton;
+    [SerializeField] GameObject lightningButton;
+    [SerializeField] GameObject iceButton;
+    [SerializeField] GameObject windButton;
+    [SerializeField] GameObject stoneButton;
+
+
+
     Vector3 moveDirection;
     Vector3 dashDirection;
     Vector3 playerVelocity;
@@ -843,6 +861,28 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
             equipPower();
         }
     }
+    public void setPowerFromWheel(int Power)
+    {
+        powerPos = Power;
+        equipPower();
+    }
+
+    public void updatePowerWheel(int power)
+    {
+        switch (power)
+        {
+            case 0:
+                fireButton.SetActive(true);
+                break;
+
+        }
+    }
+
+    public void updateWeaponWheel()
+    {
+        //same but for weapon
+    }
+
 
     void equipPower()
     {
@@ -855,7 +895,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
     {
         powerList[powerID] = true;
         powerPos = powerID;
-        gamemanager.instance.updatePowerWheel(powerPos);
+        updatePowerWheel(powerPos);
         gamemanager.instance.DisplayPowerIcon(powerPos);
         equipPower();
 
