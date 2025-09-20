@@ -1156,7 +1156,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3770272942503149342}
-  - component: {fileID: 5572648237489978517}
+  - component: {fileID: 9002234607271633214}
   - component: {fileID: 6675039181276780033}
   - component: {fileID: 20884049279535654}
   - component: {fileID: 7650307462406289472}
@@ -1186,7 +1186,7 @@ Transform:
   - {fileID: 2290741007679315471}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5572648237489978517
+--- !u!114 &9002234607271633214
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1195,7 +1195,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3337997396714622698}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f895a683a8fe5ab4ba5e5a230276ce04, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a5bedbb3b3047c47b55f0fd528f132e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ignoreLayer:
@@ -1204,20 +1204,33 @@ MonoBehaviour:
   model: {fileID: 7708569823948824095}
   agent: {fileID: 6675039181276780033}
   headPos: {fileID: 747103168127543911}
-  HP: 20
+  HP: 50
   faceTargetSpeed: 8
-  attackRate: 1.1
-  attackDistance: 20
-  attackDamage: 20
+  attackRate: 1
+  attackDistance: 3
+  attackDamage: 10
   FOV: 90
   attackPos: {fileID: 8734794291921730348}
+  anim: {fileID: 20884049279535654}
+  animTranSpeed: 10
+  shockwave: {fileID: 0}
+  shockwaveRadius: 0
+  shockwaveDamage: 0
+  shockwavePos: {fileID: 0}
+  isFroze: 0
   weapon: {fileID: 3354401941124468285, guid: 4693239b4751a284c8879765ed4759aa, type: 3}
   isMelee: 1
   roamDist: 15
   roamPauseTimer: 3
-  anim: {fileID: 20884049279535654}
-  animTranSpeed: 8
   expGained: {fileID: 0}
+  dodgeDist: 0
+  dodgeSpeed: 0
+  dodgeCooldown: 0
+  dodgeTime: 0
+  maxReanimations: 3
+  reanimateDelay: 5
+  reanimateAnimTime: 2
+  reanimateHP: 30
 --- !u!195 &6675039181276780033
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1228,8 +1241,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: -334000983
   m_Radius: 0.6
-  m_Speed: 3
-  m_Acceleration: 15
+  m_Speed: 5
+  m_Acceleration: 32
   avoidancePriority: 50
   m_AngularSpeed: 600
   m_StoppingDistance: 2

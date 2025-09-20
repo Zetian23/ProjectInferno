@@ -74,7 +74,7 @@ public class CommonEnemyScript : Enemy
     void setAnimLoco()
     {
         
-        float agentSpeedCur = agent.velocity.normalized.magnitude;
+        float agentSpeedCur = agent.velocity.magnitude;
         float animSpeedCur = anim.GetFloat("Speed");
 
         anim.SetFloat("Speed", Mathf.Lerp(animSpeedCur, agentSpeedCur, Time.deltaTime * animTranSpeed));
@@ -120,6 +120,7 @@ public class CommonEnemyScript : Enemy
         {
             if (!isFroze)
             {
+                if(agent.remainingDistance <= agent.stoppingDistance)
                 anim.SetTrigger("Attack");
                 meleeAttack();
             }
