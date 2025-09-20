@@ -2785,7 +2785,7 @@ GameObject:
   - component: {fileID: 3423141291557828445}
   - component: {fileID: 1103226211855129901}
   - component: {fileID: 2604728081106562533}
-  m_Layer: 15
+  m_Layer: 7
   m_Name: Fallen Angel Enemy 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
