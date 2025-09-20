@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using NUnit.Framework.Internal;
 using JetBrains.Annotations;
+using System.Collections;
 
 public class gamemanager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class gamemanager : MonoBehaviour
     [SerializeField] TMP_Text tutorialText;
     [SerializeField] TMP_Text ammoCurrentText;
     [SerializeField] TMP_Text ammoMaxText;
+    [SerializeField] TMP_Text reloadMessage;
     //[SerializeField] TMP_Text meleeEnemyCountText;
     //[SerializeField] TMP_Text rangedEnemyCountText;
     [SerializeField] TMP_Text bossEnemyCountText;
@@ -107,9 +109,7 @@ public class gamemanager : MonoBehaviour
             }
         }
 
-        //I plan on removing these two from update.
-        ammoCurrentText.text = playerAmmoCur.ToString("F0");
-        ammoMaxText.text = playerAmmoMax.ToString("F0");
+        displayAmmoConut();
     }
 
 
@@ -172,6 +172,21 @@ public class gamemanager : MonoBehaviour
         tutorialText.text = message;
         TutorialBox.SetActive(true);
     }
+
+    public void displayAmmoConut()
+    {
+        reloadMessage.enabled = false;
+
+        ammoCurrentText.text = playerAmmoCur.ToString("F0") + " / " + playerAmmoMax.ToString("F0");
+
+        if (playerAmmoCur == 0 && playerAmmoMax != 0)
+        {
+            reloadMessage.enabled = true;
+
+        }
+    }
+
+
 
     
     public void DisplayPowerIcon(int power)
@@ -258,5 +273,12 @@ public class gamemanager : MonoBehaviour
         menuActive.SetActive(true);
 
     }
+
+    //IEnumerator flashReloadText()
+    //{
+    //    reloadMessage.enabled = true;
+    //    yield return new WaitForSeconds(0.3f);
+    //    reloadMessage.enabled = false;
+    //}
 }
 
