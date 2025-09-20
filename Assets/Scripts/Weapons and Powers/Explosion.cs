@@ -6,7 +6,6 @@ public class Explosion : MonoBehaviour
     [SerializeField] int damageAmount;
     [SerializeField] float speed;
     [SerializeField] float expansion;
-    [SerializeField] Collider Collider;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,7 +19,6 @@ public class Explosion : MonoBehaviour
         if(transform.localScale.x < expansion)
         {
             transform.localScale += Vector3.one * speed * Time.deltaTime;
-            Collider.transform.localScale += Vector3.one * speed * Time.deltaTime;
         }
         else
         {

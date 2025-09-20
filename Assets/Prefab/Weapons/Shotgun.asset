@@ -14,13 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunModel: {fileID: 7311155808425219379, guid: 07a9029124b5d81489fccaa712951172, type: 3}
   shootDamage: 15
-  shootDist: 50
+  shootDist: 20
   shootRate: 0.75
-  ammoCur: 0
+  ammoCur: 3
   ammoMax: 6
+  reloadRate: 0.75
   lazer: 0
   spread: 1
   headshots: 0
   shootEffect: {fileID: 8567743453655228817, guid: 212ef1a41838ce044a9ac54994866708, type: 3}
-  shootSound: {fileID: 0}
-  shootVol: 0.5
+  shootSound: {fileID: 8300000, guid: 9ca4be1556ebe214a95242b6600b405c, type: 3}
+  shootVol: 0.65

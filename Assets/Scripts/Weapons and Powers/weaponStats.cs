@@ -10,6 +10,7 @@ public class weaponStats : ScriptableObject
     public float shootRate;
     public int ammoCur;
     public int ammoMax;
+    public float reloadRate;
 
     public bool lazer;
     public bool spread;

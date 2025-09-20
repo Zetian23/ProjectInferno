@@ -14,7 +14,7 @@ public class shockwaveController : MonoBehaviour
     {
         sphere = GetComponent<SphereCollider>();
 
-        if(sphere == null )
+        if(sphere == null)
         {
             sphere = gameObject.AddComponent<SphereCollider>();
             sphere.isTrigger = true;

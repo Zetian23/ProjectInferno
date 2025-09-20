@@ -5,6 +5,8 @@ using System.Xml.Serialization;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using NUnit.Framework.Internal;
+using JetBrains.Annotations;
+using System.Collections;
 
 public class gamemanager : MonoBehaviour
 {
@@ -21,6 +23,7 @@ public class gamemanager : MonoBehaviour
     [SerializeField] TMP_Text tutorialText;
     [SerializeField] TMP_Text ammoCurrentText;
     [SerializeField] TMP_Text ammoMaxText;
+    [SerializeField] TMP_Text reloadMessage;
     //[SerializeField] TMP_Text meleeEnemyCountText;
     //[SerializeField] TMP_Text rangedEnemyCountText;
     [SerializeField] TMP_Text bossEnemyCountText;
@@ -44,6 +47,8 @@ public class gamemanager : MonoBehaviour
     public GameObject iceIcon;
     public GameObject windIcon;
     public GameObject stoneIcon;
+
+    public GameObject iceTint;
 
 
     public List<Image> bossHPBar;
@@ -104,10 +109,10 @@ public class gamemanager : MonoBehaviour
             }
         }
 
-        //I plan on removing these two from update.
-        ammoCurrentText.text = playerAmmoCur.ToString("F0");
-        ammoMaxText.text = playerAmmoMax.ToString("F0");
+        displayAmmoConut();
     }
+
+
 
     public void statePause()
     {
@@ -168,6 +173,22 @@ public class gamemanager : MonoBehaviour
         TutorialBox.SetActive(true);
     }
 
+    public void displayAmmoConut()
+    {
+        reloadMessage.enabled = false;
+
+        ammoCurrentText.text = playerAmmoCur.ToString("F0") + " / " + playerAmmoMax.ToString("F0");
+
+        if (playerAmmoCur == 0 && playerAmmoMax != 0)
+        {
+            reloadMessage.enabled = true;
+
+        }
+    }
+
+
+
+    
     public void DisplayPowerIcon(int power)
     {
         if (currentIcon != null) { 
@@ -211,6 +232,22 @@ public class gamemanager : MonoBehaviour
 
     }
 
+    public void stateIceShock (bool active)
+    {
+        iceTint.SetActive(active); 
+    }
+
+    public void updatePowerWheel(int power)
+    {
+        //Display button to select power when acquired.
+
+    }
+
+    public void updateWeaponWheel()
+    {
+        //same but for weapon
+    }
+
     public void SetPhase(int phase) { currBossPhase = phase; }
     public int GetPhase() { return currBossPhase; }
 
@@ -234,6 +271,14 @@ public class gamemanager : MonoBehaviour
         menuActive.SetActive(false);
         menuActive = menuLoad;
         menuActive.SetActive(true);
+
     }
+
+    //IEnumerator flashReloadText()
+    //{
+    //    reloadMessage.enabled = true;
+    //    yield return new WaitForSeconds(0.3f);
+    //    reloadMessage.enabled = false;
+    //}
 }
 
