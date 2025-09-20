@@ -395,7 +395,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: a2c255f835a5f984a931e730b1ed4a95, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -472,7 +472,7 @@ MonoBehaviour:
   agent: {fileID: 3177006938024141449}
   headPos: {fileID: 6911566888059824998}
   HP: 50
-  faceTargetSpeed: 8
+  faceTargetSpeed: 10
   attackRate: 0.25
   attackDistance: 10
   attackDamage: 15
@@ -549,8 +549,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 5
-  m_Speed: 3.5
-  m_Acceleration: 16
+  m_Speed: 8
+  m_Acceleration: 32
   avoidancePriority: 50
   m_AngularSpeed: 600
   m_StoppingDistance: 15
@@ -705,7 +705,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: a2c255f835a5f984a931e730b1ed4a95, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -902,7 +902,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: a2c255f835a5f984a931e730b1ed4a95, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -1011,7 +1011,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: a2c255f835a5f984a931e730b1ed4a95, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
