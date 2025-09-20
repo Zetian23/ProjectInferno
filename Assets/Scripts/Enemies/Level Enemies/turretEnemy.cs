@@ -28,10 +28,7 @@ public class turretEnemy : CommonEnemyScript
             if(angleToPlayer <= FOV / 2 && dirToPlayer.magnitude <= detRange)
             {
                 RotateBarrel(dirToPlayer);
-                if(FOV == 360)
-                {
-                    faceTarget();
-                }
+               
                 if (fireCooldown <= 0)
                 {
                     Attack();
@@ -43,7 +40,11 @@ public class turretEnemy : CommonEnemyScript
 
     private void RotateBarrel(Vector3 targetDir)
     {
-        
+        if(FOV == 360)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(targetDir, Vector3.up);
+            barrel.rotation = Quaternion.Lerp(barrel.rotation, lookRotation, faceTargetSpeed * Time.deltaTime);
+        }
 
         Vector3 horizonDir = targetDir;
         horizonDir.y = 0;
