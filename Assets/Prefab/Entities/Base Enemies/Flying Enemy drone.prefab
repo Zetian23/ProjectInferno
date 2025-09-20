@@ -419,9 +419,9 @@ GameObject:
   - component: {fileID: 3177006938024141449}
   - component: {fileID: 6972544761296557606}
   - component: {fileID: 3957903487309092158}
-  m_Layer: 13
+  m_Layer: 7
   m_Name: Flying Enemy drone
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
