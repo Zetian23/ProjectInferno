@@ -95,7 +95,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 163388894230637321}
   m_Enabled: 1
-  m_AgentTypeID: 1479372276
+  m_AgentTypeID: -334000983
   m_Radius: 25
   m_Speed: 3.5
   m_Acceleration: 0
@@ -106,8 +106,8 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 20
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_BaseOffset: 5
+  m_WalkableMask: 2
   m_ObstacleAvoidanceType: 4
 --- !u!95 &4101131552221858647
 Animator:
@@ -187,7 +187,7 @@ GameObject:
   - component: {fileID: 6373871095825781119}
   - component: {fileID: 6084142026969010096}
   - component: {fileID: 4955105539203328882}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Stand
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -296,9 +296,9 @@ GameObject:
   - component: {fileID: 3355546878028982052}
   - component: {fileID: 7005102348280994845}
   - component: {fileID: 4061800476690666923}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MGMain
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

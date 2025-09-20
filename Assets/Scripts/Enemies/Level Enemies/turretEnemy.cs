@@ -91,7 +91,7 @@ public class turretEnemy : CommonEnemyScript
         {
 
             HP -= amount;
-            agent.SetDestination(gamemanager.instance.player.transform.position);
+           // agent.SetDestination(gamemanager.instance.player.transform.position);
             StartCoroutine(flashDamage());
         }
         if (HP <= 0)
