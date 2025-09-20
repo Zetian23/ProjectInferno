@@ -55,7 +55,7 @@ public class flyingEnemyAI : Enemy
 
         Vector3 targetPos = playerPos - dir * stoppingDist;
         targetPos.y = playerPos.y + hoverHeight;
-        transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
+       transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
 
         if(dist > stoppingDist)
         {
@@ -96,6 +96,7 @@ public class flyingEnemyAI : Enemy
     {
         attackTimer = 0;
 
+
         if (bullet != null && attackPos != null)
                 Instantiate(bullet,attackPos.position, attackPos.rotation);
            
@@ -107,7 +108,7 @@ public class flyingEnemyAI : Enemy
         if (HP > 0)
         {
             HP -= amount;
-            //agent.SetDestination(gamemanager.instance.player.transform.position);
+            agent.SetDestination(gamemanager.instance.player.transform.position);
             StartCoroutine(flashDamage());
         }
         if(HP <= 0)
