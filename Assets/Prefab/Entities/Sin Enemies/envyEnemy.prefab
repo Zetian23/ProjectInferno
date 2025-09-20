@@ -917,18 +917,19 @@ MonoBehaviour:
   attackDistance: 10
   attackDamage: 5
   FOV: 180
-  attackPos: {fileID: 992886126038499885}
+  attackPos: {fileID: 4467812886515824464}
   anim: {fileID: 0}
   animTranSpeed: 0
   shockwave: {fileID: 0}
   shockwaveRadius: 0
   shockwaveDamage: 0
   shockwavePos: {fileID: 0}
+  HPOrig: 0
   isFroze: 0
   rotTime: 0
   xRotAngle: 0
   weaponPos: {fileID: 5890835143419008110}
-  projectile: {fileID: 0}
+  projectile: {fileID: 2323212411500108330, guid: 04d5f56e8234c1c4d9d3addf47a62373, type: 3}
   skinObjects:
   - {fileID: 8689818065518775689}
   - {fileID: 1980408673470808980}
@@ -938,7 +939,8 @@ MonoBehaviour:
   weakSpotHit: 0
   isLust: 0
   isKilled: 0
-  lasers: {fileID: 2323212411500108330, guid: 04d5f56e8234c1c4d9d3addf47a62373, type: 3}
+  phase3Laser: {fileID: 2198588399811174463, guid: 5e4839553ad3a464cb1ea908ad8947b2, type: 3}
+  downTurretsTime: 30
 --- !u!195 &7660235504891288021
 NavMeshAgent:
   m_ObjectHideFlags: 0

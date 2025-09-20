@@ -1,22 +1,32 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 // Code Written By Nathaniel King <3
 
 // Phase 1: (HP >= 500)
-// Slam Attack          | Club swings then attacks the player in a radius around it.
+// Reactivate           | Turrets in the boss areana will reactivate after a time if been downed. Also boss has ranged attacks.
 // Phase 2: (HP >= 250)
-// Projectiles          | When the boss attacks it will also do ranged attacks if the player is out of the melee range.
+// Long Lasers          | When the boss attacks it will also do ranged attacks if the player is out of the melee range.
 // Phase 3: (HP < 250)
-// Jumping Slam Attack  | The boss will have a cool down that makes it jump in the air then doing a larger area of splash damage.
+// Shockwave Laser      | When the boss shoots lasers they will blow up where it lands.
 
 public class envyAI : sinEnemy
 {
-    [SerializeField] GameObject lasers;
+    [SerializeField] GameObject phase3Laser;
+    [SerializeField] float downTurretsTime;
+
+    List<turretEnemy> turretList;
+    float downTurretsTimer;
 
     void Start()
     {
         InitVar(); // This calls the method in sinEnemy that initializes all fields in that script needed for this.
 
         isAttacking = false;            // Initializing that an attack is not happening.
+
+        IEnumerable<turretEnemy> list = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<turretEnemy>();
+        turretList = new List<turretEnemy>(list);
 
         gamemanager.instance.SetBossText("Envy");                       // Setting the boss nametag to "Wrath".
         gamemanager.instance.boss = gamemanager.bossType.envy;          // Setting the bossType to the Wrath Boss.
@@ -31,11 +41,31 @@ public class envyAI : sinEnemy
         checkHealth(500, 250);   // Checks the phases between the health periods.
 
         if (playerInTrigger && canSeePlayer()) { }  // Checks if player is in the trigger and uses the canSeePlayer() method in the Enemy script.
+
+        if (isAttacking)
+        {
+            rangedAttack();
+        }
+
+        if (gamemanager.instance.GetPhase() == 3) projectile = phase3Laser;
+
+        CheckTurrets();
     }
 
-    public override void Attack()
+    private void CheckTurrets()
     {
-        attackTimer = 0;
-        Instantiate(lasers, new Vector3(attackPos.position.x, attackPos.position.y + 1, attackPos.position.z), transform.rotation);
+        downTurretsTimer += Time.deltaTime;
+        if (downTurretsTimer >= downTurretsTime)
+        {
+            for (int i = 0; i < turretList.Count; i++)
+            {
+                if (turretList[i].isDown)
+                {
+                    turretList[i].HP = turretList[i].HPOrig;
+                    turretList[i].isDown = false;
+                }
+            }
+            downTurretsTimer = 0;
+        }
     }
 }
