@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: edee43fb1df938b4fb55082dec67a9ea, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: b82812c14d7fe4b419ef8a30bea3b5e2, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -241,7 +241,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8335388588316077057, guid: bc9529e390bd8cb43bd222d4c86711b3, type: 3}
       propertyPath: currLevel
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8335388588316077057, guid: bc9529e390bd8cb43bd222d4c86711b3, type: 3}
       propertyPath: bossNameText
@@ -653,7 +653,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4765901363997183041, guid: 7f1512b61832ae045926fa05785d3425, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 82.81763
+      value: 69.7
       objectReference: {fileID: 0}
     - target: {fileID: 4765901363997183041, guid: 7f1512b61832ae045926fa05785d3425, type: 3}
       propertyPath: m_LocalPosition.y

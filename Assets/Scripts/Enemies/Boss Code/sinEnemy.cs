@@ -9,6 +9,7 @@ public class sinEnemy : Enemy
     [SerializeField] protected float rotTime;                   
     [SerializeField] protected float xRotAngle;                 
     [SerializeField] GameObject weaponPos;                        
+    [SerializeField] GameObject projectile;                        
     [SerializeField] protected List<Renderer> skinObjects;              // This is for all the parts that will flash when damaged.
 
     protected Color emissionColorOrig;  // This is the original emission color of the skin.
@@ -73,8 +74,15 @@ public class sinEnemy : Enemy
 
     protected void checkHealth(int phase1HealthMin, int phase2HealthMin)    // Checks health between phases.
     {
-        if (HP < phase1HealthMin) gamemanager.instance.SetPhase(2);    // If the health has gone lower than the first phase than change to phase two.
-        if (HP < phase2HealthMin) gamemanager.instance.SetPhase(3);    // If the health has gone lower than the second phase than change to phase three.
+        if (HP < phase1HealthMin) {
+            gamemanager.instance.SetPhase(2);    // If the health has gone lower than the first phase than change to phase two.
+            updateBossUI();
+        }
+        if (HP < phase2HealthMin)
+        {
+            gamemanager.instance.SetPhase(3);    // If the health has gone lower than the second phase than change to phase three.
+            updateBossUI();
+        }
     }
 
     public void updateBossUI()  // Used to change the health on the UI.
@@ -144,6 +152,13 @@ public class sinEnemy : Enemy
             Instantiate(shockwave, shockwavePos.position, Quaternion.identity);
         }
         if (isLowerred) StartCoroutine(swingWeapon());    // If the sword has been lowered then raise the sword back to startingLocalRotaion.
+    }
+
+    protected virtual void rangedAttack()
+    {
+        Vector3 playerUp = gamemanager.instance.player.transform.position - attackPos.position;
+        Vector3 playerUpward = new Vector3(playerUp.x, playerUp.y - Vector3.Angle(playerUp, attackPos.up), playerUp.z);
+        Instantiate(projectile, attackPos.position, Quaternion.LookRotation(playerUp, attackPos.up));
     }
 
     public override void Attack()   // Once attackRate is equal to the attackTimer this will be called if the player is in the line of sight of the boss.

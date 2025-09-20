@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour, IDamage, IFreezable, ISavedData
 
     [SerializeField] public Renderer model;        // The enemies renderer made for that enemy or enemy prefab
     [SerializeField] public NavMeshAgent agent;    // The agent that seperate enemies will have to have pathing
-    [SerializeField] Transform headPos;
+    [SerializeField] public Transform headPos;
 
     [SerializeField] public int HP;
 
@@ -98,16 +98,15 @@ public class Enemy : MonoBehaviour, IDamage, IFreezable, ISavedData
         attackTimer = 0;// Reset the timer so that the attack will happen again after a period of time.
 
           RaycastHit hit;
-            if (Physics.Raycast(headPos.position, playerDirection, out hit, attackDistance, ~ignoreLayer)) // Draws a ling with the attackDistance to see if the player is within the distance.
-            {
+          if (Physics.Raycast(headPos.position, playerDirection, out hit, attackDistance, ~ignoreLayer)) // Draws a ling with the attackDistance to see if the player is within the distance.
+          {
                 IDamage dmg = hit.collider.GetComponent<IDamage>(); // Initializing the IDamage script.
 
                 if (dmg != null)    // Checks if the thing collided took damage.
                 {
                     dmg.takeDamage(attackDamage);   // Make the player take damage.
                 }
-            }
-        
+          }
     }
 
     virtual public void faceTarget() { }    // Basic method that keeps the enemy faced to the player after the enemy is at the desired position,

@@ -6,6 +6,7 @@ public class ChainLightning : MonoBehaviour
     [SerializeField] int damageAmount;
     [SerializeField] float speed;
     [SerializeField] float expansion;
+    [SerializeField] AudioSource audio;
 
     int chainCount;
     
@@ -37,6 +38,7 @@ public class ChainLightning : MonoBehaviour
         {
             if(other.transform.position != transform.position)
             {
+                audio.Play();
                 damage.takeDamage(damageAmount);
                 transform.position = other.transform.position;
                 transform.localScale = Vector3.one;
