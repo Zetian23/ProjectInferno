@@ -874,7 +874,18 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
             case 0:
                 fireButton.SetActive(true);
                 break;
-
+            case 1:
+                lightningButton.SetActive(true);
+                break;
+            case 2:
+                iceButton.SetActive(true);
+                break;
+            case 3:
+                windButton.SetActive(true);
+                break;
+            case 4:
+                stoneButton.SetActive(true);
+                break;
         }
     }
 

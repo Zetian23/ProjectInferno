@@ -207,6 +207,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4775431028192608557, guid: 405ffa42b67ae2545a318cf82309f32f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775431028192608557, guid: 405ffa42b67ae2545a318cf82309f32f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: newGame
+      objectReference: {fileID: 0}
     - target: {fileID: 5075104041166361047, guid: 405ffa42b67ae2545a318cf82309f32f, type: 3}
       propertyPath: m_Name
       value: Title Screen
