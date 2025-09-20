@@ -237,17 +237,6 @@ public class gamemanager : MonoBehaviour
         iceTint.SetActive(active); 
     }
 
-    public void updatePowerWheel(int power)
-    {
-        //Display button to select power when acquired.
-
-    }
-
-    public void updateWeaponWheel()
-    {
-        //same but for weapon
-    }
-
     public void SetPhase(int phase) { currBossPhase = phase; }
     public int GetPhase() { return currBossPhase; }
 
