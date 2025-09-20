@@ -120,9 +120,11 @@ public class CommonEnemyScript : Enemy
         {
             if (!isFroze)
             {
-                if(agent.remainingDistance <= agent.stoppingDistance)
-                anim.SetTrigger("Attack");
-                meleeAttack();
+                if (agent.remainingDistance <= agent.stoppingDistance)
+                {
+                    anim.SetTrigger("Attack");
+                    meleeAttack();
+                }
             }
         }
         else
@@ -159,7 +161,7 @@ public class CommonEnemyScript : Enemy
     {
         if(expGained != null)
         {
-            expGained.gainEXP(5);
+            expGained.gainEXP(10);
             Debug.Log("EXP gained");
         }
         
