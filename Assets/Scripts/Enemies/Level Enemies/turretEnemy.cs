@@ -17,26 +17,24 @@ public class turretEnemy : CommonEnemyScript
     void Start()
     {
         HPOrig = HP;
+        colorOrg = model.material.color;
     }
 
     // Update is called once per frame
     void Update()
     {
+        fireCooldown -= Time.deltaTime;
 
+        if (canSeePlayer() && playerInTrigger)
         {
-            fireCooldown -= Time.deltaTime;
+            RotateBarrel(gamemanager.instance.player.transform.position - transform.position);
 
-            if (canSeePlayer() && playerInTrigger)
-            {
-                RotateBarrel(gamemanager.instance.player.transform.position - transform.position);
-            }
             if (fireCooldown <= 0)
             {
                 Attack();
             }
         }
     }
-
 
     private void RotateBarrel(Vector3 targetDir)
     {
@@ -94,7 +92,6 @@ public class turretEnemy : CommonEnemyScript
         {
 
             HP -= amount;
-           // agent.SetDestination(gamemanager.instance.player.transform.position);
             StartCoroutine(flashDamage());
         }
         if (HP <= 0)

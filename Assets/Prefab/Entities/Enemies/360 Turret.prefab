@@ -430,6 +430,7 @@ MonoBehaviour:
   shockwaveRadius: 0
   shockwaveDamage: 0
   shockwavePos: {fileID: 0}
+  HPOrig: 0
   isFroze: 0
   weapon: {fileID: 4899955644511866292, guid: 6f42f12b290b8fc42be544a367b394a8, type: 3}
   isMelee: 0
@@ -442,11 +443,12 @@ MonoBehaviour:
   dodgeTime: 0
   detRange: 50
   bullet: {fileID: 4899955644511866292, guid: 6f42f12b290b8fc42be544a367b394a8, type: 3}
-  bulletLife: 2.5
+  bulletLife: 1.5
   fireRate: 8
   fireCooldown: 0
   barrel: {fileID: 626108848067455686}
-  bulletSpeed: 10
+  bulletSpeed: 5
+  isDown: 0
 --- !u!195 &6016064758997899911
 NavMeshAgent:
   m_ObjectHideFlags: 0
