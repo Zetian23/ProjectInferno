@@ -22,30 +22,13 @@ public class turretEnemy : CommonEnemyScript
     // Update is called once per frame
     void Update()
     {
-        if (!isDown)
+
         {
             fireCooldown -= Time.deltaTime;
 
             if (canSeePlayer() && playerInTrigger)
             {
-                Vector3 dirToPlayer = gamemanager.instance.player.transform.position - transform.position;
-                Vector3 horizonDir = dirToPlayer;
-                horizonDir.y = 0;
 
-                float angleToPlayer = Vector3.Angle(transform.forward, horizonDir);
-
-                if (angleToPlayer <= FOV / 2 && dirToPlayer.magnitude <= detRange)
-                {
-                    RotateBarrel(dirToPlayer);
-                    if (FOV == 360)
-                    {
-                        faceTarget();
-                    }
-                    if (fireCooldown <= 0)
-                    {
-                        Attack();
-                    }
-                }
             }
         }
     }
@@ -53,7 +36,11 @@ public class turretEnemy : CommonEnemyScript
 
     private void RotateBarrel(Vector3 targetDir)
     {
-        
+        if(FOV == 360)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(targetDir, Vector3.up);
+            barrel.rotation = Quaternion.Lerp(barrel.rotation, lookRotation, faceTargetSpeed * Time.deltaTime);
+        }
 
         Vector3 horizonDir = targetDir;
         horizonDir.y = 0;
@@ -103,7 +90,7 @@ public class turretEnemy : CommonEnemyScript
         {
 
             HP -= amount;
-            agent.SetDestination(gamemanager.instance.player.transform.position);
+           // agent.SetDestination(gamemanager.instance.player.transform.position);
             StartCoroutine(flashDamage());
         }
         if (HP <= 0)
