@@ -17,7 +17,7 @@ public class turretEnemy : CommonEnemyScript
     {
         fireCooldown -= Time.deltaTime;
 
-        if (canSeePlayer() && playerInTrigger)
+        if (playerInTrigger)
         {
             Vector3 dirToPlayer = gamemanager.instance.player.transform.position - transform.position;
             Vector3 horizonDir = dirToPlayer;
