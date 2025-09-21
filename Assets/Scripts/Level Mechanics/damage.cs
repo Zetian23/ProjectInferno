@@ -4,14 +4,16 @@ using System.Collections;
 // Code added by Naseem will be commented with "-N"
 public class damage : MonoBehaviour
 {
-    enum damageType { moving, stationary, DOT, homing, death, jav, prideShot }
+    enum damageType { moving, stationary, DOT, homing, death, jav, prideShot, laser }
     [SerializeField] damageType type;
     [SerializeField] Rigidbody rb;
+    [SerializeField] GameObject shockwave;
 
     [SerializeField] int damageAmount;
     [SerializeField] float damageRate;
     [SerializeField] int speed;
     [SerializeField] int destroyTime;
+    [SerializeField] bool laserShockwave;
 
     bool isGrounded;
 
@@ -21,11 +23,11 @@ public class damage : MonoBehaviour
     void Start()
     {
         isGrounded = false;
-        if (type == damageType.moving || type == damageType.homing)
+        if (type == damageType.moving || type == damageType.homing || type == damageType.laser)
         {
             Destroy(gameObject, destroyTime);
 
-            if (type == damageType.moving)
+            if (type == damageType.moving || type == damageType.laser)
             {
                 rb.linearVelocity = transform.forward * speed;
             }
@@ -58,8 +60,9 @@ public class damage : MonoBehaviour
             damage.takeDamage(777);
         }
 
-        if (type == damageType.moving || type == damageType.homing)
+        if (type == damageType.moving || type == damageType.homing || type == damageType.laser)
         {
+            if(laserShockwave) Instantiate(shockwave, gameObject.transform.position, gameObject.transform.rotation);
             Destroy(gameObject);
         }
 

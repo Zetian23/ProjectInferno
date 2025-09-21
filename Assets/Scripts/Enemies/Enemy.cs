@@ -6,10 +6,10 @@ using System.Collections;
 public class Enemy : MonoBehaviour, IDamage, IFreezable, ISavedData
 {
     // These SerializedField will show up in any enemy that inherits from this parent
-    [SerializeField] protected LayerMask ignoreLayer;   // This is set for anything that needs to be ignored in the attacks.
+    [SerializeField] protected LayerMask ignoreLayer;
 
-    [SerializeField] public Renderer model;        // The enemies renderer made for that enemy or enemy prefab
-    [SerializeField] public NavMeshAgent agent;    // The agent that seperate enemies will have to have pathing
+    [SerializeField] public Renderer model;
+    [SerializeField] public NavMeshAgent agent;
     [SerializeField] public Transform headPos;
 
     [SerializeField] public int HP;
@@ -30,20 +30,21 @@ public class Enemy : MonoBehaviour, IDamage, IFreezable, ISavedData
     [SerializeField] protected Transform shockwavePos;
     protected Color colorOrg;
 
-    protected Vector3 playerDirection;         // In the child classes this will be used to update in that class based on the player direction.
+    protected Vector3 playerDirection;
 
-    protected float attackTimer;               // Each enemy will have different time it takes to attack.
+    protected float attackTimer;
     protected float angleToPlayer;
     protected float stoppingDistOrig;
     protected float startSpeed;
     protected float ogAnimSpeed;
+    public int HPOrig;
     protected int ogAttackDam;
    
     //for freeze
     public bool isFroze = false;
     private float ogSpeed = 0;
 
-    protected bool playerInTrigger;            // Player enters the area where the enemy will be aware of the player.
+    protected bool playerInTrigger;
 
     public bool canSeePlayer()
     {
@@ -53,7 +54,6 @@ public class Enemy : MonoBehaviour, IDamage, IFreezable, ISavedData
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDirection, out hit))
         {
-            // Hey I can see you!!!
             if (hit.collider.CompareTag("Player") && angleToPlayer <= FOV)
             {
                 if(gamemanager.instance.currBoss != 5)
@@ -93,26 +93,25 @@ public class Enemy : MonoBehaviour, IDamage, IFreezable, ISavedData
         }
     }
 
-    protected virtual void meleeAttack()  // Base attack for when the boss is close up attacking.
+    protected virtual void meleeAttack()
     {
-        attackTimer = 0;// Reset the timer so that the attack will happen again after a period of time.
+        attackTimer = 0;
 
           RaycastHit hit;
-          if (Physics.Raycast(headPos.position, playerDirection, out hit, attackDistance, ~ignoreLayer)) // Draws a ling with the attackDistance to see if the player is within the distance.
+          if (Physics.Raycast(headPos.position, playerDirection, out hit, attackDistance, ~ignoreLayer))
           {
-                IDamage dmg = hit.collider.GetComponent<IDamage>(); // Initializing the IDamage script.
+                IDamage dmg = hit.collider.GetComponent<IDamage>();
 
-                if (dmg != null)    // Checks if the thing collided took damage.
+                if (dmg != null)
                 {
-                    dmg.takeDamage(attackDamage);   // Make the player take damage.
+                    dmg.takeDamage(attackDamage);
                 }
           }
     }
 
-    virtual public void faceTarget() { }    // Basic method that keeps the enemy faced to the player after the enemy is at the desired position,
-                                            // this will have logic in the update of the child enemy script.
-    public virtual void Attack() { }   // Method that is called when an enemy attack, which will be different in the child classes.
-    public virtual void takeDamage(int amount) { }    // Method that is called when the enemy takes damage based on the Idamage delt from the player.
+    virtual public void faceTarget() { }
+    public virtual void Attack() { }
+    public virtual void takeDamage(int amount) { }
 
     public virtual IEnumerator flashDamage()
     {

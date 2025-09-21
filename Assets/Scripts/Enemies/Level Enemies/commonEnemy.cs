@@ -143,7 +143,6 @@ public class CommonEnemyScript : Enemy
         Debug.Log("Ow");
         if (HP > 0)
         {
-            
             HP -= amount;
             agent.SetDestination(gamemanager.instance.player.transform.position);
             StartCoroutine(flashDamage());
@@ -164,7 +163,6 @@ public class CommonEnemyScript : Enemy
             expGained.gainEXP(10);
             Debug.Log("EXP gained");
         }
-        
     }
 
     private void TryDodge()
