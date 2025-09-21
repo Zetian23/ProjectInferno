@@ -28,7 +28,11 @@ public class turretEnemy : CommonEnemyScript
 
             if (canSeePlayer() && playerInTrigger)
             {
-
+                RotateBarrel(gamemanager.instance.player.transform.position - transform.position);
+            }
+            if (fireCooldown <= 0)
+            {
+                Attack();
             }
         }
     }
