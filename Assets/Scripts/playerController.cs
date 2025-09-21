@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
@@ -104,8 +105,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
     //UI for power wheel
     [SerializeField] GameObject selectWheel;
     //weapons
-    [SerializeField] GameObject weapon1Button;
-    [SerializeField] GameObject weapon2Button;
+    [SerializeField] GameObject pistolButton;
+    [SerializeField] GameObject shotgunButton;
     [SerializeField] GameObject weapon3Button;
     [SerializeField] GameObject weapon4Button;
     [SerializeField] GameObject weapon5Button;
@@ -138,9 +139,15 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
     bool hasPrideAdded = false;
     bool hasGluttAdded = false;
 
+    Scene currentScene;
+    string sceneName;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //to check if the scene is the mind hub for the change weapon function
+        currentScene = SceneManager.GetActiveScene();
+        sceneName = currentScene.name;
+
         HP = HPMax;
         level = 1;
         EXP = 0;
@@ -168,6 +175,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         movement();
         sprint();
 
+        if (sceneName == "Mindhub") displaySelectionWheel();
+        //displaySelectionWheel();
         //Debug.Log(powerPos);
 
         //Lust
@@ -315,6 +324,25 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         isReloading = false;
         updateGunUI();
     }
+
+
+    public void displaySelectionWheel()
+    {
+        if (Input.GetButtonDown("Open Selection Wheel"))
+        {
+            selectWheel.SetActive(true);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+        if (Input.GetButtonUp("Open Selection Wheel"))
+        {
+            selectWheel.SetActive(false);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+
 
     public virtual void gainEXP(int expGained)
     {
@@ -797,6 +825,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
     public void getWeaponStat(weaponStats weapon)
     {
         weaponList.Add(weapon);
+        updateWeaponWheel(weapon);
         weaponListpos = weaponList.Count - 1;
         updateGunUI();
         changeWeapon();
@@ -874,15 +903,38 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
             case 0:
                 fireButton.SetActive(true);
                 break;
-
+            case 1:
+                lightningButton.SetActive(true);
+                break;
+            case 2:
+                iceButton.SetActive(true);
+                break;
+            case 3:
+                windButton.SetActive(true);
+                break;
+            case 4:
+                stoneButton.SetActive(true);
+                break;
         }
     }
 
-    public void updateWeaponWheel()
+    public void updateWeaponWheel(weaponStats weapon)
     {
-        //same but for weapon
+        if (weapon.gunModel.name == ("Pistol")) {
+            pistolButton.SetActive(true);
+        }
+
+        if (weapon.gunModel.name == ("Shotgun"))
+        {
+            shotgunButton.SetActive(true);
+        }
+
     }
 
+    public void equipWeaponFromWheel(string name)
+    {
+
+    }
 
     void equipPower()
     {
