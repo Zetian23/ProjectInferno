@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.AI;
 
 
 public class slimeEnemy : Enemy
@@ -17,38 +18,67 @@ public class slimeEnemy : Enemy
     private bool isAttacking = false;
     private Transform playerPos;
     public playerController expGained;
+
+    //for roaming
+    [SerializeField] int roamDist;
+    [SerializeField] int roamPauseTimer;
+    float roamTimer;
+    Vector3 startingPos;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        colorOrg = model.material.color;
+        agent = GetComponent<NavMeshAgent>();
         playerPos = gamemanager.instance.player.transform;
+        startingPos = transform.position;
         attackTimer = attackRate;
     }
 
     // Update is called once per frame
     void Update()
     {
+        setAnimLoco();
         float distance = Vector3.Distance(transform.position, playerPos.position);
 
         if (distance <= detRange)
         {
+            agent.stoppingDistance = attackRange;
             if (distance > attackRange)
             {
-                Vector3 dir = (playerPos.position - transform.position).normalized;
-                dir.y = 0;
-                rb.linearVelocity = dir * speed;
-                transform.rotation = Quaternion.LookRotation(dir);
+                agent.isStopped = false;
+                agent.SetDestination(playerPos.position);
             }
             else if (attackTimer >= attackRate)
             {
                 Attack();
             }
         }
-       
-
+        else
+        {
+            if (agent.remainingDistance < 0.01f)
+            {
+                roamTimer += Time.deltaTime;
+            }
+            if (playerInTrigger && !canSeePlayer())
+            {
+                checkRoam();
+            }
+            else if (!playerInTrigger)
+            {
+                checkRoam();
+            }
+        }
         attackTimer += Time.deltaTime;
     }
+    void setAnimLoco()
+    {
 
+        float agentSpeedCur = agent.velocity.magnitude;
+        float animSpeedCur = anim.GetFloat("Speed");
+
+        anim.SetFloat("Speed", Mathf.Lerp(animSpeedCur, agentSpeedCur, Time.deltaTime * animTranSpeed));
+    }
     public override void Attack()
     {
         Debug.Log("Slime ATTACK triggered!");
@@ -60,37 +90,32 @@ public class slimeEnemy : Enemy
     {
         isAttacking = true;
 
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-
+        
+        anim.SetTrigger("Attack");
         yield return new WaitForSeconds(jumpDelay);
 
-        rb.linearVelocity = new Vector3(0,0,0);
-        rb.AddForce(Vector3.down * jumpForce, ForceMode.Impulse);
-    }
-
-    private void OnCollisionEnter(Collision collision) 
-    {
-        if (isAttacking && collision.gameObject.CompareTag("Floor"))
+        if (shockwave != null)
         {
-            if (shockwave != null)
-            {
-                Instantiate(shockwave, transform.position, Quaternion.identity);
-            }
-           
-            isAttacking = false;
+            Instantiate(shockwave, transform.position, Quaternion.identity);
         }
-    }
 
+        isAttacking = false;
+        agent.isStopped = false;
+    }
     
     public override void takeDamage(int amount)
     {
-        HP -= amount;
-        StartCoroutine(flashDamage());
-
-        if(HP <= 0)
+        if (HP > 0)
         {
-           Destroy(gameObject);
+
+            HP -= amount;
             agent.SetDestination(gamemanager.instance.player.transform.position);
+            StartCoroutine(flashDamage());
+        }
+        if (HP <= 0)
+        {
+            gamemanager.instance.updateGameGoal(0, 0, -1);
+            Destroy(gameObject);
             CallGainEXP();
         }
     }
@@ -102,5 +127,27 @@ public class slimeEnemy : Enemy
             Debug.Log("EXP gained");
         }
 
+    }
+
+    void checkRoam()
+    {
+        if (roamTimer >= roamPauseTimer && agent.remainingDistance < 0.01f)
+        {
+            roam();
+        }
+    }
+
+    void roam()
+    {
+        roamTimer = 0;
+
+        agent.stoppingDistance = 0;
+
+        Vector3 ranPos = Random.insideUnitSphere * roamDist;
+        ranPos += startingPos;
+
+        NavMeshHit hit;
+        NavMesh.SamplePosition(ranPos, out hit, roamDist, 1);
+        agent.SetDestination(hit.position);
     }
 }

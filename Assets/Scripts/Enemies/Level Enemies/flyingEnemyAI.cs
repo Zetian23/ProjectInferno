@@ -21,7 +21,8 @@ public class flyingEnemyAI : Enemy
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       startPos = transform.position;
+        colorOrg = model.material.color;
+        startPos = transform.position;
        roamTarget = startPos;
         attackTimer = attackRate;
     }

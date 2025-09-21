@@ -4,65 +4,63 @@ using UnityEngine;
 // Completed
 
 // Phase 1: (HP >= 400)
-// Melee Attack     | Sword slash onto player.
+    // Melee Attack     | Sword slash onto player.
 // Phase 2: (HP >= 200)
-// Invinsibility    | After a cooldown the boss will flash and be invensible to attacks.
+    // Invinsibility    | After a cooldown the boss will flash and be invensible to attacks.
 // Phase 3: (HP < 200)
-// Spinning         | Once hit to this point the boss will do a spin move when invincible.
+    // Spinning         | Once hit to this point the boss will do a spin move when invincible.
 
 public class wrathAI : sinEnemy
 {
-    [SerializeField] GameObject Sword;                  // Get the Object of the sword itself.
-    [SerializeField] Color invinsiblityEmissionColor;   // This will be the color that is flashed during flashInvensibily().
-    [SerializeField] float invinsibleCooldownTime;      // This is the time that the invensibility will be started.
-    [SerializeField] float invinsibleFlashTime;         // This is how long the flashes will take.
-    [SerializeField] int invinsibleFlashes;             // This is how many flashes will occur before the invensibility will last.
+    [SerializeField] GameObject Sword;
+    [SerializeField] Color invinsiblityEmissionColor;
+    [SerializeField] float invinsibleCooldownTime;
+    [SerializeField] float invinsibleFlashTime;
+    [SerializeField] int invinsibleFlashes;
 
-    float invinsibleCooldownTimer;      // Timer that tracks the cooldown of the invensibilty skill.
-    float invinsibleFlashTimer;         // Timer that tracks the flash length.
-    float sprintSpeed;                  // How fast will the boss go after they start phase three.
-    int currFlashes;                    // How many flashes have happened.
-    float currYRot;                     // This is for knowing the rotation of the Boss for the spinning move.
+    float invinsibleCooldownTimer;
+    float invinsibleFlashTimer;
+    float sprintSpeed;
+    int currFlashes;
+    float currYRot;
 
     private void Start()
     {
-        InitVar();  // Initializes all of the bases varibles.
+        InitVar();
 
-        //gamemanager.instance.updateGameGoal(1, 0, 0);   // Add one boss to the game goal.
+        isAttacking = false;
+        currFlashes = 0;
+        sprintSpeed = agent.speed * 3;
 
-        isAttacking = false;            // Initializing that an attack is not happening.
-        currFlashes = 0;                // Initializing that the flashes haven't had any.
-        sprintSpeed = agent.speed * 3;  // Initializing the speed that the boss will have when in phase three.
-
-        gamemanager.instance.SetBossText("Wrath");              // Setting the boss nametag to "Wrath".
-        gamemanager.instance.boss = gamemanager.bossType.wrath; // Setting the bossType to the Wrath Boss.
-        gamemanager.instance.currBoss = 1;                      // Setting the boss in gameManger of the index for the Boss.
-        updateBossUI();                                         // Initializing the boss UI.
+        gamemanager.instance.SetBossText("Wrath");
+        gamemanager.instance.boss = gamemanager.bossType.wrath;
+        gamemanager.instance.currBoss = 1;
+        updateBossUI();
     }
 
     private void Update()
     {
-        attackTimer += Time.deltaTime;  // Ticks the attackTimer up so it can know when to attack based off the attackRate.
-        invinsibleCooldownTimer += Time.deltaTime;  // Ticks the attackTimer up so it can know when to attack based off the attackRate.
+        attackTimer += Time.deltaTime;
+        invinsibleCooldownTimer += Time.deltaTime;
 
-        checkHealth(400, 200);   // Checks the phases between the health periods.
+        checkHealth(400, 200);
         
         if (!isInSpecial)
         {
-            if (playerInTrigger && canSeePlayer()) { }  // Checks if player is in the trigger and uses the canSeePlayer() method in the Enemy script.
+            if (playerInTrigger && canSeePlayer()) { }
         }
 
-        if (isAttacking && !isSpinning) meleeAttack(); // If the attack is happening then do a melee attack, I check this so the attack doesnt happen again until this is done.
+        if (isAttacking && !isSpinning) meleeAttack();
 
-        if (invinsibleCooldownTimer >= invinsibleCooldownTime && gamemanager.instance.GetPhase() >= 2)    // Checks if the invensibilty cooldown is ready and if it is phase two.
+        if (invinsibleCooldownTimer >= invinsibleCooldownTime && gamemanager.instance.GetPhase() >= 2)
         {
-            isInvinsible = true;                    // Set invensiblity to true so the boss doesn't take damage.
-            StartCoroutine(flashInvinsiblity());    // Calls the flashInvensibilty while the invensibilty is active.
+            isInvinsible = true;
+            StartCoroutine(flashInvinsiblity());
         }
 
         if (gamemanager.instance.GetPhase() == 3 && isInvinsible)
         {
-            agent.speed = sprintSpeed;   // Sets the speed of the boss when in phase three.
+            agent.speed = sprintSpeed;
             agent.stoppingDistance = 8;
             if (!isSpinning && !isLowerred)
             {
@@ -79,7 +77,7 @@ public class wrathAI : sinEnemy
                 if (currYRot > 360) currYRot = 1;
                 else currYRot += 3;
                 transform.rotation = Quaternion.Euler(transform.rotation.x, currYRot, transform.rotation.z);
-                agent.SetDestination(gamemanager.instance.player.transform.position);   // Sets the position the boss needs to go as the javelin's rigidbody.
+                agent.SetDestination(gamemanager.instance.player.transform.position);
                 Sword.GetComponent<BoxCollider>().enabled = true;
             }
         }
@@ -99,53 +97,53 @@ public class wrathAI : sinEnemy
         }
     }
 
-    IEnumerator flashInvinsiblity() // This will flash a color and work in the Invensibility all into one.
+    IEnumerator flashInvinsiblity()
     {
-        float t;                                                                    // Initialize the time that the Lerp() is at.
+        float t;
         invinsibleFlashTimer += Time.deltaTime;
-        t = Mathf.PingPong(Time.time, invinsibleFlashTime) / invinsibleFlashTime;   // Using the pingpong math method to use it like a sin wave where it starts at the bottom zero than goes to a certain time.
+        t = Mathf.PingPong(Time.time, invinsibleFlashTime) / invinsibleFlashTime;
 
-        if (invinsibleFlashTimer < invinsibleFlashTime)    // If the invensibilty flash hasn't increased already and if the timer is less than the time it should flash for.
+        if (invinsibleFlashTimer < invinsibleFlashTime)
         {
-            for (int i = 0; i < skinObjects.Count; i++) // Then loop through and set each skin material to the flashing emission color.
-                skinObjects[i].material.SetColor("_EmissionColor", (Color.Lerp(emissionColorOrig, invinsiblityEmissionColor, t)) * 50f); // Which is done with a Lerp() to do over time.
-            yield return null;                                                                                  // Continues after a frame.
+            for (int i = 0; i < skinObjects.Count; i++)
+                skinObjects[i].material.SetColor("_EmissionColor", (Color.Lerp(emissionColorOrig, invinsiblityEmissionColor, t)) * 50f);
+            yield return null;
         }
-        else if (invinsibleFlashTimer >= invinsibleFlashTime)   // If the flash has't happened and the timer is over or equal to the time given.
+        else if (invinsibleFlashTimer >= invinsibleFlashTime)
         {
-            invinsibleFlashTimer = 0;   // Then reset the timer,
-            currFlashes++;             // and set flashed to true since it has now happened.
+            invinsibleFlashTimer = 0;
+            currFlashes++;
         }
-        if(currFlashes == invinsibleFlashes)    // If the amount of flashes that have happen equal the amount set.
+        if(currFlashes == invinsibleFlashes)
         {
-            for (int i = 0; i < skinObjects.Count; i++) // Then loop through and set each skin material to the flashing emission color.
-                skinObjects[i].material.SetColor("_EmissionColor", emissionColorOrig); // Which is done with a Lerp() to do over time.
-            invinsibleCooldownTimer = 0;    // Then reset the cooldown timer,
-            currFlashes = 0;                // reset the amout of flashes that have happened,
-            isInvinsible = false;           // and set the invensibilty to false as the boss is no longer invensible.
+            for (int i = 0; i < skinObjects.Count; i++)
+                skinObjects[i].material.SetColor("_EmissionColor", emissionColorOrig);
+            invinsibleCooldownTimer = 0;
+            currFlashes = 0;
+            isInvinsible = false;
         }
     }
 
     IEnumerator twistSword()
     {
-        rotTimer += Time.deltaTime;   // Incerement the amount of time the swing has happen.
+        rotTimer += Time.deltaTime;
         isInSpecial = true;
 
-        if (rotTimer < rotTime && !isSpinning)  // If the swing hasn't hit the landingRotation and timer is less than the time it needs to swing.
-            Sword.transform.localRotation = Quaternion.Slerp(Quaternion.Euler(-45, 0, 0), Quaternion.Euler(-45, 0, 105), rotTimer * 2);   // Then use Slerp (which is like Lerp but deals with spherical motions overtime) to move the sword down.
-        else if (rotTimer < rotTime && isSpinning)  // If the sword has been lowerred and the timer is less than the time it needs to raise.
-            Sword.transform.localRotation = Quaternion.Slerp(Quaternion.Euler(-45, 0, 105), Quaternion.Euler(-45, 0, 0), rotTimer * 2);   // Then move the sword back up to the starting LOCAL rotation.
-        else if (rotTimer >= rotTime)   // If the timer has exceeded the time given.
+        if (rotTimer < rotTime && !isSpinning)
+            Sword.transform.localRotation = Quaternion.Slerp(Quaternion.Euler(-45, 0, 0), Quaternion.Euler(-45, 0, 105), rotTimer * 2);
+        else if (rotTimer < rotTime && isSpinning)
+            Sword.transform.localRotation = Quaternion.Slerp(Quaternion.Euler(-45, 0, 105), Quaternion.Euler(-45, 0, 0), rotTimer * 2);
+        else if (rotTimer >= rotTime)
         {
-            rotTimer = 0;             // Set the timer back to zero.
-            if (isSpinning)             // Check if the the sword is lowerred.
+            rotTimer = 0;
+            if (isSpinning)
             {
-                isSpinning = false;     // If so then set the islowerred to false as it has raised,
-                isAttacking = false;    // and isAttacking to false so that the boss can attack again.
+                isSpinning = false;
+                isAttacking = false;
             }
-            else isSpinning = true;     // Also if isLowerred is not set to true then set it to true.
+            else isSpinning = true;
         }
 
-        yield return null;  // Incerement after one frame.
+        yield return null;
     }
 }

@@ -1,4 +1,5 @@
 
+using System.Collections;
 using UnityEngine;
 
 public class turretEnemy : CommonEnemyScript
@@ -11,6 +12,13 @@ public class turretEnemy : CommonEnemyScript
     [SerializeField] Transform barrel;
     [SerializeField] float bulletSpeed;
 
+    public bool isDown;
+
+    void Start()
+    {
+        HPOrig = HP;
+        colorOrg = model.material.color;
+    }
 
     // Update is called once per frame
     void Update()
@@ -19,31 +27,22 @@ public class turretEnemy : CommonEnemyScript
 
         if (canSeePlayer() && playerInTrigger)
         {
-            Vector3 dirToPlayer = gamemanager.instance.player.transform.position - transform.position;
-            Vector3 horizonDir = dirToPlayer;
-            horizonDir.y = 0;
+            RotateBarrel(gamemanager.instance.player.transform.position - transform.position);
 
-            float angleToPlayer = Vector3.Angle(transform.forward, horizonDir);
-
-            if(angleToPlayer <= FOV / 2 && dirToPlayer.magnitude <= detRange)
+            if (fireCooldown <= 0)
             {
-                RotateBarrel(dirToPlayer);
-                if(FOV == 360)
-                {
-                    faceTarget();
-                }
-                if (fireCooldown <= 0)
-                {
-                    Attack();
-                }  
+                Attack();
             }
         }
     }
 
-
     private void RotateBarrel(Vector3 targetDir)
     {
-        
+        if(FOV == 360)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(targetDir, Vector3.up);
+            barrel.rotation = Quaternion.Lerp(barrel.rotation, lookRotation, faceTargetSpeed * Time.deltaTime);
+        }
 
         Vector3 horizonDir = targetDir;
         horizonDir.y = 0;
@@ -65,22 +64,25 @@ public class turretEnemy : CommonEnemyScript
     }
     public override void Attack()
     {
-        attackTimer = 0;
-        anim.SetTrigger("Shoot");
-        if (bullet != null && attackPos != null)
+        if (!isDown)
         {
-            GameObject shot = Instantiate(bullet, attackPos.position, attackPos.rotation);
-
-            Rigidbody rb = shot.GetComponent<Rigidbody>();
-            if (rb != null)
+            attackTimer = 0;
+            anim.SetTrigger("Shoot");
+            if (bullet != null && attackPos != null)
             {
-                rb.useGravity = false;
-                Vector3 shootDirection = (gamemanager.instance.player.transform.position - attackPos.position).normalized;
-                rb.AddForce(shootDirection * bulletSpeed, ForceMode.VelocityChange);
+                GameObject shot = Instantiate(bullet, attackPos.position, attackPos.rotation);
+
+                Rigidbody rb = shot.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    rb.useGravity = false;
+                    Vector3 shootDirection = (gamemanager.instance.player.transform.position - attackPos.position).normalized;
+                    rb.AddForce(shootDirection * bulletSpeed, ForceMode.VelocityChange);
+                }
+                Destroy(shot, bulletLife);
             }
-            Destroy(shot, bulletLife);
+            fireCooldown = 1 / fireRate;
         }
-        fireCooldown = 1 / fireRate;
     }
 
     public override void takeDamage(int amount)
@@ -90,16 +92,17 @@ public class turretEnemy : CommonEnemyScript
         {
 
             HP -= amount;
-            agent.SetDestination(gamemanager.instance.player.transform.position);
             StartCoroutine(flashDamage());
         }
         if (HP <= 0)
         {
-            gamemanager.instance.updateGameGoal(0, 0, -1);
-            Destroy(gameObject);
-            CallGainEXP();
+            if (gamemanager.instance.currBoss == 3) isDown = true;
+            else
+            {
+                gamemanager.instance.updateGameGoal(0, 0, -1);
+                Destroy(gameObject);
+                CallGainEXP();
+            }
         }
     }
-
-
 }
