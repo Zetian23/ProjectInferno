@@ -287,6 +287,7 @@ MonoBehaviour:
   rotTime: 0
   xRotAngle: 0
   weaponPos: {fileID: 1786827681177662366}
+  projectile: {fileID: 0}
   skinObjects:
   - {fileID: 2816282464898321781}
   - {fileID: 4287513235018137627}
@@ -378,7 +379,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3782273509638238933}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -334000983
   m_Radius: 0.5
   m_Speed: 10
   m_Acceleration: 30

@@ -4,11 +4,11 @@ using UnityEngine.UIElements;
 // Code Written By Nathaniel King <3
 
 // Phase 1: (HP >= 500)
-// Slam Attack          | Club swings then attacks the player in a radius around it.
+    // Slam Attack          | Club swings then attacks the player in a radius around it.
 // Phase 2: (HP >= 250)
-// Projectiles          | When the boss attacks it will also do ranged attacks if the player is out of the melee range.
+    // Projectiles          | When the boss attacks it will also do ranged attacks if the player is out of the melee range.
 // Phase 3: (HP < 250)
-// Jumping Slam Attack  | The boss will have a cool down that makes it jump in the air then doing a larger area of splash damage.
+    // Jumping Slam Attack  | The boss will have a cool down that makes it jump in the air then doing a larger area of splash damage.
 
 public class gluttonyAI : sinEnemy
 {
@@ -25,32 +25,32 @@ public class gluttonyAI : sinEnemy
 
     void Start()
     {
-        InitVar(); // This calls the method in sinEnemy that initializes all fields in that script needed for this.
+        InitVar();
 
-        isAttacking = false;            // Initializing that an attack is not happening.
+        isAttacking = false;
 
-        gamemanager.instance.SetBossText("Gluttony");                   // Setting the boss nametag to "Wrath".
-        gamemanager.instance.boss = gamemanager.bossType.gluttony;      // Setting the bossType to the Wrath Boss.
-        gamemanager.instance.currBoss = 2;                              // Setting the boss in gameManger of the index for the Boss.
-        updateBossUI();                                                 // Initializing the boss UI.
+        gamemanager.instance.SetBossText("Gluttony");
+        gamemanager.instance.boss = gamemanager.bossType.gluttony;
+        gamemanager.instance.currBoss = 2;
+        updateBossUI();
     }
 
     void Update()
     {
-        attackTimer += Time.deltaTime;  // Ticks the attackTimer up so it can know when to attack based off the attackRate.
+        attackTimer += Time.deltaTime;
 
-        checkHealth(500, 250);   // Checks the phases between the health periods.
+        checkHealth(500, 250);
 
         if (!isJumping)
         {
-            if (playerInTrigger && canSeePlayer()) { }  // Checks if player is in the trigger and uses the canSeePlayer() method in the Enemy script.
+            if (playerInTrigger && canSeePlayer()) { }
             currPos = transform.position;
             startJumpPos = jumpPos.position;
         }
 
         if (!isJumping && isAttacking)
         {
-            meleeAttack();  // If the attack is happening then do a melee attack, I check this so the attack doesnt happen again until this is done.
+            meleeAttack();
         }
         else if (isJumping && isAttacking)
         {
@@ -86,10 +86,9 @@ public class gluttonyAI : sinEnemy
     protected override void rangedAttack()
     {
         RaycastHit hit;
-        if (!Physics.Raycast(headPos.position, playerDirection, out hit, attackDistance, ~ignoreLayer) && playerInTrigger && attackTimer >= attackRate) // Draws a ling with the attackDistance to see if the player is within the distance.
+        if (!Physics.Raycast(headPos.position, playerDirection, out hit, attackDistance, ~ignoreLayer) && playerInTrigger && attackTimer >= attackRate)
         {
             base.rangedAttack();
-            attackTimer = 0;
         }
     }
 
