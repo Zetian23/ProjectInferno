@@ -250,7 +250,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         //Dash function
         if (Input.GetButtonDown("Dash") && dashTimer >= dashRate && !hasAirDashed)
         {
-            dashTimer = 0;
+            dashTimer = level / 5;
 
             if (!controller.isGrounded)
             {
