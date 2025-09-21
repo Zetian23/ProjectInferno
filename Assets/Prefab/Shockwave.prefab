@@ -47,10 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0a5d2e968aa4f54fa97d2135b9392b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  expandSpeed: 2
+  expandSpeed: 1
   maxRadius: 15
   damage: 20
-  lifeTime: 0.2
+  lifeTime: 0.01
 --- !u!33 &7825720452433804693
 MeshFilter:
   m_ObjectHideFlags: 0
