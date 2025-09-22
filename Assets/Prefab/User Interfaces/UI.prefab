@@ -6486,7 +6486,6 @@ MonoBehaviour:
   TutorialBox: {fileID: 5428670429350127037}
   tutorialText: {fileID: 7087414512849854189}
   ammoCurrentText: {fileID: 3758404467321906051}
-  ammoMaxText: {fileID: 0}
   reloadMessage: {fileID: 5022360559205557897}
   bossEnemyCountText: {fileID: 2732613565697377216}
   waveText: {fileID: 5400918928876699694}
