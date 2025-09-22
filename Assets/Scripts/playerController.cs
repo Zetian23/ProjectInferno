@@ -107,9 +107,9 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
     //weapons
     [SerializeField] GameObject pistolButton;
     [SerializeField] GameObject shotgunButton;
-    [SerializeField] GameObject weapon3Button;
-    [SerializeField] GameObject weapon4Button;
-    [SerializeField] GameObject weapon5Button;
+    [SerializeField] GameObject rifleButton;
+    [SerializeField] GameObject machinegunButton;
+    [SerializeField] GameObject lazerButton;
     //Powers
     [SerializeField] GameObject fireButton;
     [SerializeField] GameObject lightningButton;
@@ -927,6 +927,16 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         if (weapon.gunModel.name == ("Shotgun"))
         {
             shotgunButton.SetActive(true);
+        }
+
+        if (weapon.gunModel.name == ("Rifle"))
+        {
+            rifleButton.SetActive(true);
+        }
+
+        if (weapon.gunModel.name == ("Machine Gun"))
+        {
+            rifleButton.SetActive(true);
         }
 
     }
