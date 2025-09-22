@@ -22,7 +22,6 @@ public class gamemanager : MonoBehaviour
 
     [SerializeField] TMP_Text tutorialText;
     [SerializeField] TMP_Text ammoCurrentText;
-    [SerializeField] TMP_Text ammoMaxText;
     [SerializeField] TMP_Text reloadMessage;
     //[SerializeField] TMP_Text meleeEnemyCountText;
     //[SerializeField] TMP_Text rangedEnemyCountText;

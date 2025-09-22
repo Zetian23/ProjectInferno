@@ -1895,7 +1895,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1898326738265229256
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3643,9 +3643,9 @@ MonoBehaviour:
   selectWheel: {fileID: 2243698311823754765}
   pistolButton: {fileID: 790240078753598168}
   shotgunButton: {fileID: 4055366903759805162}
-  rifleButton: {fileID: 0}
-  machinegunButton: {fileID: 0}
-  lazerButton: {fileID: 0}
+  rifleButton: {fileID: 6462627423398046136}
+  machinegunButton: {fileID: 5684186424865762673}
+  lazerButton: {fileID: 3342402226025306701}
   fireButton: {fileID: 3411276481862266762}
   lightningButton: {fileID: 2934716170246708174}
   iceButton: {fileID: 5841562025207970279}
