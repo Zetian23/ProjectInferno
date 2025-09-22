@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0, g: 0, b: 0, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.113
@@ -5266,67 +5266,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 826519211}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &2045786196
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6933968003058583036, guid: 984aea93dd49d5941ac31cd8f95ffb28, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 27.12
-      objectReference: {fileID: 0}
-    - target: {fileID: 6933968003058583036, guid: 984aea93dd49d5941ac31cd8f95ffb28, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.12
-      objectReference: {fileID: 0}
-    - target: {fileID: 6933968003058583036, guid: 984aea93dd49d5941ac31cd8f95ffb28, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -60.11
-      objectReference: {fileID: 0}
-    - target: {fileID: 6933968003058583036, guid: 984aea93dd49d5941ac31cd8f95ffb28, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6933968003058583036, guid: 984aea93dd49d5941ac31cd8f95ffb28, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6933968003058583036, guid: 984aea93dd49d5941ac31cd8f95ffb28, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.000000057601163
-      objectReference: {fileID: 0}
-    - target: {fileID: 6933968003058583036, guid: 984aea93dd49d5941ac31cd8f95ffb28, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.000000057601163
-      objectReference: {fileID: 0}
-    - target: {fileID: 6933968003058583036, guid: 984aea93dd49d5941ac31cd8f95ffb28, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6933968003058583036, guid: 984aea93dd49d5941ac31cd8f95ffb28, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6933968003058583036, guid: 984aea93dd49d5941ac31cd8f95ffb28, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7742171018978598726, guid: 984aea93dd49d5941ac31cd8f95ffb28, type: 3}
-      propertyPath: m_Name
-      value: Teleporter
-      objectReference: {fileID: 0}
-    - target: {fileID: 8613539769903090990, guid: 984aea93dd49d5941ac31cd8f95ffb28, type: 3}
-      propertyPath: teleportTarget
-      value: 
-      objectReference: {fileID: 241354005}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 984aea93dd49d5941ac31cd8f95ffb28, type: 3}
 --- !u!1001 &2084291236
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6156,7 +6095,6 @@ SceneRoots:
   - {fileID: 873265}
   - {fileID: 1935207447}
   - {fileID: 826519211}
-  - {fileID: 2045786196}
   - {fileID: 7034736450639625913}
   - {fileID: 975603284}
   - {fileID: 595491823}

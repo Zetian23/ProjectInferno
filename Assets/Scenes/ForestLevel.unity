@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0, g: 0, b: 0, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.18
@@ -338,7 +338,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &332826685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1264,7 +1264,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 6db7a724ac45ce74eb14eb05656b5836, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1781,7 +1781,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 6db7a724ac45ce74eb14eb05656b5836, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2188,17 +2188,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1254842883837263178, guid: ee04e440231b4b144872a6854fff4b98, type: 3}
   m_PrefabInstance: {fileID: 1983701668}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1452102556 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1205184651768322619, guid: bc9529e390bd8cb43bd222d4c86711b3, type: 3}
-  m_PrefabInstance: {fileID: 1960332934}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1463182805
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2933,7 +2922,7 @@ PrefabInstance:
     - target: {fileID: 8335388588316077057, guid: bc9529e390bd8cb43bd222d4c86711b3, type: 3}
       propertyPath: reloadMessage
       value: 
-      objectReference: {fileID: 1452102556}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
