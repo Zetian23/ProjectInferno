@@ -20,6 +20,6 @@ public class StepSwitch : MonoBehaviour
             }
         }
        
-        
+        Destroy(this);
     }
 }

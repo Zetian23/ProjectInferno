@@ -38,9 +38,16 @@ public class SavedDataManager : MonoBehaviour
         return new List<ISavedData>(newData);
     }
 
+    public ref gameData getData()
+    {
+        return ref data;
+    }
+
     public void newGame()
     {
         data = new gameData();
+
+        handler.Save(data);
     }
 
     public void loadGame() 

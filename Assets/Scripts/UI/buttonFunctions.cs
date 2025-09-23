@@ -33,6 +33,8 @@ public class buttonFunctions : MonoBehaviour
     public void load()
     {
         SavedDataManager.instance.loadGame();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        gamemanager.instance.stateUnpause();
     }
 
     public void loadLevel(int lvl)

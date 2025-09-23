@@ -7,11 +7,11 @@ public class Detect : MonoBehaviour
     public Transform objPos;
     public GameObject gameObj;
     int tri = 0;
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerExit(Collider other)
     {  
-        if (!other.CompareTag("Enemy") && tri == 0)
+        if (other.CompareTag("Enemy") && tri == 0)
         {
-            tri = 1;
+            //tri = 1;
             if (cho == true)
             {
                 gameObj.transform.position = objPos.position;

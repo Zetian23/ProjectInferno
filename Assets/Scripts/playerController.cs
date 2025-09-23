@@ -4,8 +4,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
+using Unity.VisualScripting;
 
 //Code written by brady (Movement-wise)
 public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISavedData
@@ -100,9 +102,28 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
     [SerializeField] GameObject stone;
     [SerializeField] float stoneRate;
 
+
+    //UI for power wheel
+    [SerializeField] GameObject selectWheel;
+    //weapons
+    [SerializeField] GameObject pistolButton;
+    [SerializeField] GameObject shotgunButton;
+    [SerializeField] GameObject rifleButton;
+    [SerializeField] GameObject machinegunButton;
+    [SerializeField] GameObject lazerButton;
+    //Powers
+    [SerializeField] GameObject fireButton;
+    [SerializeField] GameObject lightningButton;
+    [SerializeField] GameObject iceButton;
+    [SerializeField] GameObject windButton;
+    [SerializeField] GameObject stoneButton;
+
+
+
     Vector3 moveDirection;
     Vector3 dashDirection;
     Vector3 playerVelocity;
+    Vector3 playerStartPos;
 
     float shootTimer;
     float dashTimer;
@@ -120,20 +141,23 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
     bool hasPrideAdded = false;
     bool hasGluttAdded = false;
 
+    Scene currentScene;
+    string sceneName;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //to check if the scene is the mind hub for the change weapon function
+        currentScene = SceneManager.GetActiveScene();
+        sceneName = currentScene.name;
+
+        playerStartPos = transform.position;
+
         HP = HPMax;
         level = 1;
         EXP = 0;
         expReq = expReqOrig;
 
         gamemanager.instance.stateIceShock(false);
-
-        for (int i = 0; i < 5; i++)
-        {
-            powerList.Add(false);
-        }
 
         powerModels.Add(fireModel);
         powerModels.Add(lightningModel);
@@ -150,6 +174,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         movement();
         sprint();
 
+        if (sceneName == "Mindhub") displaySelectionWheel();
+        //displaySelectionWheel();
         //Debug.Log(powerPos);
 
         //Lust
@@ -297,6 +323,25 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         isReloading = false;
         updateGunUI();
     }
+
+
+    public void displaySelectionWheel()
+    {
+        if (Input.GetButtonDown("Open Selection Wheel"))
+        {
+            selectWheel.SetActive(true);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+        if (Input.GetButtonUp("Open Selection Wheel"))
+        {
+            selectWheel.SetActive(false);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+
 
     public virtual void gainEXP(int expGained)
     {
@@ -779,6 +824,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
     public void getWeaponStat(weaponStats weapon)
     {
         weaponList.Add(weapon);
+        updateWeaponWheel(weapon);
         weaponListpos = weaponList.Count - 1;
         updateGunUI();
         changeWeapon();
@@ -843,6 +889,61 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
             equipPower();
         }
     }
+    public void setPowerFromWheel(int Power)
+    {
+        powerPos = Power;
+        equipPower();
+    }
+
+    public void updatePowerWheel(int power)
+    {
+        switch (power)
+        {
+            case 0:
+                fireButton.SetActive(true);
+                break;
+            case 1:
+                lightningButton.SetActive(true);
+                break;
+            case 2:
+                iceButton.SetActive(true);
+                break;
+            case 3:
+                windButton.SetActive(true);
+                break;
+            case 4:
+                stoneButton.SetActive(true);
+                break;
+        }
+    }
+
+    public void updateWeaponWheel(weaponStats weapon)
+    {
+        if (weapon.gunModel.name == ("Pistol")) {
+            pistolButton.SetActive(true);
+        }
+
+        if (weapon.gunModel.name == ("Shotgun"))
+        {
+            shotgunButton.SetActive(true);
+        }
+
+        if (weapon.gunModel.name == ("Rifle"))
+        {
+            rifleButton.SetActive(true);
+        }
+
+        if (weapon.gunModel.name == ("Machine Gun"))
+        {
+            rifleButton.SetActive(true);
+        }
+
+    }
+
+    public void equipWeaponFromWheel(string name)
+    {
+
+    }
 
     void equipPower()
     {
@@ -855,7 +956,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
     {
         powerList[powerID] = true;
         powerPos = powerID;
-        gamemanager.instance.updatePowerWheel(powerPos);
+        updatePowerWheel(powerPos);
         gamemanager.instance.DisplayPowerIcon(powerPos);
         equipPower();
 
@@ -873,17 +974,34 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
 
     public void loadData(gameData data)
     {
-        powerList = data.powers;
-        weaponList = data.weapons;
-        level = data.Level;
-        changeWeapon();
+        for (int i = 0; i < 5; i++)
+        {
+            if (data.powers[i])
+                powerList.Add(true);
+            else
+                powerList.Add(false);
+        }
+        for (int i = 0; i < data.weapons.Length; i++)
+        {
+            if (data.weapons[i] != null)
+                weaponList.Add(data.weapons[i]);
+        }
+        level = data.playerLevel;
+        if (data.weapons[0] != null)
+            changeWeapon();
+        if (data.respawnPoints[gamemanager.instance.currLevel] != Vector3.zero)
+            transform.position = data.respawnPoints[gamemanager.instance.currLevel];
+        else
+            transform.position = playerStartPos;
     }
 
     public void saveData(ref gameData data)
     {
-        data.powers = powerList;
-        data.weapons = weaponList;
-        data.Level = level;
+        for (int i = 0; i < 5; i++)
+            data.powers[i] = powerList[i];
+        for (int i = 0; i < weaponList.Count; i++)
+            data.weapons[i] = weaponList[i];
+        data.playerLevel = level;
     }
 
     public void freeze()

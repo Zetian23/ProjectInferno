@@ -22,7 +22,6 @@ public class gamemanager : MonoBehaviour
 
     [SerializeField] TMP_Text tutorialText;
     [SerializeField] TMP_Text ammoCurrentText;
-    [SerializeField] TMP_Text ammoMaxText;
     [SerializeField] TMP_Text reloadMessage;
     //[SerializeField] TMP_Text meleeEnemyCountText;
     //[SerializeField] TMP_Text rangedEnemyCountText;
@@ -55,6 +54,7 @@ public class gamemanager : MonoBehaviour
 
     public GameObject player;
     public playerController playerScript;
+    public Vector3 playerRespawnPoint;
 
     public GameObject currentIcon;
     public GameObject previousIcon;
@@ -111,8 +111,6 @@ public class gamemanager : MonoBehaviour
 
         displayAmmoConut();
     }
-
-
 
     public void statePause()
     {
@@ -235,17 +233,6 @@ public class gamemanager : MonoBehaviour
     public void stateIceShock (bool active)
     {
         iceTint.SetActive(active); 
-    }
-
-    public void updatePowerWheel(int power)
-    {
-        //Display button to select power when acquired.
-
-    }
-
-    public void updateWeaponWheel()
-    {
-        //same but for weapon
     }
 
     public void SetPhase(int phase) { currBossPhase = phase; }
