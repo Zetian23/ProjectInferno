@@ -7,7 +7,7 @@ public class NormalOpen : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.F))
+        if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.C))
         {
             obj.SetBool("Opening", true);
         }

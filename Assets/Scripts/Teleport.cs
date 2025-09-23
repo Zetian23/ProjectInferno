@@ -7,7 +7,7 @@ public class Teleport : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.F))
+        if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.C))
         {
             other.transform.parent = transform;
             other.transform.position = teleportTarget.position;
