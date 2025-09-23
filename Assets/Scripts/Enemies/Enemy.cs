@@ -3,7 +3,7 @@ using UnityEngine.AI;
 using System.Collections;
 // Code written by Nathaniel King <3 and William
 // Base class for any enemies that will be created throughout Project Inferno
-public class Enemy : MonoBehaviour, IDamage, IFreezable, ISavedData
+public class Enemy : MonoBehaviour, IDamage, IFreezable
 {
     // These SerializedField will show up in any enemy that inherits from this parent
     [SerializeField] protected LayerMask ignoreLayer;

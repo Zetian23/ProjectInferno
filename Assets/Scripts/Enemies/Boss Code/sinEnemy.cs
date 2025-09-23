@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 // Code written by Nathaniel <3
 
-public class sinEnemy : Enemy
+public class sinEnemy : Enemy, ISavedData
 {
     [SerializeField] protected float rotTime;                   
     [SerializeField] protected float xRotAngle;                 
@@ -170,7 +170,7 @@ public class sinEnemy : Enemy
         }
     }
 
-    public override void saveData(ref gameData data)
+    public  void saveData(ref gameData data)
     {
         if (isKilled)
         {
@@ -178,7 +178,7 @@ public class sinEnemy : Enemy
         }
     }
 
-    public override void loadData(gameData data)
+    public void loadData(gameData data)
     {
         if (data.bossDefeated[gamemanager.instance.currBoss])
         {

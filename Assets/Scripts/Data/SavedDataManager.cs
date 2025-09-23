@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System;
 using UnityEditor;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class SavedDataManager : MonoBehaviour
 {
@@ -59,7 +60,7 @@ public class SavedDataManager : MonoBehaviour
             newGame();
         }
 
-        for (int i = 0; i < dataList.Count; i++) 
+        for (int i = 0; i < dataList.Count; i++)
         {
             dataList[i].loadData(data);
         }
@@ -67,6 +68,8 @@ public class SavedDataManager : MonoBehaviour
 
     public void saveGame()
     {
+        data.currLevel = SceneManager.GetActiveScene().buildIndex;
+
         for (int i = 0; i < dataList.Count; i++)
         {
             dataList[i].saveData(ref data);
