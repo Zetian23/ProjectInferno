@@ -54,6 +54,7 @@ public class gamemanager : MonoBehaviour
 
     public GameObject player;
     public playerController playerScript;
+    public Vector3 playerRespawnPoint;
 
     public GameObject currentIcon;
     public GameObject previousIcon;
@@ -110,8 +111,6 @@ public class gamemanager : MonoBehaviour
 
         displayAmmoConut();
     }
-
-
 
     public void statePause()
     {

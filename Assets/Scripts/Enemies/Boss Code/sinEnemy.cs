@@ -180,6 +180,9 @@ public class sinEnemy : Enemy
 
     public override void loadData(gameData data)
     {
-        isKilled = true;
+        if (data.bossDefeated[gamemanager.instance.currBoss])
+        {
+            isKilled = true;
+        }
     }
 }
