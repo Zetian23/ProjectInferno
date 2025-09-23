@@ -3,10 +3,10 @@ using UnityEngine;
 public class EPresent : MonoBehaviour
 {
     [SerializeField] GameObject detector;
-    bool triggered = false;
-    public void OnTriggerEnter(Collider other)
+    public bool triggered = false;
+    public void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Enemy") && triggered == false){
+        if (other.CompareTag("Enemy")){
             detector.SetActive(true);
             triggered = true;
         }
