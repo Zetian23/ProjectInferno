@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
+using Unity.VisualScripting;
 
 //Code written by brady (Movement-wise)
 public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISavedData
@@ -122,6 +123,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
     Vector3 moveDirection;
     Vector3 dashDirection;
     Vector3 playerVelocity;
+    Vector3 playerStartPos;
 
     float shootTimer;
     float dashTimer;
@@ -148,17 +150,14 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         currentScene = SceneManager.GetActiveScene();
         sceneName = currentScene.name;
 
+        playerStartPos = transform.position;
+
         HP = HPMax;
         level = 1;
         EXP = 0;
         expReq = expReqOrig;
 
         gamemanager.instance.stateIceShock(false);
-
-        for (int i = 0; i < 5; i++)
-        {
-            powerList.Add(false);
-        }
 
         powerModels.Add(fireModel);
         powerModels.Add(lightningModel);
@@ -975,17 +974,34 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
 
     public void loadData(gameData data)
     {
-        powerList = data.powers;
-        weaponList = data.weapons;
-        level = data.Level;
-        changeWeapon();
+        for (int i = 0; i < 5; i++)
+        {
+            if (data.powers[i])
+                powerList.Add(true);
+            else
+                powerList.Add(false);
+        }
+        for (int i = 0; i < data.weapons.Length; i++)
+        {
+            if (data.weapons[i] != null)
+                weaponList.Add(data.weapons[i]);
+        }
+        level = data.playerLevel;
+        if (data.weapons[0] != null)
+            changeWeapon();
+        if (data.respawnPoints[gamemanager.instance.currLevel] != Vector3.zero)
+            transform.position = data.respawnPoints[gamemanager.instance.currLevel];
+        else
+            transform.position = playerStartPos;
     }
 
     public void saveData(ref gameData data)
     {
-        data.powers = powerList;
-        data.weapons = weaponList;
-        data.Level = level;
+        for (int i = 0; i < 5; i++)
+            data.powers[i] = powerList[i];
+        for (int i = 0; i < weaponList.Count; i++)
+            data.weapons[i] = weaponList[i];
+        data.playerLevel = level;
     }
 
     public void freeze()
