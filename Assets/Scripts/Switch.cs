@@ -9,7 +9,7 @@ public class Switch : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.F))
+        if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.C))
         {
             animate.SetBool("trig", true);
             trig = true;
