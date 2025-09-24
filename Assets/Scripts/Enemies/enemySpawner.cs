@@ -6,7 +6,6 @@ public class enemySpawner : MonoBehaviour
 {
     [SerializeField] List<GameObject> whichEnemies;
     [SerializeField] bool isTimed;
-    [SerializeField] bool isTrigger;
     [SerializeField] float spawnTime;
     [SerializeField] int amount;
 
@@ -27,7 +26,7 @@ public class enemySpawner : MonoBehaviour
                 spawnTimer = 0;
             }
         }
-        else if (isTrigger && triggered)
+        else if (triggered)
         {
             Spawn();
         }
