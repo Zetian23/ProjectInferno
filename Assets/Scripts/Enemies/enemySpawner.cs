@@ -29,6 +29,7 @@ public class enemySpawner : MonoBehaviour
         else if (triggered)
         {
             Spawn();
+            Destroy(gameObject);
         }
     }
 
