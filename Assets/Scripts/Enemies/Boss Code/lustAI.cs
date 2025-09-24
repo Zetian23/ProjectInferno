@@ -69,4 +69,27 @@ public class lustAI : sinEnemy
             }
         }
     }
+
+    public override void updateBossUI()
+    {
+        if (lustArcana == 1)
+        {
+            gamemanager.instance.bossHPBar[0].fillAmount = (float)HP / HPOrig;
+            gamemanager.instance.bossHealthUI[0].SetActive(true);
+            gamemanager.instance.bossHealthUI[1].SetActive(false);
+            gamemanager.instance.bossHealthUI[2].SetActive(false);
+        }
+        if (lustArcana == 2)
+        {
+            gamemanager.instance.bossHPBar[1].fillAmount = (float)HP / HPOrig;
+            gamemanager.instance.bossHealthUI[0].SetActive(false);
+            gamemanager.instance.bossHealthUI[1].SetActive(true);
+        }
+        if (lustArcana == 3)
+        {
+            gamemanager.instance.bossHPBar[2].fillAmount = (float)HP / HPOrig;
+            gamemanager.instance.bossHealthUI[1].SetActive(false);
+            gamemanager.instance.bossHealthUI[2].SetActive(true);
+        }
+    }
 }

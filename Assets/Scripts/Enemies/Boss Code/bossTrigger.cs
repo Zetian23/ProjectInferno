@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
+// Code Written By Nathaniel King <3
 
 public class bossTrigger : MonoBehaviour
 {
