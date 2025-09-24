@@ -803,8 +803,10 @@ MonoBehaviour:
   menuWin: {fileID: 0}
   menuLose: {fileID: 0}
   menuLoad: {fileID: 0}
+  TutorialBox: {fileID: 0}
+  tutorialText: {fileID: 0}
   ammoCurrentText: {fileID: 0}
-  ammoMaxText: {fileID: 0}
+  reloadMessage: {fileID: 0}
   bossEnemyCountText: {fileID: 0}
   waveText: {fileID: 0}
   enemiesLeftText: {fileID: 0}
@@ -820,15 +822,26 @@ MonoBehaviour:
   WaveUI: {fileID: 0}
   WaveCooldownUI: {fileID: 0}
   RemainingEnemiesUI: {fileID: 0}
+  fireIcon: {fileID: 0}
+  lightningIcon: {fileID: 0}
+  iceIcon: {fileID: 0}
+  windIcon: {fileID: 0}
+  stoneIcon: {fileID: 0}
+  iceTint: {fileID: 0}
   bossHPBar:
   - {fileID: 0}
   player: {fileID: 0}
   playerScript: {fileID: 0}
+  playerRespawnPoint: {x: 0, y: 0, z: 0}
+  currentIcon: {fileID: 0}
+  previousIcon: {fileID: 0}
   playerAmmoCur: 0
   playerAmmoMax: 0
   isPaused: 0
   lustIIIArcana: 0
   enemies: 0
+  currBoss: 0
+  currLevel: 0
   boss: 0
   parentMenu: {fileID: 6083025330533424486}
   settingsMenu: {fileID: 6891187943404173447}

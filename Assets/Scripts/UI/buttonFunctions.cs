@@ -27,13 +27,14 @@ public class buttonFunctions : MonoBehaviour
 
     public void newGame()
     {
+        SceneManager.LoadScene(1);
         SavedDataManager.instance.newGame();
     }
 
     public void load()
     {
         SavedDataManager.instance.loadGame();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(gamemanager.instance.currLevel);
         gamemanager.instance.stateUnpause();
     }
 

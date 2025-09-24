@@ -21,7 +21,7 @@ public class gameData
         respawnPoints = new Vector3[7];
         for (int i = 0; i < 7; i++)
             respawnPoints[i] = Vector3.zero;
-        currLevel = 0;
+        currLevel = 1;
         playerLevel = 0;
     }
 }

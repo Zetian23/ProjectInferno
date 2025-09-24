@@ -30,6 +30,7 @@ public class gamemanager : MonoBehaviour
     [SerializeField] TMP_Text enemiesLeftText;
     [SerializeField] TMP_Text waveCooldownText;
     [SerializeField] TMP_Text bossNameText;
+    [SerializeField] public Vector3 levelStartPos;
 
     public Image playerHPBar;
     public Image playerEXPBar;
@@ -54,7 +55,6 @@ public class gamemanager : MonoBehaviour
 
     public GameObject player;
     public playerController playerScript;
-    public Vector3 playerRespawnPoint;
 
     public GameObject currentIcon;
     public GameObject previousIcon;
