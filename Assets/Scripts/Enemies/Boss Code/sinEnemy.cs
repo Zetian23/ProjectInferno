@@ -56,7 +56,6 @@ public class sinEnemy : Enemy, ISavedData
             { 
                 Destroy(gameObject);
                 gamemanager.instance.bossHealthUI[2].SetActive(false);
-                gamemanager.instance.youWin();
             }
         }
     }
