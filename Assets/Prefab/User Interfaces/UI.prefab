@@ -6492,6 +6492,14 @@ MonoBehaviour:
   enemiesLeftText: {fileID: 801034992090915336}
   waveCooldownText: {fileID: 5559857243617215237}
   bossNameText: {fileID: 3092287230168043740}
+  levelStartPos: {x: 0, y: 0, z: 0}
+  bosses:
+  - {fileID: 3782273509638238933, guid: c7be7a1592ca6bb4d809a9570178b652, type: 3}
+  - {fileID: 8211329252269163126, guid: 3b1deee22440ffa49b7d40653d541142, type: 3}
+  - {fileID: 7274619410567323565, guid: bfa622436ce82b5458e379dec98cfe04, type: 3}
+  - {fileID: 7505599809724656940, guid: 069a4b717c61d224b863e862d2e364d2, type: 3}
+  - {fileID: 989819244454301129, guid: bd9f1c85f3fff774787fefab26689343, type: 3}
+  - {fileID: 1024489705129027090, guid: 384455cc8f0de724cb70db4e5cb0db34, type: 3}
   playerHPBar: {fileID: 6608478917455844661}
   playerEXPBar: {fileID: 8495811229568802146}
   playerDamageFlash: {fileID: 2294537923232611346}
@@ -6517,7 +6525,6 @@ MonoBehaviour:
   - {fileID: 8430443260137530514}
   player: {fileID: 0}
   playerScript: {fileID: 0}
-  playerRespawnPoint: {x: 0, y: 0, z: 0}
   currentIcon: {fileID: 0}
   previousIcon: {fileID: 0}
   playerAmmoCur: 0

@@ -166,14 +166,4 @@ public class Enemy : MonoBehaviour, IDamage, IFreezable
         }
         attackDamage = ogAttackDam;
     }
-
-    public virtual void loadData(gameData data)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public virtual void saveData(ref gameData data)
-    {
-        throw new System.NotImplementedException();
-    }
 }

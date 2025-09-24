@@ -31,6 +31,7 @@ public class gamemanager : MonoBehaviour
     [SerializeField] TMP_Text waveCooldownText;
     [SerializeField] TMP_Text bossNameText;
     [SerializeField] public Vector3 levelStartPos;
+    [SerializeField] public List<GameObject> bosses;
 
     public Image playerHPBar;
     public Image playerEXPBar;
