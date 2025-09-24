@@ -43,6 +43,7 @@ public class enemySpawner : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        triggered = true;
+        if(other.CompareTag("Player"))
+            triggered = true;
     }
 }
