@@ -991,8 +991,9 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
             changeWeapon();
         if (data.respawnPoints[gamemanager.instance.currLevel] != Vector3.zero)
             transform.position = data.respawnPoints[gamemanager.instance.currLevel];
-        else
-            transform.position = playerStartPos;
+        else if (gameObject != null)
+            transform.position = gamemanager.instance.levelStartPos;
+        gamemanager.instance.currLevel = data.currLevel;
     }
 
     public void saveData(ref gameData data)
