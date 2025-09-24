@@ -66,6 +66,17 @@ public class buttonFunctions : MonoBehaviour
         settingsManager.Instance.disableMenu();
     }
 
+    public void viewCredits()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        string currScene = currentScene.name;
+
+        creditsManager.prevScene = currScene;
+        SceneManager.LoadScene("Credits");
+
+
+    }
+
 
     public void changeSensitivty()
     {
