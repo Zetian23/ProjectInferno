@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+// Code Written By Nathaniel King <3
+// With help of how from https://www.youtube.com/watch?v=aUi9aijvpgs&list=WL&index=241&t=1422s.
 
 [System.Serializable]
 public class gameData

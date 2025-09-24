@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+// Code Written By Nathaniel King <3
 
 public class autoSaveTrigger : MonoBehaviour
 {

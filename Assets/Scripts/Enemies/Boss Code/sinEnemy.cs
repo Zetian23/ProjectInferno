@@ -83,7 +83,7 @@ public class sinEnemy : Enemy, ISavedData
         }
     }
 
-    public void updateBossUI()
+    public virtual void updateBossUI()
     {
         if (gamemanager.instance.GetPhase() == 1)
         {
