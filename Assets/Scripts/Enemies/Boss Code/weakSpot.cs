@@ -73,7 +73,8 @@ public class weakSpot : MonoBehaviour, IDamage
             {
                 parent.portal.SetActive(true);
                 Destroy(parent.gameObject);                             // Then destroy the boss object
-                gamemanager.instance.bossHealthUI[2].SetActive(false);
+                gamemanager.instance.bossUI.SetActive(false);
+                SavedDataManager.instance.getData().bossDefeated[gamemanager.instance.currBoss] = true;
             }
         }
         else if (parent.isLust)

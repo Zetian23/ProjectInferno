@@ -1600,6 +1600,37 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7865321735798187354, guid: 66443bf0b6a6a3644b09691de8d90f4f, type: 3}
   m_PrefabInstance: {fileID: 1067806986}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &214683165
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 214683166}
+  m_Layer: 3
+  m_Name: Staring Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &214683166
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214683165}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 273.57, y: 44.977, z: 272.93}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &216772784
 GameObject:
   m_ObjectHideFlags: 0
@@ -2353,6 +2384,10 @@ PrefabInstance:
       propertyPath: levelToLoad
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 1797589699734484671, guid: 07b9a88c0ad4ab24d95eb8de5ff8ab32, type: 3}
+      propertyPath: levelStartLocation
+      value: 
+      objectReference: {fileID: 214683166}
     - target: {fileID: 2075008824280766600, guid: 07b9a88c0ad4ab24d95eb8de5ff8ab32, type: 3}
       propertyPath: m_Name
       value: Portal
@@ -8454,6 +8489,38 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1668791860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668791858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_AgentTypeID: -334000983
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 86f7f6941cbf83348a1dc9428e0773fc, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!114 &1691391611 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3758404467321906051, guid: bc9529e390bd8cb43bd222d4c86711b3, type: 3}
@@ -11164,6 +11231,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ForestMap
       objectReference: {fileID: 0}
+    - target: {fileID: 5237812667984103749, guid: 7629f299ddeb45c4080a81670f76d3a3, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11251,6 +11322,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 832575519}
   - {fileID: 1830786300}
+  - {fileID: 214683166}
   - {fileID: 1487141139}
   - {fileID: 1960332934}
   - {fileID: 937703990}
