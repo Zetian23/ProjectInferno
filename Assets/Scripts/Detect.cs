@@ -3,27 +3,35 @@ using UnityEngine;
 
 public class Detect : MonoBehaviour
 {
-    public bool cho;
-    public Transform objPos;
-    public GameObject gameObj;
-    int tri = 0;
-    private void OnTriggerExit(Collider other)
-    {  
-        if (other.CompareTag("Enemy") && tri == 0)
-        {
-            //tri = 1;
-            if (cho == true)
+    public GameObject enemy;
+    public GameObject App;
+    public GameObject Dis;
+
+
+    private void Update()
+    {
+        enemy = GameObject.FindGameObjectWithTag("Enemy");
+        if (App != null) { 
+            if (enemy == null)
             {
-                gameObj.transform.position = objPos.position;
-                gameObj.transform.rotation = objPos.rotation;
+                App.SetActive(true);
             }
             else
             {
-                Destroy(gameObj);
+              App.SetActive(false);
             }
         }
 
-
+        if (Dis != null)
+        {
+            if (enemy == null)
+            {
+                Dis.SetActive(false);
+            }
+            else
+            {
+                Dis.SetActive(true);
+            }
+        }
     }
-
 }
