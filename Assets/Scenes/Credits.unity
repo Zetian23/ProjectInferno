@@ -349,35 +349,37 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Robot - Robot1 by BAYDINMAN
+  m_text: 'Robot - Robot1 by BAYDINMAN, Unity Asset Store
 
 
 
-    Slime - RPG Monster Duo PBR by Dungeon
-    Mason
+    Slime - RPG Monster
+    Duo PBR by Dungeon Mason, Unity Asset Store
 
 
 
-    Turrets - Fixed Machine Gun (Turret) by Leonardo Olivieri Carvalho
+    Turrets - Fixed Machine Gun
+    (Turret) by Leonardo Olivieri Carvalho, Unity Asset Store
 
 
 
-    Fallen
-    Angel- Drakonit_monster by DIMA1991
+    Fallen Angel-
+    Drakonit_monster by DIMA1991, Unity Asset Store
 
 
 
-    Drone- Simple Drone by GameAnime
+    Drone- Simple Drone by
+    GameAnime, Unity Asset Store
 
 
 
-    Skeleton
-    - Skeleton Animations Free by Kevin Iglesias
+    Skeleton - Skeleton Animations Free by Kevin
+    Iglesias, Unity Asset Store
 
 
 
-    Ranged Demons- Demons army
-    - Devil by Simple Game Assets'
+    Ranged Demons- Demons army - Devil by Simple
+    Game Assets, Unity Asset Store'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -965,7 +967,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enemy Assets Used
+  m_text: Sound Assets Used
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
