@@ -38,12 +38,6 @@ public class buttonFunctions : MonoBehaviour
         gamemanager.instance.stateUnpause();
     }
 
-    public void loadLevel(int lvl)
-    {
-        SceneManager.LoadScene(lvl);
-        gamemanager.instance.stateUnpause();
-    }
-
     public void save()
     {
         SavedDataManager.instance.saveGame();
