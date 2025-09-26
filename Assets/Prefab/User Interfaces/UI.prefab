@@ -5553,7 +5553,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4886256767820956024}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
-        m_MethodName: resume
+        m_MethodName: save
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6346,6 +6346,81 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!1 &5578176255411642888
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8249354381861765034}
+  - component: {fileID: 8433769723390045290}
+  - component: {fileID: 1048876072426104495}
+  m_Layer: 5
+  m_Name: Save Icon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &8249354381861765034
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5578176255411642888}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5124870924037112000}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -100, y: 100}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &8433769723390045290
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5578176255411642888}
+  m_CullTransparentMesh: 1
+--- !u!114 &1048876072426104495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5578176255411642888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 228270967d7959545a6c28a88cc3c932, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8705,6 +8780,7 @@ RectTransform:
   - {fileID: 3062307564736409557}
   - {fileID: 811941880325998392}
   - {fileID: 3585335296884827463}
+  - {fileID: 8249354381861765034}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -9475,7 +9551,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4886256767820956024}
         m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
-        m_MethodName: resume
+        m_MethodName: load
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10192,6 +10268,14 @@ PrefabInstance:
     - target: {fileID: 1294534688947369508, guid: 259e1629d7b53f14c8a4791bbaf397ce, type: 3}
       propertyPath: m_Name
       value: SavedDataManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3222828196893530958, guid: 259e1629d7b53f14c8a4791bbaf397ce, type: 3}
+      propertyPath: saveIcon
+      value: 
+      objectReference: {fileID: 5578176255411642888}
+    - target: {fileID: 3222828196893530958, guid: 259e1629d7b53f14c8a4791bbaf397ce, type: 3}
+      propertyPath: saveTime
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8305151292259713383, guid: 259e1629d7b53f14c8a4791bbaf397ce, type: 3}
       propertyPath: m_Pivot.x
