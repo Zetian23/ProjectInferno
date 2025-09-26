@@ -144,6 +144,16 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
     Scene currentScene;
     string sceneName;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    void Awake()
+    {
+        powerModels.Add(fireModel);
+        powerModels.Add(lightningModel);
+        powerModels.Add(iceModel);
+        powerModels.Add(windModel);
+        powerModels.Add(stoneModel);
+    }
+
     void Start()
     {
         //to check if the scene is the mind hub for the change weapon function
@@ -158,12 +168,6 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         expReq = expReqOrig;
 
         gamemanager.instance.stateIceShock(false);
-
-        powerModels.Add(fireModel);
-        powerModels.Add(lightningModel);
-        powerModels.Add(iceModel);
-        powerModels.Add(windModel);
-        powerModels.Add(stoneModel);
 
         updatePlayerUI();
     }
@@ -989,6 +993,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         level = data.playerLevel;
         if (data.weapons[0] != null)
             changeWeapon();
+        if (data.powers[0])
+            equipPower();
         if (data.respawnPoints[gamemanager.instance.currLevel] != Vector3.zero)
             transform.position = data.respawnPoints[gamemanager.instance.currLevel];
         else if (gameObject != null)
