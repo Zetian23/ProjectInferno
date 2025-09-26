@@ -119,15 +119,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 130fcac541cf5034f8ff5b322309f80c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 441
+      value: 56
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 130fcac541cf5034f8ff5b322309f80c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.535
+      value: 9.73
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 130fcac541cf5034f8ff5b322309f80c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 71
+      value: 678
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 130fcac541cf5034f8ff5b322309f80c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -251,7 +251,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -271,6 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obj: {fileID: 5192566667473579457}
   potion: {fileID: 0}
+  seal: {fileID: 0}
 --- !u!4 &7380534331084160992 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 130fcac541cf5034f8ff5b322309f80c, type: 3}
