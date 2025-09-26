@@ -11,7 +11,7 @@ public class autoSaveTrigger : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            SavedDataManager.instance.getData().respawnPoints[gamemanager.instance.currLevel] = respawnPos.transform.position;
+            SavedDataManager.instance.getData().respawnPoints[gamemanager.instance.currLevel - 1] = respawnPos.transform.position;
             SavedDataManager.instance.saveGame();
         }
     }
