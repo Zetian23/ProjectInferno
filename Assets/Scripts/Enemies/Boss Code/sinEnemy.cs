@@ -7,7 +7,7 @@ public class sinEnemy : Enemy, ISavedData
 {
     [SerializeField] protected float rotTime;                   
     [SerializeField] protected float xRotAngle;                 
-    [SerializeField] GameObject weaponPos;                        
+    [SerializeField] GameObject weaponPos;
     [SerializeField] protected GameObject projectile;                        
     [SerializeField] protected List<Renderer> skinObjects;
 
@@ -17,6 +17,7 @@ public class sinEnemy : Enemy, ISavedData
     public bool weakSpotHit;
     public bool isLust;
     public bool isKilled;
+    public GameObject portal;
     protected float rotTimer;
     protected bool isSpinning;
     protected bool isInSpecial;
@@ -25,6 +26,8 @@ public class sinEnemy : Enemy, ISavedData
 
     public void InitVar() 
     {
+        portal = FindAnyObjectByType<LevelChange>().gameObject;
+        portal.SetActive(false);
         if (isKilled) Destroy(gameObject);
         gamemanager.instance.bossUI.SetActive(true);
         gamemanager.instance.SetPhase(1);
@@ -53,7 +56,8 @@ public class sinEnemy : Enemy, ISavedData
                 updateBossUI();
             }
             if (HP <= 0)
-            { 
+            {
+                portal.SetActive(true);
                 Destroy(gameObject);
                 gamemanager.instance.bossHealthUI[2].SetActive(false);
             }
