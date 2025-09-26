@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -31,18 +32,23 @@ public class itemHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.isTrigger)
-            return;
-
-        IDamage dmg = other.GetComponent<IDamage>();
-
-        if (dmg != null && type == itemType.healing)
+        if (other.CompareTag("Player"))
         {
-            dmg.takeDamage(modifierAmt);
-            gameObject.SetActive(false);
-            //Destroy(gameObject);
+            IDamage dmg = other.GetComponent<IDamage>();
+            StartCoroutine(Healwait(dmg));
         }
     }
+    IEnumerator Healwait(IDamage d)
+    {
+        yield return new WaitForSeconds(1.2f);
+        
 
+        if (d != null && type == itemType.healing)
+        {
+            d.takeDamage(modifierAmt);
+            //gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
+    }
 
 }

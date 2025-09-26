@@ -28,20 +28,15 @@ public class buttonFunctions : MonoBehaviour
     public void newGame()
     {
         SceneManager.LoadScene(1);
+        gamemanager.instance.currLevel = 1;
         SavedDataManager.instance.newGame();
     }
 
     public void load()
     {
-        SavedDataManager.instance.loadGame();
-        SceneManager.LoadScene(gamemanager.instance.currLevel);
-        gamemanager.instance.stateUnpause();
-    }
-
-    public void loadLevel(int lvl)
-    {
-        SceneManager.LoadScene(lvl);
-        gamemanager.instance.stateUnpause();
+        SceneManager.LoadScene(SavedDataManager.instance.getData().currLevel);
+        if (gamemanager.instance.menuActive != null)
+            gamemanager.instance.stateUnpause();
     }
 
     public void save()

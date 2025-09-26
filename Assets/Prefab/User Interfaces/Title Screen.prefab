@@ -37,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -12.897354}
-  m_SizeDelta: {x: 160, y: 25.7947}
+  m_SizeDelta: {x: 300, y: 25.7947}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2392844918077184822
 CanvasRenderer:
@@ -331,7 +331,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Start Game
+  m_text: Start a New Game
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -813,6 +813,7 @@ MonoBehaviour:
   waveCooldownText: {fileID: 0}
   bossNameText: {fileID: 0}
   levelStartPos: {x: 0, y: 0, z: 0}
+  bosses: []
   playerHPBar: {fileID: 0}
   playerEXPBar: {fileID: 0}
   playerDamageFlash: {fileID: 0}
@@ -1096,7 +1097,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level Select
+  m_text: Continue
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

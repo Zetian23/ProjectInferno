@@ -20,7 +20,7 @@ public class gameData
         weapons = new weaponStats[5];
         bossDefeated = new bool[7];
         levelDefeated = new bool[7];
-        respawnPoints = new Vector3[7];
+        respawnPoints = new Vector3[8];
         for (int i = 0; i < 7; i++)
             respawnPoints[i] = Vector3.zero;
         currLevel = 1;

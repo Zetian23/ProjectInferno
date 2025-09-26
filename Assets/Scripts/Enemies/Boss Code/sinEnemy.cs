@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 // Code written by Nathaniel <3
 
-public class sinEnemy : Enemy, ISavedData
+public class sinEnemy : Enemy
 {
     [SerializeField] protected float rotTime;                   
     [SerializeField] protected float xRotAngle;                 
-    [SerializeField] GameObject weaponPos;                        
+    [SerializeField] GameObject weaponPos;
     [SerializeField] protected GameObject projectile;                        
     [SerializeField] protected List<Renderer> skinObjects;
 
@@ -17,6 +17,7 @@ public class sinEnemy : Enemy, ISavedData
     public bool weakSpotHit;
     public bool isLust;
     public bool isKilled;
+    public GameObject portal;
     protected float rotTimer;
     protected bool isSpinning;
     protected bool isInSpecial;
@@ -25,16 +26,22 @@ public class sinEnemy : Enemy, ISavedData
 
     public void InitVar() 
     {
-        if (isKilled) Destroy(gameObject);
-        gamemanager.instance.bossUI.SetActive(true);
-        gamemanager.instance.SetPhase(1);
-        startSpeed = agent.speed;
-        isInvinsible = false;
-        colorOrg = skinObjects[0].material.color;
-        emissionColorOrig = skinObjects[0].material.GetColor("_EmissionColor");
-        attackTimer = 0;
-        HPOrig = HP;
-        stoppingDistOrig = agent.stoppingDistance;
+        if (SavedDataManager.instance.getData().bossDefeated[gamemanager.instance.currBoss])
+            Destroy(gameObject);
+        else
+        {
+            portal = FindAnyObjectByType<LevelChange>().gameObject;
+            portal.SetActive(false);
+            gamemanager.instance.bossUI.SetActive(true);
+            gamemanager.instance.SetPhase(1);
+            startSpeed = agent.speed;
+            isInvinsible = false;
+            colorOrg = skinObjects[0].material.color;
+            emissionColorOrig = skinObjects[0].material.GetColor("_EmissionColor");
+            attackTimer = 0;
+            HPOrig = HP;
+            stoppingDistOrig = agent.stoppingDistance;
+        }
     }
 
     public override void faceTarget()
@@ -53,9 +60,11 @@ public class sinEnemy : Enemy, ISavedData
                 updateBossUI();
             }
             if (HP <= 0)
-            { 
+            {
+                portal.SetActive(true);
                 Destroy(gameObject);
-                gamemanager.instance.bossHealthUI[2].SetActive(false);
+                gamemanager.instance.bossUI.SetActive(false);
+                SavedDataManager.instance.getData().bossDefeated[gamemanager.instance.currBoss] = true;
             }
         }
     }
@@ -166,22 +175,6 @@ public class sinEnemy : Enemy, ISavedData
         if (Physics.Raycast(transform.position, playerDirection, out hit, attackDistance, ~ignoreLayer) && !isAttacking)
         {
             isAttacking = true;
-        }
-    }
-
-    public  void saveData(ref gameData data)
-    {
-        if (isKilled)
-        {
-            data.bossDefeated[gamemanager.instance.currBoss] = true;
-        }
-    }
-
-    public void loadData(gameData data)
-    {
-        if (data.bossDefeated[gamemanager.instance.currBoss])
-        {
-            isKilled = true;
         }
     }
 }

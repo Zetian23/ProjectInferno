@@ -283,6 +283,7 @@ MonoBehaviour:
   shockwaveRadius: 0
   shockwaveDamage: 0
   shockwavePos: {fileID: 0}
+  HPOrig: 0
   isFroze: 0
   rotTime: 0
   xRotAngle: 0
@@ -297,6 +298,7 @@ MonoBehaviour:
   weakSpotHit: 0
   isLust: 0
   isKilled: 0
+  portal: {fileID: 0}
   Javelin: {fileID: 1786827681177662366}
   javRB: {fileID: 6622474707441358026}
   javThrowingSpeed: 30
@@ -361,7 +363,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4096
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -406,7 +408,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 12288
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -427,7 +429,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 12288
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -448,7 +450,7 @@ SphereCollider:
     m_Bits: 4096
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 8200
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -576,7 +578,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 12288
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1157,7 +1159,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 12288
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1326,10 +1328,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 5
   rb: {fileID: 6622474707441358026}
+  shockwave: {fileID: 0}
   damageAmount: 25
   damageRate: 0
   speed: 0
   destroyTime: 0
+  laserShockwave: 0
 --- !u!135 &1232939371551536577
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ public class gamemanager : MonoBehaviour
 {
     public static gamemanager instance;
 
-    [SerializeField] GameObject menuActive;
+    [SerializeField] public GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
@@ -90,7 +90,6 @@ public class gamemanager : MonoBehaviour
 
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
-
     }
 
     // Update is called once per frame
