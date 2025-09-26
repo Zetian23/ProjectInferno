@@ -14,6 +14,5 @@ public class Switch : MonoBehaviour
             animate.SetBool("trig", true);
             trig = true;
         }
-    
     }
 }

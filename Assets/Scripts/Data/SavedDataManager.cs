@@ -83,8 +83,6 @@ public class SavedDataManager : MonoBehaviour
 
     public void saveGame()
     {
-        data.currLevel = SceneManager.GetActiveScene().buildIndex;
-
         for (int i = 0; i < dataList.Count; i++)
         {
             dataList[i].saveData(ref data);
@@ -92,7 +90,9 @@ public class SavedDataManager : MonoBehaviour
 
         handler.Save(data);
 
-        gamemanager.instance.stateUnpause();
+        if(gamemanager.instance.menuActive != null)
+            gamemanager.instance.stateUnpause();
+
         saveIcon.SetActive(true);
         isSaving = true;
     }

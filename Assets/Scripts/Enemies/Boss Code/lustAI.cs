@@ -60,7 +60,8 @@ public class lustAI : sinEnemy
                 {
                     isKilled = true;
                     portal.SetActive(true);
-                    gamemanager.instance.bossHealthUI[2].SetActive(false);
+                    gamemanager.instance.bossUI.SetActive(false);
+                    SavedDataManager.instance.getData().bossDefeated[gamemanager.instance.currBoss] = true;
                 }
                     
                 Destroy(gameObject);    // Destroy only this Object with no Instantiate.
