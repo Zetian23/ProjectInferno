@@ -19,6 +19,7 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject menuLoad;
 
     [SerializeField] GameObject TutorialBox;
+    [SerializeField] public GameObject hubWarning;
 
     [SerializeField] TMP_Text tutorialText;
     [SerializeField] TMP_Text ammoCurrentText;
@@ -64,11 +65,13 @@ public class gamemanager : MonoBehaviour
     public int playerAmmoMax;
 
     public bool isPaused;
+    public bool hubNotAvailible;
     public int lustIIIArcana;
     public int enemies;
     public int currBoss;
     public int currLevel;
     float timeScaleOrig;
+    float warningTimer;
     bool waveTextIsActive;
 
     public enum bossType { sloth, wrath, gluttony, envy, lust, greed };
@@ -86,6 +89,7 @@ public class gamemanager : MonoBehaviour
         instance = this;
         timeScaleOrig = Time.timeScale;
         lustIIIArcana = 4;
+        warningTimer = 0;
 
 
         player = GameObject.FindWithTag("Player");
@@ -106,6 +110,18 @@ public class gamemanager : MonoBehaviour
             else if(menuActive == menuPause)
             {
                 stateUnpause();
+            }
+        }
+
+        if (hubNotAvailible)
+        {
+            warningTimer += 0.005f;
+
+            if(warningTimer >= 1)
+            {
+                hubWarning.SetActive(false);
+                warningTimer = 0;
+                hubNotAvailible = false;
             }
         }
 
@@ -138,6 +154,9 @@ public class gamemanager : MonoBehaviour
         if(waveTextIsActive) WaveUI.SetActive(true);
         menuActive.SetActive(false);
         menuActive = null;
+        hubNotAvailible = false;
+        hubWarning.SetActive(false);
+        warningTimer = 0;
     }
 
     public void updateGameGoal(int nummel, int numran, int numboss)

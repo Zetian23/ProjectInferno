@@ -10,6 +10,8 @@ public class LevelChange : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if(gamemanager.instance.currLevel != 8)
+                SavedDataManager.instance.getData().levelDefeated[gamemanager.instance.currLevel - 1] = true;
             SavedDataManager.instance.getData().currLevel = levelToLoad;
             SavedDataManager.instance.getData().respawnPoints[gamemanager.instance.currLevel - 1] = levelStartLocation.position;
             gamemanager.instance.currLevel = levelToLoad;
