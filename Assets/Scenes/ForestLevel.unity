@@ -2076,11 +2076,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!4 &332514423 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8267545013239109391, guid: 07b9a88c0ad4ab24d95eb8de5ff8ab32, type: 3}
-  m_PrefabInstance: {fileID: 367991082}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &332826684 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7407062689177967279, guid: 9df4ed69da157464a822e1da50a880ec, type: 3}
@@ -2343,15 +2338,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2075008824280766600, guid: 07b9a88c0ad4ab24d95eb8de5ff8ab32, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8267545013239109391, guid: 07b9a88c0ad4ab24d95eb8de5ff8ab32, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 273.4
+      value: 234.4
       objectReference: {fileID: 0}
     - target: {fileID: 8267545013239109391, guid: 07b9a88c0ad4ab24d95eb8de5ff8ab32, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 26.97
+      value: 23.8
       objectReference: {fileID: 0}
     - target: {fileID: 8267545013239109391, guid: 07b9a88c0ad4ab24d95eb8de5ff8ab32, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10767,7 +10762,7 @@ PrefabInstance:
     - target: {fileID: 284852172997421275, guid: 9df4ed69da157464a822e1da50a880ec, type: 3}
       propertyPath: teleportTarget
       value: 
-      objectReference: {fileID: 332514423}
+      objectReference: {fileID: 644317673}
     - target: {fileID: 6543237548027990211, guid: 9df4ed69da157464a822e1da50a880ec, type: 3}
       propertyPath: m_LocalPosition.x
       value: 272.2
@@ -10814,7 +10809,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7407062689177967279, guid: 9df4ed69da157464a822e1da50a880ec, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

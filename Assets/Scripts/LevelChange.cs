@@ -9,6 +9,8 @@ public class LevelChange : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            SavedDataManager.instance.saveGame();
+            gamemanager.instance.currLevel = levelToLoad;
             SceneManager.LoadScene(levelToLoad);
         }
     }

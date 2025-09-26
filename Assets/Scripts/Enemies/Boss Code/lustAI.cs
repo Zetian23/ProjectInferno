@@ -57,7 +57,12 @@ public class lustAI : sinEnemy
                 if (lustArcana == 3)    // Check if this is the third arcana.
                     gamemanager.instance.lustIIIArcana--;   // If so then subtract one from the four that are made.
                 if (gamemanager.instance.lustIIIArcana == 0)
+                {
                     isKilled = true;
+                    portal.SetActive(true);
+                    gamemanager.instance.bossHealthUI[2].SetActive(false);
+                }
+                    
                 Destroy(gameObject);    // Destroy only this Object with no Instantiate.
             }
             else    // If there is an object in the lustChildArcana.
