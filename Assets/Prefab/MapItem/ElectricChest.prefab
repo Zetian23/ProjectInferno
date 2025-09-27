@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 839183165108132858}
   - component: {fileID: 5393015484196340861}
   - component: {fileID: 5455171895345309352}
-  - component: {fileID: 6258836028858432319}
   - component: {fileID: 8147243661936299869}
   - component: {fileID: 6360891451679320358}
   - component: {fileID: 2259374937424016345}
+  - component: {fileID: 4140656904767867276}
   m_Layer: 0
   m_Name: ChestTop
   m_TagString: Untagged
@@ -611,7 +611,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2809
+  m_VersionIndex: 2812
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -693,28 +693,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8797631083988741066}
   m_Mesh: {fileID: 0}
---- !u!64 &6258836028858432319
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8797631083988741066}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!95 &8147243661936299869
 Animator:
   serializedVersion: 7
@@ -751,6 +729,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxCharge: 5
   obj: {fileID: 8147243661936299869}
+  potion: {fileID: 0}
   currcharge: 0
   door: {fileID: 8841923945009007653}
   rend: {fileID: 2100000, guid: fc7210319d5c6d04ebea170831e60d8b, type: 2}
@@ -775,6 +754,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5, y: 4, z: 5}
   m_Center: {x: 0.0000076293945, y: 0, z: -0.98322296}
+--- !u!65 &4140656904767867276
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8797631083988741066}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.8661957, y: 2.5, z: 1.9664459}
+  m_Center: {x: 0.0000076293945, y: -0.2, z: -0.98322296}
 --- !u!1 &8841923945009007653
 GameObject:
   m_ObjectHideFlags: 0
@@ -1264,7 +1264,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3827
+  m_VersionIndex: 3830
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
