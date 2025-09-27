@@ -28,6 +28,8 @@ public class slothAI : sinEnemy
 
     void Start()
     {
+        gamemanager.instance.currBoss = 0;
+
         InitVar();
 
         speedBoostTimer = speedBoostLength;
@@ -41,7 +43,6 @@ public class slothAI : sinEnemy
 
         gamemanager.instance.SetBossText("Sloth");
         gamemanager.instance.boss = gamemanager.bossType.sloth;
-        gamemanager.instance.currBoss = 0;
         updateBossUI();
     }
 

@@ -16,13 +16,14 @@ public class greedAI : sinEnemy
 
     void Start()
     {
+        gamemanager.instance.currBoss = 5;
+
         InitVar(); // This calls the method in sinEnemy that initializes all fields in that script needed for this.
 
         isAttacking = false;            // Initializing that an attack is not happening.
 
         gamemanager.instance.SetBossText("Greed");                      // Setting the boss nametag to "Wrath".
         gamemanager.instance.boss = gamemanager.bossType.greed;         // Setting the bossType to the Wrath Boss.
-        gamemanager.instance.currBoss = 5;                              // Setting the boss in gameManger of the index for the Boss.
         updateBossUI();                                                 // Initializing the boss UI.
     }
 

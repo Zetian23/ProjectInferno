@@ -25,13 +25,14 @@ public class gluttonyAI : sinEnemy
 
     void Start()
     {
+        gamemanager.instance.currBoss = 2;
+
         InitVar();
 
         isAttacking = false;
 
         gamemanager.instance.SetBossText("Gluttony");
         gamemanager.instance.boss = gamemanager.bossType.gluttony;
-        gamemanager.instance.currBoss = 2;
         updateBossUI();
     }
 

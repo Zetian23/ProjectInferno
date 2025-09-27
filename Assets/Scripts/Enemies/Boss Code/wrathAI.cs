@@ -26,6 +26,8 @@ public class wrathAI : sinEnemy
 
     private void Start()
     {
+        gamemanager.instance.currBoss = 1;
+
         InitVar();
 
         isAttacking = false;
@@ -34,7 +36,6 @@ public class wrathAI : sinEnemy
 
         gamemanager.instance.SetBossText("Wrath");
         gamemanager.instance.boss = gamemanager.bossType.wrath;
-        gamemanager.instance.currBoss = 1;
         updateBossUI();
     }
 

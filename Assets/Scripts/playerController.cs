@@ -963,7 +963,6 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         updatePowerWheel(powerPos);
         gamemanager.instance.DisplayPowerIcon(powerPos);
         equipPower();
-
     }
 
     public List<weaponStats> getWeaponList()
@@ -991,6 +990,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
                 weaponList.Add(data.weapons[i]);
         }
         level = data.playerLevel;
+        weaponListpos = data.currWeapon;
+        powerPos = data.currPower;
         if (data.weapons[0] != null)
             changeWeapon();
         if (data.powers[0])
@@ -1009,6 +1010,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         for (int i = 0; i < weaponList.Count; i++)
             data.weapons[i] = weaponList[i];
         data.playerLevel = level;
+        data.currWeapon = weaponListpos;
+        data.currPower = powerPos;
     }
 
     public void freeze()
