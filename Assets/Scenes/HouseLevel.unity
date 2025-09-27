@@ -3288,7 +3288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cho: 1
-  objPos: {fileID: 214730267}
+  objPos: {fileID: 214730266}
   gameObj: {fileID: 1461847075}
 --- !u!65 &539335228
 BoxCollider:
