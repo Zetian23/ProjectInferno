@@ -1010,7 +1010,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         for (int i = 0; i < weaponList.Count; i++)
             data.weapons[i] = weaponList[i];
         data.playerLevel = level;
-        data.currPower = weaponListpos;
+        data.currWeapon = weaponListpos;
         data.currPower = powerPos;
     }
 

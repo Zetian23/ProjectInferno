@@ -48,7 +48,7 @@ MonoBehaviour:
   laserBeam: {fileID: 5738074058096506855}
   isPatterned: 0
   visibleRate: 1
-  beamSize: 10
+  beamSize: 50
 --- !u!1 &1362748617058617094
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +181,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 12288
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -903,7 +903,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1063,7 +1063,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 12288
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1185,6 +1185,7 @@ MonoBehaviour:
   weakSpotHit: 0
   isLust: 0
   isKilled: 0
+  portal: {fileID: 0}
   phase3Laser: {fileID: 2198588399811174463, guid: 5e4839553ad3a464cb1ea908ad8947b2, type: 3}
   phase2Laser: {fileID: 274516580978603998}
   downTurretsTime: 30
@@ -1291,7 +1292,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1312,7 +1313,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1333,7 +1334,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0

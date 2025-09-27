@@ -552,6 +552,7 @@ MonoBehaviour:
   shockwaveRadius: 1
   shockwaveDamage: 10
   shockwavePos: {fileID: 6960077121592815422}
+  HPOrig: 0
   isFroze: 0
   rotTime: 0.5
   xRotAngle: 45
@@ -568,6 +569,7 @@ MonoBehaviour:
   weakSpotHit: 0
   isLust: 0
   isKilled: 0
+  portal: {fileID: 0}
   jumpPos: {fileID: 6695082506603932532}
   jumpCooldown: 2
   jumpRate: 1
@@ -674,7 +676,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -697,7 +699,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -720,7 +722,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 36864
+    m_Bits: 45056
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -741,7 +743,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 8448
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -936,7 +938,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0

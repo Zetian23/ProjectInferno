@@ -53,6 +53,8 @@ public class buttonFunctions : MonoBehaviour
         if (SavedDataManager.instance.getData().levelDefeated[0])
         {
             SceneManager.LoadScene(8);
+            if (gamemanager.instance.menuActive != null)
+                gamemanager.instance.stateUnpause();
         }
         else if (!gamemanager.instance.hubNotAvailible)
         {
