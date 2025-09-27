@@ -74,7 +74,7 @@ public class CommonEnemyScript : Enemy
     void setAnimLoco()
     {
         
-        float agentSpeedCur = agent.velocity.normalized.magnitude;
+        float agentSpeedCur = agent.velocity.magnitude;
         float animSpeedCur = anim.GetFloat("Speed");
 
         anim.SetFloat("Speed", Mathf.Lerp(animSpeedCur, agentSpeedCur, Time.deltaTime * animTranSpeed));
@@ -120,8 +120,11 @@ public class CommonEnemyScript : Enemy
         {
             if (!isFroze)
             {
-                anim.SetTrigger("Attack");
-                meleeAttack();
+                if (agent.remainingDistance <= agent.stoppingDistance)
+                {
+                    anim.SetTrigger("Attack");
+                    meleeAttack();
+                }
             }
         }
         else
@@ -140,7 +143,6 @@ public class CommonEnemyScript : Enemy
         Debug.Log("Ow");
         if (HP > 0)
         {
-            
             HP -= amount;
             agent.SetDestination(gamemanager.instance.player.transform.position);
             StartCoroutine(flashDamage());
@@ -158,10 +160,9 @@ public class CommonEnemyScript : Enemy
     {
         if(expGained != null)
         {
-            expGained.gainEXP(5);
+            expGained.gainEXP(10);
             Debug.Log("EXP gained");
         }
-        
     }
 
     private void TryDodge()

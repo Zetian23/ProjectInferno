@@ -1,22 +1,27 @@
-using Mono.Cecil.Cil;
+
 using UnityEngine;
 
 public class WindBurst : MonoBehaviour
 {
+    [SerializeField] float speed;
+    [SerializeField] float expansion;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Destroy(gameObject, 0.1f);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log(other.gameObject);
+        if (transform.localScale.x < expansion)
+        {
+            transform.localScale += new Vector3(1,0,1) * speed * Time.deltaTime;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

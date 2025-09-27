@@ -17,13 +17,14 @@ public class lustAI : sinEnemy
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        gamemanager.instance.currBoss = 4;
+
         InitVar();  // Initializing all the data in the sinEnemy.
 
         if(lustArcana == 1) // If the object initiated is of the first arcana.
         {
             gamemanager.instance.SetBossText("Lust");               // Setting the boss nametag to "Lust".
             gamemanager.instance.boss = gamemanager.bossType.lust;  // Setting the bossType to the Lust Boss.
-            gamemanager.instance.currBoss = 4;                      // Setting the boss in gameManger of the index for the Boss.
             updateBossUI();                                         // Initializing the boss UI.
             isLust = true;                                          // Initializing it as lust.
         }
@@ -57,7 +58,13 @@ public class lustAI : sinEnemy
                 if (lustArcana == 3)    // Check if this is the third arcana.
                     gamemanager.instance.lustIIIArcana--;   // If so then subtract one from the four that are made.
                 if (gamemanager.instance.lustIIIArcana == 0)
+                {
                     isKilled = true;
+                    portal.SetActive(true);
+                    gamemanager.instance.bossUI.SetActive(false);
+                    SavedDataManager.instance.getData().bossDefeated[gamemanager.instance.currBoss] = true;
+                }
+                    
                 Destroy(gameObject);    // Destroy only this Object with no Instantiate.
             }
             else    // If there is an object in the lustChildArcana.
@@ -67,6 +74,29 @@ public class lustAI : sinEnemy
 
                 Destroy(gameObject);    // Destroy this object when done.
             }
+        }
+    }
+
+    public override void updateBossUI()
+    {
+        if (lustArcana == 1)
+        {
+            gamemanager.instance.bossHPBar[0].fillAmount = (float)HP / HPOrig;
+            gamemanager.instance.bossHealthUI[0].SetActive(true);
+            gamemanager.instance.bossHealthUI[1].SetActive(false);
+            gamemanager.instance.bossHealthUI[2].SetActive(false);
+        }
+        if (lustArcana == 2)
+        {
+            gamemanager.instance.bossHPBar[1].fillAmount = (float)HP / HPOrig;
+            gamemanager.instance.bossHealthUI[0].SetActive(false);
+            gamemanager.instance.bossHealthUI[1].SetActive(true);
+        }
+        if (lustArcana == 3)
+        {
+            gamemanager.instance.bossHPBar[2].fillAmount = (float)HP / HPOrig;
+            gamemanager.instance.bossHealthUI[1].SetActive(false);
+            gamemanager.instance.bossHealthUI[2].SetActive(true);
         }
     }
 }

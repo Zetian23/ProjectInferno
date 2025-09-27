@@ -500,7 +500,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -628,7 +628,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1026,10 +1026,12 @@ MonoBehaviour:
   shockwaveRadius: 0
   shockwaveDamage: 0
   shockwavePos: {fileID: 0}
+  HPOrig: 0
   isFroze: 0
   rotTime: 0.5
   xRotAngle: 60
   weaponPos: {fileID: 3285767140154618329}
+  projectile: {fileID: 0}
   skinObjects:
   - {fileID: 1259377485923919422}
   - {fileID: 4953121199232054927}
@@ -1039,11 +1041,12 @@ MonoBehaviour:
   weakSpotHit: 0
   isLust: 0
   isKilled: 0
-  Sword: {fileID: 3285767140154618329}
+  portal: {fileID: 0}
+  Sword: {fileID: 1708317191739614853}
   invinsiblityEmissionColor: {r: 0.7803922, g: 0.08235294, b: 0.5215687, a: 1}
   invinsibleCooldownTime: 5
-  invinsibleFlashTime: 5
-  invinsibleFlashes: 5
+  invinsibleFlashTime: 2
+  invinsibleFlashes: 3
 --- !u!195 &2119789900909074469
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1052,7 +1055,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8211329252269163126}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -334000983
   m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8
@@ -1124,7 +1127,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1166,7 +1169,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1189,7 +1192,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1210,7 +1213,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1231,7 +1234,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -1332,7 +1335,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -1354,10 +1357,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   rb: {fileID: 0}
+  shockwave: {fileID: 0}
   damageAmount: 25
   damageRate: 0
   speed: 0
   destroyTime: 0
+  laserShockwave: 0
 --- !u!4 &2089381896481242175 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a6208fb82c017e54ba58903901e0314d, type: 3}

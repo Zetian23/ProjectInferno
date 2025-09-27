@@ -1,12 +1,16 @@
+
 using NUnit.Framework.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
+using Unity.VisualScripting;
 
 //Code written by brady (Movement-wise)
-public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
+public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISavedData
 {
     [SerializeField] LayerMask ignoreLayer;
     [SerializeField] CharacterController controller;
@@ -25,11 +29,17 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
     [SerializeField] int shootDist;
     [SerializeField] ParticleSystem shootEffect;
     [SerializeField] GameObject shootPos;
+    [SerializeField] AudioClip shootSound;
+    [SerializeField] AudioClip emptySound;
+    [SerializeField] AudioClip reloadSound;
+    [SerializeField] float recoil;
+    float reloadRate;
 
     //Weapon Model and Skin
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
     [SerializeField] GameObject gunModel;
     [SerializeField] GameObject powerModel;
+    [SerializeField] GameObject lazerProjectile;
 
     //Dashing
     [SerializeField] float dashTime;
@@ -92,42 +102,72 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
     [SerializeField] GameObject stone;
     [SerializeField] float stoneRate;
 
+
+    //UI for power wheel
+    [SerializeField] GameObject selectWheel;
+    //weapons
+    [SerializeField] GameObject pistolButton;
+    [SerializeField] GameObject shotgunButton;
+    [SerializeField] GameObject rifleButton;
+    [SerializeField] GameObject machinegunButton;
+    [SerializeField] GameObject lazerButton;
+    //Powers
+    [SerializeField] GameObject fireButton;
+    [SerializeField] GameObject lightningButton;
+    [SerializeField] GameObject iceButton;
+    [SerializeField] GameObject windButton;
+    [SerializeField] GameObject stoneButton;
+
+
+
     Vector3 moveDirection;
     Vector3 dashDirection;
     Vector3 playerVelocity;
+    Vector3 playerStartPos;
 
     float shootTimer;
     float dashTimer;
     float activeDashTimer;
     float powerTimer;
+    float reloadTimer;
 
     int jumpCount;
     int HP;
     int weaponListpos;
 
     bool isDashing;
+    bool isReloading;
     bool hasAirDashed;
     bool hasPrideAdded = false;
     bool hasGluttAdded = false;
 
+    Scene currentScene;
+    string sceneName;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    void Awake()
     {
-        HP = HPMax;
-        level = 1;
-        EXP = 0;
-        expReq = expReqOrig;
-
-        for (int i = 0; i < 5; i++)
-        {
-            powerList.Add(false);
-        }
-
         powerModels.Add(fireModel);
         powerModels.Add(lightningModel);
         powerModels.Add(iceModel);
         powerModels.Add(windModel);
         powerModels.Add(stoneModel);
+    }
+
+    void Start()
+    {
+        //to check if the scene is the mind hub for the change weapon function
+        currentScene = SceneManager.GetActiveScene();
+        sceneName = currentScene.name;
+
+        playerStartPos = transform.position;
+
+        HP = HPMax;
+        level = 1;
+        EXP = 0;
+        expReq = expReqOrig;
+
+        gamemanager.instance.stateIceShock(false);
 
         updatePlayerUI();
     }
@@ -138,6 +178,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
         movement();
         sprint();
 
+        if (sceneName == "Mindhub") displaySelectionWheel();
+        //displaySelectionWheel();
         //Debug.Log(powerPos);
 
         //Lust
@@ -149,6 +191,44 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
             {
                 takeDamage((int)(HPMax * lustHealPercent * -1));
                 lustTimer = 0;
+            }
+        }
+
+        if(powerList[0] && powerTimer < 20)
+        {
+            switch (powerPos)
+            {
+                case 0:
+                    powerModel.GetComponent<MeshRenderer>().sharedMaterial.color =
+                        new Color(powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.r, powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.g,
+                        powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.b, (powerTimer / fireRate) * 0.6f);
+                    break;
+                case 1:
+                    powerModel.GetComponent<MeshRenderer>().sharedMaterial.color =
+                        new Color(powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.r, powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.g,
+                        powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.b, (powerTimer / lightningRate) * 0.6f);
+                    break;
+                case 2:
+                    powerModel.GetComponent<MeshRenderer>().sharedMaterial.color =
+                        new Color(powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.r, powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.g,
+                        powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.b, (powerTimer / iceRate) * 0.6f);
+                    break;
+                case 3:
+                    powerModel.GetComponent<MeshRenderer>().sharedMaterial.color =
+                        new Color(powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.r, powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.g,
+                        powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.b, (powerTimer / windRate) * 0.6f);
+                    break;
+                case 4:
+                    powerModel.GetComponent<MeshRenderer>().sharedMaterial.color =
+                        new Color(powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.r, powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.g,
+                        powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.b, (powerTimer / stoneRate) * 0.6f);
+                    break;
+            }
+            if (powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.a > 0.6f)
+            {
+                powerModel.GetComponent<MeshRenderer>().sharedMaterial.color =
+                        new Color(powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.r, powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.g,
+                        powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.b, 1);
             }
         }
     }
@@ -176,7 +256,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
         playerVelocity.y -= gravity * Time.deltaTime;
 
 
-        if (Input.GetButton("Fire1") && weaponList.Count != 0 && shootTimer >= shootRate && weaponList[weaponListpos].ammoCur != 0)
+        if (Input.GetButton("Fire1") && weaponList.Count != 0 && shootTimer >= shootRate && !isReloading && !gamemanager.instance.isPaused)
         {
             shoot();
         }
@@ -192,15 +272,15 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
         }
 
         //reload
-        if (Input.GetButton("Reload") && weaponList.Count != 0 && weaponList[weaponListpos].ammoCur != weaponList[weaponListpos].ammoMax)
+        if (Input.GetButtonDown("Reload") && weaponList.Count != 0 && weaponList[weaponListpos].ammoCur != weaponList[weaponListpos].ammoMax && !weaponList[weaponListpos].lazer)
         {
-            reload();
+            StartCoroutine(reload());
         }
 
         //Dash function
         if (Input.GetButtonDown("Dash") && dashTimer >= dashRate && !hasAirDashed)
         {
-            dashTimer = 0;
+            dashTimer = level / 5;
 
             if (!controller.isGrounded)
             {
@@ -234,11 +314,38 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
         }
     }
 
-    void reload()
+    IEnumerator reload()
     {
+        gunModel.GetComponent<AudioSource>().clip = reloadSound;
+        gunModel.GetComponent<AudioSource>().Play();
+        isReloading = true;
+        gunModel.transform.Rotate(new Vector3(90, 0, 0));
+        yield return new WaitForSeconds(weaponList[weaponListpos].reloadRate);
+        gunModel.transform.Rotate(new Vector3(-90, 0, 0));
         weaponList[weaponListpos].ammoCur = weaponList[weaponListpos].ammoMax;
+        gunModel.GetComponent<AudioSource>().clip = weaponList[weaponListpos].shootSound;
+        isReloading = false;
         updateGunUI();
     }
+
+
+    public void displaySelectionWheel()
+    {
+        if (Input.GetButtonDown("Open Selection Wheel"))
+        {
+            selectWheel.SetActive(true);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+        if (Input.GetButtonUp("Open Selection Wheel"))
+        {
+            selectWheel.SetActive(false);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+
 
     public virtual void gainEXP(int expGained)
     {
@@ -291,42 +398,319 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
     void shoot()
     {
         shootTimer = 0;
-        weaponList[weaponListpos].ammoCur--;
-        updateGunUI();
 
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
+        if (!weaponList[weaponListpos].lazer && (weaponList[weaponListpos].ammoCur != 0))
         {
-            //Debug.Log(hit.collider.name);
+            weaponList[weaponListpos].ammoCur--;
 
-            Instantiate(shootEffect, hit.point, Quaternion.identity);
-
-            IDamage dmg = hit.collider.GetComponent<IDamage>();
-
-            if (dmg != null)
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
             {
-                //Wrath
-                if (hasWrath)
-                {
-                    dmg.takeDamage((int)(shootDamage * wrathDamageMult * (DamageLevelUp * level + 1)));
-                }
-                else
-                {
-                    dmg.takeDamage((int)(shootDamage * (DamageLevelUp * level + 1)));
-                }
+                //Debug.Log(hit.collider.name);
 
-                //Sloth
-                if (hasSloth)
-                {
-                    dmg.slothSlow(slothSpeedReduction);
-                }
+                Instantiate(shootEffect, hit.point, Quaternion.identity);
 
-                if (hasEnvy)
+                IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+                if (dmg != null)
                 {
-                    takeDamage((int)(shootDamage * envyHealPercent));
+                    //Wrath
+                    if (hasWrath)
+                    {
+                        dmg.takeDamage((int)(shootDamage * wrathDamageMult));
+                    }
+                    else
+                    {
+                        dmg.takeDamage((int)(shootDamage));
+                    }
+
+                    //Sloth
+                    if (hasSloth)
+                    {
+                        dmg.slothSlow(slothSpeedReduction);
+                    }
+
+                    if (hasEnvy)
+                    {
+                        takeDamage((int)(shootDamage * envyHealPercent));
+                    }
+                }
+            }
+            gunModel.GetComponent<AudioSource>().Play();
+            if (weaponList[weaponListpos].spread)
+            {
+                float spread = 1f;
+
+                if (Physics.Raycast(Camera.main.transform.position + new Vector3(0, spread, 0), Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
+                {
+                    //Debug.Log(hit.collider.name);
+
+                    Instantiate(shootEffect, hit.point, Quaternion.identity);
+
+                    IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+                    if (dmg != null)
+                    {
+                        //Wrath
+                        if (hasWrath)
+                        {
+                            dmg.takeDamage((int)(shootDamage * wrathDamageMult));
+                        }
+                        else
+                        {
+                            dmg.takeDamage((int)(shootDamage));
+                        }
+
+                        //Sloth
+                        if (hasSloth)
+                        {
+                            dmg.slothSlow(slothSpeedReduction);
+                        }
+
+                        if (hasEnvy)
+                        {
+                            takeDamage((int)(shootDamage * envyHealPercent));
+                        }
+                    }
+                }
+                if (Physics.Raycast(Camera.main.transform.position + new Vector3(0, -spread, 0), Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
+                {
+                    //Debug.Log(hit.collider.name);
+
+                    Instantiate(shootEffect, hit.point, Quaternion.identity);
+
+                    IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+                    if (dmg != null)
+                    {
+                        //Wrath
+                        if (hasWrath)
+                        {
+                            dmg.takeDamage((int)(shootDamage * wrathDamageMult));
+                        }
+                        else
+                        {
+                            dmg.takeDamage((int)(shootDamage));
+                        }
+
+                        //Sloth
+                        if (hasSloth)
+                        {
+                            dmg.slothSlow(slothSpeedReduction);
+                        }
+
+                        if (hasEnvy)
+                        {
+                            takeDamage((int)(shootDamage * envyHealPercent));
+                        }
+                    }
+                }
+                if (Physics.Raycast(Camera.main.transform.position + new Vector3(0, spread, spread), Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
+                {
+                    //Debug.Log(hit.collider.name);
+
+                    Instantiate(shootEffect, hit.point, Quaternion.identity);
+
+                    IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+                    if (dmg != null)
+                    {
+                        //Wrath
+                        if (hasWrath)
+                        {
+                            dmg.takeDamage((int)(shootDamage * wrathDamageMult));
+                        }
+                        else
+                        {
+                            dmg.takeDamage((int)(shootDamage));
+                        }
+
+                        //Sloth
+                        if (hasSloth)
+                        {
+                            dmg.slothSlow(slothSpeedReduction);
+                        }
+
+                        if (hasEnvy)
+                        {
+                            takeDamage((int)(shootDamage * envyHealPercent));
+                        }
+                    }
+                }
+                if (Physics.Raycast(Camera.main.transform.position + new Vector3(0, -spread, spread), Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
+                {
+                    //Debug.Log(hit.collider.name);
+
+                    Instantiate(shootEffect, hit.point, Quaternion.identity);
+
+                    IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+                    if (dmg != null)
+                    {
+                        //Wrath
+                        if (hasWrath)
+                        {
+                            dmg.takeDamage((int)(shootDamage * wrathDamageMult));
+                        }
+                        else
+                        {
+                            dmg.takeDamage((int)(shootDamage));
+                        }
+
+                        //Sloth
+                        if (hasSloth)
+                        {
+                            dmg.slothSlow(slothSpeedReduction);
+                        }
+
+                        if (hasEnvy)
+                        {
+                            takeDamage((int)(shootDamage * envyHealPercent));
+                        }
+                    }
+                }
+                if (Physics.Raycast(Camera.main.transform.position + new Vector3(0, spread, -spread), Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
+                {
+                    //Debug.Log(hit.collider.name);
+
+                    Instantiate(shootEffect, hit.point, Quaternion.identity);
+
+                    IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+                    if (dmg != null)
+                    {
+                        //Wrath
+                        if (hasWrath)
+                        {
+                            dmg.takeDamage((int)(shootDamage * wrathDamageMult));
+                        }
+                        else
+                        {
+                            dmg.takeDamage((int)(shootDamage));
+                        }
+
+                        //Sloth
+                        if (hasSloth)
+                        {
+                            dmg.slothSlow(slothSpeedReduction);
+                        }
+
+                        if (hasEnvy)
+                        {
+                            takeDamage((int)(shootDamage * envyHealPercent));
+                        }
+                    }
+                }
+                if (Physics.Raycast(Camera.main.transform.position + new Vector3(0, -spread, -spread), Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
+                {
+                    //Debug.Log(hit.collider.name);
+
+                    Instantiate(shootEffect, hit.point, Quaternion.identity);
+
+                    IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+                    if (dmg != null)
+                    {
+                        //Wrath
+                        if (hasWrath)
+                        {
+                            dmg.takeDamage((int)(shootDamage * wrathDamageMult));
+                        }
+                        else
+                        {
+                            dmg.takeDamage((int)(shootDamage));
+                        }
+
+                        //Sloth
+                        if (hasSloth)
+                        {
+                            dmg.slothSlow(slothSpeedReduction);
+                        }
+
+                        if (hasEnvy)
+                        {
+                            takeDamage((int)(shootDamage * envyHealPercent));
+                        }
+                    }
+                }
+                if (Physics.Raycast(Camera.main.transform.position + new Vector3(0, 0, spread), Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
+                {
+                    //Debug.Log(hit.collider.name);
+
+                    Instantiate(shootEffect, hit.point, Quaternion.identity);
+
+                    IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+                    if (dmg != null)
+                    {
+                        //Wrath
+                        if (hasWrath)
+                        {
+                            dmg.takeDamage((int)(shootDamage * wrathDamageMult));
+                        }
+                        else
+                        {
+                            dmg.takeDamage((int)(shootDamage));
+                        }
+
+                        //Sloth
+                        if (hasSloth)
+                        {
+                            dmg.slothSlow(slothSpeedReduction);
+                        }
+
+                        if (hasEnvy)
+                        {
+                            takeDamage((int)(shootDamage * envyHealPercent));
+                        }
+                    }
+                }
+                if (Physics.Raycast(Camera.main.transform.position + new Vector3(0, 0, -spread), Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
+                {
+                    //Debug.Log(hit.collider.name);
+
+                    Instantiate(shootEffect, hit.point, Quaternion.identity);
+
+                    IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+                    if (dmg != null)
+                    {
+                        //Wrath
+                        if (hasWrath)
+                        {
+                            dmg.takeDamage((int)(shootDamage * wrathDamageMult));
+                        }
+                        else
+                        {
+                            dmg.takeDamage((int)(shootDamage));
+                        }
+
+                        //Sloth
+                        if (hasSloth)
+                        {
+                            dmg.slothSlow(slothSpeedReduction);
+                        }
+
+                        if (hasEnvy)
+                        {
+                            takeDamage((int)(shootDamage * envyHealPercent));
+                        }
+                    }
                 }
             }
         }
+        else if (weaponList[weaponListpos].lazer)
+        {
+            Instantiate(lazerProjectile, shootPos.transform.position, Camera.main.transform.rotation);
+            gunModel.GetComponent<AudioSource>().Play();
+        }
+        else
+        {
+            gunModel.GetComponent<AudioSource>().clip = emptySound;
+            gunModel.GetComponent<AudioSource>().Play();
+        }
+
+        updateGunUI();
     }
 
     void power()
@@ -372,7 +756,12 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
                 }
                 break;
         }
+
+        powerModel.GetComponent<MeshRenderer>().sharedMaterial.color =
+            new Color(powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.r, powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.g,
+            powerModel.GetComponent<MeshRenderer>().sharedMaterial.color.b, 0);
     }
+
 
     public void takeDamage(int amount)
     {
@@ -439,6 +828,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
     public void getWeaponStat(weaponStats weapon)
     {
         weaponList.Add(weapon);
+        updateWeaponWheel(weapon);
         weaponListpos = weaponList.Count - 1;
         updateGunUI();
         changeWeapon();
@@ -455,13 +845,13 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
         shootDist = weaponList[weaponListpos].shootDist;
         shootRate = weaponList[weaponListpos].shootRate;
         shootEffect = weaponList[weaponListpos].shootEffect;
-        
-        
 
         gunModel.GetComponent<MeshFilter>().sharedMesh = weaponList[weaponListpos].gunModel.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[weaponListpos].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
+        gunModel.GetComponent<AudioSource>().clip = weaponList[weaponListpos].shootSound;
+        gunModel.GetComponent<AudioSource>().volume = weaponList[weaponListpos].shootVol;
     }
-
+    
     void selectPower()
     {
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
@@ -503,9 +893,65 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
             equipPower();
         }
     }
+    public void setPowerFromWheel(int Power)
+    {
+        powerPos = Power;
+        equipPower();
+    }
+
+    public void updatePowerWheel(int power)
+    {
+        switch (power)
+        {
+            case 0:
+                fireButton.SetActive(true);
+                break;
+            case 1:
+                lightningButton.SetActive(true);
+                break;
+            case 2:
+                iceButton.SetActive(true);
+                break;
+            case 3:
+                windButton.SetActive(true);
+                break;
+            case 4:
+                stoneButton.SetActive(true);
+                break;
+        }
+    }
+
+    public void updateWeaponWheel(weaponStats weapon)
+    {
+        if (weapon.gunModel.name == ("Pistol")) {
+            pistolButton.SetActive(true);
+        }
+
+        if (weapon.gunModel.name == ("Shotgun"))
+        {
+            shotgunButton.SetActive(true);
+        }
+
+        if (weapon.gunModel.name == ("Rifle"))
+        {
+            rifleButton.SetActive(true);
+        }
+
+        if (weapon.gunModel.name == ("Machine Gun"))
+        {
+            rifleButton.SetActive(true);
+        }
+
+    }
+
+    public void equipWeaponFromWheel(string name)
+    {
+
+    }
 
     void equipPower()
     {
+        gamemanager.instance.DisplayPowerIcon(powerPos);
         powerModel.GetComponent<MeshFilter>().sharedMesh = powerModels[powerPos].GetComponent<MeshFilter>().sharedMesh;
         powerModel.GetComponent<MeshRenderer>().sharedMaterial = powerModels[powerPos].GetComponent<MeshRenderer>().sharedMaterial;
     }
@@ -514,9 +960,9 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
     {
         powerList[powerID] = true;
         powerPos = powerID;
+        updatePowerWheel(powerPos);
         gamemanager.instance.DisplayPowerIcon(powerPos);
         equipPower();
-
     }
 
     public List<weaponStats> getWeaponList()
@@ -531,16 +977,50 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, ISavedData
 
     public void loadData(gameData data)
     {
-        powerList = data.powers;
-        weaponList = data.weapons;
-        level = data.Level;
-        changeWeapon();
+        for (int i = 0; i < 5; i++)
+        {
+            if (data.powers[i])
+                powerList.Add(true);
+            else
+                powerList.Add(false);
+        }
+        for (int i = 0; i < data.weapons.Length; i++)
+        {
+            if (data.weapons[i] != null)
+                weaponList.Add(data.weapons[i]);
+        }
+        level = data.playerLevel;
+        weaponListpos = data.currWeapon;
+        powerPos = data.currPower;
+        if (data.weapons[0] != null)
+            changeWeapon();
+        if (data.powers[0])
+            equipPower();
+        if (data.respawnPoints[data.currLevel - 1] != Vector3.zero)
+            transform.position = data.respawnPoints[data.currLevel - 1];
+        else if (gameObject != null)
+            transform.position = gamemanager.instance.levelStartPos;
+        gamemanager.instance.currLevel = data.currLevel;
     }
 
     public void saveData(ref gameData data)
     {
-        data.powers = powerList;
-        data.weapons = weaponList;
-        data.Level = level;
+        for (int i = 0; i < 5; i++)
+            data.powers[i] = powerList[i];
+        for (int i = 0; i < weaponList.Count; i++)
+            data.weapons[i] = weaponList[i];
+        data.playerLevel = level;
+        data.currWeapon = weaponListpos;
+        data.currPower = powerPos;
+    }
+
+    public void freeze()
+    {
+        gamemanager.instance.stateIceShock(true);
+    }
+
+    public void unfreeze()
+    {
+        gamemanager.instance.stateIceShock(false);
     }
 }

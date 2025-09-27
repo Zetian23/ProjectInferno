@@ -3,6 +3,7 @@ using UnityEngine.Rendering;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UIElements;
+using TMPro;
 // Code Written By Nathaniel King <3
 
 public class platformBehaviours : MonoBehaviour, IFreezable
@@ -108,7 +109,7 @@ public class platformBehaviours : MonoBehaviour, IFreezable
         if (isMovingForward)
         {
             platform.transform.position = Vector3.MoveTowards(platform.transform.position, endPosition.position, platformSpeed * Time.deltaTime);
-            if (platform.transform.position == endPosition.position)
+            if (platform.transform.position.Compare(endPosition.position, 1))
             {
                 isMovingForward = false;
             }
@@ -116,7 +117,7 @@ public class platformBehaviours : MonoBehaviour, IFreezable
         else if (!isMovingForward)
         {
             platform.transform.position = Vector3.MoveTowards(platform.transform.position, startPos, platformSpeed * Time.deltaTime);
-            if (platform.transform.position == startPos)
+            if (platform.transform.position.Compare(startPos, 1))
             {
                 isMovingForward = true;
             }

@@ -5,19 +5,25 @@ using System.Xml.Serialization;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using NUnit.Framework.Internal;
+using JetBrains.Annotations;
+using System.Collections;
 
 public class gamemanager : MonoBehaviour
 {
     public static gamemanager instance;
 
-    [SerializeField] GameObject menuActive;
+    [SerializeField] public GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuLoad;
 
+    [SerializeField] GameObject TutorialBox;
+    [SerializeField] public GameObject hubWarning;
+
+    [SerializeField] TMP_Text tutorialText;
     [SerializeField] TMP_Text ammoCurrentText;
-    [SerializeField] TMP_Text ammoMaxText;
+    [SerializeField] TMP_Text reloadMessage;
     //[SerializeField] TMP_Text meleeEnemyCountText;
     //[SerializeField] TMP_Text rangedEnemyCountText;
     [SerializeField] TMP_Text bossEnemyCountText;
@@ -25,6 +31,8 @@ public class gamemanager : MonoBehaviour
     [SerializeField] TMP_Text enemiesLeftText;
     [SerializeField] TMP_Text waveCooldownText;
     [SerializeField] TMP_Text bossNameText;
+    [SerializeField] public Vector3 levelStartPos;
+    [SerializeField] public List<GameObject> bosses;
 
     public Image playerHPBar;
     public Image playerEXPBar;
@@ -42,23 +50,31 @@ public class gamemanager : MonoBehaviour
     public GameObject windIcon;
     public GameObject stoneIcon;
 
+    public GameObject iceTint;
+
+
     public List<Image> bossHPBar;
 
     public GameObject player;
     public playerController playerScript;
 
+    public GameObject currentIcon;
+    public GameObject previousIcon;
+
     public int playerAmmoCur;
     public int playerAmmoMax;
 
     public bool isPaused;
+    public bool hubNotAvailible;
     public int lustIIIArcana;
     public int enemies;
     public int currBoss;
     public int currLevel;
     float timeScaleOrig;
+    float warningTimer;
     bool waveTextIsActive;
 
-    public enum bossType { sloth, wrath, gluttony, envy, lust, greed, pride };
+    public enum bossType { sloth, wrath, gluttony, envy, lust, greed };
     public bossType boss;
 
     //int meleeEnemyCount;
@@ -73,6 +89,7 @@ public class gamemanager : MonoBehaviour
         instance = this;
         timeScaleOrig = Time.timeScale;
         lustIIIArcana = 4;
+        warningTimer = 0;
 
 
         player = GameObject.FindWithTag("Player");
@@ -96,9 +113,19 @@ public class gamemanager : MonoBehaviour
             }
         }
 
-        //I plan on removing these two from update.
-        ammoCurrentText.text = playerAmmoCur.ToString("F0");
-        ammoMaxText.text = playerAmmoMax.ToString("F0");
+        if (hubNotAvailible)
+        {
+            warningTimer += 0.005f;
+
+            if(warningTimer >= 1)
+            {
+                hubWarning.SetActive(false);
+                warningTimer = 0;
+                hubNotAvailible = false;
+            }
+        }
+
+        displayAmmoConut();
     }
 
     public void statePause()
@@ -127,6 +154,9 @@ public class gamemanager : MonoBehaviour
         if(waveTextIsActive) WaveUI.SetActive(true);
         menuActive.SetActive(false);
         menuActive = null;
+        hubNotAvailible = false;
+        hubWarning.SetActive(false);
+        warningTimer = 0;
     }
 
     public void updateGameGoal(int nummel, int numran, int numboss)
@@ -154,47 +184,74 @@ public class gamemanager : MonoBehaviour
         waveText.text = wave;
     }
 
+    public void ShowTutorialMessage(string message)
+    {
+        tutorialText.text = message;
+        TutorialBox.SetActive(true);
+    }
+
+    public void displayAmmoConut()
+    {
+        reloadMessage.enabled = false;
+
+        ammoCurrentText.text = playerAmmoCur.ToString("F0") + " / " + playerAmmoMax.ToString("F0");
+
+        if (playerAmmoCur == 0 && playerAmmoMax != 0)
+        {
+            reloadMessage.enabled = true;
+
+        }
+    }
+
+
+
+    
     public void DisplayPowerIcon(int power)
     {
+        if (currentIcon != null) { 
+        
+            currentIcon.SetActive(false);
+            previousIcon = currentIcon;
+        }
+
+
+
         switch (power)
         {
             case 0:
-                if (stoneIcon.activeSelf)
-                {
-                    stoneIcon.SetActive(false);
-                }
-                fireIcon.SetActive(true);
+
+                currentIcon = fireIcon;
+                currentIcon.SetActive(true);
                 break;
             case 1:
-                if (fireIcon.activeSelf)
-                {
-                    fireIcon.SetActive(false);
-                }
-                lightningIcon.SetActive(true);
+
+                currentIcon = lightningIcon;
+                currentIcon.SetActive(true);
                 break;
             case 2:
-                if (lightningIcon.activeSelf)
-                {
-                    lightningIcon.SetActive(false);
-                }
-                iceIcon.SetActive(true);
+
+
+                currentIcon = iceIcon;
+                currentIcon.SetActive(true);
                 break;
             case 3:
-                if (iceIcon.activeSelf)
-                {
-                    iceIcon.SetActive(false);
-                }
-                windIcon.SetActive(true);
+
+                currentIcon = windIcon;
+                currentIcon.SetActive(true);
                 break;
             case 4:
-                if (windIcon.activeSelf)
-                {
-                    windIcon.SetActive(false);
-                }
-                stoneIcon.SetActive(true);
+
+                currentIcon = stoneIcon;
+                currentIcon.SetActive(true);
                 break;
                 
         }
+
+    }
+
+    public void stateIceShock (bool active)
+    {
+        iceTint.SetActive(active); 
     }
 
     public void SetPhase(int phase) { currBossPhase = phase; }
@@ -220,6 +277,14 @@ public class gamemanager : MonoBehaviour
         menuActive.SetActive(false);
         menuActive = menuLoad;
         menuActive.SetActive(true);
+
     }
+
+    //IEnumerator flashReloadText()
+    //{
+    //    reloadMessage.enabled = true;
+    //    yield return new WaitForSeconds(0.3f);
+    //    reloadMessage.enabled = false;
+    //}
 }
 

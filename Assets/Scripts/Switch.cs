@@ -4,22 +4,15 @@ public class Switch : MonoBehaviour
 {
     public GameObject obj;
     public Animator animate;
-    public bool cho;
-    public Transform objPos;
-    public GameObject gameObj;
+   
+    public bool trig = false;
 
     private void OnTriggerStay(Collider other)
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.C))
         {
             animate.SetBool("trig", true);
-        }
-        if(cho == true)
-        {
-            Instantiate(gameObj, objPos.position, objPos.rotation);
-        } else
-        {
-            Destroy(gameObj);
+            trig = true;
         }
     }
 }

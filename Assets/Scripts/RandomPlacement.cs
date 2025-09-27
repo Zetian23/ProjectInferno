@@ -15,7 +15,7 @@ public class RandomPlacement : MonoBehaviour
             float randomX = Random.Range(plane.position.x - plane.localScale.x * 4, plane.position.x + plane.localScale.x * 4);
             float randomZ = Random.Range(plane.position.z - plane.localScale.z * 4, plane.position.z + plane.localScale.z * 4);
             Vector3 randomPosition = new Vector3(randomX, plane.position.y, randomZ);
-            GameObject newObj = Instantiate(obj, randomPosition, Quaternion.identity);
+            GameObject newObj = Instantiate(obj, randomPosition, transform.rotation);
             newObj.transform.eulerAngles = new Vector3(-90, 0, 0);
         }
         }
