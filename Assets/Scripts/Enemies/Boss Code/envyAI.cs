@@ -28,6 +28,8 @@ public class envyAI : sinEnemy
 
     void Start()
     {
+        gamemanager.instance.currBoss = 3;
+
         InitVar(); // This calls the method in sinEnemy that initializes all fields in that script needed for this.
 
         isAttacking = false;            // Initializing that an attack is not happening.
@@ -38,7 +40,6 @@ public class envyAI : sinEnemy
 
         gamemanager.instance.SetBossText("Envy");                       // Setting the boss nametag to "Wrath".
         gamemanager.instance.boss = gamemanager.bossType.envy;          // Setting the bossType to the Wrath Boss.
-        gamemanager.instance.currBoss = 3;                              // Setting the boss in gameManger of the index for the Boss.
         updateBossUI();                                                 // Initializing the boss UI.
     }
 

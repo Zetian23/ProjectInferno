@@ -17,13 +17,14 @@ public class lustAI : sinEnemy
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        gamemanager.instance.currBoss = 4;
+
         InitVar();  // Initializing all the data in the sinEnemy.
 
         if(lustArcana == 1) // If the object initiated is of the first arcana.
         {
             gamemanager.instance.SetBossText("Lust");               // Setting the boss nametag to "Lust".
             gamemanager.instance.boss = gamemanager.bossType.lust;  // Setting the bossType to the Lust Boss.
-            gamemanager.instance.currBoss = 4;                      // Setting the boss in gameManger of the index for the Boss.
             updateBossUI();                                         // Initializing the boss UI.
             isLust = true;                                          // Initializing it as lust.
         }

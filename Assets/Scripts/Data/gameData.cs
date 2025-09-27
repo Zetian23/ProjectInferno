@@ -13,6 +13,8 @@ public class gameData
     public bool[] levelDefeated;
     public int currLevel;
     public int playerLevel;
+    public int currPower;
+    public int currWeapon;
 
     public gameData()
     {
@@ -25,5 +27,7 @@ public class gameData
             respawnPoints[i] = Vector3.zero;
         currLevel = 1;
         playerLevel = 0;
+        currPower = 0;
+        currWeapon = 0;
     }
 }

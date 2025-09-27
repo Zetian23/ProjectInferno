@@ -28,7 +28,6 @@ public class buttonFunctions : MonoBehaviour
     public void newGame()
     {
         SceneManager.LoadScene(1);
-        gamemanager.instance.currLevel = 1;
         SavedDataManager.instance.newGame();
     }
 
@@ -48,11 +47,25 @@ public class buttonFunctions : MonoBehaviour
     {
         SceneManager.LoadScene("Title Screen");
     }
+
+    public void returnToHub()
+    {
+        if (SavedDataManager.instance.getData().levelDefeated[0])
+        {
+            SceneManager.LoadScene(8);
+            if (gamemanager.instance.menuActive != null)
+                gamemanager.instance.stateUnpause();
+        }
+        else if (!gamemanager.instance.hubNotAvailible)
+        {
+            gamemanager.instance.hubWarning.SetActive(true);
+            gamemanager.instance.hubNotAvailible = true;
+        }
+    }
+
     public void openSettingsMenu()
     {
-
         settingsManager.Instance.enableMenu();
-
     }
 
     public void back()
