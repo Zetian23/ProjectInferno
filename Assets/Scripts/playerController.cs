@@ -179,8 +179,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         movement();
         sprint();
 
-        if (sceneName == "Mindhub") displaySelectionWheel();
-        //displaySelectionWheel();
+        //if (sceneName == "MindHub") displaySelectionWheel();
+        displaySelectionWheel();
         //Debug.Log(powerPos);
 
         //Lust
@@ -194,7 +194,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
                 lustTimer = 0;
             }
         }
-
+        
         if(powerList[0] && powerTimer < 20)
         {
             switch (powerPos)
@@ -257,7 +257,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         playerVelocity.y -= gravity * Time.deltaTime;
 
 
-        if (Input.GetButton("Fire1") && weaponList.Count != 0 && shootTimer >= shootRate && !isReloading && !gamemanager.instance.isPaused)
+        if (Input.GetButton("Fire1") && weaponList.Count != 0 && shootTimer >= shootRate && !isReloading && !gamemanager.instance.isPaused && !selectWheel.activeSelf)
         {
             shoot();
         }
@@ -835,6 +835,8 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         changeWeapon();
     }
 
+
+
     public List<bool> getPlayersUpgrade()
     {
         return new List<bool>() { hasSloth, hasWrath, hasGluttony, hasEnvy, hasLust, hasGreed, hasPride };
@@ -940,14 +942,27 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
 
         if (weapon.gunModel.name == ("Machine Gun"))
         {
-            rifleButton.SetActive(true);
+            machinegunButton.SetActive(true);
+        }
+
+        if (weapon.gunModel.name == ("Lazer Gun"))
+        {
+            lazerButton.SetActive(true);
         }
 
     }
 
-    public void equipWeaponFromWheel(string name)
+    public void equipWeapon(weaponStats weapon)
     {
-
+        for (int i = 0; i < weaponList.Count; i++)
+        {
+            if (weaponList[i].gunModel == weapon.gunModel)
+            {
+                weaponListpos = i;
+            }
+        }
+        changeWeapon();
+        updateGunUI();
     }
 
     void equipPower()
