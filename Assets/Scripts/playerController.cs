@@ -970,6 +970,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         gamemanager.instance.DisplayPowerIcon(powerPos);
         powerModel.GetComponent<MeshFilter>().sharedMesh = powerModels[powerPos].GetComponent<MeshFilter>().sharedMesh;
         powerModel.GetComponent<MeshRenderer>().sharedMaterial = powerModels[powerPos].GetComponent<MeshRenderer>().sharedMaterial;
+
     }
 
     public void getPower(int powerID)
@@ -978,6 +979,11 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         powerPos = powerID;
         updatePowerWheel(powerPos);
         gamemanager.instance.DisplayPowerIcon(powerPos);
+
+        if (powerList[2]) {
+            gamemanager.instance.ShowTutorialMessage("To change your power either move your mouse's scroll wheel or press T to access selection wheel");
+        }
+
         equipPower();
     }
 

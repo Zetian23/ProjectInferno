@@ -188,6 +188,15 @@ public class gamemanager : MonoBehaviour
     {
         tutorialText.text = message;
         TutorialBox.SetActive(true);
+        float timer = 10f;
+        while (timer > 0) {
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                TutorialBox.SetActive(false);
+            }
+        }
+
     }
 
     public void displayAmmoConut()
