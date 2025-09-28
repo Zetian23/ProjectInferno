@@ -8575,7 +8575,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: Test
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8697,8 +8697,8 @@ RectTransform:
   - {fileID: 274499599813182738}
   - {fileID: 6373886335075600817}
   - {fileID: 8471383161078029424}
-  - {fileID: 3062307564736409557}
   - {fileID: 811941880325998392}
+  - {fileID: 3062307564736409557}
   - {fileID: 3585335296884827463}
   - {fileID: 8249354381861765034}
   m_Father: {fileID: 0}

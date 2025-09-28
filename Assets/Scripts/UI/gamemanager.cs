@@ -74,6 +74,8 @@ public class gamemanager : MonoBehaviour
     float warningTimer;
     bool waveTextIsActive;
 
+    float tutorialTimer;
+
     public enum bossType { sloth, wrath, gluttony, envy, lust, greed };
     public bossType boss;
 
@@ -126,6 +128,16 @@ public class gamemanager : MonoBehaviour
         }
 
         displayAmmoConut();
+
+        if (tutorialTimer >= 0)
+        {
+            tutorialTimer -= Time.deltaTime;
+
+            if (tutorialTimer <= 0)
+            {
+                TutorialBox.SetActive(false);
+            }
+        }
     }
 
     public void statePause()
@@ -188,7 +200,10 @@ public class gamemanager : MonoBehaviour
     {
         tutorialText.text = message;
         TutorialBox.SetActive(true);
+        tutorialTimer = 7f;
+
     }
+
 
     public void displayAmmoConut()
     {

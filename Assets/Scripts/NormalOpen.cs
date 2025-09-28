@@ -32,7 +32,7 @@ public class NormalOpen : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.C) && seal == false)
+        if (other.CompareTag("Player") && Input.GetButtonDown("Interact") && seal == false)
         {
             obj.SetBool("Opening", true);
             opened = true;
