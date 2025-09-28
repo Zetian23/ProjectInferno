@@ -14,7 +14,12 @@ public class ChallengeComplete : MonoBehaviour
     bool callTwo = true;
     bool callThree = true;
     bool callFour = true;
+    bool state;
 
+    void Start()
+    {
+        state = act.activeSelf;
+    }
 
     // Update is called once per frame
     void Update()
@@ -74,7 +79,8 @@ public class ChallengeComplete : MonoBehaviour
 
         if (count == SwitchCount)
         {
-            act.SetActive(true);
+            
+            act.SetActive(!state);
         }    
     }
 }
