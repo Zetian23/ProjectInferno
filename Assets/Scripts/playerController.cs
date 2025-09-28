@@ -161,6 +161,7 @@ public class playerController : MonoBehaviour, IDamage, iPickUp, IFreezable, ISa
         sceneName = currentScene.name;
 
         playerStartPos = transform.position;
+        transform.position = gamemanager.instance.levelStartPos;
 
         HP = HPMax;
         level = 1;
