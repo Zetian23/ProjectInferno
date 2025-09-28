@@ -20,8 +20,10 @@ public class buttonFunctions : MonoBehaviour
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-#else
-                    Application.Quit();
+#elif UNITY_STANDALONE
+        Application.Quit();
+#elif UNITY_WEBGL
+        Application.OpenURL("https://kingnathanielisawesome.itch.io/mindscape?secret=TWWR8xTyeXQUkMVk4ba2Zk49RQ");
 #endif
     }
 
