@@ -54,7 +54,8 @@ public class buttonFunctions : MonoBehaviour
         {
             SceneManager.LoadScene(8);
             if (gamemanager.instance.menuActive != null)
-                gamemanager.instance.stateUnpause();
+                transform.position = gamemanager.instance.levelStartPos;
+            gamemanager.instance.stateUnpause();
         }
         else if (!gamemanager.instance.hubNotAvailible)
         {

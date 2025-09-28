@@ -7,7 +7,7 @@ public class Teleport : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.C))
+        if (other.CompareTag("Player") && Input.GetButtonDown("Interact"))
         {
             SavedDataManager.instance.saveGame();
             SavedDataManager.instance.getData().respawnPoints[gamemanager.instance.currLevel - 1] = teleportTarget.position;

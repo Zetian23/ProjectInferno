@@ -1,0 +1,163 @@
+commit 9ad9db946c782d1f3d0a1572048a28a21efac00f
+Author: Yormungarde <naokrin@gmail.com>
+Date:   Tue Sep 23 23:19:53 2025 -0400
+
+    Implementation of Credits Screen
+    
+    A scene that credits everyone who worked on the game and the assets used. It will store the previous scene the player was at to return to.
+
+commit 94545fcfa12b4252d6c862ccce09f8d11b32ecbb
+Author: Yormungarde <naokrin@gmail.com>
+Date:   Tue Sep 23 21:50:36 2025 -0400
+
+    index on dev_moore: 8e03c32 Add some enemies and the turret navmesh
+
+commit 5cd0a0bab5417f49e0d1df47c3379f6787e7f8fa
+Author: Yormungarde <naokrin@gmail.com>
+Date:   Mon Sep 22 18:47:11 2025 -0400
+
+    Bugfixes to previous commit
+
+commit 0155d11f055e24afe0851cf601385394dda3c2a6
+Author: Yormungarde <naokrin@gmail.com>
+Date:   Mon Sep 22 18:36:06 2025 -0400
+
+    Completion of the select wheel UI
+    
+    All buttons for the weapons are completed. The weapon switching algorithm must be made.
+
+commit 4c7df494a6ec00c7c43f10f9b09c354b3ad8f81d
+Author: Yormungarde <naokrin@gmail.com>
+Date:   Sun Sep 21 17:35:23 2025 -0400
+
+    Further development of the scroll wheel and addition of new game
+    
+    Two weapon buttons were added but not functional. A switching algorithm must be created. The screen now has a button to toggle it and must be held down. The wheel can only be activated in the hub world. The title screen now has new and load game buttons.
+
+commit 962dab4ce5a4b2c7fc4e220a0810f896f20228a3
+Author: Yormungarde <naokrin@gmail.com>
+Date:   Sat Sep 20 19:21:18 2025 -0400
+
+    Power Select Wheel functionality
+    
+    The power select part of the wheel functions. I need to implement the weapon select stuff.
+
+commit 8789a890ea9a24ccfde372f95786d61c58c82529
+Author: Yormungarde <naokrin@gmail.com>
+Date:   Sat Sep 20 14:07:58 2025 -0400
+
+    UI prefab hotfix
+    
+    Fixing an issue regarding a missing asset for the ammo count
+
+commit 80e790815376f2278b6fdce4f5f856902389a271
+Author: Yormungarde <naokrin@gmail.com>
+Date:   Sat Sep 20 10:55:34 2025 -0400
+
+    Bug Fixes
+    
+    Fixed ice shock state preventing UI from being accessed.
+    
+    Fixed an issue that caused the text to overlap if the ammo has three digits.
+    Added a reload text to help tell the player to reload.
+
+commit 858e0d70c2b5fd24b7d8a2c264ce118adeb8da4f
+Author: Yormungarde <naokrin@gmail.com>
+Date:   Thu Sep 18 22:17:16 2025 -0400
+
+    Debug Ice Shock State
+    
+    A simple tint that will tell the player if they're in a frozen state. It's done by calling the function in gamemanager and passing a bool.
+
+commit 01234f1a6271a7127abba5a24dc63d2e8e289e9f
+Author: Yormungarde <naokrin@gmail.com>
+Date:   Thu Sep 18 18:05:34 2025 -0400
+
+    Basis for Weapon Selection screen and Selection Wheel
+    
+    The Selection Wheel will allow the player to select their power and weapon from a toggleable UI tied to the player. The weapon selection screen will display before loading into a level.
+
+commit 82485a15f54d999927f3e6ee330c27389e4df89b
+Author: Yormungarde <naokrin@gmail.com>
+Date:   Wed Sep 17 16:18:48 2025 -0400
+
+    Added "Return to Title" Button.
+    
+    This button will return the player to the title screen which will allow them to exit the game.
+
+commit 2083ef4ccd9d5305e3c6dee88f76eae3c6c253bf
+Author: Yormungarde <naokrin@gmail.com>
+Date:   Tue Sep 16 23:02:43 2025 -0400
+
+    Addition of the Tutorial Mechanic.
+    
+    The UI will display the text tied to the tutorial Icon.
+
+commit 6d2a6602c14063aa7be91df506c861f5999385fc
+Author: Yormungarde <naokrin@gmail.com>
+Date:   Tue Sep 16 21:26:05 2025 -0400
+
+    Fixing of the Power Select Icons.
+    
+    They now disable and change depending on what model is showing.
+
+commit d441f2d3a407bcbd8a453c9fb970fb0a0409ff85
+Author: Yormungarde <naokrin@gmail.com>
+Date:   Mon Sep 15 23:32:51 2025 -0400
+
+    Implementation of the power scroll UI
+    
+    albeit broken there is implementation. I personally designed the icons
+
+commit 373031c1ef25cbaec5dd00e59db24427bc40652c
+Author: Yormungarde <naokrin@gmail.com>
+Date:   Mon Sep 15 19:12:19 2025 -0400
+
+    Overhaul of player UI and pause menu.
+    
+    The designs were changed for both player HUD and Pause menu.
+    Next commit will include a functioning weapon switcher.
+
+commit f85860ed5dfbdd2e85257398982fa57a46714c4f
+Author: Yormungarde <naokrin@gmail.com>
+Date:   Wed Aug 27 21:36:05 2025 -0400
+
+    Fixing an error that caused the player to not be able to use the camera
+
+commit a72f494ec3b8252081a91c5691a35cc1348dc364
+Author: Yormungarde <naokrin@gmail.com>
+Date:   Wed Aug 27 20:41:50 2025 -0400
+
+    Turned Settings Menu and Camera Menu into Prefabs
+
+commit d7469605a8f4409e3108091049660f8fc2a6ccbd
+Author: Yormungarde <naokrin@gmail.com>
+Date:   Wed Aug 27 19:27:44 2025 -0400
+
+    Bug fixing of the Title Screen
+    
+    An issue that would cause the settings button to lock has been fixed. Increased modularity to make the program function in player pause menu.
+
+commit ea630482a0fcc9f9365ef68c9523e16c98085508
+Author: Yormungarde <naokrin@gmail.com>
+Date:   Mon Aug 25 14:01:34 2025 -0400
+
+    Implementation the blueprint of the Title Screen.
+    
+    Very basic but non functional. I'll need to fix the buttons soon.
+
+commit 7565309da6d57de1423411b4d0b830907a9c767c
+Author: Yormungarde <naokrin@gmail.com>
+Date:   Fri Aug 22 12:56:27 2025 -0400
+
+    Implementation of the blueprint of the Pickup system
+    
+    This will allow the player and certain bosses to pickup weapons. The weapon script will have to be rewritten to further utilize this and for modularity reasons.
+
+commit d0bbe758379d8402f5d1090651c1f9b9ea090c3b
+Author: Yormungarde <naokrin@gmail.com>
+Date:   Thu Aug 14 02:35:10 2025 -0400
+
+    Implementation of the Item system
+    
+    Implemented code that'd allow for items to be created as well as the implementation of a health pack prefab. Fixed the UI prefab to attach the correct script to gamemanager and buttonFunctions. Added more conditions to account for the player healing
