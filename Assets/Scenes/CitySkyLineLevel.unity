@@ -5430,6 +5430,10 @@ PrefabInstance:
       propertyPath: damageAmount
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 5012969257842733049, guid: 9abd99ac280c4ff4a9e0ba4b83d88f87, type: 3}
+      propertyPath: m_Center.y
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 7018540062825696871, guid: 9abd99ac280c4ff4a9e0ba4b83d88f87, type: 3}
       propertyPath: m_LocalScale.x
       value: 1420.7185
