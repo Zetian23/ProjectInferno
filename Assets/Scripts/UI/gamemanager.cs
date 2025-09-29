@@ -214,7 +214,6 @@ public class gamemanager : MonoBehaviour
         if (playerAmmoCur == 0 && playerAmmoMax != 0)
         {
             reloadMessage.enabled = true;
-            //flashReloadText();
 
         }
     }

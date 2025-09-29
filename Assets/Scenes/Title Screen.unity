@@ -216,10 +216,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sensivitiy
       objectReference: {fileID: 0}
-    - target: {fileID: 2833485794306374702, guid: 405ffa42b67ae2545a318cf82309f32f, type: 3}
-      propertyPath: m_text
-      value: New Game
-      objectReference: {fileID: 0}
     - target: {fileID: 3601220528600255765, guid: 405ffa42b67ae2545a318cf82309f32f, type: 3}
       propertyPath: m_text
       value: Sensivitiy
