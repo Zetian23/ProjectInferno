@@ -24,9 +24,9 @@ public class platformBehaviours : MonoBehaviour, IFreezable
     [SerializeField] List<Transform> separateTrans;
     [SerializeField] pType platformType;
     [SerializeField] bool isPatteredDisappear;
+    [SerializeField] bool isRiver;
 
     Vector3 startPos;
-    Vector3 currentPos;
     Vector3 nextPos;
     List<Vector3> separatePositions;
     float freezeTimer;
@@ -40,8 +40,14 @@ public class platformBehaviours : MonoBehaviour, IFreezable
     void Start()
     {
         freezeTimer = 0f;
-        startPos = platform.transform.position;
-        currentPos = platform.transform.position;
+        if (isRiver)
+        {
+            startPos = transform.position;
+        }
+        else
+        {
+            startPos = platform.transform.position;
+        }
         separatePositions = new List<Vector3>(separateTrans.Count + 1);
         for (int i = 0; i < separateTrans.Count + 1; i++) separatePositions.Add(new Vector3());
         for (int i = 0; i < separateTrans.Count; i++) separatePositions[i] = separateTrans[i].position;

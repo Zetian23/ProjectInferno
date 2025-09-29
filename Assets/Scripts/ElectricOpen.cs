@@ -31,7 +31,7 @@ public class Open : MonoBehaviour, IChargable
         {
             obj.SetBool("Opening", true);
             if(rend != null) door.GetComponent<Renderer>().material = rend;
-            potion.SetActive(true);
+            if(potion != null) potion.SetActive(true);
         }
         
     }
